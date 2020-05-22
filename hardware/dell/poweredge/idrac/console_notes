@@ -1,0 +1,55 @@
+*****
+
+On macOS, allow F11 and F12 function keys to be sent to virtual console:
+System Preferences -> Mission Control -> Show Desktop and Show Dashboard: -
+(defaults are F11 and F12, respectively)
+
+*****
+
+It is possible to redirect console I/O to the iDRAC command line (available
+through ssh to the system controller), as follows:
+
+In the BIOS setup screen (F2 after power-cycle), Serial Communications,
+choose:
+                o Serial Communication : On with Console Redirection via COM2
+                o Serial Port Address : Serial Device1=COM1,Serial Device2=COM2
+                o External Serial Connector : Serial Device 2
+                o Failsafe Baud Rate : 115200  (57600 on RHEL 6?)
+                o Remote Terminal Type : VT100/VT220
+                o Redirection After Boot: Disabled  (Enabled on RHEL 6?)
+
+If connecting through ssh in the macOS Terminal application, set $TERM to xterm
+rather than the default xterm-256color, or else the backspace character will
+not work in the iDRAC command line session:
+
+$ TERM=xterm ssh root@r210-sc
+
+Log into system controller through ssh and run:
+racadm getconfig -g cfgSerial
+
+If necessary, change values:
+racadm config -g cfgSerial -o cfgSerialBaudRate 115200
+racadm config -g cfgSerial -o cfgSerialCom2RedirEnable 1
+racadm config -g cfgSerial -o cfgSerialSshEnable 1
+racadm config -g cfgSerial -o cfgSerialConsoleEnable 1
+
+Connect to the console:
+console com2  (only com2 is available for redirection to iDRAC command line)
+
+After you have logged into the OS through the console, you may find that the
+terminal's automatic margins feature (line wrap) is not enabled.  Automatic
+margins can be enabled with:
+$ tput reset
+or more specifically:
+$ tput smam
+(The inverse operation is tput rmam; see terminfo(5) for details.)
+
+Disconnect from the console and return to iDRAC command line:
+Ctrl-\
+
+To configure redirection of the Linux console to COM2, modify grub.conf or
+grub.cfg to add
+
+console=ttyS1,115200n8
+
+to the kernel command line entry.

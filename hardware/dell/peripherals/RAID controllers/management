@@ -1,0 +1,3 @@
+Use RAID configuration utility (Ctrl-R or in Lifecycle Controller menus) during
+    pre-OS boot
+or use omreport/omconfig storage from OS after OMSA is installed

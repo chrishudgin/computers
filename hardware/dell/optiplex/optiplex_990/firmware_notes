@@ -1,0 +1,15 @@
+See ~chudgin/computers/hardware/intel/remote_management/amt/connecting_to_amt
+for notes on using AMT remote access after it has been set up.
+
+*****
+
+To reset the MEBx password to the default value ("admin"), move the jumper from
+the PSWD (Password) pins to the RTCRST (Real Time Clock Reset) pins on the
+motherboard, power up the computer for at least ten seconds, turn it back off,
+and move the jumper back to PSWD.
+
+*****
+
+To clear the BIOS Admin Password (if set), remove the jumper from the PSWD
+(Password) pins and power on the computer.  The jumper must be put back over
+the PSWD pins before you can set a new BIOS Admin Password.

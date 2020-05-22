@@ -1,0 +1,11 @@
+There is no UEFI shell built in to Dell 11th generation PowerEdge servers
+(R210, etc).  These servers use UEFI 2.1, which requires a 1.x version of the
+UEFI shell.
+
+To boot to a UEFI shell, use Linux to partition a Dell virtual
+flash drive or USB thumb drive and format it as vfat, then copy a UEFI shell
+executable to the partition as:
+
+EFI/BOOT/BOOTX64.EFI
+
+In the UEFI Boot Manager menu, select the device and it will boot to the shell.

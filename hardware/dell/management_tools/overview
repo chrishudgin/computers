@@ -1,0 +1,37 @@
+iDRAC, Integrated Dell Remote Access Controller:
+    Default administrator username/password is root/calvin
+    Default IP is 192.168.0.120
+    Web GUI
+    ssh
+    racadm from OS (installed with "yum install srvadmin-all")
+    racadm at iDRAC command line prompt (via ssh)
+
+DSU, Dell System Update:
+# wget -q -O - http://linux.dell.com/repo/hardware/dsu/bootstrap.cgi | bash
+# yum install dell-system-update
+# /sbin/dsu --inventory
+Run dsu to upgrade all firmware components
+    May need to clear browser cache and cookies to get iDRAC web GUI to stay
+        logged in after iDRAC upgrade.
+
+OMSA, OpenManage Server Administrator:
+    Install with RPM package goup srvadmin-all
+       # yum install srvadmin-all
+    (Log out and back in to get $PATH set for OMSA commands)
+    Enable and start with:
+       # srvadmin-services.sh enable
+       # srvadmin-services.sh start
+       # srvadmin-services.sh status (all components should be running)
+    omreport, omconfig are the two main commands
+    Also available via web GUI at https://os_hostname:1311
+    Dell PERC RAID controllers can be managed through omreport storage
+        and omconfig storage
+
+OpenIPMI:
+# yum install OpenIPMI ipmitool
+(On local host):  # ipmitool sel info
+(On remote host):  # ipmitool -I lanplus -H sc_hostname -U root sel info
+    Use system controller root password, not OS root password
+
+Dell System Diagnostics:
+   Accessible through Lifecycle Controller via System Services boot option (F10)

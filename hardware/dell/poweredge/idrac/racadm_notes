@@ -1,0 +1,12 @@
+To power on, power off, or power cycle managed system from iDRAC ssh command
+line:
+
+racadm serveraction <action>
+where you replace <action> with one of the following:
+
+    powerdown — Powers down the managed system.
+    powerup — Powers up the managed system.
+    powercycle — Issues a power-cycle operation on the managed system. This action is similar to pressing the power button on the system's front panel to power down and then power up the system.
+    powerstatus — Displays the current power status of the server ("ON", or "OFF")
+    hardreset — Performs a reset (reboot) operation on the managed system.
+
