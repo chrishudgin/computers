@@ -1,0 +1,140 @@
+8086 real mode (16-bit) segmentation
+
+A physical address expressed in segmentation format is calculated as segment*16
++ offset, where segment and offset are 16 bit values.  The segment register
+contains the actual starting address of a 64 KB (16 bit address offset) memory
+segment, rather than a selector into a table of segment descriptors as in
+IA-32.
+
+This scheme yields slightly more than 1 MB addressable memory, since
+FFFF:FFFF = 0xFFFF * 0x10 + 0xFFFF = 0x10FFEF = 1114095 = 1 MB + 65519 bytes
+(counting address 0, there are 1 MB + 65520 bytes of addressable memory using
+the segment:offset scheme)
+
+The 65520 bytes from 0x100000 to 0x10FFEF are the DOS high memory area (HMA),
+but since the original 8086 could only address 1 MB of physical memory,
+addresses of 0x100000 and higher (as could potentially be computed with
+segment:offset) wrapped around to zero and started over.
+
+In fact, with the segment:offset addressing scheme with wraparound, as on the
+8086, there are 4096 possible segment:offset pairs for each unique physical
+address from 0 to 1 MB (0x100000).  Consider as an example the last "paragraph"
+of 16 bytes in any given segment:  the next 4095 segments (each beginning 16
+bytes after the previous one, because the incrementing value in the segment
+selector is multiplied by 16 bytes) will all overlap those last 16 bytes.
+Thus, 4096 segments (including the given one) can all address any of those 16
+bytes.  With wraparound, it can be seen that this is true for any 16 byte
+paragraph in any segment--4096 different segment:offset values that can address
+those bytes individually.
+
+Because of this address aliasing problem, normalized addresses in
+segment:offset format use only the values 0 through F as the offset, allowing
+the segment selector to take on any value between 0x0000 through 0xFFFF without
+duplication and without overflow past the 1 MB mark.
+Example:  0xAFFE9 = AFFE:9 (segment selector 0xAFFE, offset 0x9).
+
+Why did the 1978-vintage 8086 use this particular segment:offset scheme to
+yield the addresses beyond what a single 16 bit register could hold (64k unique
+values) rather than a flat 32 bit addressing scheme?  Segmentation with
+dedicated segment registers provided a simple way to partition memory for code,
+data, stack, etc. at the hardware level without requiring complex software
+support--user programs and operating system program loaders could be kept
+simple and small.  The 8086 was intended to be a short-term product until Intel
+produced a more capable (non-x86) processor, and 1 MB of physical memory was
+considered plenty for the foreseeable future due to high (at the time) memory
+costs.  There seemed to be no need to allow 32 bit addresses by concatenating
+two 16 bit address registers.  Since the 8086 and 8088 were meant to be low
+cost, a 40 pin chip form factor was chosen; a mere 40 pins would not have
+provided enough pins for 32-bit addressing plus all of the other bus signals
+required.  Then in 1981, IBM selected the 8088 as the CPU for its new 5150
+personal computer, and binary backward compatibility became a requirement for
+all subsequent CPUs used in IBM PCs and PC compatibles.  What later became
+known as "real mode segmented addressing" not only had to be supported in later
+CPU models, it had to remain the default operating mode at power-up to support
+legacy 8086 software.
+
+*****
+
+IA-32 segmentation
+
+The segment registers CS, DS, etc. are repurposed in IA-32, but each remains 16
+bits long.  Instead of containing the starting real address of a 64 KB segment,
+each segment register contains (in order from least significant bit to most
+significant bit) a segment selector value consisting of a 2 bit requestor
+privilege level (RPL), a 1 bit table indicator (TI), and a 13 bit index into
+the global descriptor table (GDT) (of which there is only one) or a local
+descriptor table (LDT) (of which each task has its own).
+
+The 2-bit RPL field selects the hardware privilege ring (0 to 3) in which the
+segment is to be used.  Linux uses only ring 0 (kernel) and ring 3 (userland).
+The CPU hardware prevents code executing in a lower privilege segment (higher
+privilege number, e.g. 3) from directly accessing memory in a higher privilege
+segment (lower privilege number, e.g. 0).
+
+The 1-bit TI field selects whether the GDT or LDT contains the segment
+descriptor; TI=0 means the descriptor is located in the GDT and TI=1 means the
+descriptor is located in the LDT.  Linux assigns descriptors in the GDT to the
+kernel (one kernel code, one kernel data) and user processes (one user code,
+one user data).
+
+The 13-bit index field determines the entry number in the GDT or LDT to use.
+Entries start at index 0 and are each 8 bytes long.
+
+Each 8 byte segment descriptor stored in memory in the GDT or LDT contains a
+number of fields, the most important of which are fields for setting the
+minimum privilege level (ring) required by code to access the segment (with 0
+being the most privileged and 3 being the least), whether the segment is code
+or data, and the base and limit values for the segment's virtual addresses.
+
+On Linux, the only difference between the code and data segments (as specified
+in the 8 byte segment descriptors) is a single bit toggle for code (1) or data
+(0).
+
+For user tasks, Linux places 0x73 in the code segment register and 0x7b in the
+data segment register.  Since the least significant bit of the index field is
+bit 3 (with a value of 8 or 0), 0x73 and 0x7b (with a difference of exactly 8)
+point to consecutive entries in the GDT.  Specifically, 0x73 has an index value
+of 0b01110 = 14 and 0x7b has an index value of 0b01111 = 15, the 15th and 16th
+entries in the GDT (counting from entry 0).  GDT entries (8 byte segment
+descriptors) are statically loaded into the kernel at label "cpu_gdt_table" in
+arch/i386/kernel/head.S in the kernel source tree.
+
+IA-32 segmentation cannot be turned off, but by setting the base to 0 and limit
+to 0xFFFFF 4 KB pages ( = 4 GB) and using the same base and limit for the code,
+data, extra, and stack segments for each user task, segmentation becomes
+invisible (other than the process-visible difference in CS and DS values
+explained above) and the memory model appears flat, covering the full 32-bit
+addressable range of virtual memory supported by IA-32.  An OS can then use
+paging to map ranges of virtual addresses to physical addresses separately for
+each task.
+
+*****
+
+x86-64 segementation
+
+When the processor is running in "long mode" (LMA bit = 1) under a 64-bit
+operating system, the L bit (bit 53) of the code segment descriptor, unused by
+IA-32, is used by x86-64 along with the D bit (bit 54) to set 64-bit mode or
+compatibility mode for the purpose of running a 16, 32, or 64-bit application
+(32 or 64-bit on Linux), according to the following settings:
+
+L bit     D bit
+  0         0    Compatibility 16-bit mode
+  0         1    Compatibility 32-bit mode
+  1         0    64-bit mode
+
+Linux x86-64 uses code segment register value 0x23 (GDT entry 4, counting from
+0) for the 32-bit user code segment, 0x33 (GDT entry 6) for the 64-bit user
+code segment, and 0x2b for the stack, data, and extra segment selectors.  The
+only differences between the two 8-byte user code segment descriptor values for
+32-bit and 64-bit application mode are in the L and D bits as shown above.
+
+When the CPU is executing code in 64-bit mode (L=1, D=0), the other segments
+are treated as 64 bit as well, regardless of how their descriptor fields would
+have been interpreted in 32-bit or 16 bit compatibility modes, and the segment
+descriptors' base and limit values have no meaning.
+
+In 32-bit and 16-bit application compatibility modes, segmentation continues to
+operate as in IA-32.
+
+Reference:  Chapter 2 of the O'Reilly book _Understanding the Linux Kernel_

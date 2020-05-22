@@ -1,0 +1,31 @@
+Web interface is on port 16992
+Serial over LAN is on port 16994
+
+Management tools:
+
+From Linux (e.g. Raspbian on hyperdrive), use amtterm and amttool to manage
+AMT with a text interface.
+
+Examples:
+
+For remote serial over LAN terminal:
+# amtterm mgmt-hostname.example.com
+
+See amtterm man page for more examples.
+See amt-howto man page for additional setup information.
+
+When an amtterm is connected at system powerup, the Ethernet port may remain
+at 10 Mb/s speed.  After the OS has booted, stop the amtterm session with ^]
+and then either restart the network[ing] service or run:
+# ethtool -s eth0 speed 1000 duplex full autoneg on
+
+To power on server remotely:
+# export AMT_PASSWORD="MyPassword" (or other password as appropriate)
+# amttool rhelcert-mgmt powerup
+See amttool man page for more examples
+
+
+From Windows:
+
+Use RealVNC Viewer Plus (commercial software), e.g. on w10vm1
+In RealVNC Viewer Plus, select KVM mode for the connection type

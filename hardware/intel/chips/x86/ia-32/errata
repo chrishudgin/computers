@@ -1,0 +1,9 @@
+Volume 2 
+
+On page 3-191, in the "Description" section, the DIVPD instruction is
+erroneously described as performing divisions on four packed double precision
+floating-point values in each operand.  In fact, DIVPD performs divisions on
+two packed double precision floating-point values in each operand, as shown in
+the "Operation" section.  The XMM registers can each hold only two packed
+double precision floating-point values at 64 bits each for a total of 128 bits
+in the each XMM register.

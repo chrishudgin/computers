@@ -1,0 +1,42 @@
+Most distinguishing characteristic of 801 is single-cycle execution of
+instructions.  Any complex instructions implemented directly in hardware (in
+"random logic" rather than microcode) can make all operations slower on the CPU
+because it has to be more complex.  The implementation of these complex
+instructions directly in the circuitry can only be justified if those complex
+instructions are used often enough to compensate for the resulting overall
+slowdown of the CPU.
+
+Microcode is already used for complex instructions in many minicomputers, and
+microcode translates them into simpler single-cycle instructions.  Why even
+have the expense, complexity, and rigidity of microcode to implement complex
+instructions when compilers can generate in software the same resulting
+single-cycle instructions from high-level source code?
+
+To help ensure that instructions are executed every cycle, fetch them from an
+instruction cache.
+
+Advantages of single-cycle instructions:
+
+1. Interrupts do not have to be blocked or held while a long-running complex
+instruction executes.  The result is less time waiting to service an interrupt,
+on average.
+
+2. Optimizing compiler can separate and reorganize components of what would
+have been a complex instruction (implemented in software as a procedure on the
+801) to improve performance--for example, to move loop invariant components out
+of a loop so they don't waste time being executed repeatedly.
+
+3. A compiler can in some cases perform some computatations and code
+simplifications at compile time, resulting in less work to be done at run time
+than would have been necessary if the complex instructions had had to do the
+same things while running.  Example 1:  Copy of fixed strings where compiler can
+determine their lengths ahead of time and control their placement to eliminate
+overlap.  Example 2:  Multiply by constant can be compiled to a shift rather
+than needing to use a general multiply instruction in microcode.
+
+Disadvantage is that the compiler must use a convention for register use in
+procedure call arguments and then encode specific register names into the
+instructions.  Microcoded procedure doesn't require specific registers to be
+named, so microcode has more flexibility in register allocation at run time.
+
+[Resume reading paper at "Overlapped Storage Access"]
