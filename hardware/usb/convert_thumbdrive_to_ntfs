@@ -1,0 +1,11 @@
+To convert a thumbdrive from FAT32 to NTFS on Windows XP:
+
+Insert the drive into the USB slot.  It should automount.
+Right click on the drive's icon in My Computer:
+	Properties->Hardware->Properties->Policies
+	Make sure write caching is not enabled, and that
+	Optimize for Performance is selected
+
+At command prompt, assuming removable drive is drive F: in this example:
+
+convert f: /fs:ntfs

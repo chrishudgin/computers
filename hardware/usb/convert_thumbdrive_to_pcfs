@@ -1,0 +1,25 @@
+To convert a USB thumb drive to FAT32 from another format on Solaris 10:
+
+svcadm disable volfs
+rmformat (find out full path to device)
+# rmformat
+Looking for devices...
+     1. Logical Node: /dev/rdsk/c3t0d0s2
+        Physical Node: /pci@1f,0/usb@c,3/storage@3/disk@0,0
+        Connected Device: Kingston DataTraveler 2.0 1.00
+        Device Type: Removable
+
+fdisk /dev/rdsk/c3t0d0s2
+Delete all existing partitions, then create a FAT32 partition taking up
+100% of the disk
+
+mkfs -F pcfs -o fat=32 /dev/rdsk/c3t0d0s2:c
+
+Test mounting it:
+mount -F pcfs /dev/dsk/c3t0d0s2:c /mnt  (this may take a few moments)
+df -k
+mount -v
+umount /mnt
+
+If you wish to automount the new filesystem:  physically remove the drive,
+reinsert it, and re-enable volfs.

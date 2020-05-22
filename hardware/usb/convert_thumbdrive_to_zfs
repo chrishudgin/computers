@@ -1,0 +1,18 @@
+To convert a USB thumb drive to ZFS in Solaris 10:
+
+svcadm disable volfs
+# rmformat
+Looking for devices...
+     1. Logical Node: /dev/rdsk/c3t0d0s2
+        Physical Node: /pci@1f,0/usb@c,3/storage@3/disk@0,0
+        Connected Device: Kingston DataTraveler 2.0 1.00
+        Device Type: Removable
+
+Use fdisk to create one partition of type Solaris2 using 100% of the drive
+
+zpool create -f flashdrive c3t0d0s2
+
+Be sure to "zpool export flashdrive" before physically removing the device
+from its USB slot.
+
+The drive can be re-imported using "zpool import flashdrive"
