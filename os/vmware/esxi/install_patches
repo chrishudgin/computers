@@ -1,0 +1,32 @@
+Download patches from:
+https://my.vmware.com/group/vmware/patch#search
+
+Upload them to ESXi using the web GUI:
+Storage -> Datastore Browser -> Upload
+
+Enable ssh login:
+Host -> Actions -> Services -> Enable Secure Shell (SSH)
+
+Patching instructions:
+https://kb.vmware.com/s/article/2008939
+
+Note:  An absolute path must be provided to the zip file in the command:
+# esxcli software vib install -d /path/to/filename.zip
+
+Example:
+# esxcli software vib install -d /vmfs/volumes/59f09bf9-7da6e9fa-5617-d4bed989c4f4/patches/ESXi650-201803001.zip
+
+*****
+
+Example procedure:
+# vim-cmd hostsvc/maintenance_mode_enter
+# esxcli software vib install -d /vmfs/volumes/59f09bf9-7da6e9fa-5617-d4bed989c4f4/patches/ESXi650-201803001.zip
+# reboot
+# vim-cmd hostsvc/maintenance_mode_exit
+
+*****
+
+After patching ESXi and rebooting the host:
+
+Perform a backup of the host configuration.
+Power on each guest VM and upgrade VMware Tools in it.

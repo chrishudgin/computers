@@ -1,0 +1,11 @@
+Get hardware clock:
+# esxcli hardware clock get
+
+Get system software time:
+# esxcli system time get
+
+Set hardware clock to 12:06 UTC on 07/28/2015:
+# esxcli hardware clock set -d 28 -H 12 -m 06 -M 07 -y 2015
+
+Set system software time to 12:06 UTC on 07/28/2015:
+# esxcli system time set -d 28 -H 12 -m 06 -M 07 -y 2015

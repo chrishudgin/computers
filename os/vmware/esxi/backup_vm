@@ -1,0 +1,14 @@
+To back up (export) a virtual machine:
+
+Take ESXi out of maintenance mode:
+In web GUI:  Host -> Actions -> Exit maintenance mode
+
+Shut down the virtual machine if it is running.
+
+In web GUI, under virtual machines:
+Right click on virtual machine name.  Select "Export With Images".
+Click "OK" to begin downloading the OVF file, MF file, NVRAM file, and VMDK
+   image file.
+
+Move downloaded files to desired backup server/directory and set desired
+ownership/permissions.

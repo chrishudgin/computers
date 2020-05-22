@@ -1,0 +1,15 @@
+Upgrade VMware Tools in a virtual machine using the GUI:
+
+Power on the virtual machine.
+
+In the Navigator panel on the left side of the screen, in the Virtual Machines
+list, right click on the virtual machine name and select
+Guest OS -> Upgrade VMware Tools
+
+Wait for the operation "Upgrade Tools" for the desired VM target to show
+"Completed sucessfully" in the Result field of the "Recent Tasks" panel at the
+bottom of the screen.  The process may take a couple of minutes.
+
+Reboot the virtual machine.
+
+If desired, shut down and back up the virtual machine.

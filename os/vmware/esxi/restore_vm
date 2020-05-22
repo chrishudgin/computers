@@ -1,0 +1,16 @@
+Restoring a VM from backup files requires destroying the existing VM and
+creating a new one:
+
+In the ESXi web GUI:
+
+Power off and delete the old VM.
+In the Storage Datastore Browser, delete the old VM's directory.
+
+Then from the main screen's Navigator window:
+
+Host -> Create/Register VM
+Deploy a virtual machine from an OVF or OVA file
+Enter the name for the virtual machine
+Click on the box labeled "Click to select files or drag/drop" and upload
+   the vmdk, mf, nvram, and ovf files
+Click through the remaining screens, making selections as appropriate.

@@ -1,0 +1,13 @@
+See document https://kb.vmware.com/s/article/2042141
+
+Back up ESXi configuration:
+vim-cmd hostsvc/firmware/backup_config
+The output of this command will contain a URL to use to download the
+configuration backup file.
+
+Configuration backups are stored in a subdirectory named with a UUID under:
+/usr/lib/vmware/hostd/docroot/downloads
+
+Restore ESXi configuration:
+vim-cmd hostsvc/maintenance_mode_enter
+vim-cmd hostsvc/firmware/restore_config /path/to/config_backup_file
