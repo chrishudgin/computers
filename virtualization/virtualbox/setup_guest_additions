@@ -1,0 +1,18 @@
+To set up Guest Additions in a running Linux guest:
+
+For Debian guests, install the dkms and linux-headers* packages.
+
+From VirtualBox menu:
+Devices -> Insert Guest Additions CD image
+
+From within the guest OS:
+Mount the CD-ROM image from /dev/sr0, for example to /media/cdrom0
+mount -o remount,ro,exec /media/cdrom0
+cd /media/cdrom0
+./VBoxLinuxAdditions.run
+
+After installation, reboot the guest.
+
+From VirtualBox menu:
+View -> Virtual Screen 1 -> (select desired resolution)
+   Or simply resize the guest's VirtualBox window to full screen
