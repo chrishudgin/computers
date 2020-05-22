@@ -1,0 +1,9 @@
+Display copy progress of dd without stopping it:
+
+$ dd ... status=progress
+
+$ dd ... & ddpid=$!
+$ kill -USR1 $ddpid   # this does not kill dd, only dumps progress statistics
+3851+0 records in
+3851+0 records out
+4038066176 bytes (4.0 GB) copied, 1.73647 s, 2.3 GB/s

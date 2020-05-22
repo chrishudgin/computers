@@ -1,0 +1,4 @@
+Disable Red Hat subscription registration reminder pop-ups on an unregistered
+system:
+# systemctl stop rhsmcertd.service
+# systemctl disable rhsmcertd.service

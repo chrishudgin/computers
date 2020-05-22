@@ -1,0 +1,102 @@
+A List of Resources for Linux and Unix Newbies
+
+Unix and Linux links on my Web page (http://moray.cmrp.ou.edu/~chudgin)
+Newsgroups:  comp.os.linux, comp.windows.x, comp.mail.sendmail, linux,
+   many more
+Resources in /usr/doc
+LDP
+Learning the Unix Operating System (O'Reilly)
+Unix in a Nutshell (O'Reilly)
+Linux in a Nutshell (O'Reilly)
+Running Linux (O'Reilly)
+Essential System Administration (O'Reilly)
+The Unix Programming Environment (Prentice Hall)
+Learning the bash shell (O'Reilly)
+Using csh & tcsh (O'Reilly) [for those so inclined]
+Learning the vi Editor (O'Reilly)
+Life with Unix
+The Unix Philosophy
+
+Publishers of good printed Unix/Linux resources:
+O'Reilly & Associates
+Prentice Hall
+Addison Wesley
+
+Unix concepts:
+
+root vs. regular user (only use root when necessary)
+file-oriented OS--devices are "files"
+file permissions and modes
+directories
+paths
+case sensitivity
+mounting filesystems
+shutting down cleanly
+"." files (and some examples of important ones)
+pipes and redirection
+choosing a good password and why it matters
+"openness" of Unix (general philosophy and esp. networking)
+shell variables
+
+Basic commands:
+
+ls
+man
+man -k
+rm  ["rm is forever!"]
+mv
+cp
+cd
+mkdir
+rmdir
+cat
+echo
+more
+less
+exit
+logout
+chsh
+date
+cal
+su -
+mount
+umount
+shutdown
+ps
+kill
+chmod
+chown
+who
+w
+telnet
+ftp
+mail
+elm
+pine
+messages
+tar
+gzip
+gunzip
+pico
+vi
+emacs
+grep
+df
+free
+xterm
+nxterm
+xlock
+
+& to run in background
+Ctrl-C to break
+
+Linux-specific:
+
+RPM and rpm
+GNU vs. "standard Unix"
+lilo
+ext2fs and other filesystems
+
+Red Hat-specific:
+
+/etc/sysconfig

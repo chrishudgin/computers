@@ -1,0 +1,10 @@
+PROVIDERS AND MODULES
+
+Using DTrace providers in Oracle Linux requires loading their respective kernel
+modules with modprobe.  A list of providers and modules is available at:
+
+https://docs.oracle.com/cd/E52668_01/E50705/html/ol_diffs_dtrace.html
+
+Many providers available in Solaris are not available in Oracle Linux:
+
+https://docs.oracle.com/cd/E37670_01/E37355/html/section_mcn_sp4_2n.html

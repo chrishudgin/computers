@@ -1,0 +1,7 @@
+Time out (send SIGTERM) if a command runs longer than a specified period:
+
+$ timeout <duration> <command>
+
+Example:
+
+$ timeout 120s /bin/myprogram

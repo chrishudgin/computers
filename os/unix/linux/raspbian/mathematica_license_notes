@@ -1,0 +1,11 @@
+Mathematica on the Raspberry Pi already comes with a license preinstalled, however running it as a user with insufficient access privileges may result in a prompt for activation or a password.
+
+Here is a slightly more detailed explanation of what is happening, which is also discussed on Wolfram Community.
+
+Early in the kernel (or FrontEnd) startup, as part of a series of hardware checks, Mathematica needs to talk to the Broadcom VideoCore chip. The default permissions for device should be similar to
+
+crw-rw---- 1 root video 250, 0 Oct 27 22:17 /dev/vchiq
+
+For example, if the user is not a member of the video group, opening the device will fail, resulting in a different $MachineID which no longer matches the preinstalled password. Hence, the product will not be activated.
+
+A good way to resolve this issue is to check the device permissions are as above, and add the non-privileged user to the video group

@@ -1,0 +1,25 @@
+# apt-get update
+# apt-get dist-upgrade
+# systemctl reboot
+
+Change release name (e.g. "stretch" to "buster") in /etc/apt/sources.list and
+/etc/apt/sources.list.d/raspi.list
+
+# apt-get update
+# apt-get dist-upgrade
+
+# apt purge timidity lxmusic gnome-disk-utility deluge-gtk evince wicd wicd-gtk clipit usermode gucharmap gnome-system-tools pavucontrol
+
+# apt autoclean
+
+Add the following lines to /etc/apt/sources.list to facilitate access to
+   gcc-doc-base, gcc-doc, cpp-doc, and gfortran-doc packages:
+
+# Backports repository
+deb http://deb.debian.org/debian buster-backports main contrib non-free # available after buster release
+#deb http://deb.debian.org/debian buster-backports-sloppy main contrib non-free # available after bullseye release
+
+# apt-get update
+# apt-get install gcc-doc-base gcc-doc cpp-doc gfortran-doc
+
+# systemctl reboot

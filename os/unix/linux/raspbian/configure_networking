@@ -1,0 +1,7 @@
+To switch between eth0/wlan0 network interfaces and between static IP and DHCP:
+   Edit and copy the appropriate /etc/network/interfaces.* file
+    to /etc/network/interfaces
+   Enable or disable the dhcpcd service:
+      # systemctl enable dhcpcd   (for DHCP)
+      # systemctl disable dhcpcd   (for static IP)
+      # shutdown -r now

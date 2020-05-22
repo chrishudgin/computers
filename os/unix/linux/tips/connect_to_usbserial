@@ -1,0 +1,12 @@
+Set up and use a USB-to-serial cable attached to a remote system's serial port:
+
+Physically connect the cable on both ends.  The driver modules (e.g. pl2303 and
+usbserial) should autoload into the kernel on the Linux system connected to the
+USB end of the cable.
+
+Add the user to the dialout group:
+# usermod -aG dialout chudgin
+
+Connect:
+$ screen /dev/ttyUSB0 9600
+('Ctrl-A k' to kill session)

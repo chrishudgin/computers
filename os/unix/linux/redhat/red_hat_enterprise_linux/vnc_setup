@@ -1,0 +1,28 @@
+# yum install vinagre tigervnc tigervnc-server
+# service vncserver stop
+
+Edit /etc/sysconfig/vncservers:
+
+VNCSERVERS="2:chudgin"
+VNCSERVERARGS[2]="-geometry 800x600"
+
+As chudgin, start vncserver:
+
+$ vncserver -geometry 1600x1200 :2
+
+Make sure DISPLAY is set.
+
+Start vncviewer
+
+$ vncviewer &
+
+When prompted for a VNC server to which to connect, enter:
+
+rhelexam:2  (where rhelexam is the hostname)
+
+Password is the Unix password for the user running the vncserver.
+
+When running the Virtual Machine Viewer, you must use the following key
+sequence to release the pointer from the console viewer:
+
+Ctrl-L,Cmd  (While holding down Ctrl:  Press L, release L, press Cmd)

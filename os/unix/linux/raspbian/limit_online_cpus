@@ -1,0 +1,7 @@
+CPUs cannot be dynamically onlined or offlined after boot; their state must
+   be set when the kernel initializes.  To set the number of online CPUs at
+   boot, add the following parameter to /boot/cmdline.txt:
+
+maxcpus=N
+
+where N is between 1 and 4 inclusive

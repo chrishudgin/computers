@@ -1,0 +1,22 @@
+The CentOS ARM port may not activate a newly installed kernel automatically
+even after one or more reboots.
+
+To activate the new kernel if it did not activate automatically, reinstall it
+with "yum reinstall <pkgname>", e.g.
+
+# yum reinstall raspberrypi2-kernel-4.14.101-v7.1.el7.armv7hl
+
+and then reboot.
+
+*****
+
+As of the CentOS 7 RPi2 packages dated 11/20/2016 and earlier, there is a
+memory leak in irqbalance.  The effects of the leak can be mitigated by
+bouncing irqbalance once per day:
+# cat > /etc/cron.daily/irqbalance <<EOF
+#!/bin/sh
+/bin/systemctl restart irqbalance.service
+EOF
+# chmod 755 /etc/cron.daily/irqbalance
+Or by disabling it:
+# systemctl stop irqbalance; systemctl disable irqbalance

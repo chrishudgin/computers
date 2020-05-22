@@ -1,0 +1,33 @@
+Register a server with a new subscription if it was previously registered with
+an expired one:
+
+# subscription-manager remove --all
+# subscription-manager unregister
+# subscription-manager clean
+# subscription-manager register
+# subscription-manager refresh
+# subscription-manager attach --auto
+
+*****
+
+To register a server with a Red Hat developer subscription:
+
+RHEL 7:
+# subscription-manager register
+# subscription-manager attach --pool=<PoolID>
+# systemctl restart rhsmcertd
+
+RHEL 6:
+# subscription-manager register
+# subscription-manager attach --pool=<PoolID>
+# service rhsmcertd restart 
+
+To list available subscriptions (those that match the physical/virtual server
+type and are not already in use by the given host):
+
+# subscription-manager list --available
+Output will include a Pool ID.
+
+To attach to a particular subscription (pool):
+
+# subscription-manager attach --pool=<PoolID>

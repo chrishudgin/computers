@@ -1,0 +1,2 @@
+The GNU "Screen" utility is no longer included in RHEL 8.  An alternative
+utility for connecting to a serial port is minicom.
