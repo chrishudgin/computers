@@ -1,0 +1,4 @@
+Apple PowerPC computers are only capable of running in big-endian mode, despite
+the PowerPC processor being designed for bi-endian capability.  Thus, Apple
+PowerPC computers cannot run operating systems like Debian ppc64el that require
+the processor to run in little-endian mode.
