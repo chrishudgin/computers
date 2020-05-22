@@ -1,0 +1,33 @@
+144:
+
+mandb : create man page indexes for searching with man -k
+        updates indexes in /var/cache/man
+	Run daily through anacron in /etc/cron.daily/man-db.cron
+
+locate command uses database /var/lib/mlocate/mlocate.db updated daily by the
+updatedb command through /etc/cron.daily/mlocate
+
+info pages are kept in /usr/share/info
+If an info page for a topic does not exist, info displays the man page.
+
+redhat-support-tool is an interactive command line tool that can be used to
+search the Red Hat knowledge base and manage support cases (open, attach,
+modify to update or close).
+
+149:
+
+All 127. addresses are loopback addresses.
+Multicast addresses are those between 224. and 239. (inclusive).
+Addresses from 240. and above are classified as "experimental".
+
+153:
+
+Configure an interface, default gateway, and DNS resolver through DHCP:
+
+# dhclient eth0
+
+155:
+
+For guidance on using NetworkManager, see:
+
+~/computers/os/unix/linux/tech/network/interface_configuration/NetworkManager/notes

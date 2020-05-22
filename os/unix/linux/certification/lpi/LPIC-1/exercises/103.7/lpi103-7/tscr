@@ -1,0 +1,3 @@
+oursearch=^[[:digit:]][[:digit:]]*[[:blank:]]
+
+echo "7 lemon pie" | cat - text[1-3] | sed -ne "/$oursearch/s/\($oursearch\)//p" | sed "s/[[:blank:]].*//" | sort | uniq

@@ -1,0 +1,128 @@
+Tab characters must not be used in YAML files; use spaces instead.
+
+Ansible documentation (copied from docs.ansible.com) is available via a local
+link on the exam.
+   Especially useful is https://docs.ansible.com/ansible/latest/reference_appendices/faq.html
+and https://docs.ansible.com/ansible/latest/reference_appendices/faq.html#how-do-i-generate-encrypted-passwords-for-the-user-module
+This URL is also mentioned in the description of the "password" field of
+the "user" module in "ansible-doc user".
+
+For convenience on the exam, the shell and command modules may be used if
+desired.  This can save time when looking up module-specific parameters is too
+time-consuming.
+
+The "setup" module discovers and lists facts about a managed host.
+Ad-hoc usage example:
+   ansible ansible1.example.com -m setup > ansible1_facts.txt
+
+Setting variables in inventory files is deprecated but still works.  Setting
+variables in include files (with the "vars_files" directive) is preferred.
+
+Understand the three different notations for Ansible fact variables:
+Newest notation: ansible_facts['default_ipv4']['address']
+Newer notation: ansible_facts.default_ipv4.address
+Old notation: ansible_default_ipv4.address
+
+You can access array (list) variables with "with_items" or "loop", but you
+cannot use these with dictionaries (hashes)
+
+Know syntax for tests, such as:
+   ansible_machine == "x86_64"
+   my_variable is defined
+   ansible_distribution in supported_distros
+as well as where to look up the syntax in the documentation.
+
+In tests, double quotes enclose strings.  For integers, use single quotes or
+no quotes.
+
+If an Ansible task fails, the playbook will stop executing immediately on the
+current host (target system) and will not proceed with additional tasks or
+plays on that host.  Execution will continue on other hosts (if any).  To
+continue anyway on the host on which the task failed, use:
+   ignore_errors: yes
+for each task whose failure should not halt the playbook execution on the
+current host.
+
+By default, Ansible executes tasks on up to 5 hosts (target systems) in
+parallel; the order of execution/completion for the hosts is undefined.
+
+Up to four levels of verbosity can be added to ansible-playbook output:
+   -vvvv
+
+Check an exit code (return code):
+   register: result
+
+   when: result.rc == 0
+
+A command module task that receives a return code != 0 is considered failed.
+
+A handler executes only if a task generates a "changed" status, and
+if no tasks in the play failed (unless ignore_errors is set to yes).
+A handler will execute once for EACH such task that notifies it in a play.
+
+If force_handlers is set, playbook will stop on task error, but handlers will
+still run if triggered by a task that resulted in a change.
+
+For exam, be familiar with the use of the fail module and ignore_errors so that
+it can be used to perform actions.
+
+Manage SELinux contexts with the sefcontext module and a restorecon handler,
+not the file module.  Remember that the policycoreutils-python-utils package
+must be installed in order to use the semanage command.  For a complete
+example, see lesson9/selinux.yml in Sander's rhce8-live GitHub repo.
+
+The "all" filter for hosts and groups is implicitly defined by Ansible.
+
+A good example of the syntax of a Jinja2 template that loops over hostnames is
+available at:
+   https://docs.ansible.com/ansible/latest/reference_appendices/faq.html#how-do-i-loop-over-a-list-of-hosts-in-a-group-inside-of-a-template
+... which is available in the copy of docs.ansible.com on the exam.
+
+The Lesson 7 Lab (vsftpd deployment) is similar to the type of assignment that
+might be on the exam.
+
+The default roles path can be modified in ansible.cfg
+
+ansible-galaxy will be available on the exam.
+
+selinux and timesync RHEL system roles are likely to be on the exam, but not
+the network system role.  The example playbooks in
+/usr/share/doc/rhel-system-roles can be copied, renamed, and modified to meet
+the objectives of the exam tasks.
+
+On the exam, make sure the names of your playbooks exactly match the names
+specified in the exam tasks.
+
+On the exam, you will not need to write your own inventory script.
+
+Implicit host names are "all", "localhost", and "ungrouped".
+
+Includes and imports can be used for playbooks, roles, tasks, and variables.
+Since includes are done dynamically when they are reached in a playbook, they
+are more suitable than imports for use in "when" statements.
+
+Know how to use the yum_repository module.  It will probably be required to
+configure repos on the managed servers in the exam.  In particular, know how to
+use it in an ad-hoc ansible command and plan to put that command in an
+executable shell script whose execution will be performed during the automated
+exam evaluation, because it may be necessary to set up a repo on a managed
+server before the managed server can be accessed.  This repo will probably
+be necessary in order to install ansible on the managed servers.
+
+The easiest way to copy an ssh public key to a managed server is to use the
+command module with ssh-copy-id rather than using the authorized_key module.
+
+Expect to use Ansible to create a user account on a managed server.
+
+Module documentation viewable with the anisble-doc command contains useful
+examples for each module.
+
+The types of tasks listed in the "Group Assignment" in the slides could be on
+the exam.  To check for the existence of a second hard drive, check for
+/dev/sdb using ansible_facts.  Consider using "assert" so that playbook will
+not continue unless the hardware requirements are met.
+
+Exam tip:  Write ansible facts output to a text file first for easier
+eyeball/grep searching.
+
+Exam tip:  Do the easy tasks first.

@@ -1,0 +1,5 @@
+Show complete list of mount options in use by all NFS mounts:
+# nfsstat -m
+
+The mount command (even with the -v) option will not display all mount options
+in use by NFS mounts.

@@ -1,0 +1,10 @@
+# cat text1 | tr ' ' '\t' | sort -k2 -k1n - text2 | uniq -f1
+#
+# Sorting field 2 before field 1 keeps both lines with "apple" adajacent
+# but ensures that "10 apple" comes after "1 apple" so that uniq will
+# eliminate the "10 apple" as the duplicate, not "1 apple".
+
+1	apple
+3	banana
+2	pear
+9	plum

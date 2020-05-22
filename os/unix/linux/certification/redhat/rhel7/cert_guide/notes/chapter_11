@@ -1,0 +1,10 @@
+"Do I Know This Already" question 7:
+
+"yum history" reads from the /var/lib/yum/history database, not
+/var/log/yum.log.
+
+Review Questions question 7:
+
+A better answer is:
+# rpm -q --scripts -p <package_filename>
+so that scripts can be reviewed before a package is installed.

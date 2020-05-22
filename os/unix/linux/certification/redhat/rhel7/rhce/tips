@@ -1,0 +1,156 @@
+General tips:
+
+Before exam:
+
+Review https://www.lisenet.com/2016/passed-rhce-on-rhel-7/
+
+During exam:
+
+Remember how to break into a system using rd.break, remount, chroot, and
+touch /.autorelabel
+
+Remember how to boot into a debugging mode with systemd.unit=emergency.target
+or rescue.target on the kernel command line, or enable the debug-shell service
+and reboot to get a root shell on tty9 during boot.
+
+Expect to have to configure a persistent static route to access VMs.
+   It may be necessary to create a static route in, e.g.,
+   /etc/sysconfig/network-scripts/route-eth0, as:
+      10.0.0.0/8 via 192.168.4.2 dev eth0
+   or through nmcli, as:
+      nmcli con mod system-eth0 ipv4.addresses "192.168.4.10/8 192.168.4.2"
+   where 192.168.4.2 is the gateway.
+   followed by "systemctl restart network"
+Use ssh to access VMs rather than working on console to aid in copy/paste
+Run semanage fcontext and restorecon when necessary.
+Ensure firewall ports are permanently opened.
+Ensure services are started and enabled.
+# yum install selinux-policy-devel
+   (provides subsystem-specific SELinux man pages, like httpd_selinux)
+# yum install bash-completion
+Remember to use _netdev in /etc/fstab for network storage devices/filesystems
+   (NFS, SMB, iSCSI)
+
+#####
+
+iSCSI:
+
+Target packages:
+# yum group install "File and Storage Server"
+   (installs targetcli and other packages)
+Target service:
+   target.service (NOT targetd.service)
+   IMPORTANT:  Start and enable target.service immediately after finishing
+      targetcli configuration, or better yet before running targetcli.
+
+Initiator packages:
+# yum group install "Network File System Client"
+   (installs iscsi-initiator-utils and other packages)
+Initiator services:
+   iscsid.service
+   iscsi.service
+
+References:
+   Use tab completion in targetcli (man page also has limited info)
+   iscsiadm man page for discoverydb and login syntax
+
+#####
+
+Kerberos:
+
+Based on the contents of the RH134/RH254 courses, the only steps needed to
+configure Kerberos on the EX300 exam may be to install the "Directory Client"
+package group, set DNS client resolution with nmcli, run "authconfig-gtk /
+authconfig-tui" or "ipa-client-install --mkhomedir
+[--domain=somedomain.example.com] [--no-ntp]", ensure that the sssd service is
+enabled and started.  If authconfig-tui must be used, they should give you a
+keytab file to copy into place (/etc/krb5.keytab) for your client VMs
+
+According to Sander van Vugt's crash course notes, Kerberized login is likely
+to be set up already, and the only step necessary to obtain additional Kerberos
+credentials will be to copy the specified /etc/krb5.keytab file into place
+for each VM.  Run "klist -k" to verify that credentials are loaded.
+
+Enter the following command to verify that Kerberos user authentication is
+working:
+# kinit admin  (enter the password of the "admin" user on the Kerberos server)
+
+#####
+
+Network teaming:
+
+Examples of nmcli syntax for teaming are in nmcli-examples(5)
+Examples of runner configurations in JSON syntax are in
+   /usr/share/doc/teamd-1.9/example_configs
+The IP address for a team interface must be added with nmcli before the
+   method is set to manual.
+
+#####
+
+MariaDB:
+
+# yum groupinstall mariadb mariadb-client
+
+#####
+
+Apache:
+
+# yum groupinstall web-server
+   (this includes httpd, httpd-manual, mod_ssl, and crypto-utils, among other
+    packages)
+
+# man httpd_selinux
+
+Set up a _default_:80 VirtualHost entry with a DocumentRoot directive to
+   catch all accesses that are not directed to a specific virtual host
+   (including references to the system hostname if they are not caught by a
+    more specific virtual host reference)
+
+The Apache manual is available at http://<hostname>/manual
+
+Important links in the manual:
+   VirtualHost directive:
+      Users' Guide -> Virtual Hosts -> Configuration directives -> VirtualHost
+   Basic authentication directives:
+      How-To / Tutorials -> Authentication and Authorization
+         http://server1.example.com/manual/howto/auth.html
+
+elinks cannot access http(s) content that requires authentication
+
+_default_ virtual hosts should be defined in files that come alphabetically
+before any other files in /etc/httpd/conf.d
+
+#####
+
+Firewall:
+
+Know how to enable IP forwarding directly by creating a .conf file in
+/etc/sysctl.d with the line:
+
+net.ipv4.ip_forward = 1
+
+Know how to block ping (ICMP echo) packets.
+
+Possible solutions include creating a .conf file in /etc/sysctl.d with the
+line:
+
+net.ipv4.icmp_echo_ignore_all = 1
+
+followed by:
+
+# sysctl -p /etc/sysctl.d/somename.conf
+
+or
+
+# systemctl reboot
+
+OR
+
+From the firewalld.richlanguage(5) man page in the icmp-block section:
+# firewall-cmd --permament --add-rich-rule='rule icmp-block name="echo-request"'
+# firewall-cmd --reload
+
+Note that the firewall-cmd solution will not block local ping packets, only
+those originating on a remote host.  However, it has the advantage of being
+more flexible, allowing (for example) pings to be blocked only on specific
+network interfaces after they have been assigned to zones.

@@ -1,0 +1,8 @@
+# With LANG=C, sort sorts by ASCII order (all capitals before all lower case)
+# With LANG=en_US.UTF-8, sort sorts by alphabetical order, ignoring case
+
+a
+b
+C
+c
+d

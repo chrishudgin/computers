@@ -1,0 +1,25 @@
+Errata:
+
+"Do I Know This Already?"
+
+2.  Correct answers are a and d.
+
+A source domain is a known in SELinux terminology as a subject, not an object.
+
+SELinux prevents Apache httpd processes from executing any scripts it may
+create in /tmp and /var/tmp through a set of associated rules:
+# sesearch --type --source httpd_t
+...
+type_transition httpd_t tmp_t : dir httpd_tmp_t;
+...
+# sesearch --type --source httpd_tmp_t
+# sesearch --allow --show_cond --source httpd_tmp_t -p execute
+
+Thus, when an Apache process of type httpd_t creates a file in /tmp or
+/var/tmp, it is constrained to do as under the httpd_tmp_t process context to
+which it transitions.  Under the httpd_tmp_t process context, it cannot further
+transition to another context or execute any file.
+
+Review Questions:
+
+2. Answer should be getsebool -a or semanage boolean -l

@@ -1,0 +1,20 @@
+In "Do I Know This Already?", question 7 incorrectly states that anacron is
+responsible for running hourly jobs.  In fact, cron runs hourly jobs (including
+anacron itself) directly.
+
+Likewise for the section "Understanding the Purpose of anacron" and in
+"Summary".
+
+In section, "Managing cron Security", the following sentence:
+
+"If the /etc/cron.deny file exists, a user must not be listed in it to be
+allowed to set up cron jobs."
+
+should instead read:
+
+"If the /etc/cron.deny file exists, and the /etc/cron.allow file does not
+exist, a user must not be listed in /etc/cron.deny to be allowed to set up cron
+jobs."
+
+In "Review Questions", a better answer for number 8 is:
+"Place the executable script in /etc/cron.daily."

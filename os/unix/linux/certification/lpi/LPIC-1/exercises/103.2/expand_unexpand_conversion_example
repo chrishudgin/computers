@@ -1,0 +1,16 @@
+$ od -An -a text2
+   9  ht   p   l   u   m  nl   3  ht   b   a   n   a   n   a  nl
+   1   0  ht   a   p   p   l   e  nl
+$ expand -t 8 text2 | od -An -a
+   9  sp  sp  sp  sp  sp  sp  sp   p   l   u   m  nl   3  sp  sp
+  sp  sp  sp  sp  sp   b   a   n   a   n   a  nl   1   0  sp  sp
+  sp  sp  sp  sp   a   p   p   l   e  nl
+$ expand -t8 text2 | unexpand -a -t2 | od -An -a
+   9  ht  ht  ht  ht   p   l   u   m  nl   3  ht  ht  ht  ht   b
+   a   n   a   n   a  nl   1   0  ht  ht  ht   a   p   p   l   e
+  nl
+$ expand -t8 text2 | unexpand -a -t2 | expand -t3 | od -An -a
+   9  sp  sp  sp  sp  sp  sp  sp  sp  sp  sp  sp   p   l   u   m
+  nl   3  sp  sp  sp  sp  sp  sp  sp  sp  sp  sp  sp   b   a   n
+   a   n   a  nl   1   0  sp  sp  sp  sp  sp  sp  sp   a   p   p
+   l   e  nl

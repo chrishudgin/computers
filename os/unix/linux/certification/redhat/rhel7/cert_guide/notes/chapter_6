@@ -1,0 +1,21 @@
+PolicyKit enables graphical administrative applications to authenticate
+unprivileged users with a graphical pop-up window that prompts for the user's
+password (for users that are in the wheel group) or the root password (for
+users that are not in the wheel group).
+
+Contrary to what is stated in the book, the groupmems command does NOT list
+users who have the specified group as their primary group, only users who have
+it as a secondary group.
+
+Show/verify authentication settings:
+# authconfig --test
+
+DNS discovery of Kerberos services or IPA services can be used in
+authconfig-gtk if the appropriate SRV records have been added to the DNS domain
+used by the client.
+
+To specify a different domain to use while joining the client to an IPA server:
+# ipa-client-install --domain=somedomain.example.com
+
+To specify that home directories for remote user should be created at initial
+login, add --mkhomedir to the ipa-client-install command.

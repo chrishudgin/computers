@@ -1,0 +1,2 @@
+chvt # : switches to virtual console # (typically 1-6 are available) as an
+   alternative to using the Ctrl-Alt-F# keystroke combination

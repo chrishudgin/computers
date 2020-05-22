@@ -1,0 +1,57 @@
+help (bash builtin):  Gives help on a bash builtin topic
+    Example:  help echo
+
+whatis / man -f:  Searches for man pages with the specified word as the
+    title (Linux) or in the title and one-line description (Unix).
+    The "whatis" database is created by the "makewhatis" command.
+
+apropos / man -k:  Searches man page titles and one-line descriptions for a
+     string, not a word, including strings that might be part of longer words
+     apropos -l : do not truncate lines of output
+     mandb (Linux) : create man page indexes for searching with man -k
+        updates indexes in /var/cache/man
+        On RHEL 7, mandb runs daily through anacron in
+           /etc/cron.daily/man-db.cron
+
+locate:  Searches for a string in a database created by updatedb that
+    contains all file names on the system and returns matches for files and
+       directories that are in the database and still exist
+    locate command uses database /var/lib/mlocate/mlocate.db updated daily by
+       the updatedb command through /etc/cron.daily/mlocate
+    a user running locate will see results only for those files in directories
+       in and under which they have read permission (so an unprivileged user
+       running locate will see the /root directory itself listed but not its
+       contents like /root/.bashrc).
+    locate -i : case-insensitive search
+
+type:  Displays the type of a command--alias, function, shell builtin,
+    or path to executable (in bash, also states whether the path is hashed)
+type -a : Shows all matches for the type of a command, not just the first
+
+which:  Displays first path found to command; ignores shell builtins and
+    displays only filesystem paths
+alias | which --read-alias  # includes aliases for command, not just paths
+which -a : list all paths to command, not just the first
+whereis:  Displays binary, source, and man page location for command; searches standard list of directories for executables, not $PATH
+
+man:  Displays full man page entry
+
+info or pinfo:  Display info page
+   Without any options, info or pinfo will open a list (info's "directory") of
+      all installed info pages
+   info pages are kept in /usr/share/info
+      If an info page for a topic does not exist, info displays the man page.
+   Type 'h' for help within info
+   <Space> : move forward one screen
+   <DEL> : move backward one screen
+   Type 'l' to return to the last node visited in the info page.
+   Tip:  [ and ] or "n" and "p" can be used to scroll between "nodes"
+      (sections) in an info document even when the DEL (or Backspace) key is
+      mapped to Ctrl-H (which brings up the "Help" pages for info)
+
+command --help : Shows syntax and brief usage notes for command
+
+*****
+
+In the GNOME desktop, the GNOME help browser can be started with:
+$ yelp

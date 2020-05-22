@@ -1,0 +1,15 @@
+In the dracut shell (the interactive bash shell that runs when the rd.break
+directive is passed on the kernel command line), individual LVM commands are
+available only as arguments to the lvm command, e.g.:
+
+# lvm lvs
+
+instead of
+
+# lvs
+
+*****
+
+The kpartx command in "Recovering Access to a Virtual Machine" step 3 does not
+work on RHEL 7.5 with a guest image in .qcow2 format.  Use the guestmount and
+guestunmount utilities instead for steps 3-7.

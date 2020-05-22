@@ -1,0 +1,41 @@
+Can you kill a process that is waiting for I/O to complete?  Why not?
+A.  Kill sends a signal which can only be received if the process is running;
+    if it's blocked for I/O, it's not running.
+Or, Under what circumstances can you not kill a process?
+
+Do you like Unix?  Do you love Unix?  Why?
+How is the first process created?  What is it?
+What is a PID?
+When a system is described as "32-bit" or "64-bit", what does that mean?
+How do you tell which libraries a program uses?
+What is GNU?
+What programs might you use to back up a filesystem, and why might you use
+	each one?
+What are the different runlevels used for?
+How would you check for user accounts that do not have passwords?
+What is the TCP 3-way handshake?
+What is a system call?
+How would you check to see what a process is doing while it is running?
+How might you unhang a process on a Solaris system that seems to be stuck?
+	(truss or Ctrl-Q)
+Describe what happens from the time a user is presented with the login prompt
+	to the time they have a shell prompt in front of them.
+Who invented Unix?
+What is disk striping?
+Are there any general rules you use in your method of work?
+	(e.g. "make everything reversible; test; etc.")
+Where are most configuration files kept?  Where else might they be?
+Can /etc be a distinct mount point?  (no)
+What is the difference between a mount point and a filesystem?
+What is a file?   What is an inode?  What does an inode contain?
+What is a hard link?  How do you tell how many hard links a file or directory
+	has?
+What is a directory?
+How do you make a hard link?  A symlink?  When would you want to use each one?
+In what language is most of Unix written?  Why?
+What is a library?  A shared library?
+What does sed do?  What is awk?
+What does "grep" stand for?
+What does UNIX stand for?  (Trick question, of course.)
+What does SUN stand for?
+What is the difference between kernel mode and user mode?

@@ -1,0 +1,22 @@
+# Output of this portion of the script will be:
+# 	a
+#				b
+#						c
+
+cat <<EOF
+	a
+				b
+						c
+EOF
+
+# Output of this portion of the script will be:
+# a
+# b
+# c
+# since <<- strips leading tabs
+
+cat <<-EOF
+	a
+				b
+						c
+EOF

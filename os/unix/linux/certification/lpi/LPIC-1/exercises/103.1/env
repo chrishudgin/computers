@@ -1,0 +1,9 @@
+$ export FOO=BAR
+$ env | grep FOO
+BAR
+$ env -i   # no further command given on the same command line, so no effect
+$ env | grep FOO
+BAR    # FOO is still set as before
+$ env -i bash -c 'echo $FOO'
+(output is blank because no copy of environment variable FOO was shared with
+   the new bash process)

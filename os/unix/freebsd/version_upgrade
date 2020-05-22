@@ -1,0 +1,9 @@
+Reference:  https://www.freebsd.org/doc/handbook/updating-upgrading-freebsdupdate.html
+
+To upgrade to a new point release or major version:
+
+# freebsd-update -r XX.Y-RELEASE upgrade
+# freebsd-update install
+# shutdown -r now
+# freebsd-update install
+# shutdown -r now

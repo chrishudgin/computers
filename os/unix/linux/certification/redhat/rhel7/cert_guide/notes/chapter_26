@@ -1,0 +1,2 @@
+In the section "Making the Connection", the last octet of the IP address should
+be "210", not "21-".

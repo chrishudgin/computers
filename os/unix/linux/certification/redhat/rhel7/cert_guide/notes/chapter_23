@@ -1,0 +1,81 @@
+"Do I Know This Already?" Quiz:
+
+8. A direct mount (listed in a direct map) does not require the mount point
+directory to exist prior to the automounter starting, but the full path to the
+mount point directory is specified in the configuration file.
+
+An automounted filesystem that uses a direct mount can be automounted by any
+user, not just root.
+
+Table 23.2:
+
+sec=none is not documented but has the same effect as setting the all_squash
+option on the export while leaving sec at the default setting.
+
+Mounting the NFS Share:
+
+The netstat command shown will only show an established connection to the NFS
+server after an NFS mount has been performed.
+
+Mounting SMB Shares:
+
+Per mount.cifs(8), the mount.cifs option
+   -o username=<name>
+is preferred over
+   -o user=<name>
+
+Exercise 23.2:
+
+To enable guest mounts, it is necessary to add the following line to the [data]
+stanza in /etc/samba/smb.conf on labipa:
+   guest ok = yes
+and then bounce the Samba server:
+# systemctl restart smb
+
+Also do the following on labipa:
+
+# semanage fcontext -a -t samba_share_t '/srv/samba(/.*)?'
+# restorecon -FRv /srv/samba
+
+Also if necessary on labipa:
+
+# firewall-cmd --permanent --add-service=samba
+# firewall-cmd --reload
+
+Adjust the mount command to the following if necessary to get it to work:
+
+# mount -t cifs -o guest,sec=ntlm //192.168.4.200/data /mnt
+
+Mounting Remote File Systems Through fstab:
+
+It should not be necessary to use the x-systemd.automount mount option.
+However, consider using the "bg" mount option for NFS filesystems that may not
+be available at boot but are not configured through the automounter.
+
+Mounting NFS Shares through fstab:
+
+The code image is incorrect.  There should be a space rather than a comma
+after "nfs".
+
+Using Automount to Mount Remote File Systems
+
+The text is incorrect.  Direct mounts through automount do not require their
+mount point directories to exist before the automounter is started.  The
+automounter will create them whenever it starts and remove them whenever it
+stops, just as with indirect mount points.
+
+Exercise 23.3:
+
+Step 8.  The command should be "cd /shares/data", not "cd /share/data".
+
+Using Wildcards in Automount
+
+In the note, the mount point directory should be /shares/data, not /shares.
+
+Review Questions:
+
+7. Documented syntax is credentials=, not creds=
+9. Use a direct mount when you don't have other NFS mounts that need to be
+mounted underneath the direct mount's mount point.  With indirect mounts,
+in contrast, there are typically many possible subdirectories on which can be
+mounted NFS shares (for example, user home directories under /export/home).

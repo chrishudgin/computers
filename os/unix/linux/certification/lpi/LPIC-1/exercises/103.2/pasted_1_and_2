@@ -1,0 +1,8 @@
+# paste paste1 paste2 > pasted_1_and_2
+#
+# Note that fields do not align perfectly due to varying input line widths
+# and paste's use of tabs
+
+a 1 uno	a A
+c 3 tres	c C
+b 2 dos	b B

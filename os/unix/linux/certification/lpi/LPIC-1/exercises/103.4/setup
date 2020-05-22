@@ -1,0 +1,9 @@
+mkdir -p lpi103-4 && cd lpi103-4 && {
+echo -e "1 apple\n2 pear\n3 banana" > text1
+echo -e "9\tplum\n3\tbanana\n10\tapple" > text2
+echo "This is a sentence. " "This is a sentence. " "This is a sentence. " > text3
+# Original interactive command for the above echo statement was as follows:
+# echo "This is a sentence. " !#:* !#:1- >text3
+split -l 2 text1
+split -b 17 text2 y
+ls; }

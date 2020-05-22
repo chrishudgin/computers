@@ -1,0 +1,15 @@
+# cat abcd_file
+# abcd
+#
+# od -x abcd_file
+# Output defaults to 16 bit words; command was run on little-endian platform
+0000000 6261 6463
+0000004
+
+# Output defaults to 16 bit words; command was run on big-endian platform
+0000000 6162 6364
+0000004
+
+# od -t x1 abcd_file
+000000 61 62 63 64
+000004

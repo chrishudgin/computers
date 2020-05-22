@@ -1,0 +1,7 @@
+# To alternate output lines between two files, in this case xab and xac:
+# paste -d "\n" xab xac
+
+Second line.
+Fourth line.
+Third line.
+Fifth line.

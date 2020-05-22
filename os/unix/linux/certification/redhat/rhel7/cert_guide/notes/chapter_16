@@ -1,0 +1,7 @@
+In the section "Upgrading the Linux Kernel", the number of kernels that are
+kept in /boot defaults to four as stated, despite the fact that
+installonly_limit=3 in the default yum configuration.  The discrepancy is due
+to the fact that one kernel is the rescue kernel installed during initial
+system installation, and that kernel is not tracked with an RPM package as the
+other kernels are.  This ensures that the rescue kernel will not be deleted
+during kernel package installation or removal.

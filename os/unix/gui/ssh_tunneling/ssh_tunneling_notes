@@ -1,0 +1,5 @@
+When connected to a remote X client system through ssh, "su -" will
+   automatically preserve tunneled X authentication so the root user can use
+   it, but "sudo -i" will not.  One solution is to root to run:
+      # xauth merge ~chudgin/.Xauthority
+   to merge the unprivileged user's X credentials.

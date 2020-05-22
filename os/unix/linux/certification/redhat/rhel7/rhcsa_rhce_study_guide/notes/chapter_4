@@ -1,0 +1,13 @@
+183:
+
+Useful lsattr and chattr bits:
+i : immutable
+a : append only
+d : do not back up with dump
+
+The "acl" and "user_xattr" mount options are enabled by default.
+
+nfs4 ACL utilities (not an exam objective) are in the nfs4-acl-tools package:
+   nfs4_editfacl
+   nfs4_getfacl
+   nfs4_setfacl

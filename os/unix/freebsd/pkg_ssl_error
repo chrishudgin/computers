@@ -1,0 +1,7 @@
+To fix the following error:
+
+# pkg
+Shared object "libssl.so.7" not found, required by "pkg"
+
+Run:
+# pkg-static install -f pkg

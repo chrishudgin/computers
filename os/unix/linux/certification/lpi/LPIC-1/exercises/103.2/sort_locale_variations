@@ -1,0 +1,19 @@
+# When sorting the input below (and the -b option to ignore leading blanks is
+# NOT given), the second field begins with the space character following the
+# "a" and continues through the next non-blank character (b or B or d).
+
+# When the input below is sorted in a UTF locale, it will sort in the order
+# shown since in UTF, whitespace is not used for collation (sorting) and
+# case is ignored.
+ 
+# When the input below is sorted in a C locale, it will sort in the order
+# opposite of that shown since in the C locale (ASCII), spaces precede letters
+# and capitals precede lower case letters.  Thus "  d" (space space d) precedes
+# " B" (space B) precedes " b" (space b).
+
+# When -b and -k 2 are given, C locale sorts "a B" before "a b" before "a  d".
+# When -b and -k 2 are given, UTF locale sorts "a b" before "a B" before "a  d".
+
+a b
+a B
+a  d

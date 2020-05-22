@@ -1,0 +1,10 @@
+247:
+
+To boot into a given systemd target, append the following to the kernel command
+line:
+systemd.unit=some.target  (multi-user.target, rescue.target, emergency.target,
+   etc.)
+
+274:
+
+Virtual terminals are configured in /etc/systemd/logind.conf

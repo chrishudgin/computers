@@ -1,0 +1,20 @@
+In Table 9.3, the "Stopped" state is actually represented by the letter 'T' in
+top (meaning stopped by a job control signal).
+
+The "Inactive(anon)" field in /proc/meminfo indicates how much memory can
+safely be paged out to the swap device(s) (and potentially replaced by pages
+that are already swapped out) without the likelihood of affecting the
+performance of currently running processes.
+
+If swap used is greater than the value of inactive anonymous memory, then
+performance problems may result if all the swapped pages are needed.  This is
+because cached pages would then need to be reclaimed or active pages would need
+to be stolen (and swapped) in order to make room for the previously swapped
+pages beyond what was available from reclaiming inactive anonymous memory.
+
+Processes listed by ps are sorted numerically by PID by default.  To sort by
+start time or some other field, use the "k" option or --sort= followed by one
+or more comma-separated field names, as in:
+   ps k [+|-]<field1>[,[+|-]<field2>,...]
+Optional + and - preceding each field name select sort in ascending order
+(default) or descending order.
