@@ -1,0 +1,13 @@
+Apache main config file is /etc/httpd/conf/httpd.conf
+  
+ServerRoot points to config directory location, by default /etc/httpd
+
+DocumentRoot points to top level directory served by httpd, by default
+/var/www/html
+
+Directories for drop-in config files for Apache and for its modules are:
+/etc/httpd/conf.d
+/etc/httpd/conf.modules.d
+
+Apache modules are installed in /etc/httpd/modules (symlink to
+/usr/lib64/httpd/modules)
