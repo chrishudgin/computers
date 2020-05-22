@@ -1,0 +1,9 @@
+To check the exit code of a DOS program, use ERRORLEVEL as follows:
+
+C:\> MYPROGRAM
+C:\> IF ERRORLEVEL 0 ECHO SUCCESS
+
+On some versions of Windows, it is possible to display the value of
+ERRORLEVEL directly:
+
+C:\> ECHO %ERRORLEVEL%
