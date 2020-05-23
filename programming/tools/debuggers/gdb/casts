@@ -1,0 +1,7 @@
+To force the display of an integer as a 32-bit value, cast it to the
+   appropriate type:
+p/d (int) $r1     # print value in register r1 as signed decimal int
+p/u (int) $r1     # print value in register r1 as unsigned decimal int
+
+To force the display of a char (least significant byte) as a signed value:
+p/d (signed char) $r1    # print value in register r1 as signed char

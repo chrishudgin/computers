@@ -1,0 +1,7 @@
+To allow GAS to assemble a source file that uses Intel (not AT&T) x86 syntax,
+put the following assembler directive at the top of the file (or immediately
+after the .file directive, if any):
+
+.intel_syntax noprefix
+
+"noprefix" tells GAS that register names do not need to be preceded by a % sign.

@@ -1,0 +1,11 @@
+The output format for a print command of a label depends on whether the label
+is in the .text segment or a data segment.
+
+print some_text_label
+   shows the address of the label
+
+print some_data_label
+   shows the content of memory at the label
+
+print &some_data_label
+   shows the address of the label

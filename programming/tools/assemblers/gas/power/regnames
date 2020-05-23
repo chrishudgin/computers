@@ -1,0 +1,5 @@
+To allow the use of symbolic register names (like "r3" instead of "3" for
+   general purpose register 3) in assembly source code, add the following flag
+   to the as command line:
+
+as -mregnames

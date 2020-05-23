@@ -1,0 +1,3 @@
+To set an editing mode of vi, add the following line to ~/.inputrc
+
+set editing-mode vi

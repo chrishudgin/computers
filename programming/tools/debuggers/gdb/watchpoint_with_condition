@@ -1,0 +1,13 @@
+To break when i = 3 :
+
+(gdb) watch i
+Hardware watchpoint 2: i
+(gdb) condition 2 i == 3
+(gdb) c
+Continuing.
+Hardware watchpoint 2: i
+
+Old value = 2
+New value = 3
+0x00010410 in main () at loop.c:5
+5		for (i=0; i <= 5; i++);

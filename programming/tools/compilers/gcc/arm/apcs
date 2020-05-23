@@ -1,0 +1,5 @@
+To force every function to comply with the ARM Procedure Call Standard (which
+involves register saves that are not always needed for correct operation of a
+program's code), specify:
+
+-mapcs

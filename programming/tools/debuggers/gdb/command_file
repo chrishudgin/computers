@@ -1,0 +1,2 @@
+Execute gdb commands from a command file:
+$ gdb -x <command_file> <program_to_debug>

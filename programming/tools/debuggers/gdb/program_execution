@@ -1,0 +1,23 @@
+Run the program, stopping at any enabled breakpoints:
+run
+
+Continue running a stopped program:
+continue
+
+Execute next source line, then stop:  (steps into functions)
+step
+
+Execute next source line, then stop:  (steps over functions)
+next
+
+Execute next assembly instruction, then stop:  (steps into functions)
+stepi
+
+Execute next assembly instruction, then stop:  (steps over functions)
+nexti
+
+Finish executing current function:
+finish
+
+Kill the running program:
+kill

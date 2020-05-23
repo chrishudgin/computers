@@ -1,0 +1,5 @@
+To mix high-level source and assembly when disassembling, add "/m" (deprecated)
+   or "/s" to disas command:
+
+disas /m (deprecated)
+disas /s (preferred)

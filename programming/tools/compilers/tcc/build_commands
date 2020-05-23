@@ -1,0 +1,3 @@
+tcc hello.c
+
+This will create a .OBJ file and a .EXE file

@@ -1,0 +1,9 @@
+Build for native platform:
+
+as -o hello.o hello.s
+ld -o hello hello.o
+
+Build for IA-32 on x86-64:
+
+as --32 -o hello.o hello.s
+ld -m elf_i386 -o hello hello.o

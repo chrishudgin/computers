@@ -1,0 +1,9 @@
+To disassemble x86 code in Intel syntax rather than the default AT&T syntax:
+
+set disassembly-flavor intel
+
+To change it back to AT&T syntax:
+
+set disassembly-flavor att
+
+This command can be placed in the user's ~/.gdbinit file for persistence.

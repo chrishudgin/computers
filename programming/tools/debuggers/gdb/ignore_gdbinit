@@ -1,0 +1,3 @@
+Tell gdb to ignore the contents of .gdbinit at startup with:
+
+gdb -nx

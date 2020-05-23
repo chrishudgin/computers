@@ -1,0 +1,17 @@
+Numeric literal constants in base 2, 8, 10, and 16 can be expressed in GAS x86
+assembly code with the appropriate prefix, as in the following examples:
+
+Binary (base 2), prefix 0b or 0B:
+$0b100101
+$0B100101
+
+Octal (base 8), prefix 0:
+$0745
+
+Decimal (base 10), no prefix:
+$9680
+
+Hexadecimal (base 16), prefix 0x or 0X:
+$0xaf23
+$0XAF23
+$0xaF23   # hex digits may be capital, lower case, or both

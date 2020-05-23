@@ -1,0 +1,6 @@
+Set an environment variable in gdb:
+
+gdb> set environment VARNAME VALUE
+
+Example:
+gdb> set environment LD_PRELOAD ./alloc.so

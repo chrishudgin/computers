@@ -1,0 +1,10 @@
+ml.exe and ml64.exe are the Microsoft Macro Assembler that comes with Visual
+Studio 2017.
+
+ml.exe is in the PATH in the x86 Native Tools Command Prompt tool:
+
+C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.10.25017\bin\HostX64\x86\ml.exe
+
+ml64.exe is in the PATH in the x64 Native Tools Command Prompt tool:
+
+C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.10.25017\bin\HostX64\x64\ml64.exe

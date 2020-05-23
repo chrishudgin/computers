@@ -1,0 +1,82 @@
+System calls in glibc functions that require them are made through a macro
+called INLINE_SYSCALL.  See, for example, sysdeps/unix/sysv/linux/open64.c:
+
+int result = INLINE_SYSCALL (open, 3, file, oflag | O_LARGEFILE, mode);
+
+*****
+
+The INLINE_SYSCALL macro includes an invocation of the macro INTERNAL_SYSCALL,
+as in sysdeps/unix/sysv/linux/i386/sysdep.h:
+
+unsigned int resultvar = INTERNAL_SYSCALL (name, , nr, args);
+...
+# define INTERNAL_SYSCALL(name, err, nr, args...) \
+  ({                                                                          \
+    register unsigned int resultvar;                                          \
+    EXTRAVAR_##nr                                                             \
+    asm volatile (                                                            \
+    LOADARGS_##nr                                                             \
+    "movl %1, %%eax\n\t"                                                      \
+    "int $0x80\n\t"                                                           \
+    RESTOREARGS_##nr                                                          \
+    : "=a" (resultvar)                                                        \
+    : "i" (__NR_##name) ASMFMT_##nr(args) : "memory", "cc");                  \
+    (int) resultvar; })
+
+or in sysdeps/unix/sysv/linux/x86_64/sysdep.h:
+
+unsigned long int resultvar = INTERNAL_SYSCALL (name, , nr, args);
+...
+# define INTERNAL_SYSCALL(name, err, nr, args...) \
+  INTERNAL_SYSCALL_NCS (__NR_##name, err, nr, ##args)
+
+# define INTERNAL_SYSCALL_NCS(name, err, nr, args...) \
+  ({                                                                          \
+    unsigned long int resultvar;                                              \
+    LOAD_ARGS_##nr (args)                                                     \
+    LOAD_REGS_##nr                                                            \
+    asm volatile (                                                            \
+    "syscall\n\t"                                                             \
+    : "=a" (resultvar)                                                        \
+    : "0" (name) ASM_ARGS_##nr : "memory", "cc", "r11", "cx");                \
+    (long int) resultvar; })
+
+*****
+
+On Pentium 4 CPUs, the "int 0x80" mechanism for trapping into the kernel's
+system call table entry point is much slower than the following newer
+mechanism:
+
+call %gs:0x10
+...
+[ register setup ]
+...
+sysenter
+
+*****
+
+The "call %gs:0x10" instruction jumps to the vsyscall page that the kernel maps
+into every process, called VDSO (virtual dynamic shared object) or
+linux-gate.so.1.  This page is implemented in 2.6 or later Linux kernels.  This
+page is structed as an ELF executable and includes code to obtain some
+information from the kernel (like the timestamp returned by gettimeofday(2) )
+without having to perform an actual system call with the resultant expensive
+context switch into kernel space.  The vsyscall page also includes the sysenter
+(32-bit, Pentium II or newer) or syscall (x86-64) instruction to perform a
+system call that requires entering kernel space.
+
+The "int 0x80" mechanism can still be used directly in assembly language
+programs written for any 80386 or later x86 processor running in IA-32 mode
+(but not x86-64 long mode).
+
+For details of the system call ABI differences between IA-32 and x86-64, see:
+
+https://stackoverflow.com/questions/46087730/what-happens-if-you-use-the-32-bit-int-0x80-linux-abi-in-64-bit-code
+
+For an overview of vsyscall and VDSO, see:
+
+https://stackoverflow.com/questions/19938324/what-are-vdso-and-vsyscall
+
+For details of the x86 kernel implementations of system call entry, see:
+
+https://www.win.tue.nl/~aeb/linux/lk/lk-4.html

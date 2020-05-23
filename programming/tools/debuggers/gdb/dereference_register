@@ -1,0 +1,8 @@
+Suppose an integer is stored at the address given by $fp-12.  To print the
+value of the integer:
+
+p *((int *)($fp-12))
+
+The cast is necessary for gdb to interpret the data at a generic address, such
+as an address calculated explicitly at the gdb prompt from a value in a
+register.

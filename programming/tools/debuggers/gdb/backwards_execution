@@ -1,0 +1,19 @@
+Executing a program backwards requires the "record" feature to be turned on.
+This must be done after the program begins execution, as in this example:
+
+(gdb) b *main
+(gdb) run
+(gdb) record
+
+Once recording is started and the program has executed at least one subsequent
+instruction, reverse execution flow, including reverse stepping, is possible:
+
+(gdb) reverse-continue or rc
+(gdb) reverse-finish
+(gdb) reverse-step or rs
+(gdb) reverse-stepi or rsi
+(gdb) reverse-next or rn
+(gdb) reverse-nexti or rni
+
+Stop recording and erase all recorded state:
+(gdb) record stop

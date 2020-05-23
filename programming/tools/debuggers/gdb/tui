@@ -1,0 +1,14 @@
+When running gdb -tui <program> :
+
+Set terminal window tall enough that full register window in TUI can be
+displayed, along with a fair amount of source in the source window.
+
+Then, in GDB:
+
+layout regs
+
+Alternatively:
+
+layout asm
+layout regs
+set disassemble-next-line on

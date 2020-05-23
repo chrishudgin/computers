@@ -1,0 +1,26 @@
+Display executable entry point address with:
+
+i fi   (i.e. info file)
+
+This will be the address of _start (most platforms) or __start (MIPS)
+
+***
+
+On some platforms (such as x86 and ARM), you can set a breakpoint using
+
+b _start
+
+or
+
+b *_start
+
+while on others (such as MIPS), you must include the asterisk:
+
+b *__start
+
+When setting a breakpoint using a function name, "b func" and "b *func" have
+slightly different meanings:
+b func: set a breakpoint at the first source line in the function, after
+   function initialization / stack setup
+b *func: set a breakpoint at the first assembly instruction in the function,
+   at the beginning of function initialization / stack setup

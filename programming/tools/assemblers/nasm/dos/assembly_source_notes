@@ -1,0 +1,5 @@
+An assembly source file for a .COM executable assembled with NASM should begin
+with:
+
+org 100h
+bits 16

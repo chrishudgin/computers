@@ -1,0 +1,8 @@
+By default, gdb disables Address Space Layout Randomization (ASLR) before
+running a target program.  ASLR can be toggled on or off and displayed as
+follows:
+
+gdb> set disable-randomization off  # enables ASLR
+gdb> set disable-randomization on   # disables ASLR (default)
+
+gdb> show disable-randomization

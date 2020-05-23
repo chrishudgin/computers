@@ -1,0 +1,25 @@
+To automatically display the value of a variable "var" or register "reg"
+after each stepping command:
+
+display var
+   or
+display/fmt var
+   or
+display $reg
+
+Examples:
+
+display avar
+display/x aptrvar
+display $edx
+
+To show all autodisplayed expressions by their index numbers:
+
+info display
+
+To stop displaying an item, delete it from the list by its display index number:
+
+undisplay indexnum
+
+
+Reference:  http://ftp.gnu.org/old-gnu/Manuals/gdb/html_node/gdb_56.html

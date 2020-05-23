@@ -1,0 +1,11 @@
+To link with libc a simple 32-bit x86 object whose source was written in
+assembly language, it may be necessary to specify the dynamic linker
+(interpreter) explicitly to ld as /lib/ld-linux.so.2 instead of allowing the
+linker to determine the interpreter implicitly.
+
+Example:
+
+$ as -o hello.o hello.s
+$ ld --dynamic-linker /lib/ld-linux.so.2 -o hello hello.o -lc
+
+More information about the dynamic linker is in the ld-linux.so(8) man page.

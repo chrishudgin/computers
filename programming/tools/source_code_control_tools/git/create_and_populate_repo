@@ -1,0 +1,8 @@
+Example of creating and populating a Git repo with the contents of the
+os/vmware subdirectory (including relative path components):
+
+$ git init
+$ git add os/vmware
+$ git commit -m "Initial commit"
+$ git remote add origin https://github.com/chrishudgin/computers.git
+$ git push -u origin master

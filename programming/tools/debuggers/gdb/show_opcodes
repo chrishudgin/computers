@@ -1,0 +1,3 @@
+To show raw hex opcodes when disassembling, add "/r" to disas:
+
+disas /r

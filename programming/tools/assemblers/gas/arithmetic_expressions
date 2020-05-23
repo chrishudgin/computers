@@ -1,0 +1,16 @@
+When a symbol (which has an address) is used in an arithmetic expression
+evaluated by the assembler, as in:
+
+movl $RECORD_FIRSTNAME + record_buffer, %ecx
+
+where record_buffer is a symbol and $RECORD_FIRSTNAME is a constant,
+
+the symbol must NOT have a leading $ sign.
+
+However, in contexts like the following, which do not use the symbol in an
+arithmetic expression evaluated by the assembler:
+
+pushl $record_buffer
+
+the leading $ is required for the value to be interpreted as an address rather
+than as the data at that address.

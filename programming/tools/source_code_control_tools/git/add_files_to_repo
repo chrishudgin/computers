@@ -1,0 +1,5 @@
+Example of adding a file to a git repository:
+
+$ git add databases/papers/codd_paper_notes.docx 
+$ git commit -m "commit"
+$ git push -u origin master

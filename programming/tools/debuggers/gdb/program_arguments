@@ -1,0 +1,8 @@
+Set program arguments:
+set args [arg1] [arg2] ...
+
+Remove program arguments:
+set args
+
+Show program arguments:
+show args

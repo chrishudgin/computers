@@ -1,0 +1,9 @@
+32-bit:
+
+nasm -f elf32 -o hello.o hello.s
+ld -m elf_i386 -o hello hello.o
+
+64-bit:
+
+nasm -f elf64 -o hello.o hello.s
+ld -o hello hello.o

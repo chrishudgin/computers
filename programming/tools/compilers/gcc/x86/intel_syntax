@@ -1,0 +1,4 @@
+To compile to Intel x86 syntax rather than the default AT&T x86 syntax,
+use the flag:
+
+-masm=intel

@@ -1,0 +1,13 @@
+For some gdb commands (like display), register names must be prefixed by a
+dollar sign ($), as in "$edx".  For others, in which the operand is assumed
+to be a register (as in the "info registers" command), the $ prefix is optional.
+
+gdb provides four standard "pseudo-registers" called $pc, $sp, $fp, and $ps
+whose values may not correspond to the actual values in the program counter,
+stack pointer, frame pointer, and status register of a given platform.  They
+are convenience "registers" that behave the same on all platforms, hiding
+platform differences such as how sp and fp behave upon function entry/exit
+and whether a read from the actual program counter register will yield the
+current instruction or some pending instruction in a pipelined architecture.
+
+Reference:  https://sourceware.org/gdb/onlinedocs/gdb/Registers.html

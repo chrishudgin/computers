@@ -1,0 +1,12 @@
+By default, gcc on x86 treats "long double" values as 80-bit extended
+precision, stored as 96 bits (IA-32) or 128 bits (x86-64) in memory and making
+use of the x87's extended precision floating point instructions like faddt.
+
+80-bit floating point values are not standard on other platforms or in IEEE 754
+despite allowing for more precision than standard 64-bit floating point values
+("double" or, on some platforms, "long double" also) do.  To ensure consistent
+cross-platform results and conformance with IEEE 754 32-bit and 64-bit floating
+point data types, use the following options to gcc on x86 when compiling C
+code:
+
+-fexcess-precision=standard -mlong-double-64
