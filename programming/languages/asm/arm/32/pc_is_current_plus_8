@@ -1,0 +1,62 @@
+Due to the original ARM 3-stage pipeline (fetch-decode-execute), the PC
+register (R15) displays the address of the current instruction plus 8 (for 32
+bit ARM instructions), plus 4 (for 16 bit Thumb branch instructions), or plus 4
+and then bit 1 (second bit) cleared in the result to make it word aligned (for
+16-bit Thumb non-branch instructions like ADR).
+
+However, in gdb, the displayed value of pc is always set to the address of the
+current instruction, which hides the pipeline effect on pc's value.  An actual
+read of pc in the instruction stream will still show that it has the value of
+the current instruction plus 8.
+
+Modern ARM CPUs have branch predictors, but in the absence of one, or if the
+branch is mispredicted, the pipeline is flushed so that instructions following
+the branch sequentially in memory are not executed.  The pipeline is refilled
+starting with the instruction that is the target of the branch.
+
+To reduce the pipeline flush performance penalty associated with branches,
+all ARM instructions have a conditional variant.  By using these instead of
+branches (e.g. when only a couple of instructions would be executed in the
+branch), the pipeline can be kept full and the conditionals can be embedded
+in individual instructions instead of in a separate branch instruction.
+
+For example, instead of:
+
+i = i - 3;
+branch to foo if i = 0;  # if branch is taken, we must flush the pipeline
+return:
+e = 7;
+f = 8;
+
+foo:
+c = 4;
+d = 6;
+branch always to return;
+
+
+We could do:
+
+i = i - 3;
+set c = 4 if i = 0;  # pipeline stays full
+set d = 6 if i = 0;  # pipeline stays full
+e = 7;
+f = 8;
+
+More examples:
+http://www.davespace.co.uk/arm/introduction-to-arm/conditional.html
+
+Explained in chapter 13 ("Register 15") of Raspberry Pi Assembly Language book.
+
+Also explained here:
+
+Reference:  http://stackoverflow.com/questions/24091566/why-does-the-arm-pc-register-point-to-the-instruction-after-the-next-one-to-be-e
+
+It's a nasty bit of legacy abstraction leakage.
+
+The original ARM design had a 3-stage pipeline (fetch-decode-execute). To simplify the design they chose to have the PC read as the value currently on the instruction fetch address lines, rather than that of the currently executing instruction from 2 cycles ago. Since most PC-relative addresses are calculated at link time, it's easier to have the assembler/linker compensate for that 2-instruction offset than to design all the logic to 'correct' the PC register.
+
+Of course, that's all firmly on the "things that made sense 30 years ago" pile. Now imagine what it takes to keep a meaningful value in that register on today's 15+ stage, multiple-issue, out-of-order pipelines, and you might appreciate why it's hard to find a CPU designer these days who thinks exposing the PC as a register is a good idea.
+
+Still, on the upside, at least it's not quite as horrible as delay slots. Instead, contrary to what you suppose, having every instruction execute conditionally was really just another optimisation around that prefetch offset. Rather than always having to take pipeline flush delays when branching around conditional code (or still executing whatever's left in the pipe like a crazy person), you can avoid very short branches entirely; the pipeline stays busy, and the decoded instructions can just execute as NOPs when the flags don't match*. Again, these days we have effective branch predictors and it ends up being more of a hindrance than a help, but for 1985 it was cool.
+
+* "...the instruction set with the most NOPs on the planet."

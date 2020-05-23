@@ -1,0 +1,11 @@
+In the section "GCC - The Swiss Army Knife", the text states that GCC
+"assembles" the code required to handle a function's return value.  This
+sentence uses the concept of "assembly" in a generic sense--inserting and
+arranging lines of code--not "assembling" code into an object file (which is
+what the "as" utility does).
+
+*****
+
+In the section, "Getting the Assembler", using the extension ".so" for the
+backup (original) copy of prog21a.s is perhaps not ideal, since .so typically
+stands for a shared object file in Linux.

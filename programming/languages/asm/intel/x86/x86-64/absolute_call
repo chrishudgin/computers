@@ -1,0 +1,5 @@
+To call a function located more than +(2^31)-1 or -(2^31) bytes away, when an
+E8 pc-relative call will not suffice, use:
+
+movabs imm64, %reg
+call %reg

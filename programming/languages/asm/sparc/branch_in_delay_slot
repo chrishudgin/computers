@@ -1,0 +1,28 @@
+Unlike MIPS, SPARC does allow a branch instruction in a branch delay slot.
+This can be used, for example, to jump to a single instruction through the
+first branch and then subsequently jump to different location through the
+second branch.  The instruction jumped to by the first branch instruction
+becomes the delay slot instruction for the second branch instruction.
+
+One circumstance requires the use of a branch instruction in a branch delay
+slot:  the instruction preceding a RETT must be a JMPL so that the instruction
+that executes immediately after the RETT (in the RETT delay slot) before the
+jump triggered by the RETT itself is either the instruction that caused the
+trap (thus re-executing it after the trap handler completes) or the following
+instruction (in the event that the trap handler performed actions emulating the
+instruction that caused the trap).  This sequence of jumps is needed because an
+instruction that causes a trap generally does not modify system state--thus, if
+execution can resume, it must resume in the previous address space (the switch
+to which is accomplished by RETT) by re-attempting the trap-inducing
+instruction after the trap has been handled, or else emulating its operation in
+the trap handler and then jumping to the instruction that had been scheduled
+next (which was in nPC before the trap).
+
+Reference:  _The SPARC Architecture Manual, Version 8_, RETT instruction, page
+127.
+
+A conditional branch should not be placed in the delay slot of another
+conditional branch.
+
+Reference: "Delayed Control-Transfer Couples (DCTI)" section of Chapter 5 in
+the _SPARC Architecture Manual, Version 8_ (page 55)

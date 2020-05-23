@@ -1,0 +1,58 @@
+The first six arguments to a function (whether they are of integral or floating
+point type) are passed in caller registers %o0 through %o5, which become callee
+registers %i0 through %i5 after a SAVE instruction.  Floating point doubles
+occupy two such registers, with the lower 32 bits occupying the higher numbered
+register since SPARC is big endian.  Additional arguments if needed are passed
+on the stack, starting at %sp+92 and from there towards higher memory
+addresses, in the order specified by the function call.
+
+If a structure is passed as a function argument, its elements are stored on the
+caller's stack and the caller's %o0 (callee's %i0) is loaded with the address
+of the first element of the structure (which is not necessarily at the top of
+the caller's stack frame even if there are no other arguments passed on the
+stack).  Both integral and floating point elements of the structure are passed
+using this convention.
+
+A minimum of 92 bytes should be saved on the stack at the start of each
+function, before taking into account additional space for local variables and
+any parameters beyond the sixth that must be passed to callee functions.  The
+top (lowest addresses) 16 bytes of the stack are reserved for register spill of
+the "local" (l) and "in" (i) registers, and the other bytes up through %sp+92
+are reserved for other purposes (such as a pointer for a returned struct or
+union) by the SPARC ABI.  GCC saves a minimum of 96 bytes to the stack upon
+function entry--not 92 bytes because the stack pointer must always be
+doubleword (8-byte)-aligned (96 mod 8 = 0, whereas 92 mod 8 = 4).
+
+Linux system calls are made with the system call number placed in %g1.
+
+Global registers %g5 through %g7 are reserved for operating system software and
+should not be used in application programs.
+
+A function places an integral return value (if any) in %i0.  A single precision
+floating point value is returned in %f0.  A double precision floating point
+value is returned in %f0 and %f1, with %f1 containing the low-order 32 bits
+since SPARC is big endian.
+
+Aggregates (structures and unions) as return values are a special case.  The
+caller function allocates the memory for the aggregate in its own stack frame
+and passes a pointer to the aggregate at %sp+64 (which becomes %fp+64 in the
+callee).  The callee function then writes the return value into the memory to
+which the callee's %fp+64 points.  The address of the returned aggregate is
+passed back to the caller function in the callee's %i0.  The instruction
+following (not in) the delay slot of the CALL is UNIMP with a constant
+representing the size in bytes of the structure to be returned.  If the called
+function is written correctly to return a structure, it may optionally verify
+that the caller's PC+8 (callee's %i7+8) is UNIMP, read the size of the
+structure from the constant in the UNIMP instruction, and when returning to the
+caller (e.g. with JMPL), jump to the instruction following the UNIMP (caller's
+PC+0xc, callee's %i7+0xc) since a jump to UNIMP itself would generate an
+illegal instruction trap.
+
+Registers %o0 through %o5 must be caller-saved if they are used for any purpose
+other than passing parameters to a called function.  %o6 and %i6 should be
+reserved for use as the stack pointer and frame pointer in the caller and
+callee, respectively.  %o7 and %i7 should be reserved for use as the address of
+a CALL instruction and reference for return address in the caller and callee,
+respectively.  Global registers %g1 through %g4 are caller-saved.  All floating
+point registers %f0 through %f31 are caller-saved as well.  The %y register and
+icc/fcc condition code values are subject to change across procedure calls.

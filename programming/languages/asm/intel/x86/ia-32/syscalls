@@ -1,0 +1,7 @@
+On the Raspberry Pi Desktop OS:
+System call numbers are in /usr/include/i386-linux-gnu/asm/unistd_32.h
+
+Note: unistd_x32.h defines system call numbers for the x32 ABI, which is the
+x86-64 ABI (including the x86-64 registers) except with 32-bit pointers.  The
+x32 ABI should not be confused with the i386 ABI that the Raspberry Pi Desktop
+OS uses.

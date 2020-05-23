@@ -1,0 +1,25 @@
+The condition register is 32 bits long, with bits numbered from 32 to 63, and
+is divided into eight 4-bit fields named CR0 through CR7.  Thus, CR0 is the
+first 4-bit field in the condition register, not an individual bit or an entire
+register.
+
+Different bits set in the condition register fields (typically condition
+register field 0, i.e. CR0) correspond to different conditions like "less
+than", "greater than", "equal", and "overflow".  The conditional branch
+instructions (BC and its aliases like BNE and BGT) check these bits to
+determine whether to branch.  Each conditional branch instruction can
+optionally be written to query bits in a condition register field other than
+CR0.  If no condition register field is specified in a branch conditional
+instruction, CR0 is used by default.
+
+For example, when CR0 bit 2 is set to 1, it means "equal" for the purposes of
+conditional branch instructions (really aliases to BC) like BEQ and BNE.
+
+Instructions whose mnemonics end with a dot, like "add." or "stwcx.", set flags
+in CR0; some (but not all) of these are simply variants of the same instruction
+without CR0 updates (like "add").
+
+Reference:
+
+~/computers/programming/languages/asm/power/PowerISA_V2.07B.pdf, Section 2.3.1
+ "Condition Register"

@@ -1,0 +1,6 @@
+Ranges of immediate values in SPARC assembly language instructions:
+
+simm13 (used in arithmetic and load/store instructions):  -4096 to +4095
+imm22 (used in SETHI): 0 to 4193404 (4 MB)
+disp22 (used in Bicc): 4 * disp22 => - 2^23 to 2^23 - 1 (relative to pc)
+disp30 (used in CALL): 4 * disp30 => - 2^31 to 2^31 - 1 (relative to pc)

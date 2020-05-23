@@ -1,0 +1,33 @@
+Arguments to a non-syscall function are pushed on the stack in reverse order.
+When a structure is passed as a function argument, the elements of the
+structure are pushed on the stack in reverse order.
+
+Linux system calls are called with registers as follows:
+System call number: %eax
+Arguments: %ebx, %ecx, %edx, %esi, %edi, %ebp
+
+If more than six arguments to a system call are needed, %ebx must be a pointer
+to the list of arguments in memory.
+
+Reference: https://stackoverflow.com/questions/2535989/what-are-the-calling-conventions-for-unix-linux-system-calls-on-i386-and-x86-6
+
+A function places an integral type return value (if any) in:
+%eax (32 bit)
+%edx:%eax (64 bit)
+
+where in the latter case %eax holds the low 32 bits of the return value.
+
+If a return value is of floating point type, it must be stored in register
+%st0.  In addition, it may also be copied to %eax, %edx:%eax, or %ecx:%edx:%eax
+depending on its size.  %ecx:%edx:%eax, a 96 bit value, would be used to hold
+an extended precision 80 bit long double.  %eax holds the lowest 32 bits of the
+return value.
+
+Aggregates (structures and unions) as return values are a special case.  The
+caller function allocates the memory for the aggregate in its own stack frame
+and passes a pointer to the aggregate as an implicit first argument to the
+function on the stack (implicit in the sense that the function call in C does
+not include this pointer in its specified argument list).  The callee function
+then writes the return value into the memory to which the first argument passed
+to the callee function points.  The address of the returned aggregate is passed
+back to the caller function in %eax.

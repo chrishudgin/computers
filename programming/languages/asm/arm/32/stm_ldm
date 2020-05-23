@@ -1,0 +1,14 @@
+All STM instructions, regardless of suffix (IB, IA, DB, DA), store the
+specified registers in register number order (not necessarily the order
+specified in the register list in the assembly source) from lowest numbered
+register to highest, such that the lowest numbered register occupies the lowest
+memory address after the multiple stores are complete.
+
+The LDM instructions assume this memory ordering as well when loading values
+into registers.
+
+The default stack orientation on ARM is "full descending", meaning the stack
+pointer points to a word that is occupied by data (rather than being empty and
+available for new data), and the stack grows downward toward lower memory
+addresses.  The default STM and LDM suffix is thus "FD", which is equivalent to
+STMDB / LDMIA.

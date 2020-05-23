@@ -1,0 +1,23 @@
+In the section "Using C Functions in Assembler", user space is described as
+being "above" kernel memory and starting at about address 0x8000.  The address
+0x8000 is a virtual address near which executable programs may have the
+beginning of their text segment loaded, but this does not mean that the kernel
+resides entirely in virtual memory below 0x8000.  Typically on 32-bit systems,
+the Linux kernel uses virtual memory addresses starting at 3 GB, or 0xC0000000.
+
+*****
+
+In the section "Source File Structure", the text implies that using SWI
+directly to exit a user program is necessary in order to be able to display the
+program's exit code after the program terminates.  In fact, exiting a program's
+main() function by copying the contents of the LR register into the PC register
+will also preserve the exit code in R0 and allow it to be displayed in the "$?"
+variable in the shell.  This can be verified by running prog19a, which will
+return the number of characters printed by printf, which printf loads into R0
+when it completes.
+
+*****
+
+The comment on line 17 of prog19d.s should read "get scanf output".  The
+integer value returned by scanf is what is located on the stack and loaded into
+r1.

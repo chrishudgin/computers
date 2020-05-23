@@ -1,0 +1,2 @@
+cmpxchg* (on 486 and later); prefix with LOCK to ensure atomicity on
+   multiprocessor machines

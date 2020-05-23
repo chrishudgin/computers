@@ -1,0 +1,13 @@
+An x87 stack push has the following effects if the stack does not overflow as
+a result of the push:
+
+The stack register pointed to by the top-of-stack pointer st(0) is decremented
+with wraparound (e.g. r7 to r6 or r0 to r7).  The registers pointed to by the
+other stack pointers st(1-7) are also decremented with wraparound since their
+positions are always by definition sequential relative to st(0).
+
+The value being pushed is stored in the new register pointed to by st(0).  This
+register is tagged in the ftag register as occupied.
+
+The values in the other stack registers (r0-r7, except for the one pointed to
+by st(0)) are unchanged.

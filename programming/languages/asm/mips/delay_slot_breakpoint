@@ -1,0 +1,17 @@
+Reference:  https://www.math.ku.edu/computing/cluster/totalview.6.0.0-0-doc/ref_guide/architectures29.html
+
+"The MIPS processors execute the jump or branch instruction and the delay slot
+instruction as an indivisible unit. If an exception occurs as a result of
+executing the delay slot instruction, the branch or jump instruction is not
+executed, and the exception appears to have been caused by the jump or branch
+instruction."
+
+As a consequence, setting a breakpoint (which works by triggering a trap when
+the instruction at that address is executed) at a delay slot instruction will
+cause the breakpoint to be triggered whenever the delay slot instruction is
+reached, and the jump is therefore not performed due to the trap at the delay
+slot instruction.
+
+To solve this problem, set the breakpoint to one instruction after the delay
+slot, and consider putting a nop into the delay slot if you really want to set
+a breakpoint at the first "useful" instruction after the loop instruction.

@@ -1,0 +1,2 @@
+On Raspbian:
+System call numbers are in /usr/include/arm-linux-gnueabihf/asm/unistd-common.h

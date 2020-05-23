@@ -1,0 +1,13 @@
+In 64-bit mode, modifying the value in a 32-bit register (like %eax) will
+zero-extend the value to the upper 32 bits of the corresponding 64-bit register
+(like %rax).  This is done to avoid any dependencies on the previous value of
+the %rax register, would could force the CPU to wait for that value to be
+determined.
+
+However, modifying the value in an 16-bit or 8-bit register (like %ax or %al)
+will not modify the remaining upper bits of the corresponding 64-bit register
+(like %rax).  Zero-extension, if desired, must be performed with an explicit
+zero-extend instruction like MOVZX (Intel syntax) or MOVZBQ (AT&T syntax), as
+in:
+
+movzbq	%al, %rax

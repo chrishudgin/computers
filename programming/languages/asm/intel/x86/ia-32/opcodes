@@ -1,0 +1,16 @@
+The opcode for an instruction can vary for a particular mnemonic like "push".
+The particular opcode tells the CPU how to parse and process the operands, such
+as the types of the operands, their size and number, and whether addresses
+should be dereferenced to access their contents.
+
+For example, "pushl imm32" and "pushl r/m32" can both take the same 32-bit
+value as an operand.  pushl imm32 will push an immediate value (which may
+happen to be an address but is not treated as such).  pushl r/m32 will treat
+the 32-bit operand as a memory location and push to the stack the 32-bit
+contents of that memory location.  In other words, pushl r/m32 does a
+dereference of the address supplied as its operand.
+
+foo:	.long 47
+
+	pushl $foo   # imm32; opcode 68; push address of foo to stack
+	pushl foo    # r/m32; opcode ff 35; push value of foo, 47, to stack

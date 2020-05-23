@@ -1,0 +1,8 @@
+If register eax contains the address of a function, the function can be called
+in assembly language using the following syntax:
+
+AT&T:
+	call	*%eax
+
+Intel:
+	call	eax

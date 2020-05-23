@@ -1,0 +1,11 @@
+The "greater than / less than" (GT, LT and related GE, LE) conditional
+execution opcode suffixes' comparisons apply to signed values and check the V
+(overflow), N (negative), and Z (zero) flags.
+
+The corresponding unsigned comparison suffixes are HI (higher than) and LS
+(lower than or same), and the related HS (higher or same) and LO (lower than)
+which check the C (carry) and Z (zero) flags.
+
+Reference table and examples of usage:
+
+http://www.davespace.co.uk/arm/introduction-to-arm/conditional.html

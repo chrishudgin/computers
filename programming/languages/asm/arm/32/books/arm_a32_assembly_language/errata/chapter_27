@@ -1,0 +1,44 @@
+In the seciton "Building the Code", the first code segment should have a colon
+after .input, .output, and .set (making them labels, not assembler directives).
+
+*****
+
+In the section, "Building the Code", bits 6, 7, and 8 are the ones associated
+with pin 22, not bits 3, 4, and 5 as stated in the text.
+
+*****
+
+In the section, "Building the Code", R2 contains the contents of register 2,
+not the address of register 2, when the BIC instruction is executed.
+
+*****
+
+Programs 27a and 27aOFF contain a bug: the code to manipulate the pin registers
+is labeled "close", which conflicts with the glibc function close().  Renaming
+the label to "Close" (with a capital C) fixed this problem.
+
+*****
+
+Programs 27a, 27aOFF, and 27b all contain a bug--the stack should be grown by
+20 bytes (SUB sp, sp, #20), not 16, to avoid clobbering whatever value was on
+the stack when main was entered (note that a four byte data value is stored at
+[SP, #16] at some point in each of these programs).
+
+Likewise, the stack should be reduced by 20 bytes, not 16, near the end of the
+program:
+
+ADD SP, SP, #20
+
+*****
+
+In Program 27a, the R3 register in the call to mmap contains the value 1 which
+corresponds to the MAP_SHARED flag, not "stdouts" (sic) as stated in the
+comment.
+
+*****
+
+In section "Using and Adapting", the text states that a maximum of seven
+changes are needed to adapt Program27a to Program27b or to an equivalent
+program for any other GPIO pin.  In fact, eight lines of the code must be
+changed, all related to selecting the necessary registers and bits within those
+registers.

@@ -1,0 +1,28 @@
+Eight 80-bit x87 registers in a stack with st(0) at the top:
+st(0) - st(7)
+and the additional associated control/status registers:
+fctrl : floating point control word (16 bits)
+fstat : floating point status word (16 bits)
+ftag  : floating point tags (16 bits)
+fiseg : floating point instruction pointer segment selector (16 bits)
+fioff : floating point instruction pointer offset (32 bits)
+foseg : floating point data pointer (operand) segment selector (16 bits)
+fooff : floating point data pointer (operand) offset (32 bits)
+fop   : floating point opcode (11 bits)
+
+Note:  MMX instructions use the low-order 64 bits of each "st" register as an
+"mm" register, mm0 - mm7, for SIMD integer instructions.
+
+Sixteen 128-bit SSE registers:
+xmm0 - xmm15
+and a 32-bit SSE control/status register: 
+mxcsr
+
+With AVX:
+Sixteen 256-bit AVX registers that extend the corresponding SSE xmm registers:
+ymm0 - ymm15
+
+With AVX-512:
+Thirty-two 512-bit AVX registers that extend the corresponding xmm and ymm
+   registers:
+zmm0 - zmm31

@@ -1,0 +1,44 @@
+In the section "Neon Assembler," the statement that Program 24a puts the values
+1 and 2 into Q1 and Q2 is correct but incomplete.  In fact, the program puts
+four 32-bit words into Q1 (from number1) and four 32-bit words into Q2 (from
+number2); it just so happens that the second through fourth words in each array
+of numbers are equal to 0.
+
+*****
+
+Program 24b rotates a 4x4 matrix 90 degrees *clockwise*.
+
+*****
+
+In the section "Matrix Math", note that although the text states that Program
+24d assumes the values of the matrices are stored in memory in column-major
+order (and the element numbering in Figure 24j reflects this),
+multi-dimensional arrays in C are stored in row-major order.
+
+Column-major ordering is a convenience in Program 24d since the program
+computes one column of the result matrix for each invocation of the matrixf32
+macro, and each VMUL.f32 or VMLA.f32 instrution in the macro computes the
+partial sum for all elements in one column of the result matrix.  That is, the
+VMUL.f32 computes the first partial sum for all four elements in a column, and
+each VMLA.f32 instruction adds its own partial sum to all four elements in the
+same column until the total sums for all four elements in the column are
+computed and that one invocation of the macro is done.
+
+Each VMUL.f32 and VMLA.f32 instruction in Program 24d multiples a vector (Q8,
+Q9, Q10, or Q11--the columns of the first matrix) by a scalar (a single element
+from a single column in the second matrix, e.g. for the first invocation of
+matrixf32 the scalars are D0[0], D0[1], D1[0], D1[1]).
+
+Even though some of the VMUL/VMLA instructions have registers from VFP scalar
+register banks (to wit, Q8, Q9) as their destinations, the multiplications are
+still treated as vector x scalar = vector since operand 1 and operand 2 are
+different sizes (quadword and doubleword, respectively).  See the definitions
+of the "VMUL (by scalar)" and "VMLA (by scalar)" instructions in the ARM
+Architecture Reference Manual for more information.
+
+Note that registers Q4-Q7 are not used in Program 24d.
+
+*****
+
+In the section "Load of Others", note that the VLDR/VSTR and VLDM/VSTM can also
+operate on 32-bit values, not just 64-bit values.

@@ -1,0 +1,39 @@
+In section "The Disassembler", Figure 14c (gdb disassembly of prog10a _start)
+is missing from the book.
+
+It should look something like this:
+
+(gdb) disassemble _start
+Dump of assembler code for function _start:
+   0x00010074 <+0>:	mov	r6, #215	; 0xd7
+   0x00010078 <+4>:	mov	r10, #1
+   0x0001007c <+8>:	lsl	r9, r10, #31
+   0x00010080 <+12>:	ldr	r1, [pc, #60]	; 0x100c4 <_write+20>
+End of assembler dump.
+
+*****
+
+In section "The Disassembler", the command:
+
+Disassemble /r 0x8084, 0x80a0
+
+should be:
+
+disassemble /r 0x8084, 0x80a0
+
+since gdb commands are case sensitive.
+
+*****
+
+In section "Breakpoints", the source code in the book is slightly different
+from what is provided on the author's web site in the code downloads, so the
+line numbers and the constant in r6 will differ as well.
+
+*****
+
+In section "Memory Dump", giant words are eight bytes, not "eighth" bytes.
+
+*****
+
+In section "Memory Dump", the default value for unit on ARM32 is w (word), not
+"1".

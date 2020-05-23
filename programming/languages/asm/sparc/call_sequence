@@ -1,0 +1,38 @@
+Typical function call sequence for a non-leaf function:
+
+<Set up arguments to myfunc>
+call	myfunc
+<delay slot instruction, possibly nop>
+
+In myfunc:
+
+save	%sp, -96, %sp   (96 bytes is the minimum to grow the stack)
+...
+jmpl	%i7 + 8, %g0   (equivalent to synthetic instruction "ret" with no args)
+restore	%g0, %g0, %g0 (in delay slot of jmpl that perfoms the return to caller)
+                  (equivalent to synthetic instruction "restore" with no args)
+
+Alternatively, GCC uses the following instead of the jmpl/restore sequence:
+
+rett	%i7 + 8
+
+Unlike jmpl/restore, rett also enables traps and restores the supervisor bit S
+in the PSR from its previous value (PS), but this does not have any effect on
+the value of S or the enable traps (ET) setting when returning from a user
+(i.e. non-supervisor) function that was called from another user function.
+
+*****
+
+Calling a leaf function:
+
+<Set up arguments to myleaffunc>
+call	myleaffunc
+<delay slot instruction, possibly nop>
+
+In myleaffunc:
+
+<no SAVE needed>
+...  (limit register usage to %o0..%o5, %o7, %g1, where %o7 is address of CALL)
+<no RESTORE needed>
+jmpl	%o7 + 8, %g0   (equivalent to synthetic instruction "retl" with no args)
+<delay slot instruction>

@@ -1,0 +1,8 @@
+The pmulhuw instruction is part of the SSE instruction set even though it
+operates on integer values and is effectively the unsigned version of the
+pmulhw instruction that is part of MMX.
+
+There is no need for a separate pmulluw instruction as an unsigned version of
+pmullw; it would be identical to pmullw since the low order 16 bits are the
+same after the multiply regardless of whether the numbers being multiplied are
+signed or unsigned.

@@ -1,0 +1,17 @@
+The sp register is $29
+The fp register is $30 or $s8 (where "$s8" means callee-saved register 8)
+
+The MIPS O32 ABI (which GCC uses by default) does not use the frame pointer in
+the way that is typical on other platforms (where the fp points to the "bottom"
+of the stack and the sp points to the "top" of the stack).  Instead, in
+functions in which the stack pointer can be kept constant in the body of the
+function (other than function prologue stack growth and function epilogue stack
+shrinkage)--functions that don't need to adjust the stack size dynamically
+using alloca(), for example--the frame pointer is simply set to point to the
+same location as the stack pointer is.  Thus, even if the frame pointer is used
+in the assembly code within the body of a function, it's used just as the stack
+pointer would be since they both point to the same location.  Use of the frame
+pointer is therefore OPTIONAL in most functions, even though it is still saved
+at function entry and restored at function exit.
+
+Reference:  https://en.wikipedia.org/wiki/Calling_convention#MIPS

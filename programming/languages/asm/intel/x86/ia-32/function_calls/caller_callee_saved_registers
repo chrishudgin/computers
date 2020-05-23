@@ -1,0 +1,25 @@
+Caller-saved registers:
+
+eax
+ecx
+edx
+
+To save values of other registers, push them onto the stack before pushing the
+callee function's parameters.  After returning from the callee function, move
+the stack pointer back to the location of the most recently saved register and
+pop the registers from the stack in the reverse of the order in which they were
+pushed.
+
+Callee-saved registers:
+
+ebx
+edi
+esi
+ebp
+esp
+
+From Wikipedia article "x86 calling conventions":
+
+The x87 floating point registers ST0 to ST7 must be empty (popped or freed)
+when calling a new function, and ST1 to ST7 must be empty on exiting a
+function. ST0 must also be empty when not used for returning a value.

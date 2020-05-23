@@ -1,0 +1,8 @@
+The term "assembly language" comes from the fact that the assembler "assembles"
+the fields in each assembly language statement into a machine instruction.
+
+The term "assembly" in this context was first used in a 1949 paper by Maurice
+Wilkes on the EDSAC.
+
+The invention of assembly language notation is credited to Kathleen Booth, a
+British computer scientist, in 1947.

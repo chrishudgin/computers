@@ -1,0 +1,44 @@
+In the section "Conditional Execution", the comments for the VADDEQ.F32 and
+VSUBNE instructions are incorrect.  The comment for VADDEQ.F32 should read,
+"Execute only if Z=1" and the comment for VSUBNE.F64 should read, "Execute only
+if not equal or unordered".
+
+*****
+
+In Program 23a, the comments for the MOVEQ and MOVNE instructions are
+incorrect.  EQ and NE are true (or not) depending on whether the Z flag is set
+(or not), not whether the C flag is set.
+
+*****
+
+In Figure 23g, VADD.D64 should be VADD.F64 (VADD.D64 is not syntactically
+valid).  Moreover, the operation of VADD.F64 D4, D8, D0 is not described
+correctly.  Because D0 is in a scalar bank, the second source operand (D0) is
+treated as a scalar (simply D0) rather than as the vector (D0, D2).  Therefore
+D0 will be added to all components of the vector in the first source operand
+(D8, D10), and the result will be D4=D8+D0 and D6=D10+D0 (*not* D6=D10+D2).
+
+*****
+
+In Figure 23h, the second row with STRIDE 0b11 and LEN 0b000 yields
+unpredicable results, not "normal" ones.  In fact, when LEN is 0b000 (meaning
+length is 1), any value for STRIDE other than 0b00 (meaning stride is 1) yields
+unpredicable results.
+
+Figure 23h has other errors in it as well and is not reliable.
+
+Reference:  Table D11-1, "Vector length and stride combinations" in the "ARM
+Architecture Manual ARMv7-A and ARMv7-R Edition", document DDI0406C, revision
+C.c.
+
+*****
+
+In the section, "Len and Stride", 24 bytes is actually three double words (i.e.
+space for three double precison floating point values), not "three words".
+
+*****
+
+In Program 23b, the bit pattern for length 4 is 0b011, not 0b101 as stated in
+the comment in line 25.  The actual bit pattern set in line 27 is correct
+(stride = 0b11 meaning 2, a 0 bit as filler between fields, length = 0b011
+meaning 4).  See Figure 23h for reference.

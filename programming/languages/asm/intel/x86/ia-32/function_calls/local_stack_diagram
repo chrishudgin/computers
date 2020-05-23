@@ -1,0 +1,21 @@
+A function's view of the stack, from page 56 of the book _Programming from the
+Ground Up_ by Jonathan Bartlett but modified to include callee-saved registers
+and arguments to a function about to be called:
+
+Parameter #P <--- 4P+4(%ebp)
+...
+Parameter 2 <--- 12(%ebp)
+Parameter 1 <--- 8(%ebp)
+Return Address (saved %eip) <--- 4(%ebp)
+Old %ebp <--- (%ebp)
+Saved %ebx if necessary <--- -4(%ebp)  # order of callee-saved registers
+Saved %esi if necessary <--- -8(%ebp)  #    %ebx, %edi, %esi is arbitrary
+Saved %edi if necessary <--- -12(%ebp)
+Local Variable 1 <--- -16(%ebp)
+Local Variable 2 <--- -20(%ebp)
+...
+Local Variable #L <--- -4L-12(%ebp)
+Argument #A <--- 4A-4(%esp)
+...
+Argument 2 <--- 4(%esp)
+Argument 1 <--- (%esp)

@@ -1,0 +1,28 @@
+In Program 23a, the VCVT.F64.F32 instructions are unnecessary.
+
+In Program 23b, the four VADD.F32 instructions are exactly equivalent to each
+other (and redundant) due to vector wraparound.  Thus, only one of them (any
+one of them) is actually necessary in the program to generate the intended
+output.
+
+*****
+
+In the section "Scalar and Vector Operations", in the discussion of the STRIDE
+field, a better word for "alternative" would be "alternating", i.e. skipping
+over some registers when STRIDE > 1.
+
+*****
+
+In the section, "Which Type of Operator", the consequences of Bank 0 being a
+scalar bank are that whenever one of its registers is used as a destination for
+a VFP math or VMOV operation, a scalar (not vector) operation is performed on
+the source operands, and whenever one of its registers is used as the second
+source operand with a vector destination register bank (and LEN > 1), the
+register explicitly listed in the instruction for the second source operand is
+used as a scalar while the destination and first source operand are both
+treated as vectors (generating a vector / scalar operation with a vector
+result).
+
+Reference: Section D11.2, "Vector length and stride control" in the "ARM
+Architecture Reference Manual ARMv7-A and ARMv7-R edition", document DDI0406C
+revision C.c

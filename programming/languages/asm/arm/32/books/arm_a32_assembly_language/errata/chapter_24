@@ -1,0 +1,69 @@
+In Figure 24a, the sum of A2 + B2 in the left column should be C2.
+
+*****
+
+In the section "Neon Instructions", the operation of the example instruction
+"VADDW.S32 Q0, Q0, D2" is slightly misstated; the operation will actually
+promote (sign extend) both 32-bit signed integer elements of D2 to 64 bits and
+then add them to the two 64-bit signed integer values in Q0, saving the results
+(two 64-bit signed integer sums) in Q0.
+
+The VADDHN.S32 instruction is incorrect; it should be VADDHN.I32 since the
+distinction between signed and unsigned is irrelevant when only the top half of
+each vector element (in the sum) is copied to the destination.
+
+*****
+
+In Program 24b, the comment "Transpose Matrix" is not an accurate description
+of what the two VZIP.32 instructions do.  They actually interleave the vector
+elements of their operands.
+
+Program 24b does not store the middle two rows of the rotated matrix in the
+correct order with respect to each other.  To fix this, swap the contents of
+registers Q1 and Q2 before performing the stores.
+
+*****
+
+In Figure 24f, the matrices shown are 2x3 matrices, not 3x2 matrices as
+described in the text.  The first dimension of a matrix is the number of rows,
+followed by the number of columns.
+
+*****
+
+Figure 24h is incorrectly captioned as the multiplication of 4x4 matrices.  In
+fact, a 2x3 matrix is being multiplied by a 3x2 matrix, yielding a 2x2 matrix
+as shown in Figure 24i.
+
+In Figure 24i, the bottom right element is incorrectly shown as -1.  It should
+be 1 (0 * 3 + 3 * - 1 + 1 * 4).
+
+*****
+
+Figure 24j incorrectly shows a plus sign (+) instead of a multiplication sign
+(x).
+
+*****
+
+In the section "Matrix Math", the description of Program 24d incorrectly states
+that registers D16-D19 and D20-D23 correspond to registers Q12 and Q13.  In
+fact, these D registers correspond to registers Q8-Q11.
+
+*****
+
+In the section "VLD and VST in their Stride", "VLSD" should be "VLD".
+
+*****
+
+In the section "VLD and VST in their Stride", there should not be a space
+between VLD and 2.8 in the first example instruction.
+
+*****
+
+In the section "VLD and VST in their Stride", the second VLD2.16 example
+instruction should be VLD2.32 to match the description of it in the text.
+
+*****
+
+In the section "VLD and VST in their Stride", the desciption for the VLD4.8
+example instruction is that of a store instruction (VST4.8), not a load
+instruction.

@@ -1,0 +1,9 @@
+When an unmasked floating point exception is generated, the contents of the
+x87 register stack are unchanged.
+
+Per section 8.7 ("Handling x87 FPU exceptions in software") of the IA-32 Intel
+Architecture Software Developer's Manual, it is necessary to attempt to execute
+a subsequent floating point instruction (other than a control instruction like
+FINIT) after the instruction that generated the exception in order for the
+software exception handler (such as would generate a SIGFPE signal) to be
+invoked.

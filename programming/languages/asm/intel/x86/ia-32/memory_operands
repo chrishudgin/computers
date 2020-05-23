@@ -1,0 +1,27 @@
+Memory operands are specified as "offsets" to segment base addresses.
+
+An offset is expressed as:
+
+AT&T syntax:  displacement(base_reg,index_reg,scale)
+Intel syntax:  [base_reg + index_reg*scale + displacement]
+
+Each component is optional, as long as at least a displacement or register is
+specified:
+
+"displacement" is an immediate value
+"scale" is an immediate value:  1, 2, 4, or 8
+
+The offset is computed at runtime as: base_reg + index_reg*scale + displacement
+
+Examples:
+
+AT&T syntax:  -192(%ebp,%esi,4)  # %ebp + %esi*4 - 192
+Intel syntax:  [ebp + esi*4 - 192]  # ebp + esi*4 - 192
+
+AT&T syntax:  16(,%esi,2)  # %esi*2 + 16
+Intel syntax:  [esi*2 + 16]  # esi*2 + 16
+
+In an instruction:
+
+AT&T syntax:  pushl -0xc0(%ebp,%esi,4)
+Intel syntax: push DWORD PTR [ebp+esi*4-0xc0]

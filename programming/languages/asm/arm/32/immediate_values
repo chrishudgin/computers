@@ -1,0 +1,24 @@
+It is the assembler that determines whether an immediate constant will meet
+the requirement of being an 8-bit value rotated right by two times a 4 bit
+value.  If the assembler finds that the immediate value is invalid, it will
+abort and print an error message:  "Invalid constant (xxxx) after fixup."
+
+To check whether a constant is valid:
+   AND it with 0xFFFFFF00; this will expose any bits set beyond the lowest
+       eight bits
+   If there are no such bits set, the test passes:  it is an 8-bit value.
+   If there are any such bits set, then try rotating the constant right by
+       0-30 bits in increments of two, and each time perform the AND test again.
+   If all valid rotations have been tried and each one failed the AND test,
+       then the constant will not fit into 8 bits for any rotation.
+       This means that the constant is more than 8 bits wide.
+
+Additional information on ARM immediate value encoding (8 bit constant rotated
+right by (0-15)x2 bits) is available at:
+
+https://alisdair.mcdiarmid.org/arm-immediate-value-encoding/
+
+The page includes background, discussion, and useful examples of immediate
+values for setting bit masks and toggling bits.  It also includes an
+interactive JavaScript immediate value encoder showing the bit values of the 8
+bit constant and 4 bit rotation block for any legal ARM immediate value.

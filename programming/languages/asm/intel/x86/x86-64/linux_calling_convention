@@ -1,0 +1,41 @@
+Integer arguments to a non-syscall function are passed in registers
+   %rdi, %rsi, %rdx, %rcx, %r8, %r9
+
+   Any additional arguments required are passed on the stack.
+
+The first 8 floating point arguments are passed in %xmm0-7.  Additional
+arguments are passed on the stack.  Variadic functions like printf() require
+that register %al contain (before the call is made) the number of floating
+point arguments passed to them.
+
+When a structure is passed as a function argument, the elements of the
+structure are pushed on the stack in reverse order.  The normal function
+argument registers are not used for this purpose.
+
+Caller-saved registers: %rax, %rcx, %rdx, %rdi, %rsi, %r8-%r11, %xmm0-%xmm15
+Callee-saved registers: %rbx, %rbp, %rsp, and %r12-r15
+
+The function places a return value (if any) in %rax or %rdx:%rax (where %rax
+contains the low order bits).  This convention applies to both integer and
+floating point return values.
+
+Aggregates (structures and unions) as return values are a special case.  The
+caller function allocates the memory for the aggregate in its own stack frame
+and passes a pointer to the aggregate as an implicit first argument to the
+function in %rdi (implicit in the sense that the function call in C does not
+include this pointer in its specified argument list).  The callee function then
+writes the return value into the memory to which the first argument passed to
+the callee function points.  The address of the returned aggregate is passed
+back to the caller function in %rax.
+
+*****
+
+To make a system call in 64-bit Linux, place the system call number in %rax,
+then its arguments, in order, in %rdi, %rsi, %rdx, %r10, %r8, and %r9, then
+invoke syscall.
+
+Some system calls return information, usually in %rax. A value in the range
+between -4095 and -1 indicates an error, it is -errno.
+
+The system call destroys %rcx and %r11 but other registers are saved across the
+system call.

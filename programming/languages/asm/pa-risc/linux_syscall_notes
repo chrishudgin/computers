@@ -1,0 +1,14 @@
+Syscall instruction sequence:
+
+ble 0x100(%sr2,%r0)
+ldi <syscall number>, %r20
+
+Linux takes system call arguments in registers:
+
+syscall number       r20
+arg 1                r26
+arg 2                r25
+arg 3                r24
+arg 4                r23
+arg 5                r22
+arg 6                r21

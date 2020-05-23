@@ -1,0 +1,14 @@
+prog8a:
+  The comment on line 22 should read:
+     @ string at string:
+
+prog8b:
+   The book states that the value "#1 LSL #31" (which is 0x80000000) cannot be
+   loaded directly into a register due to the constraints imposed on the use of
+   immediate values.  In fact, this value can be used as an immediate in an LDR
+   instruction because it can be represented as a shifted 8-bit value.
+
+   The description in the book of the logic of the TST and BEQ instruction in
+   this program is incorrect.  If the tested bit is set, the "BEQ _print0"
+   branch will not be taken and a "1" will be printed.  The program does
+   function correctly.

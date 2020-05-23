@@ -1,0 +1,18 @@
+prog8a.s:
+
+This program loads and stores the data at "string" as a full 32-bit word, even
+though only one character of memory is reserved in .data there.  This is at the
+very least poor style and could cause problems if the following three bytes
+were needed for volatile program state, if the program were multithreaded (in
+which case data belonging to another part of the program could be overwritten),
+if the following three bytes were not part of the program's valid address
+space, or if any of those three bytes were marked read-only.
+
+A better solution would have been to use LDRB and STRB instructions instead of
+LDR and STR.  However, LDRB and STRB are not introduced until Chapter 15.
+
+As it happens, the program executes as intended in Raspbian, due in part to the
+fact that the ORR instruction that operates on the full word in R0 only
+modifies the low-order byte of the word (in fact just a single bit in the low
+order byte), leaving the following three bytes unchanged from their previous
+values when the STR instruction is executed.

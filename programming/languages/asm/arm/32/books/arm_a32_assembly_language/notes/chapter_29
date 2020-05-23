@@ -1,0 +1,18 @@
+Some examples of instructions encoded according to the formats listed in Figure
+29a are:
+
+Immediate Operand:  ORR (immediate)
+
+Immediate Shift Operand:  ORR (register)
+
+Register Operand Shift:  SUB (register-shifted register)
+
+*****
+
+In the section "Pipeline", the "forwarding" to which the text alludes is
+"operand forwarding" in which the dependent instruction can obtain results in
+registers from the previous instruction without waiting for the writeback stage
+of the pipeline to complete for the previous instructio (writeback of the
+previous instruction occurs in parallel).  In effect, the results of the
+previous instruction are "forwarded" to the dependent instruction before they
+are written back.

@@ -1,0 +1,6 @@
+The author states that the system may lock up or "freeze", requiring a hard
+reset, when a user program is not written properly.  This should not happen on
+a Linux system.  It may be that these references to system lock-ups were
+originally written for the author's book on RISC OS, which is a single-user,
+cooperative multitasking system that theoretically could be subject to lock-ups
+due to a misbehaving user program in an uninterruptible loop.

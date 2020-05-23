@@ -1,0 +1,31 @@
+ADR and LDR can both be used to place the address of an element of data into a
+register.  However, ADR and LDR are different types of entities and use
+different methods to obtain this result.
+
+In the examples below, we place the address of the label "myval" into register
+r0.
+
+adr	r0, myval
+
+ADR is an assembler directive that calculates the pc-relative offset within the
+.text section to the specified label.  The assembler then replaces the ADR
+directive with an ADD or SUB instruction that adds or subtracts the necessary
+offset from the PC register and stores that ADD/SUB computation's value in the
+destination register.
+
+Key points: An ADR directive is replaced during assembly by an instruction that
+does not access memory.  The target address must be located within the .text
+section.
+
+ldr	r0, =myval
+
+LDR is an instruction rather than an assembler directive.  When used to load an
+address into a register using the "=label" syntax for the address, it, too,
+calculates a pc-relative offset into a literal pool.  However, the computed
+memory location is not the address of the label but rather the address of an
+object of stored data (e.g. a word) that contains the address of the label.
+
+Key points: LDR is an instruction that performs an indirection (memory
+reference) in order to load an address from the referenced memory location.
+The contents of the memory referenced can be an address in any section (e.g.
+.data), not just the .text section.

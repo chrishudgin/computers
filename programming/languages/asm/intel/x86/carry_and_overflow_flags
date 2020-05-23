@@ -1,0 +1,10 @@
+Reference:  http://teaching.idallen.com/dat2343/10f/notes/040_overflow.txt
+
+CF (carry flag) is set when an unsigned operation requires a carry or borrow--
+   when a computation passes through zero or an upper unsigned representation
+   boundary.
+
+OF (overflow flag) is set when a signed operation yields a result of the
+   opposite sign than what is arithmetically expected (e.g. add two positives,
+   get a negative or add two negatives, get a positive)--when a computation
+   passes through an upper or lower signed representation boundary.

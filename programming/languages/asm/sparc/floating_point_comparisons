@@ -1,0 +1,12 @@
+The only floating point instructions that affect the floating point condition
+codes (equal, less than, greater than, unordered) are the FCMP(E)s/d/q
+instructions, which are in turn used by the floating point conditional branch
+instructions, FBfcc (like FBG, FBE, etc.).
+
+There must be at least one non-FCMP instruction (even if it is just a NOP)
+placed between any FCMP instruction and a subsequent FBfcc instruction in order
+for the FBfcc to branch predictably according to the floating point condition
+codes.
+
+Reference: "Floating-point Operate (FPop) Instructions" in the _SPARC
+Architecture Manual, Version 8_, page 140

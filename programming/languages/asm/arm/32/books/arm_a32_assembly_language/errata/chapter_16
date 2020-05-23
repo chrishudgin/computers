@@ -1,0 +1,5 @@
+Figure 16d shows the register values in the opposite order in which they would
+be stored in memory.  STM instructions always store the values of registers by
+ascending numerical register order in memory, with the value of the
+lowest-numbered register specified (r0 in these examples) occupying the lowest
+memory address.

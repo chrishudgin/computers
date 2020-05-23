@@ -1,0 +1,36 @@
+In the section "Pre-Indexed Addressing", the syntax statements for LDR and STR
+are not correct.  They should read:
+
+LDR (<suffix>) <destination>, [<source>,(<offset>)]
+STR (<suffix>) <source>, [<destination>,(<offset>)]
+
+where source and destination are registers and offset is either an immediate
+value or a register.
+
+*****
+
+In the section "Pre-Indexed Addressing", the contant to be loaded in Figure 15d
+(0xF80A) does not match the (mistyped and invalid) constant in the accompanying
+text (0xFBOA).
+
+*****
+
+In the section "Pre-Indexed Addressing", the description of the following
+instruction is incorrect:
+
+LDR R0, [R1, R2, LSL#4]
+
+The value of R2 is shifted right by 4 bits, not by 2 bits as stated in the
+book.
+
+*****
+
+prog15b.s:  The initial value of R2 should be #25, not #26, since it is used
+as an offset from the first element of the array of characters.
+
+*****
+
+In the section "Accessing Memory Bytes", the description of the PL conditional
+execution suffix is incorrect.  PL means "not negative", that is "positive or
+zero", not strictly "positive".  Thus, the byte copy will end once R2 becomes
+negative, not when R2 reaches zero.

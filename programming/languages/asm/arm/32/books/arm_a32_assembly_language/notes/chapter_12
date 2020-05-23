@@ -1,0 +1,4 @@
+The division algorithm in Figure 12b might be described as "division through
+subtraction, accelerated" since the subtractions are of powers of two of the
+divisor rather than just the unmodified divisor.  This explains why the
+quotient is doubled and the temporary divisor is halved after each iteration.

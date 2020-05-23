@@ -1,0 +1,14 @@
+Loads and stores to/from standard integer ARM registers that use a pc-relative
+offset address in the instruction are limited to a 12-bit immediate value to
+store the offset magnitude, plus one additional bit in the instruction encoding
+to specify whether the offset should be added to or subtracted from the pc.
+This means that the offset is limited to a range of +4095 to -4095 bytes from
+the program counter.
+
+Loads and stores to/from floating point (VFP) ARM registers that use a
+pc-relative offset address in the instruction are limited to an 8 bit immediate
+value multiplied by 4 (to ensure word alignment) to store the offset magnitude,
+plus one additional bit in the instruction encoding to specify whether the
+offset should be added to or subtracted from the pc.  This means that the
+offset is limited to a range of +1020 to -1020 bytes (+/- 0..255 * 4) from the
+word-aligned value of the program counter.

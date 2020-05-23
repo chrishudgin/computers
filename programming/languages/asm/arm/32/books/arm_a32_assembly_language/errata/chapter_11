@@ -1,0 +1,21 @@
+In the section "Rotations", the author uses the word "shuffle" as a synonym for
+"shift or rotate" without implying randomization.
+
+In the example of rotating right by four bits, the copy of the last bit out
+that is placed in the Carry Flag is actually bit 3 if counting the bits right
+to left from 0.
+
+*****
+
+In the section "Extended Rotate", the sentence:
+
+"There is also an extended version or Rotate Right...."
+
+should read:
+
+"There is also an extended version of Rotate Right...."
+
+*****
+
+In the section "Uses of Shifts and Rotates", the text should state that the LDR
+and STR operations are described in chapter 15, not chapter 13.

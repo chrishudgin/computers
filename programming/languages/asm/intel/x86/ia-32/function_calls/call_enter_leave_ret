@@ -1,0 +1,15 @@
+# call	<target>
+pushl	%eip     # This pushes onto the stack the address of the instruction
+                 # following the call instruction
+jmp	<target>
+
+# enter
+pushl	%ebp
+movl	%esp, %ebp
+
+# leave
+movl	%ebp, %esp
+popl	%ebp
+
+# ret
+popl	%eip

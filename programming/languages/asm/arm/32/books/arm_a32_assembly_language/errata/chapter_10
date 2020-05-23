@@ -1,0 +1,20 @@
+In the section "The Link Register", the sentence that begins:
+
+"Once the subroutine has completed...."
+
+should read:
+
+"Once the subroutine has completed, the contents of the Link Register can be
+transferred into the Program Counter...."
+
+*****
+
+In the section "Using Conditionals Effectively", the word "archive" should
+probably have been "achieve".
+
+*****
+
+prog10a.s:
+
+The value to print is set to 215 in this program, in contrast to 251 in
+prog8b.s

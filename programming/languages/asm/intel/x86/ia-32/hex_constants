@@ -1,0 +1,10 @@
+Both NASM and GAS accept "0x" as a prefix for hexadecimal constants, as in
+   "0x80".
+
+NASM also accepts "h" as a suffix for hexadecimal constants, as in "80h",
+   but beware that "ah", "bh", "ch", and "dh" are interpreted as registers,
+   not constants.
+
+An alternative in NASM to using a "0x" prefix is to use a "0" prefix together
+   with an "h" suffix, so that, for example, "0ah" unambiguously refers to
+   the hexadecimal constant "A" rather than register AH.

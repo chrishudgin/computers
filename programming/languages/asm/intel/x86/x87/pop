@@ -1,0 +1,12 @@
+An x87 stack has the following effects if the stack does not underflow as a
+result of the pop:
+
+The values stored in the stack registers (r0-r7) are not changed.
+
+Tags the stack register (r0-r7) currently denoted by st(0) as empty in the ftag
+register.
+
+Moves the st(0) top-of-stack pointer up one slot (e.g. from r6 to r7 or r7
+wrapping around to r0), causing the other st(1-7) relative stack pointers to
+move up one slot (with wraparound) as well since by definition the st1-7
+pointers are always sequential relative to st(0).

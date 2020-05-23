@@ -1,0 +1,13 @@
+If an optional shift operation is specified for operand 2, the shift is
+performed on operand 2 before anything else is done with the operand by the
+instruction.
+
+Example:
+
+mvn	r0, r1, rrx
+
+operates as:
+
+1.  Rotate r1 by 1 bit using rotate right extend (rotates through the Carry bit)
+2.  Negate the value in r1 (flip the bits)
+3.  Copy the result from r1 to r0

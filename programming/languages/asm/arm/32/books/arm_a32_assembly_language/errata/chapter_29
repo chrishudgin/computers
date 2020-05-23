@@ -1,0 +1,17 @@
+In Figure 29c, the "result" fields for SBC and RSC are incorrect.
+
+SBC should be: Rd = Op1 - Op2 - (C ? 1 : 0)
+RSC should be: Rd = Op2 - Op1 - (C ? 1 : 0)
+
+That is, if the carry flag (C) is set, reduce the result of the subtraction by
+1.
+
+*****
+
+Figure 29d incorrectly shows the imm3 field occupying four bits.  In fact, it
+occupies three bits.  There should be a zero shown in bit 15.
+
+*****
+
+In the section "Instruction Cycles", the vld1.32 instruction is written
+incorrectly as "vlf1.32".

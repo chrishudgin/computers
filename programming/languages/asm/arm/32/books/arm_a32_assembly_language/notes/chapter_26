@@ -1,0 +1,6 @@
+In the section "New A32 Instructions", note that MOVW overwrites the high order
+16 bits (bits 16:31) of the destination register with zeroes, but the MOVT
+instruction preserves the low order 16 bits (bits 0:15) of the destination
+register.  Thus, loading a 32-bit value by decomposing it into two 16-bit
+immediate values can be accomplished with a MOVW instruction followed by a MOVT
+instruction (but not the other way around).

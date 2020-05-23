@@ -1,0 +1,10 @@
+MVN Operand1, Operand2[, optional shift operation]
+
+The MVN instruction is called "Move Negative" in ARM literature, but
+functionally it performs a "MOVE NOT", meaning that it performs a bitwise
+negation, i.e. a bit flip (not the arithmetic negation which would be the two's
+complement) of operand 2 before copying the value to the destination register
+specified by operand 1.
+
+To place a negative number like -10 into a register, use its two's complement
+minus 1 (which is just a bit flip) as operand2 to MVN.

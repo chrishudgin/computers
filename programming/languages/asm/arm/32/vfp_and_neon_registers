@@ -1,0 +1,27 @@
+VFPv2 provides 32 single and 16 double precision floating point registers
+wherein singles overlap with doubles, such that each double precision register
+logically (and alternatively) contains two single precision registers:
+
+From low bits to high bits in each double precision register:
+
+s0 s1 compose d0
+s2 s3 compose d1
+...
+s30 s31 compose d15
+
+*****
+
+In AArch32 mode, the -D32 variants of VFPv3 and later provide 32 single, 32
+double, and (with NEON) 16 quad word registers with registers of different
+sizes overlapping, such that each quad word register logically (and
+alternatively) contains two double word registers, or either four or zero
+single word registers:
+
+From low bit to high bits in each quad word register:
+
+s0 s1 s3 s3 or d0 d1 compose q0
+s4 s5 s6 s7 or d2 d3 compose q1
+...
+s28 s29 s30 s31 or d14 d15 compose q7
+...
+d30 d31 compose q15

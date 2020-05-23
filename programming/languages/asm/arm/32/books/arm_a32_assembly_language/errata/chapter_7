@@ -1,0 +1,5 @@
+The "SVR" instruction should be "SVC".
+
+ARM literature specifies that the immediate value passed to SWI or SVC should
+be preceded with a hash symbol (#), as with any other immediate value in ARM
+assembly.

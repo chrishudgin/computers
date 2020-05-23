@@ -1,0 +1,4 @@
+Why does ARM have an RSB instruction (reverse subtract, i.e. reverse the order
+of operands in a subtraction)?  One case where it's beneficial to have it is
+when a register value needs to be subtracted from an immediate, which the SUB
+instruction does not allow.

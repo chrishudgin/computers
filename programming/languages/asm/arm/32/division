@@ -1,0 +1,18 @@
+Dividing a signed integer by a power of two with two's complement
+representation:
+
+The ASR instruction (arithmetic shift right, which in contrast to LSR [logical
+shift right] performs sign extension instead of zero fill) can be used to
+divide a signed integer by a power of two using integer division, but in the
+case of a remainder it rounds down (toward negative infinity).  This gives us
+the result we expect for positive integers (e.g. 5 ASR #1 is 5/(2^1) which
+yields 2), but it poses a problem in the case that the number being divided is
+negative.  For example, while -4 ASR #1 (dividing -4 by 2^1 using ASR) and -6
+ASR #1 yield the correct results of -2 and -3, respectively, -5 ASR #1
+(dividing -5 by 2^1 using ASR) yields -3, not -2 as it should for correct
+division.
+
+The solution is to add 2^(shift bits) - 1 to the number before shifting it if
+the number to be shifted is negative.  This ensures that the number before
+shifting won't be "so negative" that the result after shifting is "too
+negative" (by 1).

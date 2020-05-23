@@ -1,0 +1,8 @@
+Greater than / less than comparisons use different instructions for signed
+or unsigned values.
+
+ja:  jump if above (unsigned), i.e. if CF=0 and ZF=0
+jb:  jump if below (unsigned), i.e. if CF=1
+
+jg:  jump if greater than (signed), i.e. if ZF=0 and SF=OF
+jl:  jump if less than (signed), i.e. if SF<>OF

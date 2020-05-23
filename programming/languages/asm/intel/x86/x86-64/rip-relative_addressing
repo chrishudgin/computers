@@ -1,0 +1,3 @@
+In contrast to the eip-relative addressing limited to certain JMP and CALL
+instructions in IA-32 assembly, x86-64 assembly also allows the use of
+rip-relative addressing as a general addressing mode.

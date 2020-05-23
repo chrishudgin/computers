@@ -1,0 +1,12 @@
+The first six arguments to a function call are placed in caller's registers %i0
+through %i5.  The callee can store these on the caller's stack starting at
+caller's %sp+68 (which becomes callee's %fp+68). Arguments beyond the sixth are
+stored on the caller's stack starting at caller's %sp+92 (which becomes
+callee's %fp+92).  The caller must allocate enough space on its stack to
+accommodate these data storage requirements in addition to the 64 bytes from
+%sp to %sp+64 needed for register spill and the caller's own local variables
+and (if needed) saved floating point registers since they are global and
+therefore caller-saved.
+
+Reference: Section D.2, "The Memory Stack" in the _SPARC Architecture Manual,
+Version 8_, beginning at page 194

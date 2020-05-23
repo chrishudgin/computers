@@ -1,0 +1,2 @@
+GDB does not show the value of the %fsr register accurately.  GDB always
+indicates that the value of %fsr is 0 even if it is not.

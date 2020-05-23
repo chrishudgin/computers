@@ -1,0 +1,26 @@
+In the opening section of the chapter, the reference to Figure 5c in Chapter 6
+should be to that figure in Chapter 5.
+
+*****
+
+In the section "Differences", the reference to the BL instruction should be to
+the BX instruction.
+
+*****
+
+In the section "Differences", the BX instruction (incorrectly given as BL) can
+use a full 32-bit register to specify a target address, allowing a target
+anywhere in the 32-bit address space (not limited to +/- 4 MB).
+
+*****
+
+In the section "Single and Multi-Register", the example for Load/Store Register
+addressing should have brackets around the operand R1:
+
+LDR R0, [R1]
+
+*****
+
+In the section "New ARMv7 Instructions", the statement that the CBZ and CBNZ
+instructions accept .N or .W suffixes is incorrect.  They are strictly 16-bit
+Thumb instructions.

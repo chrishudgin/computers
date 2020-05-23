@@ -1,0 +1,6 @@
+In the opening paragraph, a reference is made without further elaboration to a
+GCC capability of passing information to a program when it is called from the
+command prompt.  This may be referring to the libc capabilities of reading
+command line arguments through argv or reading input from stdin using (e.g.)
+scanf, as explained in chapter 19.  It does not appear to be referring to
+directives and macros, the topic of chapter 18.

@@ -1,0 +1,5 @@
+At most one operand for an instruction can make a reference to memory.  So, for
+example, you cannot move data from one memory location to another in a single
+instruction, nor can you add the values of two locations in memory in a single
+instruction--you must use multiple instructions and use registers as
+intermediate storage locations.

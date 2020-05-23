@@ -1,0 +1,20 @@
+The CMP instruction performs a compare between its operands.
+
+CMP works by performing the equivalent of a SUBS of its operands (operand1
+minus operand2), setting flags, and discarding results.
+
+The CMN instruction is "compare to arithmetic negative value", not "compare to
+binary negated value".  In other words, CMN compares the two's complement of
+its operand2 to operand1.
+
+CMN works by performing the equivalent of an ADDS of its operands, setting
+flags, and discarding results.  This works as a comparison because addition of
+a number is the same as subtracting that two's complement of that number.
+
+The purpose of CMN is to allow a small negative number to be used as an
+immediate value in a comparison.  A small negative number cannot be expressed
+using a rotated or shifted 8-bit immediate, so its two's complement (a positive
+number which *can* be expressed as a rotated or shifted 8-bit immediate) is
+used as an operand to CMN, which then computes the two's complement of the
+provided value (yielding the real desired value to be compared) and does the
+comparison against that.

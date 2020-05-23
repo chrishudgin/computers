@@ -1,0 +1,22 @@
+External != extern
+
+External variables occur outside functions and are always static in the
+sense that their values do not get lost when function calls are made.
+
+By default, an external variable has program ("global") scope ("external
+linkage"); extern keyword here, if used, means "this variable is defined
+elsewhere".
+
+By adding the keyword static to the declaration, an external variable or a
+function has scope from where it is declared to the end of the file ("internal
+linkage").
+
+If var is inside a block and is not declared as extern, it has no linkage
+(i.e. it is private to that block).
+
+Inside a function, "extern var" means definition for "var" is outside the
+function (but still could have external or internal linkage)--if a
+declaration for var is in scope outside the block, then extern var inside
+the block has same linkage as var outside the block; if no declaration is
+in scope for var outside the block, then var has external linkage (meaning
+it is visible to the whole program).

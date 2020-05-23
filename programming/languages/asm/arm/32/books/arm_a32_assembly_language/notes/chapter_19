@@ -1,0 +1,25 @@
+In the section "Number Input with Scanf", the discussion of program 19c states
+that scanf will store its result on the stack.  This only happens to be true in
+program 19c because when it passes the target address to scanf through r1, r1
+was already given the value of sp.  In theory, any writable memory address can
+be loaded into r1 to be used as the memory location for scanf to store the
+first of its results.
+
+*****
+
+In the section "Number Input with Scanf", the description of the restoration of
+the stack pointer in program 19c is confusingly worded.  Four bytes are
+"subtracted" from the stack--meaning the stack is shrunk--by *adding* four
+bytes to the value of the stack pointer.
+
+*****
+
+In prog19d.s, the explicit indirect method of loading addresses in the .data
+section into r0 through labels in the .text section is not necessary, though it
+may be helpful for understanding how the addresses of the data actually get
+loaded through intermediate memory locations holding those addresses.  The
+explicit indirect method shown merely allows for the assignment of symbols to
+the memory locations holding the data addresses instead of having those memory
+locations reside in an anonymous literal pool.  For convenience, the =variable
+notation (e.g. "ldr r0, =messagein") can be used instead of referring to
+indirect labels and will generate effectively the same instructions.

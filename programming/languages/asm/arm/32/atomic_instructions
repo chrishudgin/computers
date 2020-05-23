@@ -1,0 +1,8 @@
+ldrex / strex (ARMv6 and later)
+
+This is an implementation of "load-link / store-conditional" as with
+the ll/sc instructions on MIPS.  These instructions are better suited to a
+RISC pipeline than an instruction like compare-and-swap which must atomically
+perform a load, compare, and possibly a store.
+
+Reference:  https://en.wikipedia.org/wiki/Load-link/store-conditional

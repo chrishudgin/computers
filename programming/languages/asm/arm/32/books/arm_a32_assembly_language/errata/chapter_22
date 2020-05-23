@@ -1,0 +1,94 @@
+In the section "VFP Types", the number 4E7 should be described as 4 * 10^7
+(superscript 7), not 4 * 10 subscript 7 (which would imply 10 in base 7
+arithmetic).
+
+*****
+
+In the section "VFP Types", the header for VFPV4-D16 is missing.
+
+*****
+
+In the section "VFP Types", the definition of the exponent should include the
+words "or to the right" after the words "to the left" since the exponent can be
+positive or negative (or zero for no shifting).
+
+*****
+
+In the section "VFP Types", the definiton of the fractional component of a
+floating point number should indicate that normalization of the mantissa could
+require shifting it to the left, not just to the right.
+
+*****
+
+In the section "VFP Types", the mantissa is described in the text as being 23
+bits (+1 for the implicit 1) for single precision and 53 bits (+1 for the
+implicit 1) for double precision.  The latter number should be 52 bits, as
+shown correctly in Figure 22a.
+
+*****
+
+In the section "Managing and Printing", the statement that you cannot load a
+floating point value directly into a register is true only if the offset of the
+memory address from the address in the program counter is too large to be
+encoded in the instruction (limited to +/- 1020 bytes for VLDR).  It is
+possible to load a floating point value directly from memory using a syntax
+such as:
+
+vldr	s0, val1
+
+if the offset (of label val1 in this example) from the address in the program
+counter is sufficiently small.
+
+This rule is the same as it is for loading integer values with LDR, except that
+LDR instructions can encode and utilize a larger offset from the program
+counter (+/- 4095 bytes).
+
+*****
+
+In the section "Managing and Printing", Program 22b is incorrectly described
+as using the VPUSH instruction (which pushes a list of VFP register contents
+onto the stack).  In fact, Program 22b uses the VSTR instruction to store
+the contents of just one register, D1, on the stack.
+
+*****
+
+In the section "Assembling & Compiling FP Code", the example commands to
+assemble and link prog22a.s will not work because the program does not include
+a _start symbol.  "gcc -o prog22a prog22a.s" does work, however.
+
+*****
+
+In the section "Load, Store, and Move", the comment for the second VLDR
+instruction shown is incorrect.  The instruction will load D2, not S2.
+
+*****
+
+In the section "Load, Store, and Move", the "VLDMIAS" (sic) instruction should
+be "VLDMIA" (the "S" instruction modifier to set flags is not syntactically
+allowed with VLDMIA).  Moreover, the operation of the VLDMIA instruction is not
+described correctly.  VLDM{IA,DB} is a vector load multiple instruction,
+meaning it copies data from memory into VFP registers, not the other way
+around.  The description of the operation in the book is of the VSTM
+instruction (vector store multiple).
+
+*****
+
+In the section, "Precision Conversion", the last two examples given for the
+VCVT instruction are incorrect:
+
+VCVT.F32.U32 S10, R2   (sic)
+VCVT.S64.S32 D4, R2    (sic)
+
+When VCVT is used to convert between floating point and integer formats, the
+source and destination registers are both required to be floating point (VFP)
+registers, not ARM core registers like R2.  Once the values are converted, they
+can subsequently be moved between VFP and ARM core registers with VMOV
+instructions.
+
+In addition, the last instruction in the example above should have F64 in place
+of S64 (S64 has no meaning and is not valid syntax).
+
+*****
+
+In the section "Vector Arithmetic", VMAL should be VMLA and the second VSUB
+should be VMLS.

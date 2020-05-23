@@ -1,0 +1,18 @@
+In table 9a of conditional execution suffixes, PL actually means "plus or
+zero", i.e. Minus clear (N flag clear).
+
+Under the topic "Single Flag Condition Codes", CS (carry set) should be
+included in the list before CC (carry clear).
+
+In the description of the NE conditional execution suffix, subtracting two
+unlike numbers will only clear the Zero flag if the S suffix was included in
+the instruction (e.g. SUBS) or if the subtraction was done implicitly by an
+instruction that always sets flags (like CMP).
+
+In the description of the PL conditional execution suffix, the reference to a
+CMP instruction should instead refer to the SUBS instruction in the example
+code.
+
+In the description of the LS conditional execution suffix, it should state that
+the instruction will be executed if the Carry flag is clear *or* the Zero flag
+is set.

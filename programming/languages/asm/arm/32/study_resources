@@ -1,0 +1,15 @@
+Bruce Smith book
+Other online courses:  "Think In Geek", DaveSpace, and Peter Cockrell bookmarks
+ARM Architecture Reference Manual and other official ARM resources
+armconverter.com for converting instructions to hex and vice versa
+Other bookmarks in Computers -> Programming -> Assembly Language -> ARM
+Stack Overflow to find discussions of technical questions
+Four YouTube videos on "Watch Later" list for review after finishing Bruce
+   Smith's book
+
+Ancillary resources:
+
+GNU as man page; online "Using as" guide at sourceware.org, including
+   section on "ARM dependent features"
+gdb man page; GDB Pocket Reference; online "Debugging with GDB" guide at
+   sourceware.org

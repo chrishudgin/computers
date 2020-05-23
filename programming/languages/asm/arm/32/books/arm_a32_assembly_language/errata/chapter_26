@@ -1,0 +1,24 @@
+In the section "Thumb Changes", the first LDMIA instruction should be:
+
+LDMIA R0!, {R1, R2}
+
+*****
+
+In the section "New A32 Instructions", neither the syntax nor the descrption of
+the operation of the example BFI instruction is correct.  The instruction:
+
+BFI R0, R1, #5, #3
+
+will copy the low-order 3 bits (that is, bits 0,1,2) from R1 into R0, starting
+at bit 5 in R0 (but not in R1).
+
+*****
+
+In the section "New A32 Instructions", the stated order of operations for the
+MLS instruction is incorrect.  The product is subtracted from the last register
+specified, and the least significant 32 bits of the result are written into the
+destination register.
+
+*****
+
+In Figure 26a, the "MOV" mnemonic should be "MOVW".

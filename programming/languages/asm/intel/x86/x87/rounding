@@ -1,0 +1,5 @@
+By default (FPU control register bits 10-11 are 0), rounding is done to the
+nearest higher or lower value per traditional rounding rules, except when the
+two bracketing values that can be represented in the available precision are
+equidistant from the value to be rounded, in which case rounding is done to the
+nearest even value.

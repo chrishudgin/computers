@@ -1,0 +1,13 @@
+Size suffixes such as B, W, L, and Q to specify operand size for instructions
+such as MOV are only required by AT&T syntax, and only when the operand size
+cannot be uniquely determined by the assembler based on the instruction or
+operand itself.
+
+For example, these instructions do not require a size suffix because their
+register operators determine the assumed storage size of the immediate
+constant:
+
+mov	$0x10, %al   /* same as movb */
+mov	$0x10, %ax   /* same as movw */
+mov	$0x10, %eax  /* same as movl */
+mov	$0x10, %rax  /* same as movq */

@@ -1,0 +1,10 @@
+By convention, r11 is used as the frame pointer.  However, this is not
+mandatory, and in gdb, it is not consistent during execution of a program in
+the debugger (displayed value of "fp" does not always equal value of r11).
+
+gdb is "smart" enough to set the displayed value for fp to the actual value for
+sp whenever a function is entered.  However, the actual value for r11 does not
+change when an ARM bl instruction is executed (branch and link into a function).
+
+To avoid confusion, query r11 rather than "fp" when debugging ARM 32-bit code
+in gdb.

@@ -1,0 +1,19 @@
+In the section "Modes of Operation", the text incorrectly refers to six modes
+of ARM operation.  In fact, there are seven.
+
+Figure 28b incorrectly omits the seventh ARM operating state, "System", which
+is a privileged mode for operating system software.
+
+*****
+
+In the section "MRS and MSR", the syntax shown for the MSR instruction is
+misleading.  The "Flags" option actually means that some field within the CPSR
+register can optionally be selected by itself (rather than the whole CPSR
+register) for overwriting.
+
+In the section "MRS and MSR", the ARM Architecture Manual (document DDI
+0406C.d) lists only _f, _s, and _fs as valid optional suffixes for the CPSR
+register in the MSR instruction when it is executed in User mode, corresponding
+to the flags, status, and flags+status fields of the CPSR register.  The other
+fields (extension and control) of the CPSR register can only be modified by
+instructions executing in modes other than User (i.e. in privileged modes).

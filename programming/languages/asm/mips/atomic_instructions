@@ -1,0 +1,16 @@
+ll (load linked) and sc (store conditional)
+
+This is an implementation of "load-link / store-conditional" as with the
+ldrex/strex instructions on ARM.  These instructions are better suited to a
+RISC pipeline than an instruction like compare-and-swap which must atomically
+perform a load, compare, and possibly a store.
+
+Reference:  https://en.wikipedia.org/wiki/Load-link/store-conditional
+
+These instruction are not truly atomic but can be used to implement mutexes.
+The store is conditional upon the previously loaded value not having changed.
+If it has changed, a retry is required.  This can lead to large overhead
+("livelock") on large SMP machines; exponential retry backoff timers can
+mitigate the problem at the cost of a performance penalty.
+
+Reference:  https://stackoverflow.com/a/156202/8108445

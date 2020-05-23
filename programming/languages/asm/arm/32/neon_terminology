@@ -1,0 +1,3 @@
+In ARM terminology, Neon (Advanced SIMD) "lanes" are vector elements in the S,
+D, and Q registers.  The vector element size is selectable from 8, 16, 32, or
+64 bits (although constrained by the register size) in Neon instructions.

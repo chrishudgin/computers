@@ -1,0 +1,49 @@
+Reference:
+
+http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.dui0801a/CIADCDHH.html
+
+*****
+
+The carry flag can be used as an "unsigned overflow" condition.  It can also be
+used to record whether a borrow would have been needed during a subtraction.
+
+The SUBS (subtract and set flags) instruction uses an inverted meaning for the
+carry flag such that:
+
+If there was *no* borrow: CF <- 1
+
+If there was a borrow, CF <- 0
+
+The same is true for the CMP instruction, which is implicitly a SUBS that
+discards the result of the subtraction itself and only sets flags.
+
+The ADC (add with carry) and SBC (subtract with carry) both take into account
+the value of the carry flag and can be used as the second and subsequent steps
+in a multi-step series of additions or subtractions (adding or subtracting
+multi-word numbers).
+
+If the carry flag is set during a sequence of additions, meaning a carry of one
+occurred in the previous addition that set flags (ADDS or ADCS), then ADC adds
+it to the sum.
+
+If the carry flag is not set during a sequence of subtractions, meaning a
+borrow of one occurred in the previous subtraction that set flags (SUBS or
+SBCS), then SBC inverts the value of the carry flag and subtracts it from the
+difference.
+
+Sequentially, a multi-word addition should be performed as:
+ADDS lowest-order two words
+ADCS next highest two words
+ADCS next highest two words
+...
+
+and a multi-word subtraction should be performed as:
+SUBS lowest-order two words
+SBCS next highest two words
+SBCS next highest two words
+...
+
+*****
+
+The carry flag is also set during shift and rotate operations; it is the last
+bit shifted or rotated out in either direction.

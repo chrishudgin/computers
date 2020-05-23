@@ -1,0 +1,57 @@
+Figure 12a is missing two instructions at the end.  The correct code, using
+generic register names "Ra - Re" instead of R1 - R5, is:
+
+; Enter with two unsigned numbers in Ra and Rb.
+        MOVS    Rd,Ra,LSR #16           ; Rd is ms 16 bits of Ra
+        BIC     Ra,Ra,Rd,LSL #16        ; Ra is ls 16 bits
+        MOV     Re,Rb,LSR #16           ; Re is ms 16 bits of Rb
+        BIC     Rb,Rb,Re,LSL #16        ; Rb is ls 16 bits
+        MUL     Rc,Ra,Rb                ; Low partial product
+        MUL     Rb,Rd,Rb                ; First middle partial product
+        MUL     Ra,Re,Ra                ; Second middle partial product
+        MULNE   Rd,Re,Rd                ; High partial product - NE
+                                        ;  condition reduces time taken
+                                        ;  if Rd is zero
+        ADDS    Ra,Ra,Rb                ; Add middle partial products -
+                                        ;  could not use MLA because we
+                                        ;  need carry
+        ADDCS   Rd,Rd, #&10000          ; Add carry into high partial
+                                        ;  product
+        ADDS    Rc,Rc,Ra,LSL #16        ; Add middle partial product
+        ADC     Rd,Rd,Ra,LSR #16        ;  sum into low and high words
+                                        ;  of result
+; Now Rc holds the low word of the product, Rd its high word,
+;  and Ra, Rb and Re hold junk.
+
+Source: http://www.riscos.com/support/developers/asm/asmeg.html
+
+*****
+
+In the section "Long Accumulation", the second instruction mentioned should be
+UMLAL, not "UMALA".
+
+*****
+
+In section "Long Accumulation", the syntax for the instruction SMLAWy should be:
+
+SMLAW<y> (suffix) <dest>, <Op1>, <Op2>, <Op3>
+
+*****
+
+In Figure 12b, the second sentence in the comments should be:
+
+"Then double it until 2 x R4 > dividend"
+
+Reference: http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.dui0068b/ch02s09s02.html
+
+*****
+
+In section "Smarter Simple Multiplication", the sentence:
+
+"This is, in effect, 2n."
+
+should read:
+
+"This is, in effect, 2^n."
+
+Similarly, the references to "(2n)" should be "(2^n)".

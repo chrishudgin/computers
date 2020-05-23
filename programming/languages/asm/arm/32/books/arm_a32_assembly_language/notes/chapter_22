@@ -1,0 +1,79 @@
+In the section "VFP, SIMD, and NEON Architecture", note that NEON instructions
+cannot perform *parallel* operations on double precision (64 bit) floating
+point values, only on single precision (32 bit) floating point values or
+various sizes of integers (8, 16, 32, and 64 bits).
+
+*****
+
+In the section "VFP, SIMD, and NEON Architecture", VFP "speeds up" floating
+point calculations by allowing them to be performed natively by a dedicated
+coprocessor made for that purpose rather than having to run code from floating
+point emulation libraries on the integer unit.
+
+*****
+
+In the section "VFP Types", "binary32" and "binary64" are the names the IEEE
+754 standard gives to binary representations of single precision and double
+precision floating point numbers, respectively.
+
+*****
+
+In the section "VFP Types", the alignment restriction for the VLDR instruction
+(VFP load from memory) is that the memory address must be word aligned for
+either single or double precision loads.
+
+Reference:
+
+http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.dui0473k/dom1361289932816.html
+
+*****
+
+In the section "VFP Types", the definition of the fractional component of a
+floating point number does not fully describe normalization.  A normalized
+mantissa is one that has been shifted to the right or left until exactly one
+digit (which must be 1) is to the left of the point.  Once this is done, the
+following digits of the mantissa (not including the 1 to the left of the point,
+which is implied), to maximum possible significance (such that all field bits
+are used), are then encoded as a binary fraction in the mantissa field (first
+bit = 1/2, second bit = 1/4, third bit = 1/8, etc.).  Rounding is then done,
+according to whichever IEEE 754 rounding method is selected.  The shifting that
+was necessary to normalize the mantissa is then used to compute the exponent.
+
+*****
+
+In the section "VFP Types", the exponent ranges given for single-precision and
+double-precision floating point are correct, but the derivation of the values
+is not provided.
+
+For single precision, the 8 bit value is biased by 127, meaning 127 must be
+subtracted from the raw unsigned value to obtain the actual exponent used.
+This would yield a range of exponents (powers of two) from 128 to -127.
+However, the limiting binary values for the exponent of 0b11111111 and
+0b00000000 are reserved along with various combinations of sign and mantissa
+values for representing special floating point numbers: zero, +/- infinity,
+subnormal numbers (very close to zero), and NaN values.  The omission of these
+two limiting encoded values for use in representing "normal" floating point
+numbers means the effective exponent range is 127 (encoded as 0b11111110 in the
+exponent field) to -126 (encoded as 0b00000001) as stated in the book.
+
+The exponent range calculations are done similarly for double precision, where
+the exponent field is 11 bits and biased by 1023, and the limiting encoded
+values (all 1s and all 0s) for the exponent are reserved for special numbers as
+with single precision.
+
+References:
+
+https://en.wikipedia.org/wiki/Single-precision_floating-point_format
+
+https://en.wikipedia.org/wiki/Double-precision_floating-point_format
+
+*****
+
+In the section, "Load, Store, and Move", note that when using VMOV to copy a
+pair of single-precsion floating point registers to or from a pair of ARM core
+registers, as in the example shown:
+
+VMOV S1, S2, R3, R5
+
+the single-precision floating point registers (but not the ARM core registers)
+must be consecutively numbered.

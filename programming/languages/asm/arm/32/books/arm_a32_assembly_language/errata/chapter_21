@@ -1,0 +1,27 @@
+Programs 21a, 21c, and 21d in the text (but not in the downloadable source
+code) are missing <stdio.h> after the #include directive.
+
+*****
+
+In the program listings in Figures 21b and 21c, there should be a space between
+"type" and "main" in ".typemain".
+
+*****
+
+In the section "Frame Pointer Variables", the following instruction:
+	LDR R2, {FP, #-8}
+should be:
+	LDR R2, [FP, #-8]
+
+*****
+
+In the section "Disassembling Syscalls", the reference to lines 3-8 in Figure
+21d should be to lines 2-7.  The reference to lines 23-24 should be to lines
+24-25.
+
+*****
+
+In the section "Disassembling Syscalls", there is a reference to a "slight
+change to the directory name" in Program 21f, but no such change exists in the
+program itself (it still uses the relative pathname "tempdir" as did Program
+21e).

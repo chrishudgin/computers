@@ -1,0 +1,7 @@
+Comments may be of two forms:
+
+C-style comments /* */
+
+or comment to end of line preceded by a !, as in:
+
+! to end of line

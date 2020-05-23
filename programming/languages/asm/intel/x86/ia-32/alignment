@@ -1,0 +1,11 @@
+Accesses to data through SSE instructions must be aligned.  Accesses to data
+through instructions in the base instruction set (non-SSE) do not have to be
+aligned.
+
+GCC aligns the stack on a 16-byte boundary when calling a function, as required
+by SSE instructions.
+
+GCC also aligns functions on 16-byte boundaries by default (configurable with
+-falign-functions[=n]), appending the minimum number of NOP (or equivalent)
+and NOPW (longer instruction length NOP) instructions where necessary to
+achieve that alignment before the start of a function.

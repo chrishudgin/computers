@@ -1,0 +1,4 @@
+In the section "Stack Application", in the register swapping example, the top
+three items on the stack after the first STMFD instruction are listed in
+"descending order" as R0, R1, R2.  Here, "descending order" means descending
+from the top of the stack, toward higher memory addresses.

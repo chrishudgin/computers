@@ -1,0 +1,8 @@
+From page 24 of the _SPARC Architecture Manual, Version 8_:
+
+"No assumptions can be made regarding the values contained in the 'local' and
+'out' registers of a register window upon re-entering the window through a SAVE
+instruction."
+
+Thus, if a function is re-entered, its local and out register values may not be
+preserved from the last time the function was being executed.

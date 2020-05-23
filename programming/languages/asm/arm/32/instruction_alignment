@@ -1,0 +1,18 @@
+Instructions in ARM executable code must be aligned on 4 byte (1 word)
+boundaries.  If any content other than instructions is inserted in the .text
+section, the programmer must ensure that the following instruction is aligned
+properly.
+
+The GNU assembler provides the .align directive to force the alignment of the
+following instruction to a user-specified boundary by adding padding bytes.
+However, the parameter the .align directive takes has a different meaning in
+ARM assembly than it does in i386 ELF assembly.  In i386 ELF assembly, the
+.align parameter specifies a number of bytes.  In ARM assembly, the .align
+parameter specifies the number of low-order bits that must be 0 in the address
+of the subsequent instruction.
+
+Thus, for ARM assembly, ".align 2" is sufficient to ensure proper instruction
+alignment, because the address of the subsequent instruction will have its two
+low order bits set to 0, meaning its address is a multiple of 4 (bytes).
+
+Reference: https://sourceware.org/binutils/docs/as/Align.html#Align

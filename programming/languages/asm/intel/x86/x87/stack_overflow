@@ -1,0 +1,19 @@
+If the x87 stack is full (all eight registers loaded with floating point
+values) and an additional fld (floating point load) instruction is executed:
+   The invalid operation exception (IE, bit 0) and stack fault (SF, bit 6)
+      flags in the fstat register are set to 1.
+   The condition code C1 bit (bit 9) flag is set to 1 for stack overflow
+      (0 would mean stack underflow).
+   If the invalid operation exception bit in the control register is masked
+      (the default for all exception and fault flags in fctrl):
+         The load will push a NaN value to the stack (to register r7 since it
+            wraps around from r0) instead of the value specified in the load
+            instruction.  The value that had been at the bottom of the stack,
+            in r7, before the load will be lost.  The values in the other r
+            registers are unchanged.  st(0) then points to r7, st(1) points to
+            r0, st(2) points to r1, etc.
+            
+   If the invalid operation exception (stack overflow or stack underflow) is
+       not masked:
+          A software exception is generated and the stack contents are
+             unchanged.

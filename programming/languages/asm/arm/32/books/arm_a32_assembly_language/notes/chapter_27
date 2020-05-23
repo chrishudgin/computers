@@ -1,0 +1,28 @@
+In Program 27a, the .flags value for the open call to /dev/mem is 06010002 in 
+octal, which corresponds to the following flags in
+/usr/include/asm-generic/fcntl.h:
+
+O_SYNC|O_CLOEXEC|O_DSYNC|O_RDWR
+
+The actual arguments given to mmap are:
+R0: 0 => kernel chooses base virtual address
+R1: 4096 => length of mapped memory (one page)
+R2: 3 => the memory protection (int prot) argument:
+   PROT_READ | PROT_WRITE = 0x1 | 0x2 = 3
+   where the protection values are defined in
+   /usr/include/asm-generic/mman-common.h
+R3: 1 => MAP_SHARED
+   where the MAP_SHARED value is defined in
+   /usr/include/asm-generic/mman-common.h
+[SP]: file descriptor from open(2)
+[SP, #4]: .gpiobase (address offset into /dev/mem for start of mapping)
+
+Character sequence \000 in "/dev/mem\000" is interpreted by the GNU assembler
+as the ASCII NUL character.
+
+*****
+
+In section "Virtual Memory", the reason syscall 192 (mmap2) does not work with
+the exactly same arguments as the glibc wrapper function mmap is because mmap2
+interprets its final argument as a number of 4096 byte pages rather than as a
+number of bytes.  This is explained in the mmap2(2) man page.

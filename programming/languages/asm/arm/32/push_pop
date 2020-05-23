@@ -1,0 +1,6 @@
+The instructions PUSH and POP are aliases for STMDB and LDMIA, respectively,
+using the sp (i.e. r13) register as the base register with writeback (!).
+
+The registers are not necessarily loaded and stored in the order given in the
+assembly instruction; rather, the lowest-numbered register in the specified
+list of registers is used for the lowest memory address, etc. 

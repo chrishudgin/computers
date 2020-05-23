@@ -1,0 +1,56 @@
+Reference:  https://stackoverflow.com/questions/6918306/why-doesnt-there-exists-a-subi-opcode-for-mips
+
+MIPS does not have a "subi" (subtract immediate) or "subiu" instruction
+(subtract immediate unsigned), but subtraction of an immediate value using
+unsigned arithmetic is equivalent to addiu using the two's complement of the
+number to be subtracted and ignoring overflow (ignoring overflow is what the
+"u" in "addiu" really means, not "unsigned"--it's a misnomer).
+
+Since the value to be subtracted is immediate (and thus known at compile
+time), the compiler can compute its two's complement value and insert it into
+an addiu instruction at compile time.
+
+Consider the following examples in which we are working with unsigned char
+(8 bit) numbers for simplicity and pretending that the addiu instruction
+takes an 8 bit immediate value instead of a 16 bit value as it actually does:
+
+Subtract a small number:
+subiu $2,$2,5  # no such instruction!
+   equivalent to
+addiu $2,$2,-5 # -5 is represented like all immediates in two's complement form,
+               the 8-bit two's complement of -5 is 0xFB
+
+Subtract a large number:
+subiu $2,$2,249  # no such instruction!
+   equivalent to
+addiu $2,$2,7  # 7 is the 8-bit two's complement of 249 (0xF9)
+
+With unsigned numbers, two's complement arithmetic still works, even when
+subtracting a small number actually means adding a large number (the two's
+complement representation of a small negative number) and causing an overflow
+during the addition.  The overflow bits are simply ignored for unsigned
+arithmetic, and the remaining bits have the correct binary value for the
+result.
+
+In reality, the compiler does something like the following to subtract
+249 from 250 where the C source specifies unsigned char (8-bit) arithmetic:
+/* unsigned char c = 250; c -= 249; */
+
+li $2,-6  # $2 now contains 0xfffffffffffffffa, i.e. -6 in signed integer
+   # form--but note that 0xfa is 250 in unsigned char form.  We want to have
+   # 0xfa in a register so we can subtract from it.
+
+sb $2,8($fp)  # store 0xfa (the low order byte in $2) in the low-order byte at
+   # the address $fp+8; the rest of the bytes in the word at that address are
+   # unchanged from their previous (garbage) values
+
+lbu $2,8($fp)  # load the byte as unsigned into $2; this zeros the upper bits
+   # so that $2 now contains 0xfa as we desire
+
+addiu $2,$2,7  # now we add 7 (two's complement of 249) to 0xfa, yielding 0x101
+   # note that 0x01, not 0x101, is the true arithmetic result we're after
+
+sb $2,8($fp)  # store 0x01 in the low-order byte at the address $fp+8
+   # By storing just the low-order byte of $2, we ignore the signed char
+   # overflow bits in $2 beyond the 8th bit, truncating the 9th and higher bits
+   # of 0x101 to give us 0x01, which is our answer

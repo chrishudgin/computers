@@ -1,0 +1,32 @@
+There are 24 offset bits to specify a target address in a pc-relative ARM
+branch instruction.  The 24-bit value is interpreted as follows:
+
+2^24 without any further adjustment or interpretation is 16 MB.
+All ARM instructions are 4 bytes long and word-aligned, so two lower-order bits
+   of 0 are implicitly appended to the offset to ensure that the target address
+   is aligned on a 4 byte boundary.  This would make the effective offset value
+   range 64 MB long.
+However, since branch targets can be positive or negative relative to the pc,
+   the high-order bit is a sign bit.  This divides the effective 64 MB offset
+   range in half:  32 MB ahead or 32 MB behind the value of the pc.
+
+This yields a maximum pc-relative branch offset of +/-32 MB using an imm24
+   offset field.
+
+In the Thumb instruction set, pc-relative branch offsets are encoded with an 8
+bit signed value (for a conditional B instruction) or an 11 bit signed value
+(for an unconditional B instruction), with a single low-order bit of 0
+implicitly appended to the offset to ensure that the target address is even
+(since Thumb instructions can begin at any even address).  This yields a
+maximum pc-relative branch offset of -256 to +254 for an 8 bit offset value or
+-2048 to +2046 for an 11 bit offset value.
+
+To branch to an absolute offset address that uses a full 32 bit value, that
+value must be loaded into a register (from a literal pool, for example) whose
+value is then used as the address of the branch target by specifying the
+register (instead of an immediate value) as an operand to the branch
+instruction.
+
+Further information:
+
+https://community.arm.com/processors/b/blog/posts/branch-and-call-sequences-explained

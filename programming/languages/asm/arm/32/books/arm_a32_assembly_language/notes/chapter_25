@@ -1,0 +1,69 @@
+Throughout this chapter, all references to Thumb instructions are to the 16-bit
+Thumb instructions, not to the 32-bit Thumb instructions which are more
+flexible and are available in later Thumb implementations.
+
+*****
+
+In the Thumb instruction set, pc-relative branch offsets are encoded with an 8
+bit signed value (for a conditional B instruction) or an 11 bit signed value
+(for an unconditional B instruction), with a single low-order bit of 0
+implicitly appended to the offset to ensure that the target address is even
+(since Thumb instructions can begin at any even address).  This yields a
+maximum pc-relative branch offset of -256 to +254 for an 8 bit offset value or
+-2048 to +2046 for an 11 bit offset value.
+
+*****
+
+In the section, "Assembling Thumb", bit 0 of a branch target can be an odd
+value when entering Thumb state with a BX instruction because all Thumb
+instructions actually begin at even addresses (so the 1 in bit 0 is ignored
+when computing the actual target of the branch), but the fact that it is odd
+(bit 0 = 1) is precisely what indicates to the processor that it should enter
+Thumb state (CPSR bit 5 => 1) after taking the branch target of the BX
+instruction.
+
+*****
+
+In the section "Assembling Thumb", the statement that data processing
+instructions dealing with registers R0-R7 update the status flags automatically
+is only true for such *Thumb* instructions, and only for some of them
+(primarily those in the original version of the Thumb instruction set).
+ARM-mode data processing instructions operating on R0-R7 (or any other
+registers), and some versions of Thumb data processing instructions, do not
+automatically update status flags--they only do so if the "s" modifier is
+appended to the instruction mnemonic.
+
+*****
+
+In the section "Assembling Thumb", the statement that the ARM branch target
+from the Thumb section in Program 25b must be placed after the Thumb code is
+due to the fact that the Thumb version 1 ADR instruction is limited to
+calculating a pc-relative 8-bit *forward* address.
+
+*****
+
+In the section "Accessing High Registers", note that there are limits on which
+operands in which of the listed instructions can be high registers--some are
+still constrained to be in the range R0-R7.  For example, the 16-bit Thumb ADD
+and SUB immediate to register instructions cannot use high registers, although
+the 32-bit ADD and SUB Thumb instructions can.
+
+*****
+
+In the section "New ARMv7 Instructions", the IT instruction can include up to
+three "T" (then) and/or "E" suffixes that determine which of the optional
+second, third, or fourth instructions in the IT block are executed depending on
+whether the test condition ("EQ" in the example) is true.
+
+For example:
+
+	mov	r0, r1
+	cmp	r0, r1  @ Set EQ flag if r0 == r1, otherwise clear EQ flag
+	ittee	eq      @ If EQ then (1st), then (2nd), else (3rd), else (4th)
+	moveq	r0, r2  @ 1st instruction; executed if EQ flag set by CMP
+	moveq	r1, r3  @ 2nd instruction; executed if EQ flag set by CMP
+	movne	r4, r5  @ 3rd instruction; executed if EQ flag cleared by CMP
+	movne	r6, r7  @ 4th instruction; executed if EQ flag cleared by CMP
+
+Note that the assembler directive ".syntax unified" is required in order for
+the IT instruction block to be assembled without an assembler error.

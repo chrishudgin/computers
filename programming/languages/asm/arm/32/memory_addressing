@@ -1,0 +1,24 @@
+Although there are LDR and STR pseudo-instructions that the assembler will
+replace with the appropriate sequences of LDR, STR, MOV, arithmetic, or other
+instructions, the real LDR and STR instructions use the following addressing
+modes:
+
+Indexed (also called "offset"):
+   ldr r0, [r1]  # Load from [r1]
+   ldr r0, [r1, #4]  # Load from [r1 + 4]; immediate value is 12 bits, plus sign
+                                           = +/- 0 to 4095
+   ldr r0, [r1, #-4]  # Load from [r1 - 4]
+   ldr r0, [r1, r2]  # Load from [r1 + r2]
+   ldr r0, [r1, -r2]  # Load from [r1 - r2]
+   ldr r0, [r1, r2, lsl #2]  # Load from [r1 + 4*r2]; shift value is 0-31 (bits)
+   ldr r0, [pc, #4]  # Load from [pc + 4]; used to reference memory "close"
+                                           to the program counter in .text
+
+The following can take any of the operand sets shown above but also manipulate
+the value of the base register (the first register in brackets):
+
+Pre-indexed:
+   ldr r0, [r1, #4]!  # Load from [r1 + 4]; then, r1 = r1 + 4
+
+Post-indexed:
+   ldr r0, [r1], #4  # Load from [r1]; then, r1 = r1 + 4

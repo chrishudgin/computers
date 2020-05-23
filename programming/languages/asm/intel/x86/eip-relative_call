@@ -1,0 +1,9 @@
+E8 is the opcode for a pc-relative call, which takes a signed 32 bit immediate
+number as its operand, yielding an instruction that is always 5 bytes long.
+The immediate operand is treated as an offset from the value of the program
+counter.  However, the value of the program counter is actually the address of
+the next instruction, i.e. the address of the instruction executing the E8 call
+plus 5 bytes.  When disassembling an E8 raw instruction (outside the context of
+a program), objdump compensates by adding 5 to the actual offset coded into the
+instruction operand, yielding an offset from the address of the currently
+executing instruction (the E8 call instruction).

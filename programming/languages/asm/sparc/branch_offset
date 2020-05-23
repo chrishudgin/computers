@@ -1,0 +1,11 @@
+Branch instructions such as BA, BG, BLEU, etc. have a 22-bit signed
+displacement field whose value is multiplied by 4 to obtain a PC-relative
+branch target, yielding a range of +/- 8 million bytes from the PC.
+
+The CALL instruction has a 30-bit displacement that, because its value is
+multiplied by 4, can yield a word-aligned control transfer target anywhere in
+the 32-bit virtual memory space.
+
+To branch to an absolute offset address that uses a full 32-bit value, the JMPL
+(jump and link) instruction must be used, and the value of the branch target
+must first be loaded into a register.
