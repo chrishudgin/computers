@@ -1,0 +1,11 @@
+systemd includes its own NTP time synchronization daemon, systemd-timesyncd.
+The systemd-timesyncd service will not run if it detects that any other time
+synchronization software is installed:
+
+# cat /lib/systemd/system/systemd-timesyncd.service.d/disable-with-time-daemon.conf
+[Unit]
+# don't run timesyncd if we have another NTP daemon installed
+ConditionFileIsExecutable=!/usr/sbin/ntpd
+ConditionFileIsExecutable=!/usr/sbin/openntpd
+ConditionFileIsExecutable=!/usr/sbin/chronyd
+ConditionFileIsExecutable=!/usr/sbin/VBoxService

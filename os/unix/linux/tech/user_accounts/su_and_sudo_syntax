@@ -1,0 +1,18 @@
+Log into a user or group and run a command, then return to original shell :
+
+su [-] someuser -c "/some/command with args, in quotes"
+OR
+su [-] someuser /some/command with args, no quotes
+
+sg [-] somegroup -c "/some/command with args, in quotes"
+sg [-] somegroup /some/command with args, no quotes
+
+Note that when -c is used, the entire command line to run must be a single
+string and must therefore be enclosed in quotes or have white space escaped if
+it consists of multiple components.  This convention differs from that of sudo,
+which requires that the command components be separate tokens (strings).
+
+Using sudo's "Runas" (another user or group) capability:
+  
+$ sudo [-i] -u testuser some command with args
+$ sudo [-i] -g testgroup some command with args

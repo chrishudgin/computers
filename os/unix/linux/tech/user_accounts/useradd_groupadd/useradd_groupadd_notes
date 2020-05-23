@@ -1,0 +1,5 @@
+Parameters for default behaviors of useradd and groupadd commands (including
+   password aging defaults, encryption algorithm, UID/GID ranges) are contained
+   in /etc/login.defs
+Parameters for default values for a new user account (including home directory
+   base and shell) are in /etc/default/useradd

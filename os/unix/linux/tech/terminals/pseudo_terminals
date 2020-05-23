@@ -1,0 +1,10 @@
+Each slave pseudoterminal device /dev/pts/[01...] has an independent master
+pseudoterminal created when a process opens /dev/ptmx.  When a process is
+running through a remote ssh session and it sends output to a pts device (e.g.
+though standard output), the slave's pseudoterminal device sends the output to
+its pseudoterminal master, which then is then processed by sshd and sent over
+the network.  The process running through ssh (e.g. bash) does not see its
+output going to a network socket or sshd, only to the pseudoterminal slave,
+just as it would when running in a local GUI terminal.
+
+Reference: pts(4)

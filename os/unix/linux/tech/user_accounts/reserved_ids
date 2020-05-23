@@ -1,0 +1,4 @@
+Reserved UIDs and GIDs can be found in the file /usr/share/doc/setup-*/uidgid
+
+UIDs and GIDs for regular (non-system) users and groups should be 1000 and
+higher.  useradd and groupadd use IDs between 1000 and 60000 inclusive.

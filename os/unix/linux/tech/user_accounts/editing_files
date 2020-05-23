@@ -1,0 +1,11 @@
+vipw and vigr exist for direct editing of password and group files.
+
+vipw : edit /etc/passwd
+vipw -s : edit /etc/shadow
+vigr : edit /etc/group
+vigr -s : edit /etc/gshadow
+
+These commands each create and edit a temporary file called <filename>.edit and
+then copy the edited file into place when done.  They block simultaneous access
+to the files from other vipw/vigr commands.  They do not prevent simultaneous
+edit access to the files through regular vi commands.

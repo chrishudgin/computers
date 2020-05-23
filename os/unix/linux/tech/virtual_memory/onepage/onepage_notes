@@ -1,0 +1,14 @@
+These files demonstrate visually the size of one 4 KB (4096 byte) page of
+memory.
+
+The file "onepage" consists of 4096 byes of random data, representing one page
+of memory on x86, ARM32, and other hardware platforms.
+
+onepage was created with:
+$ dd if=/dev/urandom of=onepage bs=4096 count=1
+
+onepage.hexdump was created from onepage with:
+$ xxd -p onepage | tr -d '\n' > onepage.hexdump
+
+onepage.bits was created from onepage with:
+$ xxd -b onepage | cut -d ' ' -f 2-7 | sed 's/ //g' | tr -d '\n' > onepage.bits

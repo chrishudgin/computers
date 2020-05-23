@@ -1,0 +1,10 @@
+Show a user account's entry in /etc/passwd using the UID as the key:
+
+$ getent passwd <UID>
+
+Example:
+$ getent passwd 1001
+
+Or using a more traditional method:
+
+$ awk -F: '$3=="1001"' /etc/passwd

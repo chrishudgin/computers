@@ -1,0 +1,16 @@
+The number of virtual terminals (virtual consoles) can be configured in:
+
+RHEL 7:  NAutoVTs parameter in /etc/systemd/logind.conf
+Uncomment NAutoVTs line and set desired value, then run:
+# systemctl restart systemd-logind.service
+
+If reducing number of NAutoVTs, also stop getty@ttyX.service (X = tty number)
+for each virtual console no longer wanted.
+
+RHEL 6:  ACTIVE_CONSOLES parameter in /etc/sysconfig/init
+
+*****
+
+chvt # : switches to virtual console # (typically 1-6 are available) as an
+   alternative to using the Ctrl-Alt-F# or Alt-[left|right]arrow keystroke
+   combination

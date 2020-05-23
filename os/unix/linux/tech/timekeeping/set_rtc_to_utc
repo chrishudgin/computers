@@ -1,0 +1,5 @@
+Assuming the software clock is synchronized to an accurate time source, the
+following command will set the hardware clock to UTC rather than the local time:
+# timedatectl set-local-rtc 0
+
+This command also sets the third line of /etc/adjtime to UTC (not LOCAL).

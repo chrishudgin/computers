@@ -1,0 +1,8 @@
+When running commands with su (switch user) and sg (switch group), use the -c
+option followed by a quoted command string.
+
+$ su [-] <username> -c 'some command string'
+$ sg [-] <groupname> -c 'some command string'
+
+This is the opposite convention that sudo uses; a sudo command string should not
+be enclosed entirely in quotes.

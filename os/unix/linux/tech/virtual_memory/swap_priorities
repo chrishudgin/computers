@@ -1,0 +1,11 @@
+The priority of a swap device can be set using the "pri=" mount option, as in
+these sample entries from /etc/fstab:
+
+UUID=476d0158-3717-40fe-892f-0980e9c4e589 swap swap pri=2 0 0
+UUID=cea5610b-a590-4f87-8dfb-cbd4364880fa swap swap pri=1 0 0
+UUID=b66ed4a3-44c0-4f5d-ae91-622f6f87b8fc swap swap defaults 0 0
+
+Priorities can range from -1 (the default) to 32767, with higher numbers
+meaning higher priority.  Lower priority swap devices do not start to be used
+until all space in higher priority swap spaces is in use.  Multiple swap
+devices with the same priority are used round-robin.

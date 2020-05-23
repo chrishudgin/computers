@@ -1,0 +1,10 @@
+The kernel provides /dev/rtc as an interface for programs to access the
+hardware clock.
+
+*****
+
+hwclock : shows hardware clock date/time or syncs hardware and software clock
+   to each other (in either direction).
+
+hwclock --systohc : copy system time (software clock) to hardware clock
+hwclock --hctosys : copy hardware clock to system time (software clock)

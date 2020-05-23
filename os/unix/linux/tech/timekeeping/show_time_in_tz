@@ -1,0 +1,8 @@
+Show the current date and time in a given timezone (the name of which can be
+found using tzselect):
+
+$ TZ=America/New_York date
+
+Show the current UTC date and time:
+
+$ TZ=UTC0 date

@@ -1,0 +1,9 @@
+chage -l username  : show password aging fields for username
+chage -E 0 username  : expire (disable) account (not the password)
+chage -E -1 username  : re-enable an expired (disabled) account
+chage -d 0 : expire the account password immediately
+
+*****
+
+change <username> : run chage interactively to set all password aging values
+   for the specified user

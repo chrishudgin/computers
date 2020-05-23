@@ -1,0 +1,2 @@
+The system timezone is recorded through a symbolic link from /etc/localtime to
+a binary file under /usr/share/zoneinfo.

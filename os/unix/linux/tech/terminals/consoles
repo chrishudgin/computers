@@ -1,0 +1,121 @@
+/dev/console is the last device listed in the console= boot arguments to the
+kernel.
+
+For example, if /proc/cmdline includes the console statements "console=tty0
+console=ttyS0", then /dev/console is ttyS0.
+
+This can be verified with:
+# cat /sys/class/tty/console/active
+tty0 ttyS0
+(the last device listed is the /dev/console device)
+
+*****
+
+/proc/consoles provides additional information about individual console
+devices and how they are configured for use by the kernel.
+
+From https://www.kernel.org/doc/Documentation/filesystems/proc.txt :
+
+/proc/consoles
+------------------
+Shows registered system console lines.
+
+To see which character device lines are currently used for the system console
+/dev/console, you may simply look into the file /proc/consoles:
+
+  > cat /proc/consoles
+  tty0                 -WU (ECp)       4:7
+  ttyS0                -W- (Ep)        4:64
+
+The columns are:
+
+  device               name of the device
+  operations           R = can do read operations
+                       W = can do write operations
+                       U = can do unblank
+  flags                E = it is enabled
+                       C = it is preferred console
+                       B = it is primary boot console
+                       p = it is used for printk buffer
+                       b = it is not a TTY but a Braille device
+                       a = it is safe to use when cpu is offline
+  major:minor          major and minor number of the device separated by a colon
+
+*****
+
+/dev/tty0 is always the currently active text virtual console (the one that is
+being shown at any given time on the display).
+
+Reference:
+https://www.kernel.org/doc/html/latest/admin-guide/devices.html
+
+*****
+
+To configure GRUB to use a serial console in RHEL 7, replace any existing
+GRUB_TERMINAL_INPUT or GRUB_TERMINAL_OUTPUT lines in /etc/default/grub with
+
+GRUB_TERMINAL="serial" (if the only console is the serial port)
+or
+GRUB_TERMINAL="serial console" (if the server has both a serial console and
+   graphical console)
+
+Also add the following line to /etc/default/grub:
+
+GRUB_SERIAL_COMMAND="serial" (if using COM1 at 9600 bps, N/8/1)
+GRUB_SERIAL_COMMAND="serial --speed=9600 --unit=0 --word=8 --parity=no --stop=1"
+(or other settings as appropriate)
+
+For example, for ttyS1 at 115200 bps, substitute --unit=1 for --unit=0 and
+--speed=115200 for --speed=9600
+
+For an AMT (Intel Management Engine) port, determine the I/O port for the
+serial over LAN tty (e.g., dmesg | grep ttyS1) and substitute (e.g.)
+--port=0x30e0 for --unit=1
+
+Then rebuild the grub.cfg:
+
+(BIOS server) # grub2-mkconfig -o /boot/grub2/grub.cfg
+(EFI server)  # grub2-mkconfig -o /boot/efi/EFI/redhat/grub.cfg
+
+Add the tty name (e.g. ttyS1) to /etc/securetty to allow root logins on it
+directly.
+
+Enable the appropriate serial tty getty service, e.g.:
+# systemctl enable serial-getty@ttyS1.service
+
+Reboot for the changes to take effect.
+
+*****
+
+To configure the kernel to use a serial console, add the desired console=
+statements to the kernel boot command line.
+
+In RHEL 7:
+
+Add console=ttyS0 to GRUB_CMDLINE_LINUX in /etc/default/grub, along with any
+other console= devices desired (e.g. console=tty0 console=ttyS0)
+
+Then rebuild the grub.cfg:
+
+(BIOS server) # grub2-mkconfig -o /boot/grub2/grub.cfg
+(EFI server)  # grub2-mkconfig -o /boot/efi/EFI/redhat/grub.cfg
+
+Reboot for the changes to take effect.
+
+*****
+
+KVM virtual machines include a virtual serial device by default.
+
+Once the guest OS has been configured to use the virtual serial device as a
+console, there are two ways to connect to it:
+
+1. In the virt-viewer GUI : View -> Text Consoles -> Serial 1
+2. On the command line : virsh console <guest name>
+
+*****
+
+To force the console to be size 80x25 instead of resizing to the (presumably
+larger) physical screen, add the following parameter to the kernel command
+line:
+
+nomodeset

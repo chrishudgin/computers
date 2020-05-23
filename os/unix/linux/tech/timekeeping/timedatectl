@@ -1,0 +1,13 @@
+timedatectl is part of systemd and accepts options like --no-pager.
+
+# timedatectl [status] : shows local time, UTC, hardware clock time, NTP status,
+   and DST begin/end dates
+
+# timedatectl list-timezones : list all known timezones
+
+# timedatectl set-timezone America/New_York
+
+# timedatectl set-time 2018-06-28 09:57:00 : sets system time (software clock)
+   and real time clock (hardware clock)
+
+# timedatectl set-local-rtc 0 : set real time clock (RTC) to UTC

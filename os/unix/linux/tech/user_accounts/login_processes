@@ -1,0 +1,15 @@
+Simplified login process call sequence:
+
+On a virtual console:
+
+/usr/lib/systemd/systemd
+/sbin/agetty process for that virtual console
+/bin/login
+/usr/sbin/unix_chkpwd (used by pam_unix module to verify password)
+shell process (e.g. bash)
+
+Through sshd:
+
+/usr/sbin/sshd
+/usr/sbin/unix_chkpwd (used by pam_unix module to verify password)
+shell process (e.g. bash)

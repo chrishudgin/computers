@@ -1,0 +1,45 @@
+passwd -S <username> : show whether username's account is locked
+   This command will not indicate directly whether the user's password or
+   account has expired, but these conditions can be inferred from the numbers
+   displayed from /etc/shadow.  To see the expiration dates, use:
+
+chage -l <username> : show password/account aging and expiration values
+   expressed as calendar dates
+
+*****
+
+Reference: shadow(5)
+
+When a user's password is within "warn" days of expiration, the user is
+warned but not required to change their password when they log in.
+
+When a user's password expires, the user must change their password the next
+time they log in.
+
+After a specified number of "inactive" days after password expiration, the
+user's account expires.
+
+*****
+
+Delete existing password (if any) and set a locked password, which disallows
+logins using static Unix password authentication:
+
+# passwd -d <username>
+# passwd -l <username>
+
+*****
+
+When a user's account expires, the user is no longer permitted to log in at
+all.
+
+# usermod -e YYYY-MM-DD <username> : set username's password to expire on date
+  That is, the user will be allowed to continue logging in until the *end* of
+  the specified day.
+# passwd -e <username> : expire username's password immediately
+  (sets user's password last changed field to 0 in /etc/shadow, which by
+   definition means the password has expired)
+
+*****
+
+All account password and account aging/locking settings can be managed with
+passwd(1), usermod(8), and/or chage(1)

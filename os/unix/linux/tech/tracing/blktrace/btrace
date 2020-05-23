@@ -1,0 +1,7 @@
+btrace is a wrapper script for blktrace and blkparse.
+
+# btrace [trace_options] [parse_options] <device_name>
+
+is equivalent to:
+
+# blktrace [trace_options] -d <device_name> -o - | blkparse [parse_options] -i -

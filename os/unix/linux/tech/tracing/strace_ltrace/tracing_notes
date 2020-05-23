@@ -1,0 +1,21 @@
+strace  # trace system calls and signals
+strace -p PID   # trace a given process
+strace [-p PID] -f   # also trace child processes
+strace -e trace=specifier1,specifier2,...
+  limit output to syscalls by name (open, close, etc.) or by category
+     (file, network, etc.)
+strace -c  # show system call counts and timings
+strace -v  # show nested values in arguments (struct members)
+strace -s <strsize>  # maximum string size to print in full (default 32 chars)
+
+*****
+
+ltrace     # trace library calls
+ltrace -l libfoo.so.1  # limit output to calls to specified library file
+   (don't include the path to the library file, only the filename)
+ltrace -S  # trace library calls as well as system calls ("syscallname@SYS")
+ltrace -e somefunc@libfoo   # limit tracing to calls to somefunc in libfoo.*
+ltrace -x somefunc  # trace entry to somefunc in the executable itself
+ltrace -L   # omit tracing of library calls  (useful with -S or -x)
+
+Wildcards (e.g. '*') are supported for arguments to the -e and -x options

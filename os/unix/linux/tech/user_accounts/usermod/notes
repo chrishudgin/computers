@@ -1,0 +1,1 @@
+# usermod -a -G <group1>,<group2>,... <username> : append to user's group list

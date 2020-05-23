@@ -1,0 +1,7 @@
+"reboot" records begin when a system begins booting (not shutting down) and
+extend to the beginning of the next boot.
+
+Records that end in "crash" do not necessarily mean that the system crashed.
+"crash" means only that the listed user has a login record in wtmp but not a
+logout record.  This could be due to a system crash or any reboot of the server
+while a user was logged into the graphical desktop.

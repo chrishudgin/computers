@@ -1,0 +1,4 @@
+tzselect is an interactive script for determining the timezone name for a
+given locale, based on user input to prompts.  It can also be used to display
+the current date and time in any timezone.  It does not set or change the
+system timezone.
