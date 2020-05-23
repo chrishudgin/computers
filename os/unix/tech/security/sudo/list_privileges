@@ -1,0 +1,2 @@
+List sudo privileges available to current user:
+$ sudo -l

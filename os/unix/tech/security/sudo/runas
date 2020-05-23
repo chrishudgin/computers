@@ -1,0 +1,5 @@
+Using sudo's "Runas" (another user or group) capability:
+
+$ sudo -u testuser [-i] some command with args
+   -i means run command through login shell, including cd to user's home dir
+$ sudo -g testgroup some command with args

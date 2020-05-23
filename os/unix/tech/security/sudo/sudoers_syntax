@@ -1,0 +1,24 @@
+The syntax of the privileged access assignments in /etc/sudoers is:
+
+user	MACHINE=COMMANDS
+
+COMMANDS may include a Runas_Alias or Runas_Spec in parentheses specifying the
+users and/or groups (group list preceded by a colon) as which the designated
+user may run the commands.  A Runas_Spec of ALL means all users, but not all
+groups.  To allow Runas as all users and all groups, you must specify ALL:ALL
+
+Examples:
+
+joeuser	CLUSTER1 = (clustadmin, clustoper : clustgroup) /usr/sbin/cluster_start
+
+joeuser may run the command /usr/sbin/cluster_start as clustadmin or clustoper,
+and/or as group clustgroup, on the machines in Host_Alias CLUSTER1.
+
+joeuser ALL=(ALL) ALL
+
+joeuser may run any command on any machine as any user, but may not specify
+any group other the primary group of the user account specified.
+
+joeuser ALL=(ALL:ALL) ALL
+
+joeuser may run any command on any machine as any user and/or any group.

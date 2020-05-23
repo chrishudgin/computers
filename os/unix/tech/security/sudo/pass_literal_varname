@@ -1,0 +1,18 @@
+To pass a literal variable name (like $HOME) to a command run through sudo -i,
+use the normal shell escaping or quoting mechanisms, but do not enclose the
+entire command string in a single set of quotes, or sudo will attempt to run
+a program with a name of the entire quoted string.
+
+Example:
+
+Use:
+$ sudo -u testuser -i echo \$HOME
+/home/testuser
+
+Or:
+$ sudo -u testuser -i echo '$HOME'
+/home/testuser
+
+Not:
+$ sudo -u testuser -i 'echo $HOME'
+-bash: echo /home/testuser: No such file or directory
