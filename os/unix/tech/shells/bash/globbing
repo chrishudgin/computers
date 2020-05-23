@@ -1,0 +1,21 @@
+Shell globbing rules for expansion of pathnames are described in glob(7)
+
+To invert a glob pattern (match all but the pattern):
+$ shopt -s extglob
+and then use !(pattern)
+
+An inverted pattern will not match files beginning with dot (.)
+
+Example to remove all files except those beginning with dot (.), c, or d:
+$ shopt -s extglob
+$ rm !([cd]*)
+
+Example to remove all files except those beginning with c or d, including 
+removing files beginning with a dot (.) :
+$ shopt -s extglob
+$ rm !([cd]*) .[!.]*
+
+Example to remove all files except those beginning with c or d, including 
+removing files beginning with a dot (.) unless they begin with .c or .d :
+$ shopt -s extglob
+$ rm !([cd]*) .[!.cd]*

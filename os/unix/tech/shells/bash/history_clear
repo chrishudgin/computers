@@ -1,0 +1,10 @@
+To clear current shell's history from memory:
+$ history -c
+
+To overwrite the saved shell history in ~/.bash_history with the current
+shell's history:
+$ history -w
+
+Together these commands can be used to clear the saved shell history.
+(Alternatively, the ~/.bash_history file can be removed or truncated after
+history -c)

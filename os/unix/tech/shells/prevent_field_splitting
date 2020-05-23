@@ -1,0 +1,23 @@
+After expansions and substitutions are made to an input command line, the shell
+will perform field splitting.
+
+From the Single UNIX Specification V3:
+
+"If the value of IFS is a <space>, <tab>, and <newline>, or if it is unset, any
+sequence of <space>, <tab>, or <newline> characters at the beginning or end of
+the input shall be ignored and any sequence of those characters within the
+input shall delimit a field."
+
+Reference:
+http://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html#tag_18_06_05
+
+This means that, for example, using "echo" to display the value of an unquoted
+variable whose value includes leading or trailing whitespace will result in
+such whitespace being removed by the shell before echo receives its input.
+
+To prevent field splitting of a variable's value and the consequent whitespace
+removal, enclose the name of the variable in double quotes:
+
+$ echo "$FOO"
+rather than
+$ echo $FOO

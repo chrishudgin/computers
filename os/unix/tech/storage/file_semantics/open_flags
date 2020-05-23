@@ -1,0 +1,20 @@
+The open() mode flags flags O_TRUNC (01000) and O_APPEND (02000) are not
+mutually exclusive and can be combined.  When they are combined, they mean the
+following:
+
+When the file is opened, its existing contents (if any) will be destroyed.  Any
+subsequent writes to the file will be appends, even if lseek is called to
+change the offset between writes.  In other words, with O_APPEND, write will
+always seek to the end of the file before writing.
+
+In contrast:
+
+When using O_TRUNC but not O_APPEND, the file's existing contents (if any) will
+be destroyed, and each write will occur at the current offset within the file.
+
+When using O_APPEND but not O_TRUNC, all writes will append to the file, and
+the file's existing contents will not be destroyed.
+
+The numeric values for O_TRUNC, O_APPEND, and other flags recognized by open()
+are specified in octal and are located on Linux in
+/usr/include/asm-generic/fcntl.h

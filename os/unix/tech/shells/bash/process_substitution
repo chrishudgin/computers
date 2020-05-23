@@ -1,0 +1,76 @@
+cmd1 <(cmd2) <(cmd3) ... | some | more | commands
+   cmd2 and cmd3 have their stdout connected to a FIFO or /dev/fd/... file
+   cmd1 sees its arguments as filenames (FIFOs or /dev/fd/...) and can read
+   from them using file I/O
+
+This syntax allows for more flexbility than a linear pipeline since with
+process substitution, a process can directly read from more than one process's
+output or send to more than one process's input
+
+Example 1
+
+Given the script named cmd1:
+
+#!/bin/bash
+
+echo
+echo ${@}
+echo
+cat $2
+echo
+echo
+cat $1
+
+and the invocation:
+
+$ ./cmd1 <(ls -l cmd1) <(who)
+
+the output might be:
+
+/dev/fd/63 /dev/fd/62
+
+chudgin  pts/0        2018-05-19 18:18 (apollo.solarcore.net)
+
+
+-rwxr-xr-x. 1 chudgin chudgin 52 May 19 18:31 cmd1
+
+*****
+
+Analogously, a command can use process substitution to send its output to
+processes for use as their input.
+
+cmd1 >(cmd2) >(cmd3) ... | some | more | commands
+   cmd2 and cmd3 have their stdin connected to a FIFO or /dev/fd/... file
+   cmd1 sees its arguments as filenames (FIFOs or /dev/fd/...) and can write
+   to them using file I/O
+
+*****
+
+Example 2
+
+Given the script named cmd2:
+
+#!/bin/bash
+
+echo
+echo ${@}
+echo
+echo "hello" > $1
+echo "there" > $2
+echo done
+
+and the invocation:
+
+$ ./cmd2 >(sed 's/h//' | tee tmpfile) >(sed 's/t//')
+
+the output might be:
+
+/dev/fd/63 /dev/fd/62
+
+done
+here
+ello
+
+with tmpfile containg the string "ello"
+
+(Note that the order of execution of processes is not specified)

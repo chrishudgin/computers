@@ -1,0 +1,26 @@
+Show the list of configured maps:
+
+# automount -m
+
+*****
+
+If the autofs implementation supports including configuration files from (e.g.)
+/etc/auto.master.d, as through the following line in /etc/auto.master:
+
++dir:/etc/auto.master.d
+
+then additional configuration files can be dropped in to the included directory
+so that the file /etc/auto.master itself does not need to be modified.
+
+Configuring an indirect map (one that provides a relative directory name as the
+key to determine which NFS directory to mount from the server), as for example
+automounting users' home directories using the username as the key and a base
+dir like /home or /export/home, still requires creating two files if one of
+them is a drop-in to /etc/auto.master.d.
+
+Example:
+
+# cat /etc/auto.master.d/home.autofs
+/export/home	/etc/auto.home
+# cat /etc/auto.home
+*	-rw,intr,hard	server1:/export/home/&

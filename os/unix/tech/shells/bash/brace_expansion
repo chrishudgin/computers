@@ -1,0 +1,14 @@
+Braces can be nested, as in:
+
+$ echo {1..5}{a,d,f{1..4}}
+1a 1d 1f1 1f2 1f3 1f4 2a 2d 2f1 2f2 2f3 2f4 3a 3d 3f1 3f2 3f3 3f4 4a 4d 4f1 4f2 4f3 4f4 5a 5d 5f1 5f2 5f3 5f4
+
+A null brace expansion string in a comma-separated list expands to nothing, but
+the surrounding text is nevertheless repeated.
+
+Examples:
+
+$ echo foo{,bar}baz
+foobaz foobarbaz
+
+$ man{,}  # expands to the command "man man"

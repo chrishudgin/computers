@@ -1,0 +1,17 @@
+bash loads its list of completion capabilities at user login when /etc/profile
+sources /etc/profile.d/bash_completion.sh, which sources
+/usr/share/bash-completion/bash-completion
+
+Using complete's _longopt function, bash can run an arbitrary command with
+the --help option and parse its output for all displayed long options.
+
+A list of bash's current completion capabilities is available from the
+"complete" builtin (but note that these can be dynamically extended by
+running any additional command followed by -- , provided that the command
+displays its long options when sent the option --help).
+
+Example:
+$ foo --<Tab><Tab>
+--someopt
+--anotheropt
+--athirdopt

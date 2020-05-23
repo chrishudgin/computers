@@ -1,0 +1,26 @@
+bash sources the following scripts when started:
+
+Login shell:
+
+/etc/profile
+   (on RHEL, the default /etc/profile also calls /etc/profile.d/*.sh)
+   Sets umask and environment variables including $PATH
+~/.bash_profile or ~/.profile (but not both)
+   (on RHEL, the default ~/.bash_profile also calls ~/.bashrc)
+
+Non-login shell:
+
+~/.bashrc
+   (on RHEL, the default ~/.bashrc also calls /etc/bashrc, which sets PS1
+    and umask)
+   Sets functions and aliases 
+
+Non-interactive shell:
+
+File given by $BASH_ENV
+
+/etc/environment is read by the pam_env.so module after it reads
+   /etc/security/pam_env.conf.  It is not read by bash, but at login bash will
+   inherit environment variables set in these files.  Neither file is a shell
+   script.  /etc/environment can contain VAR=VALUE pairs, but not "export" or
+   other shell commands.

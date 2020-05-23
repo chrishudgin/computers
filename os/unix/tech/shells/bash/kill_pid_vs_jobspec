@@ -1,0 +1,7 @@
+If kill is used to send a signal other than SIGKILL to a stopped background
+job by PID, the process will only receive the signal after it later wakes up
+(e.g. by bringing the process into the foreground).
+
+If kill is used to send a signal to a jobspec (e.g. "kill %1") for a stopped
+background job, the job's processes will be awakened immediately so that the
+signal can be delivered to them immediately as well.

@@ -1,0 +1,10 @@
+Initialize a terminal's settings using its terminfo entry:
+
+$ tput init
+
+Reset a terminal's settings using its terminfo entry:
+
+$ tput reset
+
+The standalone "reset" command is a symlink to tset.  tset is provided by
+termcap, which predates terminfo.

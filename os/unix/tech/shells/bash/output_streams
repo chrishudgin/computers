@@ -1,0 +1,9 @@
+bash outputs the prompt to its own standard error stream.
+
+Just before printing the prompt on standard error, bash runs the command in
+$PROMPT_COMMAND if set.  This is typically set to a printf of an escape
+sequence followed by the prompt string, a BEL character, and additional strings
+such as the username, short hostname, and current working directory.  The
+output of the $PROMPT_COMMAND, which goes to standard output, can be processed
+by a terminal application in order to display the prompt in, e.g. the terminal
+title bar.

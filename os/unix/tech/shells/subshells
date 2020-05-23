@@ -1,0 +1,91 @@
+A subshell that does not need to run any further processes after it starts
+will not exec(), only fork().
+
+Thus:
+$ (x=1)
+will fork() the parent shell but not exec() a new shell.
+
+#####
+
+However, running a shell script or pipeline does cause the subshell to exec()
+(possibly after forking again):
+
+$ ./script  # (where script might run under any interpreter)
+will fork() the parent shell and then exec() the script, overwriting the
+process memory including any non-exported shell variables.
+
+With bash (but not ksh), in order for the script name (rather than just the
+shell name) to appear in the command arguments (e.g. in the output of ps -o
+args), the script must include an explicit #!/some/interpreter at the top of
+the file.
+
+#####
+
+In a pipeline, at least one exec() is required:
+
+$ cat foo | read bar
+
+(ksh and zsh) fork/exec cat and run "read bar" in original shell
+OR
+(bash) fork/exec cat, fork/exec a subshell, and pipe between them
+
+Whether a subshell is started depends on implementation (ksh/zsh vs. bash).
+
+Example from http://www.vidarholen.net/contents/blog/?p=178 :
+
+This means that echo "2 + 3" | bc | read sum; echo $sum
+   will output "5" in ksh and zsh
+   but will produce blank output in bash because subshell runs "read" and
+      then exits
+
+To work around this in bash, you can usually use redirection and process
+substition instead:
+
+$ read sum < <(echo "2 + 3" | bc) 
+$ echo $sum
+5
+
+Or simply group the read and echo commands together in a single subshell to
+prevent shell exit between the read and echo:
+
+$ echo "2 + 3" | bc | (read sum; echo $sum)
+5
+
+Or:
+
+$ sum=$(echo "2 + 3" | bc)
+$ echo $sum
+5
+
+Of course, if the result of the arithmetic is not needed beyond printing to
+standard output, the read and echo are not necessary:
+
+$ echo "2 + 3" | bc
+5
+
+Or use expr:
+$ expr 2 + 3
+5
+
+#####
+
+In bash, in an explicit subshell run inside parentheses () :
+
+$SHLVL does not increment
+$$ does not get set to the subshells's PID--it retains the value of $$ from its
+   parent process
+Similarly, $PPID does not get set to the subshell's PPID--it retains the value
+   of $PPID from its parent process
+However, $BASHPID does get set to the subshell's actual PID
+
+#####
+
+A subshell that is a program other than bash will still inherit the value of
+   $SHELL from the parent shell:
+$ echo $SHELL
+/bin/bash
+$ ksh
+echo $SHELL
+/bin/bash   # can't rely on value of $SHELL to determine actual shell running
+
+#####

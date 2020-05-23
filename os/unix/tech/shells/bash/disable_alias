@@ -1,0 +1,6 @@
+To disable an alias one time while running an otherwise aliased command,
+precede the command with a backslash, as in:
+
+$ alias ls='ls --color'
+$ ls  (includes --color option)
+$ \ls (does not include --color option)

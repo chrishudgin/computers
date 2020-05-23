@@ -1,0 +1,15 @@
+If there are running foreground jobs when a shell is terminated, they will be
+sent a SIGHUP when the shell exits.
+
+If there are stopped background jobs when a shell exit is commanded, the shell
+will print a warning message, "There are stopped jobs", and will not exit until
+another shell exit is commanded.  When a subsequent shell exit is commanded,
+the shell will kill all stopped jobs with SIGTERM and exit.
+
+If the only background jobs are running, and checkjobs is set to on, the shell
+will print a warning message, "There are running jobs", and will not exit until
+another shell exit is commanded.  When a subsquent shell exit is commanded, or
+if checkjobs was set to off (default), the shell will exit immediately without
+prompting.  If huponexit is set to off (default), the shell will not send any
+signal to running background jobs.  If huponexit is set to on, all running
+background jobs will be sent SIGHUP when the shell actually exits.

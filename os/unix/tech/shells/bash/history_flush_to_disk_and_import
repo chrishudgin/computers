@@ -1,0 +1,13 @@
+To flush (append) all command history in memory to disk immediately instead of
+waiting until shell exit:
+$ history -a
+
+To append the contents of the history file ~/.bash_history to the current
+shell history in memory:
+$ history -r
+
+(Note: The related "history -n" does not seem to work reliably in RHEL 7.5.)
+
+By using these two commands together in two different shells, the history
+from one shell can be imported into the other shell without having to exit
+either shell.

@@ -1,0 +1,28 @@
+Ctrl-Spacebar or Ctrl-@ will send an ASCII NUL (0x0) character to the terminal.
+
+Ctrl-S and Ctrl-Q will block and resume terminal output, so that a process
+attempting to write to a terminal will block and sleep.  The thread does not
+stop (block) until it attempts to write to the terminal.  As soon as it does,
+it sleeps until Ctrl-Q is pressed.  Ctrl-S and Ctrl-Q do not send signals to
+any process.
+
+Ctrl-D flushes the terminal's input buffer, immediately sending all characters
+that have been entered on the current input line to the program reading from
+the terminal.  If the input buffer is empty, then sending Ctrl-D will cause the
+reading program to read zero bytes and receive an EOF return code on the read.
+
+Ctrl-C sends a SIGINT to the foreground process group.
+
+Ctrl-Z sends a SIGTSTP to the foreground process group.
+
+bg and fg send a SIGCONT to the specified job (process group).
+fg also makes the specified job (process group) become the foreground process
+group (on Linux via a TIOCSPGRP ioctl), and the shell calls wait().
+
+References:
+
+Wikipedia article on "POSIX terminal interface"
+https://en.wikipedia.org/wiki/POSIX_terminal_interface
+
+IEEE Std 1003.1, section "General Terminal Interface"
+http://pubs.opengroup.org/onlinepubs/9699919799/
