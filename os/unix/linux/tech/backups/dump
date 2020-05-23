@@ -1,0 +1,4 @@
+When performing an interactive (-i) restore from a dump file on disk, enter
+"1" when prompted for a volume number, as in:
+
+Specify next volume # (none if no more volumes): 1

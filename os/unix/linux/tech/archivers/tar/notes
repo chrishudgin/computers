@@ -1,0 +1,15 @@
+--one-file-system : do not cross filesystem boundaries while archiving
+
+Preserving extended file attributes (none by default):
+
+--acls
+--selinux
+--xattrs
+
+These must be enabled during both tar creation and extraction in order to be
+preserved.
+
+*****
+
+tar -r | --append : append to existing tar file
+tar -u | --update : update with newer (more recently modified) files

@@ -1,0 +1,8 @@
+Create STAR archive that preserves SELinux contexts (which are stored in a
+Linux filesystem as extended attributes):
+
+$ star -xattr -H=exustar -c -v -f=home.star /home
+
+Extract STAR archive:
+
+$ star -x -v -f=home.star
