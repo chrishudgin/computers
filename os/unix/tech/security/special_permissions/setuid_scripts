@@ -1,0 +1,4 @@
+The setuid bit is ignored on interpreted programs (scripts).  No error is
+generated, and the script will execute, but the script will run as the
+effective UID of the user running the script, not as the file owner of the
+script.

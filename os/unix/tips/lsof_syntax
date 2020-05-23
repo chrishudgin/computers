@@ -1,0 +1,7 @@
+For process disk hogs, sorted numerically by file size in ascending order:
+
+Linux: lsof -s +f -- /var | awk '$5=="REG"' | sort -n -k 7
+Solaris: lsof -s +f -- /var | grep VREG | sort -n +6
+
+Add -N for NFS filesystems, but on Solaris 10 this option seems to display
+0 as the size of all open NFS regular files

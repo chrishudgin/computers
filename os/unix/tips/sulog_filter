@@ -1,0 +1,3 @@
+USERS="root|oracle"
+
+egrep "\-${USERS}$" sulog

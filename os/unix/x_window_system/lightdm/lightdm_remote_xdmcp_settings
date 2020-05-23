@@ -1,0 +1,17 @@
+Sample customized /etc/lightdm/lightdm.conf settings to allow an incoming
+remote XDMCP client connection:
+
+[SeatDefaults]
+user-session=ubuntu
+autologin-user=false
+xserver-allow-tcp=true
+greeter-session=unity-greeter
+
+[XDMCPServer]
+enabled=true
+port=177
+
+
+Reference:
+
+http://jeffskinnerbox.me/posts/2014/Apr/29/howto-using-xephyr-to-create-a-new-display-in-a-window/

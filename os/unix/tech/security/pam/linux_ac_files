@@ -1,0 +1,2 @@
+On Linux, files in /etc/pam.d with names ending in -ac are those that were
+written by authconfig.  See system-auth-ac(5) for more information.

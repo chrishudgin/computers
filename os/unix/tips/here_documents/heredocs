@@ -1,0 +1,24 @@
+# Output of this portion of the script will be:
+# 	a
+#				b
+#						c
+
+cat <<EOF
+	a
+				b
+						c
+EOF
+
+# Output of this portion of the script will be:
+# a
+# b
+# c
+# since <<- strips leading tabs from the here doc content lines
+# and also allows the here doc terminating string (EOF in this example) to have
+# leading tabs as well.
+
+	cat <<-EOF
+		a
+					b
+							c
+	EOF

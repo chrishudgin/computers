@@ -1,0 +1,13 @@
+If an attempt to shut down or reboot using GUI controls (Apple menu -> Restart
+or Shut Down) after starting the installation of a security update leads to a
+black screen with a mouse cursor on it and no further progress made in shutting
+down:
+
+Log in using ssh.
+$ sudo -i
+# rm -rf /var/folders/zz/zy*
+# shutdown -r now
+
+Then apply the security update again.
+
+Reference: https://apple.stackexchange.com/questions/316716/imac-hangs-trying-to-restart-or-shutdown-10-13-3?newreg=2ff43bf9fa71494cb1ade6fc5b5a14ba

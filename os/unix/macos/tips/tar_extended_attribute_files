@@ -1,0 +1,3 @@
+Prevent tar from creating extended attribute files (._*) in tar files:
+
+export COPYFILE_DISABLE=1

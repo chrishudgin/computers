@@ -1,0 +1,7 @@
+To view the GID of a group:
+
+# dscl . -read /Groups/<groupname> PrimaryGroupID
+
+To change the GID of a group:
+
+# dscl . -change /Groups/<groupname> PrimaryGroupID <oldGID> <newGID>

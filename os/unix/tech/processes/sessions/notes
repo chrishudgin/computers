@@ -1,0 +1,109 @@
+Reference:  Design and Implementation of the FreeBSD Operating System, 2nd ed.,
+section 4.8 - "Process Groups and Sessions"
+
+Sessions group processes started by a login session or a daemon.
+
+Within a session are process groups.  Each process group belongs to a single
+session, and each process belongs to a single process group.
+
+When the shell starts a new process, it creates a new process group for the
+child process using setpgid() before the exec().  Both the parent and child
+call setpgid() on the child process's behalf in order to ensure that the new
+process group is created before additional child processes that will be a
+part of the new process group are forked (thus avoiding a potential race
+condition that would occur if second or subsequent child process tried to
+join the first child's process group before that process group had been
+created).
+
+Parent:
+fork() <- returns child's PID
+setpgid(first_child_pid, first_child_pid)  <- ensures that new process group
+   for child process is created before any additional child processes try to
+   join the new process group; this call will fail if the child has already
+   called exec(), but if so, then it's known that the child will have already
+   called setpgid() anyway (before the exec())--either way, the process group
+   gets created.
+fork()
+setpgid(second_child_pid, first_child_pid) <- assigns second child process to
+   the same process group that was created for the first child process
+
+First child:
+(returns 0 from fork)
+setpgid(0,0) <- create new process group with own PID as pgid; this process
+    becomes the process group leader (i.e. pgid = process's own PID)
+exec()
+
+Second child:
+(returns 0 from fork)
+setpgid(0, first_child's PID) <- Parent already knows first child's PID and
+   thus second child does, too, immediately after the fork; this setpgid()
+   call assigns the second child to the first child's process group
+exec()
+
+
+As an alternative, the parent process can use vfork() instead of fork(),
+   which forces the parent to wait until the child has run exec() or exit().
+   In this way, the parent cannot fork any new processes that need to join
+   the first child's process group until the first child has already called
+   setpgid() to create its new process group (since setpgid() will precede
+   the exec()).
+
+To keep the first child process from exiting before the second and subsequent
+child processes have had a chance to join the first child's process group,
+the parent causes all SIGCHLD signals (after which parent reaps terminated
+child) to block until all necessary processes have joined the process group.
+This keeps the first child process (which would be in a zombie state after
+calling exit()) from being reaped prematurely.  Second and subsequent child
+processes can still join the first child's process group even if the first
+child is in a zombie state.
+
+*****
+
+The shell assigns a distinct process group to each job.  However, it is
+possible to change the PGID of a process so that it joins the existing process
+group of another job.  (For example, a program may be writen to call setpgid()
+with a hardcoded PGID argument that corresponds to the PGID of another process
+group in the same session.)  Thus, it is possible (though only through
+deliberate, contrived action) to have processes in different jobs that have
+been made part of the same process group.
+
+Since all processes in a process group are sent some signals together (like
+SIGINT), if the above situation occurs, sending a SIGINT to one process
+group (like a pipeline) will cause processes in other jobs to receive
+that signal as well.
+
+killpg() is used to send a signal to all processes in a process group, as
+when a job is suspended, resumed, or terminated.
+
+*****
+
+Rationale for not allowing a process group leader to start a new session (via
+setsid()):  setsid() creates a new session ID that matches the PID and PGID
+of the process.  If a process group leader were to do this, then other
+processes in its process group would still belong to the same process
+group as the original process but no longer the same session, violating the
+principle that all members of a process group must belong to the same session.
+
+*****
+
+An interactive session has a controlling terminal, and the session leader 
+(typically a login shell) is the controlling process.  The terminal defines
+a foreground process group that can take input from the terminal.  Through
+job-switching, the shell can change which process group is currently the
+foreground process group.
+
+*****
+
+If any processes remain in a session when the session leader dies, the session
+ID will still be associated with the remaining processes, but they will no
+longer have access to the controlling terminal.
+
+*****
+
+When a process group becomes orphaned (no member has a parent that is a member
+of the same session but a different process group--for example, when a job
+control shell exits but it still has running jobs), its members are sent a
+SIGHUP.  If they are stopped, they are sent a SIGHUP followed by SIGCONT to
+restart them.  If the member processes catch SIGHUP, they may continue running.
+
+Reference:  https://www.gnu.org/software/libc/manual/html_node/Orphaned-Process-Groups.html

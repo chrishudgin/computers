@@ -1,0 +1,53 @@
+NFS shares are contained in /etc/exports
+
+To allow mounting below the directory of the share, use the -alldirs option
+to the mount in /etc/exports, as in:
+/Volumes/apollo\ Users/chudgin  -rw -maproot=root -alldirs
+
+As of macOS 10.13 High Sierra, files on a filesystem with "Ignore ownership on
+this volume" set and mounted by an NFS client from a macOS server will appear
+to be owned by whichever user is logged in on the client, except that root on
+the client will see files appear to be owned by the "nobody" user.
+
+To enable, start, stop, restart NFS server:
+nfsd enable; nfsd start; nfsd stop; nfsd restart
+
+To mount an NFSv3 filesystem shared by a RHEL server:
+mount -t nfs -o resvport server:/mnt /mnt
+
+To configure NFS mounts on a macOS client to prefer NFS version 4 instead of
+the default preference for NFS version 3, place the following line in
+/etc/nfs.conf:
+nfs.client.mount.options = vers=4
+It may be necessary to add the option nolocallocks as well
+
+To automount an NFS filesystem shared by a Linux server, the flag
+   "insecure" must be set for the export in /etc/exports on the Linux server
+
+RHEL 7 notes:
+
+# systemctl enable rpcbind
+# systemctl enable nfs
+
+NFS shares are contained in /etc/exports
+
+RHEL 7 firewalld must have ports opened:
+# firewall-cmd --zone=public --permanent --add-service rpc-bind
+# firewall-cmd --zone=public --permanent --add-service mountd
+# firewall-cmd --zone=public --permanent --add-service nfs
+
+In order for lockd on RHEL 7 to work from a macOS client, the lockd ports
+must be fixed instead of being randomly selected, and netfilter rules must be
+created for the fixed port numbers.  The NFS-HOWTO uses port 32768 for lockd TCP
+and UDP.  To fix these ports for use by lockd, edit /etc/sysctl.conf to add
+the following lines:
+
+fs.nfs.nlm_tcpport = 32768
+fs.nfs.nlm_udpport = 32768
+
+and then set netfilter rules:
+
+# firewall-cmd --zone=public --permanent --add-port 32768/tcp
+# firewall-cmd --zone=public --permanent --add-port 32768/udp
+
+Reboot for the changes to take effect.

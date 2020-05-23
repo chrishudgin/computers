@@ -1,0 +1,96 @@
+setfacl -m :  Create or modify an ACL or ACL mask
+   setfacl -m user:chudgin:rw- testfile
+   setfacl -R -m user:chudgin:rwX /some/dir # recursive, X = conditional execute
+      permission (set x bit on directories and on previously-executable files)
+   setfacl -m user:badguy:- testfile  # removes all permissions for user badguy
+   setfacl -m m::rx testfile   # remove write access for group owner and all
+      users and groups named in ACL entries
+setfacl -x :  Delete an ACL entry
+   setfacl -x user:chudgin testfile
+   setfacl -x mask testfile   # Delete ACL mask if no other ACL entries are set
+setfacl -b :  Delete the entire ACL on a file or dir, including dir default ACLs
+   setfacl -b testfile
+setfacl -m d[efault]: ... : set a default ACL on a directory, an ACL inherited
+   by new files and directories created within it but does not affect the
+   permissions or ACLs that control access to the directory itself, or existing
+   files/dirs.  New subdirs will also obtain the same default ACL that the
+   parent dir has.
+   setfacl -m default:user:chudgin:rwx /some/dir
+      New dirs will be rwx by chudgin; new files will be rw- by chudgin
+   setfacl -m d:g::rwx .  # New dirs will be g:rwx; new files will be g:rw-
+   setfacl -m d:o::- /some/dir  # New files and dirs will be mode 0 for other
+   setfacl -x d:o /some/dir  # Remove the default ACL entry for "other" set
+      above
+   setfacl -k /some/dir  # Remove all default ACLs, but leave other ACL entries
+      set
+   A default ACL overrides umasks (umasks are ignored) when files and
+      directories are created under a directory with a default ACL.
+getfacl file1 | setfacm -M- file2 : copy file1 ACL to file2 (add to existing)
+getfacl file1 | setfacl --set-file=- file2 : copy file1 ACL to file2 (replace)
+setfacl --restore=file.acl : restore ACLs saved previously to file.acl by
+   getfacl command (e.g. getfacl -R /some/dir)
+
+*****
+
+Caution!
+
+The mask will sometimes be changed implicitly as a result of changes to other
+ACL entries on a file.  For example, a mask of r-x will change to rwx if a user
+ACL entry is added that sets the permissions for that user to rwx.  When the
+mask changes, permissions for all named user ACLs and named groups are
+affected.  The mask is set to the union of all permissions of the owning group
+and all named user and group entries (adding all of their permissions).
+
+To prevent this, either set an explicit mask in the setfacl command to modify
+other ACL entries, or use -n when setting an ACL entry to keep the current mask
+from changing.
+
+Always verify all permissions with getfacl after making any changes with chmod
+or (preferably) with setfacl.
+
+*****
+
+If there are multiple group permission sets on a file, and a user account is a
+member of more than one of those groups, access to the file will be granted or
+denied according to the most permissive group permission set for any group of
+which the user is a member.
+
+*****
+
+The ACL mask, which is present if any custom ACL entries have been created,
+applies to all users and groups named in ACL entries as well as the file's
+group owner.
+
+Once an ACL is set on a file, ls -l shows the ACL mask instead of the group
+permissions field, and chmod commands to set the group permissions actually set
+the ACL mask permission bits instead.  To get the actual group owner
+permissions, use getfacl on the file.  To set group owner permissions, use
+setfacl to create an ACL for the group owner.  In general, once an ACL is set,
+permissions for the owning group should be set or changed with
+setfacl -m g::<perms> rather than with chmod.
+
+The rationale for overriding standard group owner permissions with the ACL mask
+and to apply the ACL mask to users and groups besides the user owner and
+"other" is (in part) for backward compatibility with common practice, for
+example so that commands that are intended to remove permissions applicable to
+"group" and "other" (such as chmod 600 or chmod go-rwx) will indeed remove
+permissions for everyone other than the user owner of the file as would be
+expected historically.
+
+*****
+
+When a file is copied over an existing file that has an ACL, by default the
+ACL from the overwritten copy (the target file) is preserved, not replaced by
+any ACL entries on the source file.  cp -p ensures that the source file's ACL
+(if any) is copied along with the source file to the target, replacing the
+target file's ACL (if any).
+
+*****
+
+As with standard Unix permissions, users and groups referenced in ACL entries
+are actually stored as UIDs and GIDs.
+
+*****
+
+More information about ACL implementation, including the order in which regular
+and ACL permissions are checked, is available in acl(5)

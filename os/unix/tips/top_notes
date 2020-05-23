@@ -1,0 +1,25 @@
+"1" key to toggle between stats for all CPUs combined or individual CPUs
+
+"f" key to select fields for display and sorting from an interactive selection
+   screen while top is running
+
+-o [+-]FIELD : sort by FIELD, (+) descending or (-) ascending order
+
+-O : list all possible fields and exit
+
+-pPID1,PID2,... : limit output to specified PIDs
+
+-u USERNAME|UID : limit output to specified effective username or UID
+
+"R" to reverse sort order
+
+"x" to toggle highlighting of sort column
+
+-b : run in batch mode (non-interactive)
+-n # : run for # cycles before exiting
+
+top summarizes processes as "tasks" by default.
+"H" to show threads in summary instead of processes
+
+"S" to show cumulative CPU time consumed by a process and all of its current
+and historical children.

@@ -1,0 +1,10 @@
+# eval not needed in the case of simple, one pass substitution
+
+cmd1="echo hello"
+
+$cmd1
+
+# But note that this doesn't work:
+# "$cmd1"
+# because "$cmd1" will be expanded into a single token "echo hello"
+# which is not an executable filename

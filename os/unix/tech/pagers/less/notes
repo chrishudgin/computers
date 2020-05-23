@@ -1,0 +1,17 @@
+Entering "-i" while less is running will toggle between case-insensitive search
+and case-sensitive search (the default with no options specified).
+
+However, a search string must be in all lower case in order for
+case-insensitivity to be effective with "-i".  Entering a string with any
+capital letters will search only for that string with the same capitalization,
+even if less is running in "case-insensitive" mode.
+
+To force searches to be completely insensitive to case, use "-I" rather than
+"-i".
+
+The "man" command on Linux uses "less -ix8RmPm" (with or without -s) as its
+default pager command, through the use of the $LESS environment variable and
+additional command line options.
+
+less can read compressed files automatically through the /usr/bin/lesspipe.sh
+script set in the $LESSOPEN environment variable.

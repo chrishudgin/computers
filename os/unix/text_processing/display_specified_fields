@@ -1,0 +1,5 @@
+Print only specified fields of input, in these examples 1,2,5,... :
+
+awk '{printf $1FS$2; for (i=5; i <= NF; i++) printf FS$i; print }'
+
+cut -f 1,2,5-  (if fields are always separated by exactly the same delimiter)

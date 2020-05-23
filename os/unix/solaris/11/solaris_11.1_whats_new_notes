@@ -1,0 +1,38 @@
+SMF changes
+
+svcbundle command assists in creating SMF manifests
+svccfg editprop to change an SMF service configuration using a text editor
+
+Zones changes
+
+Parallel updates of zones
+lofi I/O is much faster
+
+Security
+
+Network privileges can be granted to apps at a per-port level
+Address space layout randomization (ASLR)
+PAM configurable per user
+
+Networking
+
+Link aggregation across multiple switches
+
+ZFS
+
+share.nfs and share.smb properties
+
+Kernel and platform
+
+Faster, more scalable virtual memory system (including shared memory)
+Reduced power consumption on sun4v
+
+Booting
+
+GRUB 2 replaces legacy GRUB.  grub.cfg replaces menu.lst and should be
+modified with bootadm, not manual editing.
+Example:  bootadm change-entry -i 0 title="Solaris 11.1"
+
+User commands
+
+Output for man -k is improved

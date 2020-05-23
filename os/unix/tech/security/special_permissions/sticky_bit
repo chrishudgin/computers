@@ -1,0 +1,5 @@
+Even if the sticky bit is set on a directory, the following users can still
+remove ANY file in the directory:
+
+Superuser
+The user owner of the directory

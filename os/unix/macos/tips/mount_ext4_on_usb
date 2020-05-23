@@ -1,0 +1,24 @@
+MacOS does not support mounting ext4 filesystems, but it is possible to mount
+them through VirtualBox in a Linux VM.  This procedure is verified to work
+on RHEL 7 and Ubuntu 16 virtual machines in VirtualBox 5.1.10 on MacOS 10.12.1.
+
+Insert the USB device that contains an ext4 filesystem (which may be on a
+   partition).
+To see which disk name the USB device was given by MacOS, run:
+   # diskutil list
+If any non-ext4 filesystems on the USB device mount automatically in MacOS,
+   unmount them using the Finder or "diskutil unmount diskYsZ"
+Start the Linux VM.
+Once the VM is fully up, select Devices -> USB -> [Your device] in the VM's
+   VirtualBox console window menu.  This will make the device available to
+   the VM.
+Run "fdisk -l" in the VM to see the USB device.  You can now mount it as
+   with any other block device.
+
+When you are done using the filesystem, unmount it in the VM.
+Eject the device in the VM:  # eject sdX
+Unselect the USB device from the VM's VirtualBox console window menu:
+   Devices -> USB -> [Uncheck your device]
+Shut down the VM if it is not needed for any other purpose.
+Eject the USB device from MacOS:  # eject diskY
+Physically remove the USB device.

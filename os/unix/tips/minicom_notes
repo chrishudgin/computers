@@ -1,0 +1,10 @@
+Set up minicom to connect to a serial port:
+
+$ minicom -s
+Serial port setup
+   A - Serial Device : /dev/ttyUSB0 (or other appropriate device)
+   E - Bps/Par/Bits : C, V, L, W for 9600 N81
+   <Enter>
+Exit
+
+<Ctrl-A> X to exit minicom

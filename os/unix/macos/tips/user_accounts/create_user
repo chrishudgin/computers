@@ -1,0 +1,9 @@
+dscl . -create /Users/archive
+dscl . -create /Users/archive UserShell /bin/bash
+dscl . -create /Users/archive RealName "archive" 
+dscl . -create /Users/archive UniqueID "1000"
+dscl . -create /Users/archive PrimaryGroupID 1000
+dscl . -create /Users/archive NFSHomeDirectory /Volumes/SuperDuper/opt/archive
+# dscl . -passwd /Users/archive password
+
+# dscl . -append /Groups/admin GroupMembership archive

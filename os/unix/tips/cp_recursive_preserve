@@ -1,0 +1,7 @@
+cp -a : preserve all attributes (including symlinks) and copy recursively
+
+To recursively copy all files and directories within a directory to another
+directory while preserving all permissions and attributes,  use:
+cp -a /sourcedir/. /targetdir
+The trailing /. in the source specification ensures that a subdirectory
+named "sourcedir" is not created in /targetdir, only copies of its contents.

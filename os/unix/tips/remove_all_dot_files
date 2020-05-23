@@ -1,0 +1,3 @@
+Remove all files beginning with a dot (.) in the current directory:
+
+$ rm .[!.]*

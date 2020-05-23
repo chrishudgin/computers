@@ -1,0 +1,10 @@
+The setgid bit on a directory has two effects:
+
+1. All new files and subdirectories created in the directory will be owned by
+the same group that owns the directory.
+
+2. All new subdirectories created in the directory will inherit the setgid bit.
+
+Existing files and subdirectories will not have their owning group changed, nor
+will files or directories that are moved (with mv) into the directory from
+another location.

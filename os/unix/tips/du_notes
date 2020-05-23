@@ -1,0 +1,8 @@
+Size units:
+
+du can show allocated disk space for files in kibibytes (the default),
+human-friendly units (-h), or arbitrary block size (--block-size=XXX)
+consisting of an integer number of bytes or an integer multiple of a symbolic
+power of 1024 (K, M, G, etc.)--e.g. 10M, 1024K, etc.
+
+The minimum size shown is 0 for empty files, 1 for any file of nonzero size.

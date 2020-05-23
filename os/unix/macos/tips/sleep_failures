@@ -1,0 +1,8 @@
+To check which subsystems (such as file sharing) might be preventing a Mac
+from going to sleep, run:
+
+pmset -g assertions
+
+To prevent undesired wakeups, turn off "Wake for Ethernet network access"
+    in Energy Saver preferences
+(Note that this will likely prevent wakeups through "Back to my Mac" as well.)

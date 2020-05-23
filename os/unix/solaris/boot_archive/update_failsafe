@@ -1,0 +1,14 @@
+To update the Solaris failsafe miniroot, /boot/x86.miniroot-safe
+(for example with a customized /etc/system), do the following:
+
+Save a backup copy of x86.miniroot-safe in /boot.
+gzcat /boot/x86.miniroot-safe > /tmp/boot/x86.miniroot-safe.tmp
+lofiadm -a /tmp/boot/x86.miniroot-safe.tmp
+mount /dev/lofi/1 /mnt
+Make desired changes in filesystem mounted on /mnt, like updating /etc/system.
+umount /mnt
+lofiadm -d /dev/lofi/1
+gzip -c /tmp/boot/x86.miniroot-safe.tmp > /boot/x86.miniroot-safe
+rm /tmp/boot/x86.miniroot-safe.tmp
+
+Test the updated failsafe image by booting from it.

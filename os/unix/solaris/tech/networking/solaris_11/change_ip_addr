@@ -1,0 +1,11 @@
+To change an IP address for an interface (interface net0 in this example):
+
+ipadm delete-addr net0/v4  # This permanently deletes all IPv4 addresses that
+    were configured on net0
+ipadm create-addr -T static -a 10.0.0.68/8 net0/v4
+
+If necessary, to set the default route:
+route -p add default 10.0.0.1
+
+If necessary, to recreate default IPv6 address on an interface:
+ipadm create-addr -T addrconf net0/v6

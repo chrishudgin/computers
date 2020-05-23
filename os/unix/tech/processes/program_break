@@ -1,0 +1,7 @@
+The program break is the first memory address above a process's data segment.
+This will be the first address above the .bss section if the program has a .bss
+section.  The memory at the break address is unmapped, and referencing it will
+cause a segmentation fault.  Once the break has been moved to a higher address
+with brk() or sbrk(), memory from the original break address up to (but not
+including) the new break address is accessible to the program (read/write) and
+will be mapped to physical memory as it is accessed.

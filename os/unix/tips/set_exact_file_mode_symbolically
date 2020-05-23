@@ -1,0 +1,3 @@
+Set an exact file permission mode symbolically using the = sign:
+
+$ chmod ug=rwx,o= somefile  (blank sets no permissions)

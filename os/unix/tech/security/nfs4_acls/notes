@@ -1,0 +1,4 @@
+On RHEL 7, nfs4 ACL utilities are in the nfs4-acl-tools package:
+   nfs4_editfacl
+   nfs4_getfacl
+   nfs4_setfacl

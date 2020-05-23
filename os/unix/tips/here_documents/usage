@@ -1,0 +1,2 @@
+Here documents are useful when a script that must be entirely self-contained
+needs to create a document non-interactively.

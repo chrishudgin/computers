@@ -1,0 +1,9 @@
+In the chmod command (and by extension the setfacl command), the 'X' (capital
+X) mode means set execute permission on a directory, or set execute permission
+on a file only if it already has some execute bit set on it (for user, group,
+and/or other).
+
+Example:
+$ chmod o+X /some/dir  # unconditionally set execute permission for other on dir
+$ chmod o+X somefile  # if user, group, and/or other execute perm is already
+   set, set execute permission for other on somefile

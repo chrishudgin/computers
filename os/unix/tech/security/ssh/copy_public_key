@@ -1,0 +1,4 @@
+Copy the local user's SSH public key to to the ~username/.ssh/authorized_keys
+file on a remote server:
+
+$ ssh-copy-id username@servername

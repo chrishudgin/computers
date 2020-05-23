@@ -1,0 +1,122 @@
+To find files while skipping a certain subdirectory name every time it's
+found at any level below the top level search directory:
+
+$ find . -name skipme -prune -o -name 'filename.pattern' -print
+
+Logically, this means:
+
+Start a recursive find in the current directory.  When you come to any directory
+called "skipme", do not descend into it.  Otherwise, print filenames
+matching "filename.pattern".  The "-o" ("or") operator acts as follows:
+
+If the first clause is NOT true, then evaluate the adjoining clause, etc.
+
+If you leave off the "-print", the command will work the same way, but will
+ALSO print the name of the directory you wanted to skip recursing into.
+
+I guess this means that -print is the default operation UNLESS you
+explicitly specify -print in the command line, in which case only those
+clauses with a -print after them will be printed.
+
+More generally:
+
+$ find . \! \( -name skipme -prune \)  # followed by zero or more additional
+   conditions
+
+*****
+
+To find all files while skipping a certain subdirectory name relative to
+the top level search directory:
+
+$ find . \! \( -path ./skipme -prune \)
+
+To limit the results to files or directories with a specified name, add
+the -name clause *after* the constraints, because order matters--clauses
+are evaluated left to right:
+
+$ find . \( -type d -o -type f \) \! \( \( -path ./skipme1 -o path ./skipme2 \) -prune \) -name somename
+
+*****
+
+To find files only in the current directory but not any subirectories,
+exclude all dirs other than ".":
+
+$ find . ! -name . -prune
+
+i.e. prune (do not descend into) any directory that is NOT .
+
+This evaluates as:
+
+For the name . , do not descend; the result of this part of the evaluation is .
+Negate the result (print everything but .)
+... so -prune is applied *before* the negation
+
+With GNU find, this behavior is also possible using the "-maxdepth 1" option,
+which should precede other options.
+
+To find only certain files in the current directory:
+
+$ find . ! -name . -prune -a -name 'filename.pattern'
+
+The "-a" is optional since it is implied whenever one clause follows another
+
+To find only regular files beginning with . in the current directory:
+
+$ find . ! -name . -prune -a -type f -a -name '.*' -exec basename {} \;
+
+*****
+
+Case insensitive name search:
+
+$ find ... -iname <name_pattern> ...
+
+*****
+
+Searches by file permissions:
+
+$ find ... -perm [-/]<perms>
+   <perms> : the exact bits specified are set, and no others
+   -<perms> : all bits specified are set (but others may be set as well);
+              the digit 0 is a wildcard (matches any)
+   /<perms> : any of the bits specified is set;
+              the digit 0 is a wildcard (matches any), since all files have
+              "at least no bits set" in any given permission field
+
+Examples:
+
+$ find . -perm 644 : find files with exact mode 644
+$ find . -perm -644 : find files with at least user read/write, group read,
+                      and other read permissions
+                      (would find files with mode 644, 744, 755, etc.)
+$ find . -perm -004 : find files with other read permissions
+$ find . -perm /644 : find files with either user read, owner write, group
+                      read, or group write bits set (or any combination of the
+                      above)
+$ find . -perm /011 : find files with group execute or other execute bit sets
+
+Find executable setuid root files:
+$ find / -perm -4000 -perm /111 -user root -type f
+
+Find executable setgid root files:
+$ find / -perm -2000 -perm /111 -group root -type f
+
+*****
+
+Searches by modification time as number of minutes prior to to current time:
+
+$ find ... -mmin [+-]<minutes>
+
+Example:
+
+Find all files modified less than 15 minutes ago:
+
+$ find . -mmin -15
+
+*****
+
+Searches by file type:
+
+find ... -type f : file
+find ... -type d : directory
+find ... -type l : symbolic link
+find ... -type b : block device file

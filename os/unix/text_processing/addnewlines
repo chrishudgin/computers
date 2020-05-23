@@ -1,0 +1,14 @@
+To replace each string of whitespace in the input with a newline:
+
+Portable way:
+
+| sed 's/[ \t][ \t]*/\
+/g'
+
+Or with GNU sed:
+
+| sed -r 's/[ \t]+/\n/g'    # -r enables extended regexes, including "+" symbol
+
+Or with xargs:
+
+| xargs -n 1

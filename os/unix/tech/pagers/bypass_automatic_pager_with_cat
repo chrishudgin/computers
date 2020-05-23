@@ -1,0 +1,10 @@
+Some commands like "journalctl" and "nmcli con show <interface>" in Linux page
+their output by default.  They may or may not have a built-in way to disable
+paging of output (like the --no-pager option on the journalctl command line or
+setting $SYSTEMD_PAGER to an empty string for systemctl).  However, all
+well-behaved programs that page output by default should disable paging when
+they detect that their output is being sent to a pipe rather than to a tty.
+Thus, one general technique for disabling paging of output is to pipe the
+command output through cat, e.g.:
+
+# nmcli con show eth0 | cat

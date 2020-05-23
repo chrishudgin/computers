@@ -1,0 +1,4 @@
+/usr/ccs/bin/dump and elfdump to dump information from a binary
+
+Extract RPATH/RUNPATH, the library search path hardcoded into a binary:
+$ /usr/ccs/bin/dump -Lv <binary> | egrep 'RPATH|RUNPATH'

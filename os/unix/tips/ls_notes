@@ -1,0 +1,24 @@
+Recursion with ls -R does not imply -a; to show hidden files, too, use -aR.
+
+*****
+
+Show actual file disk space usage, in default unit of blocks (equivalent to
+du):
+$ ls -s
+
+Useful for showing sizes of sparse files like virtual machine disk images
+
+Caution: -l, if specified, overrides -s regardless of the order of options on
+the ls command line.
+
+*****
+
+Size units:
+
+ls can show file sizes in bytes (default for -l), physically allocated blocks
+on disk (default for -s), kibibytes (-k), human-friendly units (-h), or
+arbitrary block size (--block-size=XXX) consisting of an integer number of
+bytes or an integer multiple of a symbolic power of 1024 (K, M, G, etc.)--e.g.
+10M, 1024K, etc.
+
+The minimum size shown is 0 for empty files, 1 for any file of nonzero size.

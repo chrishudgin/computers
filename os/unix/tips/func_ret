@@ -1,0 +1,10 @@
+#!/bin/ksh
+
+generic_function()
+{
+	return 7
+}
+
+
+generic_function
+echo $?

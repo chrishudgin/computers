@@ -1,0 +1,10 @@
+Case-insensitive matching of a field (GECOS) using a regex and printing the
+   entire line (default action) that contains the match:
+$ awk -F: 'tolower($5) ~ /hudgin/' /etc/passwd
+
+Remove duplicate lines from input without sorting:
+$ awk '! seen[$0]++'
+
+Pass a shell variable to an awk script:
+$ MYDIR=/mynfs1
+$ awk -v dir="${MYDIR}" '{ print dir }'

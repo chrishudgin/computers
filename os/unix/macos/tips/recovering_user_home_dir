@@ -1,0 +1,6 @@
+After recovering an entire user home directory from a Time Machine backup, it
+may be necessary to move the user's ~/Library/Caches directory out of the way
+before the user can log in successfully again.
+
+Permissions on the user's Mail folders (/Library/Mail/V5) may also need to be
+reset before Mail import will succeed.

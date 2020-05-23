@@ -1,0 +1,5 @@
+To display X11 clients on XQuartz from a remote host, use:
+
+ssh -Y hostname
+
+when connecting to the remote host from MacOS.

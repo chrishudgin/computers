@@ -1,0 +1,5 @@
+To generate strings that include a numeric sequence with optional leading
+zeros:
+
+$ eval "echo abc{$(seq -w -s, 1 11)}"
+abc01 abc02 abc03 abc04 abc05 abc06 abc07 abc08 abc09 abc10 abc11

@@ -1,0 +1,7 @@
+Start the FTP server:
+
+sudo -s launchctl load -w /System/Library/LaunchDaemons/ftp.plist
+
+Stop the FTP server:
+
+sudo -s launchctl unload -w /System/Library/LaunchDaemons/ftp.plist

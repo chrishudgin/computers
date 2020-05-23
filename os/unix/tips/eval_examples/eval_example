@@ -1,0 +1,37 @@
+#!/bin/bash -x
+
+# eval can be used to construct variable names that are not generated until
+# run time
+
+cmd1="echo hello"
+cmd2="echo goodbye"
+
+read num
+echo
+
+# Our intent here is to run either $cmd1 or $cmd2 depending on whether the
+# user inputs "1" or "2"
+
+# Without eval--does not work, as shell interprets this subsitution as
+# the value of $cmd (which is empty) followed by the value of $num
+# (which is 1 or 2), and tries to run "1" or "2" as a command
+# $cmd${num}
+# 
+$cmd${num}
+
+# With eval--run $cmd1 or $cmd2
+#
+# The trick is to delay substitution of $cmd until $num has been evaluated,
+# then allow $cmd1 or $cmd2 to be evaluated,
+# and finally to allow eval to run the resulting string as a command with
+# arguments
+#
+# The shell processes the input as follows, assuming num=2:
+# eval "$(echo \$cmd${num})"
+# eval "$(echo \$cmd2}"
+# eval "$cmd2"
+# eval "echo goodbye"
+# echo goodbye
+# Output is:  goodbye
+#
+eval "$(echo \$cmd${num})"

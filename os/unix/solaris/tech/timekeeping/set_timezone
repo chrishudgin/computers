@@ -1,0 +1,11 @@
+Solaris 11:
+
+# nlsadm get-timezone
+timezone=US/Central
+# nlsadm set-timezone US/Eastern
+Setting SMF property timezone/localtime with value: 'US/Eastern' ...
+Successfully set
+# nlsadm get-timezone
+timezone=US/Eastern
+
+The nlsadm command is provided by the package "nls-administration".

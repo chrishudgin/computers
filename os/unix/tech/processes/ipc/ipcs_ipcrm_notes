@@ -1,0 +1,7 @@
+ipcs -p  # show processes that created and last used IPC resources
+ipcs -u  # show IPC resource usage summary
+ipcs -l  # show IPC resource limits
+ipcs -t  # show last time IPC resources were used (can be helpful in
+   identifying orphaned, unreleased resources)
+ipcrm -q|-m|-s ID  # remove IPC resource by type (queue, memory, semaphore)
+   and ID

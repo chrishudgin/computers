@@ -1,0 +1,9 @@
+Per-user (or per-group) login access can be allowed or disallowed by location
+(local tty or network address) using /etc/security/access.conf
+All entries in access.conf are commented out by default, imposing no login
+restrictions by location.
+
+Note: The PAM login module by default does not perform any checks using the PAM
+access module.  To configure PAM login to use the PAM access module, add the
+following line to /etc/pam.d/login :
+auth required pam_access.so

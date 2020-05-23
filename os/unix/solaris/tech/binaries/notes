@@ -1,0 +1,4 @@
+RPATH/RUNPATH can be overridden with LD_LIBRARY_PATH and LD_LIBRARY_PATH_64,
+but not if the executable is setuid and being run as a user other than the
+owner.  In that case, the LD variables are ignored.  A trusted library path
+can be added to /var/ld/ld.config if necessary using the "crle -s" command.

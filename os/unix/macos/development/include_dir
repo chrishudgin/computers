@@ -1,0 +1,3 @@
+C include directories for Xcode on OS X 10.11 are located at:
+
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/usr/include

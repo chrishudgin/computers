@@ -1,0 +1,2 @@
+Per-user ssh client parameters can be set in ~/.ssh/config using the same
+format as in /etc/ssh/ssh_config

@@ -1,0 +1,7 @@
+To transfer a remote URL recursively:
+
+wget -r --no-parent http://some.url
+
+Or to exclude index.html files:
+
+wget -r --no-parent --reject "index.html*" http://some.url

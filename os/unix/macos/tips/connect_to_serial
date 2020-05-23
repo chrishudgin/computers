@@ -1,0 +1,9 @@
+Use a USB to serial cable to connect to a remote server's console port:
+
+screen /dev/tty.usbserial 9600
+
+Ctrl-A Ctrl-\ to kill the screen session
+
+Note: Do not use /dev/cu.usbserial as the device, or else a later screen
+session to it will hang the screen process and it will not be possible to kill
+it without a reboot.

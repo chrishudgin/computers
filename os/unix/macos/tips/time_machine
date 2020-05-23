@@ -1,0 +1,22 @@
+Enable automatic Time Machine backups:
+
+tmutil enable
+OR
+defaults write /Library/Preferences/com.apple.TimeMachine AutoBackup -bool true
+
+Disable automatic Time Machine backups:
+
+tmutil disable
+OR
+defaults write /Library/Preferences/com.apple.TimeMachine AutoBackup -bool false
+
+Remove old Time Machine backups:
+
+tmutil delete /Path/To/Backup/Dir  (multiple directories can be specified)
+
+*****
+
+Allow Time Machine to run at a higher priority, which may result in faster
+backups:
+
+sysctl debug.lowpri_throttle_enabled=0   # defaults to 1

@@ -1,0 +1,70 @@
+In RHEL, PAM modules are located in /usr/lib{,64}/security
+
+PAM policies (chains of modules to invoke when authentication, login, or
+   password management is required by a given program) for the local system
+   are defined in /etc/pam.d and are typically named for the programs that use
+   them (e.g. passwd or sshd).
+
+PAM module configuration files are in /etc/security
+
+PAM modules have their own man pages, e.g. pam_limits(8)
+
+PAM provides the following management groups (module types):
+   auth:  authenticates user, including password check if applicable
+   account:  checks for accounts restrictions, such as those based on UID
+      or time of day
+   password:  change password and check against password change policies
+   session:  set resource limits and SELinux contexts; log session start/end
+
+   A leading dash character (-) is used for modules (like pam_systemd) that
+      may not exist, are therefore optional, and whose absence should not
+      cause a log message to be generated
+
+and the following control flags:
+   required:  necessary for success, but continue checking other modules
+      Even if a "required" check fails, other module checks might be necessary
+      for logging or to prevent disclosing the nature of an authentication
+      failure (invalid account vs. incorrect password, for example) to an
+      attacker.
+   requisite:  necessary for success; upon failure, do not check other modules
+   sufficient:  not necessary for success; upon success, do not check other
+      modules; if any preceding required modules failed, then access is denied
+   optional:  not necessary for success if non-optional modules are in the
+      stack; continue checking other modules
+   include:  include entries matching the same module type from another file
+   substack:  include another file as (essentially) a subroutine with return;
+      the entire substack is treated as one module; "done" and "die" actions
+      in a substack return to the calling stack instead of ending evaluation
+      immediately as they would in the parent stack
+
+A PAM module may have more than one type (e.g. pam_unix supports all four
+   module types), meaning it can be used to provide more than one PAM service.
+   The same module may be called multiple times as different module types
+   (and possibly with different parameters) by a single program as it
+   makes various checks to validate the user's login.
+
+A more general syntax using pairs of more granular control values and their
+   associated actions, enclosed in brackets, can be used instead of the standard
+   control flags.  These allow for more specific return codes from modules to
+   be checked and a larger set of actions to be selected.  The standard
+   control flags map to the more general syntax as follows:
+
+       required
+           [success=ok new_authtok_reqd=ok ignore=ignore default=bad]
+       requisite
+           [success=ok new_authtok_reqd=ok ignore=ignore default=die]
+       sufficient
+           [success=done new_authtok_reqd=done default=ignore]
+       optional
+           [success=ok new_authtok_reqd=ok default=ignore]
+
+value=N (e.g. success=1) means skip the next N module lines if that value is
+   returned
+
+The order of entries in a PAM policy file is significant.  If, for example,
+   required modules for a given type are listed after a sufficient module of
+   the same type, and the sufficient module's check succeeds, the subsequent
+   required modules will not be checked even though they are marked "required".
+
+In RHEL, PAM logs to /var/log/secure; individual modules may log to other
+   files, such as /var/log/lastlog

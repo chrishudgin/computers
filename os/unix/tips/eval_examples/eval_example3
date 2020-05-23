@@ -1,0 +1,7 @@
+A classic example of the use of eval is to set the environment variables
+COLUMNS and LINES using the output of the "resize" tool:
+
+eval $(resize)
+
+More generally, given some text that could be interpreted as executable
+commands, eval will execute the given text as commands.

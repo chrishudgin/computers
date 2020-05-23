@@ -1,0 +1,8 @@
+The built-in VNC client is:
+
+/System/Library/CoreServices/Applications/Screen Sharing.app/Contents/MacOS/Screen Sharing
+
+To connect to a client:
+
+Connection -> New -> [enter vnc://server:portnum, e.g. vnc://odroid64:5901]
+X:0 is port 5900, X:1 is port 5901, etc.

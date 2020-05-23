@@ -1,0 +1,10 @@
+Avoid having to include a pipe to "grep -v grep" when filtering for a
+process string from ps:
+
+$ ps -ef | grep '[f]oo'
+
+This works because the arg string of the grep process itself will be of the form
+   grep [f]oo
+which does not match the regular expression for which grep will filter, [f]oo
+(meaning f followed by oo).  Thus grep will not return itself in its list of
+matched lines.

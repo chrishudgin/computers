@@ -1,0 +1,7 @@
+Output sent to stdout is buffered and is not synchronous with writes until a
+newline character is sent.  If a program that writes to stdout does not call
+fflush(3), either explicitly or implicitly (e.g.  through exit(3)), any data
+left unflushed in the buffer may be lost when the program exits.  This is true
+even if the program's output is redirected through a pipe or to a file.
+
+Output sent to stderr is not buffered and is synchronous with writes.

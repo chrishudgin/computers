@@ -1,0 +1,23 @@
+Appending a slash / to a destination directory ensures that the source will be
+copied only if the destination directory exists, rather than being copied with
+a new name to the parent of the destination directory.
+
+Example:
+
+Copy the file bar in the current directory to the directory /foo, thus
+creating the file /foo/bar.
+
+Good:
+# cp bar /foo/   # copies bar to /foo if /foo exists and is a directory;
+                 # otherwise, fails
+# ls -l /foo/bar
+-rw-r--r--  1 root  wheel  236 Apr 19 13:36 /foo/bar
+
+Bad:
+# cp bar /foo    # copies bar to /foo if /foo exists and is a directory;
+                 # otherwise, copies bar to / and names the copy "foo"
+                 # (which was not intended)
+# ls -l /foo/bar
+ls: cannot access /foo/bar: No such file or directory
+# ls -l /foo
+-rw-r--r--  1 root  wheel  236 Apr 19 13:37 /foo

@@ -1,0 +1,12 @@
+Enable Internet Sharing by ensuring that the private subnet's interface is
+turned OFF in Network preferences and then enabling Internet Sharing in the
+Sharing preferences.
+
+The IPv4 network used for the private subnet's interface is 192.168.2.0/24, and
+the IP address of the Mac on that subnet is 192.168.2.1.  Configure other
+clients on the subnet to use 192.168.2.1 as their gateway and DNS server.
+
+Network Preferences will continue to show the private subnet's interface in
+an "Off" state, but ifconfig will show the private IP assigned to the bridge.
+
+Reference: http://krypted.com/mac-os-x/replace-macos-server-dhcp-service-built-macos-dhcp-service/

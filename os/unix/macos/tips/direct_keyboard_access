@@ -1,0 +1,7 @@
+To allow an application to access the keyboard directly (as is needed by
+the KVM Java app on Dell iDRAC):
+
+System Preferences -> Security & Privacy -> Privacy -> Accessibility
+
+Unlock the padlock and place a check mark beside the application that needs
+   direct access to the keyboard or other user input devices

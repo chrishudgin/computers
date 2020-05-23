@@ -1,0 +1,100 @@
+Installation and boot
+---------------------
+
+Automated Installer replaces JumpStart and can provision Solaris 11 zones.
+
+Image Packaging System (IPS) uses network repositories.
+
+For certain package updates, IPS creates a ZFS clone of the boot environment
+and updates the clone to allow safe application and backout of the update.
+
+IPS has automatic dependency checking.
+
+Fast reboot bypasses certain system and firmware checks when enabled:
+SMF service system/boot-config:default, property config/fastreboot_default
+
+SVR4 packages can still be installed, but not patched.
+
+Some services' configurations have been moved from /etc to SMF.
+
+Examples
+include svc:/system/name-service/switch replacing /etc/nsswitch.conf and
+svc:/network/dns/client incorporating /etc/resolv.conf.  nscfg utility
+can migrate name service configs to and from SMF.
+
+Also nodename and defaultdomain have been moved to svc:/system/identity:node
+and svc:system/identity:domain.
+
+/etc/default/init has been moved into svc:/environment:init
+
+Driver configuration files have been moved to /etc/driver/drv.
+prtconf -u to show driver configs.
+
+sysconfig replaces sys-unconfig and sysidtool.
+
+Zones
+-----
+
+Solaris 10 local zones are supported.
+
+By default, zones are exclusive-IP with a virtual NIC called net0.
+Virtual NICs are configured in zonecfg with the "anet" property.
+
+zoneadm shutdown command
+
+zonestat utility
+
+RBAC
+----
+
+root account is now an RBAC role.
+Admin can control whether user password or role password is used to access
+a role.  Newly created roles require user password by default.
+
+Network virtualization throughout the network stack.
+
+dlstat shows performance statistics for network data links.
+
+IPMP
+----
+
+ipadm now manages IPMP configuration.
+
+IPMP transitive probing allows probes to router without the use of test
+IP addresses (feature disabled by default):
+# svccfg -s svc:/network/ipmp setprop config/transitive-probing=true
+# svcadm refresh svc:/network/ipmp:default
+
+in.mpathd is now managed by SMF service svc:/network/ipmp
+
+
+Storage
+-------
+
+Root filesystem is ZFS.
+
+ZFS filesystems other than those in the root pool can be encrypted.
+
+Deduplication can be enabled per ZFS filesystem, with deduplication performed
+across all filesystems in a pool that have deduplication enabled.
+
+ZFS shadow migration to live-migrate from one filesystem to another and enable
+the new FS once finished.
+
+ZFS temporary mountpoints (zfs mount -o mountpoint=...)
+
+ZFS snapshot diffs can be viewed (changed files and directories).
+
+User tools
+----------
+
+GNU commands are in /usr/bin or /usr/gnu/bin.
+
+ksh93 is included.
+
+"man -K string" to search for "string" in man pages.
+SMF:  svc:/application/man-index
+
+ZFS graphical time slider snapshot management for home directories.
+
+Printing is now done by CUPS.

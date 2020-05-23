@@ -1,0 +1,6 @@
+When running a KVM remote console viewer from a Mac running XQuartz through
+an ssh tunnel to the KVM host, in order for the "Alt-Option" key combination
+to release the pointer from a text-mode console window, the following option
+must be set in XQuartz preferences:
+
+Input -> Option keys send Alt_L and Alt_R

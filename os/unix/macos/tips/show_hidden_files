@@ -1,0 +1,6 @@
+Toggle display of hidden files in current folder in Finder:
+<Command>+<Shift>+<.>
+
+Enable display of hidden files in all folders:
+$ defaults write com.apple.finder AppleShowAllFiles TRUE
+$ killall Finder

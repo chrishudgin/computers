@@ -1,0 +1,34 @@
+Using /dev/[u]random:
+
+$ xxd -p -l <bytes> /dev/[u]random | tr -d '\n'
+
+Example, to generate 6 random bytes and display them as ASCII hex digits:
+
+$ xxd -p -l 6 /dev/random | tr -d '\n'
+01ee1c4a8973
+
+*****
+
+Using OpenSSL:
+
+$ openssl rand [-hex] <bytes>
+
+Example, to generate 6 random bytes and display them as ASCII hex digits:
+
+$ openssl rand -hex 6
+01ee1c4a8973
+
+*****
+
+Generating a random UUID on Linux:
+$ uuidgen -r
+
+Generating a time-based UUID on Linux:
+$ uuidgen -t
+
+*****
+
+On Linux, the amount of entropy currently available in bits from /dev/random
+before blocking occurs can be obtained from:
+
+$ cat /proc/sys/kernel/random/entropy_avail

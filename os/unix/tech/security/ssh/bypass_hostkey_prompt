@@ -1,0 +1,4 @@
+Bypass the interactive prompt to accept the remote system's host key upon first
+connection (accept host key and write to ~/.ssh/known_hosts without prompting):
+
+ssh -o StrictHostKeyChecking=no ... <remote_system>

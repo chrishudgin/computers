@@ -1,0 +1,14 @@
+Within test brackets [ ], enclose a variable within double quotes to ensure
+that a syntax error does not result if the variable is empty.
+
+Example:
+
+Use:
+
+[ "${menuchoice}" = 3 ]  # if $menuchoice is not set, empty string "" can
+                           still be evaluated and compared to 3 without a
+                           syntax error
+
+rather than:
+
+[ ${menuchoice} = 3 ]   # syntax error if $menuchoice is not set to a value

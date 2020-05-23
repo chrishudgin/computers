@@ -1,0 +1,6 @@
+Shell autocompletion will append a trailing slash to a symlink that points to a
+directory.  This causes commands like rm to interpret the argument as a
+directory rather than as a symlink, which can lead to unexpected results.  To
+ensure that the symlink name is interpreted as a symlink rather than as a
+directory name, remove the trailing slash before passing its name as an
+argument.

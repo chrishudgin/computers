@@ -1,0 +1,12 @@
+#!/usr/bin/perl
+
+while ($a = <STDIN>) {
+	$a =~ s/\015$//g;
+	print $a;
+}
+
+# Other ways:
+# | tr "\n" " "; echo
+# | paste -d " " -s -
+# | xargs
+# echo $(cat somefile_with_newlines)

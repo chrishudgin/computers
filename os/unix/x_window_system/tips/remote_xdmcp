@@ -1,0 +1,14 @@
+To connect to a remote XDMCP server from the command line, use the Xephyr
+command.
+
+Example can be found at:
+
+http://jeffskinnerbox.me/posts/2014/Apr/29/howto-using-xephyr-to-create-a-new-display-in-a-window/
+
+Xephyr :3 -ac -screen 1280x1024 -br -reset -terminate -query foobox 2> /dev/null &   (where "foobox" is the hostname of the remote XDMCP server in this example)
+
+Or just use VNC
+
+Q. Why can't we tunnel XDMCP over ssh?
+A. Tunneling over ssh requires that the tunneled protocol use TCP, but XDMCP
+uses UDP.

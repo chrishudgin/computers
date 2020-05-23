@@ -1,0 +1,4 @@
+To remove everything from a line up through the first occurrence of a
+character (the = character in this example):
+
+sed 's/[^=]*=//'

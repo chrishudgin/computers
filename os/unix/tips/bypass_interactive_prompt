@@ -1,0 +1,20 @@
+Some commands like "fdisk <device>" in Linux and "format" in Solaris prompt for
+user input when their input source is a tty.
+
+Bypass all interactive prompts even if the program is running on a tty by
+sending null input to the command through a pipe from echo:
+
+# echo | format
+
+Send a non-interactive response to the command's first input prompt using echo:
+
+# echo p | fdisk /dev/sda
+
+Send a batch of non-interactive responses to a command's input prompts using a
+here document:
+
+# fdisk /dev/sda << FOO
+d
+6
+w
+FOO
