@@ -1,0 +1,42 @@
+Dracut configuration variables are set in:
+/usr/lib/dracut/dracut.conf.d/*.conf
+/etc/dracut.conf.d/*.conf
+/etc/dracut.conf
+
+Dracut modules (actually shell scripts) reside in:
+/usr/lib/dracut/modules.d/*/*
+
+*****
+
+If systemd on the initial ramdisk is unable to mount the specified root
+filesystem, it will, after a default timeout of 1 minute 30 seconds, drop
+to an emergency shell.
+
+*****
+
+All commands understood by the dracut interpreter on the initial ramdisk (like
+rd.break, ro, root=..., etc.) are documented in dracut.cmdline(7).
+
+*****
+
+On a KVM console, the default pager (less) may be unable to display ASCII
+graphics characters seen in the output of commands such as "systemctl
+list-dependencies".  To prevent systemctl sending its output to a pager:
+# systemctl ... --no-pager
+or
+# SYSTEMD_PAGER=""
+
+Alternatively, pass the option --plain to "systemctl list-dependencies" to omit
+ASCII graphics characters in the output.
+
+*****
+
+In the dracut shell (the interactive bash shell that runs when the rd.break
+directive is passed on the kernel command line), individual LVM commands are
+available only as arguments to the lvm command, e.g.:
+
+# lvm lvs
+
+instead of
+
+# lvs

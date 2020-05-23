@@ -1,0 +1,9 @@
+efibootmgr package provides the efibootmgr utility, which can show and modify
+the EFI boot table.
+
+# efibootmgr -v
+-v : Show verbose output, including the fulls paths to EFI boot files loaded
+     directly by the boot table entries when they start
+
+For example, RHEL 7 uses /boot/efi/EFI/BOOT/BOOTX64.EFI to begin its boot
+process on an EFI system.

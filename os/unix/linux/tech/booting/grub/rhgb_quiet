@@ -1,0 +1,8 @@
+The kernel command line parameters "rhgb" and "quiet" have the following
+behaviors:
+
+rhgb: Show plymouth graphical splash screen or ANSI graphics progress bar
+instead of userland subsystem startup text messages.
+
+quiet: Do not show kernel status messages during boot.  Userland subsystem
+startup text messages are still displayed.

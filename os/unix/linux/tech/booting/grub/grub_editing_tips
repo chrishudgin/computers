@@ -1,0 +1,7 @@
+The following tips apply in both GRUB menu entry edit mode and GRUB command
+line mode:
+
+Command completion and filename completion are supported.
+
+Use Ctrl-E to go to the end of a line, for example to append arguments to the
+kernel command line.

@@ -1,0 +1,10 @@
+For RHEL versions up to and including RHEL 6 (but not RHEL 7), shutdown (Kxx)
+init scripts will not be run unless there is a file with the same name of the
+script (minus the Sxx or Kxx) in /var/lock/subsys.
+
+For example, a script /etc/rc0.d/K01myapp will only be run if there exists a
+file "/var/lock/subsys/myapp".
+
+Init scripts therefore should create a file /var/lock/subsys/scriptname as part
+of their start method, and remove the file (rm -f /var/lock/subsys/scriptname)
+as part of their stop method.

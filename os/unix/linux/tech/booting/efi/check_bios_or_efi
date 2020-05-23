@@ -1,0 +1,4 @@
+On Intel x86 hardware, the presence of /sys/firmware/efi indicates that a
+system uses UEFI.  Its absence indicates that the system uses BIOS.  However,
+it is possible that a UEFI system could have BIOS legacy boot compatibility
+enabled, allowing the use of a standard (non-EFI) GRUB boot directory layout.

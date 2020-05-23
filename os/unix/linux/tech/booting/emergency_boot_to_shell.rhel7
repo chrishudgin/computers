@@ -1,0 +1,111 @@
+Recovering from unknown root password:
+
+Single-user login is not possible when root password is unknown.
+Use this procedure when the server has no other issues besides unknown root
+   password that would prevent a successful boot.
+
+The Red Hat way (from course RH124):
+
+Press Esc at GRUB menu to stop autoboot.
+'e' to edit desired GRUB entry in memory.
+Append rd.break to the kernel boot parameters (linux16 line).
+Ctrl-X to boot.
+# mount -o remount,rw /sysroot
+# chroot /sysroot
+# passwd root 
+  OR
+  # echo redhat | passwd --stdin root
+# touch /.autorelabel
+# exit
+# exit
+System will reboot, relabel, and reboot again.
+
+***
+
+Alternative to avoid need for SELinux autorelabel:
+
+Add rd.break to the kernel boot parameters in GRUB as described above.
+
+For systems running SELinux, add the following to the kernel parameters at the
+   GRUB menu:
+      rd.break enforcing=0
+Then:
+# mount -o remount,rw /sysroot
+# chroot /sysroot
+# passwd root
+Exit to login prompt and log in as root (which we can do because SELinux
+enforcing=0 even though /etc/shadow is mislabeled)
+# restorecon /etc/shadow
+# reboot
+
+This allows systemd to be the first process, eliminating the need to exec
+systemd later.  It avoids the need to perform an SELinux relabel during the
+next boot and subsequent automatic reboot following the relabel.
+
+*****
+
+Recovering from broken systemd
+
+Use this procedure for an emergency boot to a bash shell in RHEL 7 when even a
+single-user boot with systemd is not working and systemd itself may not be able
+to run, but the kernel and initial ramdisk are fine:
+
+Edit GRUB boot entry to add the following to the kernel command line:
+   init=/bin/bash
+and boot the associated GRUB entry.
+
+The normal root filesystem will be mounted read-only on / at this stage.
+
+Load SELinux policy modules:
+# /usr/sbin/load_policy -i
+This keeps SELinux from having to relabel all files during subsequent boot.
+
+Remount root filesystem read-write:
+# mount -o remount,rw /
+
+Start udev:
+# /usr/lib/systemd/systemd-udevd --daemon
+
+Start all volume groups and logical volumes:
+# /sbin/vgchange -ay
+
+Mount all filesystems that are set in /etc/fstab to mount at boot:
+# mount -a
+
+You are now at roughly the same runlevel as RHEL 6 runlevel 1.
+
+Reboot/halt/shutdown commands will not work at this point since systemd is not
+running, and exiting the shell will cause a kernel panic.
+
+Running /sbin/init as a normal command will cause the init (actually systemd)
+executable to complain that it can't communicate with the init (actually
+systemd) daemon since the init command is not running as the first
+process--essentially, it's trying to run as the telinit command does rather
+than as the init daemon.
+
+Solution:  exec /usr/lib/systemd/systemd (or exec /sbin/init, a symlink)
+This starts systemd as the replacement PID 1 (replacing the running
+/bin/bash) and brings the system up into its default runlevel target.
+
+To bring the system back down instead of up, troubleshooting course notes say
+to unmount filesystems and run "sync" before exiting the shell.  Then
+power-cycle the server.
+
+*****
+
+To start a root shell, with no password required, early in the boot sequence on
+tty9, enable debug-shell.service.  This can be done manually if necessary with:
+# ln -s /usr/lib/systemd/system/debug-shell.service /etc/systemd/system/sysinit.target.wants/.
+
+*****
+
+After making edits to /etc/fstab in emergency mode, run
+# systemctl daemon-reload
+to force systemd to re-read the modified /etc/fstab.
+
+*****
+
+When booting from a boot ISO in rescue mode, the argument "rescue" is added to
+the kernel command line.  Halt and reboot commands may not work after Linux has
+booted to rescue mode.  Exit from the Linux shell in order to force the system
+to reboot.

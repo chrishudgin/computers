@@ -1,0 +1,17 @@
+If the normal root filesystem is mounted on /mnt/sysimage:
+
+If necessary, make /dev, /sys, and /proc available under /mnt/sysimage:
+(These steps are done automatically in the RHEL 7.5 DVD rescue mode when
+ the "Continue" option is selected to mount the root fs on /mnt/sysimage)
+# mount -o bind /dev /mnt/sysimage/dev
+# mount -o bind /sys /mnt/sysimage/sys
+# mount -o bind /proc /mnt/sysimage/proc
+
+Then:
+# chroot /mnt/sysimage
+# grub2-install /dev/sda  (or other boot disk on which /mnt/sysimage is located)
+# exit
+# exit
+
+The system will then reboot automatically, relabel files with SELinux contexts,
+and automatically reboot again.

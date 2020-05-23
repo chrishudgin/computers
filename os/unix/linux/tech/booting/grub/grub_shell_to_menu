@@ -1,0 +1,68 @@
+If GRUB shell prompt appears instead of menu:
+
+(Taken from https://www.gnu.org/software/grub/manual/grub/grub.html#GRUB-only-offers-a-rescue-shell)
+
+GRUB’s normal start-up procedure involves setting the ‘prefix’ environment
+variable to a value set in the core image by grub-install, setting the ‘root’
+variable to match, loading the ‘normal’ module from the prefix, and running the
+‘normal’ command (see normal). This command is responsible for reading
+/boot/grub/grub.cfg, running the menu, and doing all the useful things GRUB is
+supposed to do.
+
+If, instead, you only get a rescue shell, this usually means that GRUB failed
+to load the ‘normal’ module for some reason. It may be possible to work around
+this temporarily: for instance, if the reason for the failure is that ‘prefix’
+is wrong (perhaps it refers to the wrong device, or perhaps the path to
+/boot/grub was not correctly made relative to the device), then you can correct
+this and enter normal mode manually:
+
+# Inspect the current prefix (and other preset variables):
+set
+# Find out which devices are available:
+ls
+# Set to the correct value, which might be something like this:
+set prefix=(hd0,1)/grub
+set root=(hd0,1)
+insmod normal
+normal
+
+*****
+
+If grub.cfg is missing or corrupted, the "normal" command as described above
+will have no effect.  To boot:
+
+Manage scrolling of output:
+grub> set pager=1
+
+Determine the root disk:
+grub> insmod lvm
+grub> ls
+grub> ls (hs0,msdos1)
+grub> ls (hs0,msdos1)/
+grub> ls (hd0,msdos2)
+grub> ls (hd0,msdos2)/
+(etc.)
+If the root filesystem is on an LVM volume, make note of its name.
+If the root filesystem is on a partition (not an LVM volume), make note of its
+UUID.
+
+Set root to the /boot partition:
+grub> set root=(hd0,msdos1)
+
+Set prefix to the directory that should contain grub.cfg:
+grub> set prefix=(hd0,msdos1)/grub2
+
+Set the kernel to boot.  Use tab completion for the vmlinuz filename located
+in the directory specified by the "prefix" variable.
+Root filesystem on LVM volume:
+grub> linux16 /vmlinuz-3.10.0-862.6.3.el7.x86_64 root=/dev/mapper/rhel_tester1-root ro
+Root filesystem on partition:
+grub> linux16 /vmlinuz-3.10.0-862.6.3.el7.x86_64 root=UUID=e737b971-6791-4a65-832e-eed27a7c8ce7 ro
+
+Set the initrd to use.  Use tab completion for the initramfs filename.
+grub> initrd16 /initramfs-3.10.0-862.6.3.el7.x86_64.img
+
+Boot:
+grub> boot
+
+Once the system has booted, regenerate the grub.cfg.

@@ -1,0 +1,18 @@
+To reinstall GRUB legacy from a GRUB command prompt (no menu available) on a
+BIOS system (not UEFI) with /boot as a filesystem separate from the root FS:
+
+grub> find /grub/grub.conf
+(hd0,0)
+grub> root (hd0,0)
+grub> setup (hd0)
+grub> cat (hd0,0)/grub/grub.conf
+
+If grub.conf is missing or its contents are incorrect, enter GRUB configuration
+lines by hand (tab completion is available for filenames):
+
+grub> kernel (hd0,0)/vmlinuz...... (and remaining desired parameters)
+grub> initrd (hd0,0)/initramfs.... (use complete filename)
+
+grub> boot
+
+Once system is booted, restore or correct /boot/grub/grub.conf.

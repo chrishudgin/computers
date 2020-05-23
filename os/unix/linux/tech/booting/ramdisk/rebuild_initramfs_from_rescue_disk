@@ -1,0 +1,10 @@
+Rebuild a missing or corrupted initramfs for a specific kernel while booted to residerescue disk:
+
+# chroot /mnt/sysimage
+# dracut -f --kver 3.10.0-862.3.3.el7.x86_64
+# exit
+# exit
+
+The system will reboot automatically.  A second boot to the desired kernel /
+ramdisk menu entry may be necessary in order for the normal boot process to
+complete.

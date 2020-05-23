@@ -1,0 +1,21 @@
+Kernel command line parameters for emergency / single-user boots:
+
+Single-user (filesystems mounted):
+single
+
+Emergency (only root filesystem mounted):
+emergency
+
+Booting without init:
+init=/bin/bash
+
+For rescue mode, which does not require that the normal root filesystem be
+mountable in its present state, boot to a RHEL 6 installation DVD with the
+option to "Rescue installed system".
+
+Reboot from a minimal boot mode if reboot command does not work:
+cd /
+Unmount all filesystems on persistent storage other than /
+mount -o remount,ro /
+sync
+echo b > /proc/sysrq-trigger

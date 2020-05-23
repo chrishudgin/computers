@@ -1,0 +1,33 @@
+To list the contents of an initramfs image file:
+
+RHEL 5:
+
+# gunzip -c /boot/initrd-XXXX.img | cpio --list
+
+RHEL 6 and 7:
+
+# lsinitrd
+
+
+To extract the contents:
+
+RHEL 5 and 6:
+
+The initramfs image file is a gzipped cpio archive which can be unpacked with:
+
+# zcat /boot/initramfs-`uname -r`.img | cpio -i -d
+
+
+RHEL 7:
+
+The initramfs image file consists of a short cpio archive containing CPU
+microcode files, follwed by a much larger gzipped cpio archive containing the
+rest of the ramdisk files.
+
+To extract the initial cpio archive containing the microcode files:
+
+# cpio -id < /boot/initramfs-`uname -r`.img
+
+To extract the latter:
+
+# /usr/lib/dracut/skipcpio /boot/initramfs-`uname -r`.img | gunzip -c | cpio -i -d

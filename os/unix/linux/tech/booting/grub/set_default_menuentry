@@ -1,0 +1,28 @@
+To set the default menuentry in grub.cfg:
+# grub2-set-default 1  # sets the second menuentry to be the default
+
+grub2-set-default modifies the variable "saved_entry" in the file grubenv that
+resides in the same directory as grub.cfg.  By default, grub sets its own
+"default" (menuentry) variable to the value of "saved_entry" when GRUB runs
+at boot.
+
+To specify an entry in grub.cfg by name to use as the default, use the full
+title of the entry in grub.cfg as the argument to grub2-set-default.  For
+example:
+
+# grub2-set-default "Red Hat Enterprise Linux Server (3.10.0-862.6.3.el7.x86_64) 7.5 (Maipo)"
+
+Reset to the default behavior, which is to allow any newly installed kernel and
+the most recent kernel already installed to set itself as the default boot
+entry in grub.cfg:
+
+BIOS:
+# rm /boot/grub2/grubenv
+# grub2-mkconfig -o /boot/grub2/grub.cfg
+
+EFI:
+# rm /boot/efi/EFI/redhat/grubenv
+# grub2-mkconfig -o /boot/efi/EFI/redhat/grub.cfg
+
+The grub2-mkconfig command regenerates grubenv as well as grub.cfg.  A newly
+generated grubenv does not have a "saved_entry" line.

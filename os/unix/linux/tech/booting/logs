@@ -1,0 +1,3 @@
+Boot logs include /var/log/dmesg (kernel messages) and /var/log/boot.log
+(service startup messages also sent to the console) in addition to
+/var/log/messages and the systemd journal.

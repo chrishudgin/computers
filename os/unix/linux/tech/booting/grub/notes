@@ -1,0 +1,90 @@
+Q.  How do kernel command line arguments that were added manually to the
+GRUB configuration file get copied to the new kernel entry when a new kernel
+package is installed?
+
+A.  The kernel RPM includes a postinstall scriptlet (as shown by
+rpm -q --scripts kernel-X.XX.XX) that runs the script /usr/sbin/new-kernel-pkg,
+which calls grubby with the --copy-default option.
+
+Q.  How to find out which disks are seen by GRUB, and which ones contain a
+bootable image?
+
+A.
+
+Hit "c" to enter GRUB command line.
+(Hit Esc to return to GRUB boot menu at any time if desired.)
+
+GRUB legacy:
+
+find finds files using a path relative to the top level directory on
+a partition.  Wildcards are not recognized.
+
+grub> find /grub/grub.conf
+(hd0,0)
+This tells us that a /boot directory is present at (hd0,0), i.e. /dev/sda1
+
+GRUB legacy numbers partitions starting at 0.
+(GRUB 2 numbers partitions starting at 1.)
+
+grub> cat (hd0,0)/grub/grub.conf
+#
+# GRUB file contents ....
+#
+
+GRUB 2:
+
+GRUB 2 supports command completion, filename completion, and command history
+like bash does.
+
+search.file finds a file in a directory relative to the top level directory on
+a partition.  Wildcards are not recognized.  The search is not recursive.
+
+grub> search.file /grub2/grub.cfg
+(hd0,msdos1)
+This tells us that a /boot directory is present at (hd0,msdos1), i.e. /dev/sda1
+
+GRUB 2 numbers partitions starting at 1.
+(GRUB legacy numbers partitions starting at 0.)
+
+ls shows all disk devices known to GRUB and their partitions.  Wildcards are
+not recognized.
+
+grub> ls
+(proc) (hd0) (hd0,msdos1) (hd0,msdos2) .... 
+
+grub> ls (hd0)
+Device hd0: No known filesystem detected - Sector size 512B - Total size
+26214400KiB
+
+grub> ls (hd0,msdos1)
+     Partition hd0.msdos1:  Filesystem type xfs, UUID abcd123-f23-bac-121 -
+Partition start at 1024KiB - Total size 512000KiB
+
+grub> ls (hd0,msdos1)/
+vmlinuz-3.10.0-327.13.1.el7.x86_64 grub2/ initramfs-0-rescue ........
+
+grub> cat (hd0,msdos1)/grub2/grub.cfg
+#
+# GRUB file contents ....
+#
+
+To view files on LVM volumes:
+
+grub> insmod lvm
+grub> ls  (LVM volumes as well as partitions should now appear)
+
+*****
+
+To see the values of all GRUB variables, including the "prefix" and "root"
+variables that tell GRUB where to find GRUB stage 2 and the grub.cfg file,
+type "set" at the GRUB shell prompt.
+
+On BIOS machines with MBR-formatted disks, if /boot is a separate partition,
+then the GRUB variables "prefix" and "root" have the form:
+
+(hd0,msdos1)/grub2
+
+On UEFI machines with GPT-formatted disks, if /boot/efi is a separate partition,
+then the GRUB variables "prefix" and "root" have the form:
+
+(hd6,gpt1)/EFI/redhat

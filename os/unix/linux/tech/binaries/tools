@@ -1,0 +1,178 @@
+objdump and readelf to dump information from a binary
+
+Disassemble or dump:
+$ objdump -d [-j <section>] [-z] filename
+   Default action is to disassemble all executable sections, including .init
+      and .fini as well as .text (among others)
+   -j : limit output to specified section; show hex/ASCII if not executable
+   -z : include blocks of zeroes in output instead of skipping them
+
+Other useful options to objdump are:
+   -f    # show file format, architecture, and address of program entry point
+   -F    # show file offsets of sections
+   -S    # mix high-level source with assembly if binary was compiled with -g
+   -r    # show relocation entries interspersed with assembly code
+   -l    # include line numbers from high-level source if binary was compiled
+           with -g
+   -s -j .data   # show contents of section .data in hex and ASCII
+   -t    # show symbols and information about them, including type and whether
+           they are local or global.  Shows more detailed type information
+           than what nm provides.  For example, functions (type F) are
+           distinguished in the output from other symbols.
+   --help  # show all supported architecture names for this build of objdump
+   -M opt1,opt2,... or --disassembler-options=opt1,opt2,...
+   --disassembler-options=intel  # (x86) used with -d to produce Intel (not
+                                 # AT&T) syntax
+   --disassembler-options=att    # (x86) used with -d to produce AT&T (not
+                                 # Intel) syntax, the default on x86
+   --disassembler-options=no-aliases  # (MIPS) show canonical instruction forms
+                                        in disassembly, not pseudo-ops
+                                        Example:  show addiu or lui/ori
+                                                  rather than li
+   --disassembler-options=raw  # (PowerPC) equivalent to no-aliases for MIPS
+                               # added to recent versions of binutils, but
+                               # was not available yet in version 2.25
+
+*****
+
+Extract RPATH/RUNPATH, the library search path hardcoded into a binary (if any):
+$ objdump -p <binary> | egrep 'RPATH|RUNPATH'
+
+*****
+
+readelf options
+        -S  # show sections
+	-l  # show mappings of sections to segments
+        -S -W  # allow wide output lines for 64-bit object files
+        -s  # show symbol table
+        -r  # show relocations
+        -A  # show architecture-specific info, such as the ABI in use 
+            # and global pointer offsets to library functions on MIPS
+        -x .section  # show hexdump of .section
+
+*****
+
+addr2line uses debugging data to determine the source code file and line
+   corresponding to an address in an executable file
+
+addr2line 0x40074c -e hello_world
+
+*****
+
+To disassemble instructions in a raw binary file (no ELF format):
+
+Put the hexdump of the encoded instructions into a file:
+   Note the leading 00 in the byte stream that tells xxd the initial
+      file offset; 00 does not get added to the file itself)
+
+By default xxd -r will allow only sixteen columns of input per line, but this
+   can be increased to a maximum of 256 columns of input per line with -c cols
+
+
+MIPS example:
+
+   (For MIPS little endian, 32-bit opcodes are stored in little-endian byte
+    order in the raw encodings produced by the compiler and debugger, and in
+    an object file, but objdump displays them in reverse order as if they were
+    ordinary 32-bit integers with the most significant byte first as long as
+    the -EL option is supplied on the command line)
+
+$ echo "00 a1 0f 02 24" | xxd -r > rawfile
+
+$ objdump -EL -m mips -M no-aliases -b binary -D rawfile  # -EL for little endian
+
+rawfile:     file format binary
+
+
+Disassembly of section .data:
+
+00000000 <.data>:
+   0:	24020fa1 	addiu	v0,zero,4001
+
+
+ARM example:
+
+   (For ARM, 32-bit opcodes are stored in little-endian byte order in the
+     raw encodings produced by the compiler (as assembly) and debugger, and in
+     an object file, but objdump displays them in reverse order as if they
+     were ordinary 32-bit integers with the most significant byte first)
+
+$ echo "00 05 CA 8C E2 14 CB 8C E2 50 CC 8C E2" | xxd -r > rawfile
+
+$ objdump -m arm -b binary -D rawfile
+
+rawfile:     file format binary
+
+
+Disassembly of section .data:
+
+00000000 <.data>:
+   0:	e28cca05 	add	ip, ip, #20480	; 0x5000
+   4:	e28ccb14 	add	ip, ip, #20, 22	; 0x5000
+   8:	e28ccc50 	add	ip, ip, #80, 24	; 0x5000
+
+
+Intel x86 example:
+
+    (Intel x86 and x86-64 opcodes are stored in memory bytewise, starting from
+     lowest memory address, since they are of variable length)
+
+$ echo "00 55 89 E5 51" | xxd -r > rawfile
+
+$ objdump -m i386 -b binary -D rawfile
+
+rawfile:     file format binary
+
+
+Disassembly of section .data:
+
+00000000 <.data>:
+00000000 <.data>:
+   0:	55                   	push   ebp
+   1:	89 e5                	mov    ebp,esp
+   3:	51                   	push   ecx
+
+
+Intel x86-64 example:
+
+    (Intel x86 and x86-64 opcodes are stored in memory bytewise, starting from
+     lowest memory address, since they are of variable length)
+
+$ echo "00 55 48 89 E5 BF E0 05 40 00" | xxd -r > rawfile
+
+$ objdump -m i386:x86-64 -b binary -D rawfile
+
+rawfile:     file format binary
+
+
+Disassembly of section .data:
+
+0000000000000000 <.data>:
+   0:	55                   	push   rbp
+   1:	48 89 e5             	mov    rbp,rsp
+   4:	bf e0 05 40 00       	mov    edi,0x4005e0
+
+
+*****
+
+execstack sets and displays whether an executable is marked as needing an
+   executable stack.  If an executable is not marked with a GNU_STACK
+   program header, the kernel assumes that the program requires an executable
+   stack and gives it one at runtime.
+execstack -q filename  # query executable stack marking
+   X marked with executable stack required
+   - marked with executable stack not required
+   ? not marked
+execstack -s filename  # mark executable as requiring executable stack
+execstack -c filename  # mark executable as not requiring executable stack
+
+readelf -lW | grep GNU_STACK  # shows stack permissions (RW for read/write,
+   RWE for read/write/execute)
+
+*****
+
+Disable Address Space Layout Randomization (ASLR) when running a program:
+$ setarch $(uname -m) -R ./program
+
+Disable ASLR for all programs:
+# echo 0 > /proc/sys/kernel/randomize_va_space 

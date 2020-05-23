@@ -1,0 +1,6 @@
+In the EFI shell, a list of commands is available with:
+help [-b]
+   -b : show output one screen at a time
+
+Help on specific commands is available with:
+help <command> [-b]

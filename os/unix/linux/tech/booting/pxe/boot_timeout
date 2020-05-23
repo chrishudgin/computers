@@ -1,0 +1,9 @@
+The unit for boot timeout interval is tenths of a second, not seconds as GRUB
+uses.
+
+For a timeout of one minute in the PXE boot environment, use
+timeout 600
+in the host configuration file under /var/lib/tftpboot/pxelinux/pxelinux.cfg.
+
+Reference:
+https://www.syslinux.org/wiki/index.php?title=SYSLINUX#TIMEOUT_timeout

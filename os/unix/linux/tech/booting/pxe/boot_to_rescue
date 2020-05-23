@@ -1,0 +1,6 @@
+To boot to a rescue environment from a PXE installation boot, append the rescue
+argument to the name of the desired boot menu entry at the boot prompt:
+
+Example for a preconfigured PXE boot menu entry named "linux":
+
+boot: linux rescue <Enter>
