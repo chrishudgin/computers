@@ -1,0 +1,11 @@
+The default action at the end of a Kickstart installation is "halt", which
+prompts the user before rebooting the system.  The following actions can
+be added to a Kickstart configuration file:
+
+halt (prompt, then reboot)
+shutdown (shut down without prompting)
+poweroff (same as shutdown)
+reboot [--eject] (reboot without prompting, optionally ejecting CD/DVD first)
+
+The desired action directive should be added *before* the %packages section of
+the Kickstart configuration file.

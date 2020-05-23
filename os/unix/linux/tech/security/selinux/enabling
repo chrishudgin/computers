@@ -1,0 +1,13 @@
+When changing policy from SELinux disabled to enforcing, first set state to
+permissive in /etc/selinux/config and reboot, then set policy to enforcing and
+reboot again.  Setting policy to permissive first ensures that all files will
+be labeled during the first boot so that services will not fail to start once
+enforcing mode is set during the next reboot.
+
+The SELinux mode can also be set on the kernel command line to make it
+effective during a single boot session:
+
+Disabled: selinux=0
+Enabled: selinux=1
+Permissive: enforcing=0
+Enforcing: enforcing=1

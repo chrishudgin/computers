@@ -1,0 +1,26 @@
+Reference: https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/networking_guide/ch-consistent_network_device_naming
+
+Ethernet devices are named as follows in RHEL 7:
+
+1. If the biosdevname package is installed and biosdevname is not set to 0 on
+the kernel command line, BIOS naming is used.  biosdevname=1 is the default on
+Dell servers.
+
+BIOS naming scheme if supported and biosdevname=1:
+em1 (embedded NIC 1)
+p4p1 (PCI slot 4, port 1)
+
+Otherwise, if bus topology can be determined and net.ifnames != 0 :
+eno1 (onboard NIC 1)
+ens33 (hot plug slot 33)
+enp0s17 (PCI bus 0, PCI address 11 (hex) on bus, i.e. 17 in decimal)
+
+2. If BIOS device naming is not in use, and net.ifnames is not set to 0, device
+may optionally be named by its MAC address, but this scheme is not enabled by
+default:
+
+enx78e7d1ea46da
+
+3. If the previous options do not apply, device is given a traditional name:
+
+eth0 (first Ethernet device)

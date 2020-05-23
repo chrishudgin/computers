@@ -1,0 +1,3 @@
+Linux computes load average by counting running/runnable threads as well as
+threads that are waiting for I/O to complete (threads in uninterruptible
+sleep).  Traditional Unix counted only running/runnable threads.

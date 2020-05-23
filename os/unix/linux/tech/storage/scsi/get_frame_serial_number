@@ -1,0 +1,4 @@
+Get storage frame serial number by querying a LUN on the frame:
+# /usr/bin/sg_inq /dev/sdXX
+
+sg_inq is part of the sg3_utils package.

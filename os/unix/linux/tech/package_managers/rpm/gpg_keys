@@ -1,0 +1,11 @@
+Package signing public keys are stored in /etc/pki/rpm-gpg.
+
+Keys provided by the distribution vendor (e.g. Red Hat) are installed during
+initial system installation.
+
+Keys are also represented as packages with package names of the form
+'gpg-pubkey-<KEYID>' in the RPM database, and as such can be queried with
+rpm -qi <pkgname>.
+
+The first time yum handles a package signed with one of the preinstalled GPG
+keys, it will prompt for confirmation to use that key.

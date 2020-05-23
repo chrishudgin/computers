@@ -1,0 +1,24 @@
+An RPM package can be configured by the package maintainer to save existing
+configuration files during package upgrade in one of two ways:
+
+1. Keep the existing configuration file intact without renaming it, and install
+the new configuration file with the filename extension .rpmnew.  This can be
+done if the existing configuration file is compatible with the new version of
+the software package.
+
+2. Rename the existing configuration file with the filename extension .rpmsave
+and install the new configuration file with its default name.  This can be done
+if the existing configuration file is not compatible with the new version of
+the software package.  Any desired customizations from the old version of the
+configuration file may have to be merged by hand (if applicable) into the new
+version of the file.
+
+During package removal, if a configuration file's content no longer matches
+what was orginally installed with the package, the file will in most cases be
+preserved in its current directory location with a filename extension of
+.rpmsave.
+
+If a package that has had a configuration file customized is removed and then
+later reinstalled, the .rpmsave version of the configuration file will not be
+moved back into place as the active configuration file.  The .rpmsave version
+of the configuration file must be manually moved or merged to be used again.

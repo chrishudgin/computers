@@ -1,0 +1,41 @@
+RHEL 5 NFSv4 export tables, if non-empty, must include exactly one directory
+exported with the fsid=0 option in its entry in /etc/exports.  fsid=0 sets the
+"root", or top-level directory, of all NFSv4 exports from that server, so that
+clients issue a mount request for that directory as though it were the server's
+actual root directory.
+
+The additional export option "crossmnt" is recommended for the fsid=0 share so
+that clients can see the contents of filesystems exported below the fsid=0
+share.
+
+The requirement for setting fsid=0 on one NFSv4 export is specific to RHEL 5
+and does not apply to RHEL 6 or later (although the option still exists in
+later versions).
+
+Example:
+
+In this example, NFSv4 server "rhel5host" shares its directory /nfsf4shareroot
+as the root (top level directory) of all of its NFSv4 shares.  The client uses
+NFSv4 to mount the host's "root" directory, which is actually /nfsv4shareroot
+on the host.  Any directory path can be chosen as the NFSv4 root; it does not
+need to be named "nfsv4shareroot", as long as the path exists on the host.
+
+On server ("rhel5host"):
+# mkdir /nfsv4shareroot
+# cat /etc/exports
+# The "crossmnt" option allows clients to see the contents of filesystems
+# mounted and exported below this one, like /nfsv4shareroot/subdir.
+/nfsv4shareroot        *(rw,crossmnt,fsid=0)
+/nfsv4shareroot/subdir *(rw)
+
+Start NFS sharing as usual.
+
+On client:
+# mount -t nfs4 rhel5host:/ /myshare
+   # Actually mounts server's /nfsv4shareroot, not server's /
+   # Also makes /nfsv4shareroot/subdir filesystem available to client,
+   # even though it is not explicitly mounted on the client,
+   # because /nfsv4shareroot was exported with the crossmnt option.
+   # Note that /nfsv4shareroot/subdir must still be explicitly exported.
+$ ls -l /myshare/subdir   # shows contents of server fs /nfsv4shareroot/subdir
+                          # even though it's not explicitly mounted on client

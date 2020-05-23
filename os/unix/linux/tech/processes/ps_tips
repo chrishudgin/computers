@@ -1,0 +1,77 @@
+Processes are not sorted by ps by default.  To guarantee sorting by start time
+or some other field, use the "k" option or --sort= followed by one or more
+comma-separated field names, as in: ps k [+|-]<field1>[,[+|-]<field2>,...]
+Optional + and - preceding each field name select sort in ascending order
+(default) or descending order.
+
+*****
+
+ps can accept one or more space-separated PIDs as arguments.
+
+Example:
+$ ps 547 12900 4682
+
+*****
+
+Filter by exact command name (not regex) without using grep:
+# ps -C <cmdname>
+
+*****
+
+Unlimited width (i.e. don't truncate output of each process to a single line):
+
+$ ps ww
+or
+$ ps -ww
+
+Two w options result in unlimited output width per process
+
+*****
+
+Show process hierarchy with ASCII art:
+
+$ ps f ...
+
+
+Alternatively, use pstree
+
+$ pstree [PID|username]
+
+$ pstree -p : include PIDs
+         -a : include process args and show each process on a separate line
+         -l : long (don't truncate process args)
+         -s : include parent processes (default is to show only children)
+
+*****
+
+Sort by process start time:
+
+$ ps k start_time [-ef ...]
+
+*****
+
+Show job info (PID, PPID, PGID, SID, TTY, TPGID, STAT, COMMAND) for all
+processes associated with a terminal:
+
+$ ps j
+
+*****
+
+There is an "lwp" field available in ps, but in order to see each LWP in the
+output, it is necessary to add the -L flag.
+
+Example:
+
+$ ps -L -eo lwp,pid,args
+
+*****
+
+Show login UID (new in RHEL 7.6):
+
+$ ps -o luid [...]
+
+*****
+
+Prevent display of headers:
+
+$ ps --no-headers

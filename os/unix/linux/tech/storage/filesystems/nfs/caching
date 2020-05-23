@@ -1,0 +1,3 @@
+By default, NFS clients cache file attributes and directory entries, so updates
+to these on the server or by other clients may not be visible to an NFS client
+immediately.

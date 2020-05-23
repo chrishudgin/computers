@@ -1,0 +1,7 @@
+The yum-config-manager command can be used to show or set the value of any
+variable in the configuration of yum itself or any of its repos:
+
+Show values of all variables in 
+
+Change the value of a yum variable:
+# yum-config-manager --setopt=installonly_limit=5 --save

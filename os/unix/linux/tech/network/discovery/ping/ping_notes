@@ -1,0 +1,10 @@
+ping -I eth0 ...  # sets source interface to eth0
+ping -I 10.0.0.106  # sets source address to 10.0.0.106
+ping -b 10.255.255.255  # ping a broadcast address
+ping -c 3  # send a fixed number of pings (e.g. 3) and quit
+ping -n  # numeric; don't perform name resolution
+ping -s 1000  # send ping packets of a given size (e.g. 1000 bytes)
+              # rather than the default of 64 bytes including ICMP header
+
+Send a SIGQUIT (e.g. by Ctrl-\) to ping to report current summary statistics
+   without stopping ping

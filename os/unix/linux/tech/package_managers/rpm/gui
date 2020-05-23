@@ -1,0 +1,2 @@
+The GUI front end for package management in RHEL 7 is gpk-application, provided
+by the gnome-packagekit-installer RPM.

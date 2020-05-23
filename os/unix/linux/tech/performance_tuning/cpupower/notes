@@ -1,0 +1,26 @@
+CPU power/frequency tuning parameters are in:
+/sys/devices/system/cpu/cpu*/cpufreq/*
+
+Show available CPU governor policies:
+# cpupower frequency-info --governors
+
+Get the speed governor setting for all CPUs:
+# cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
+performance
+
+Get all current CPU power/frequency settings:
+# cpupower frequency-info
+See cpupower-frequency-info(1) for details.
+
+If this command reports "no or unknown cpufreq driver is active on this CPU",
+a system BIOS setting may need to be changed from system power management to
+OS power management (OS DBPM on Dell PowerEdge servers).
+
+Set CPU power/frequency settings non-persistently:
+# cpupower frequency-set <options>
+
+Example:
+# cpupower frequency-set -g performance
+
+On RHEL 7, these and other hardware and kernel performance settings are managed
+collectively as persistent but customizable tuned(8) profiles.

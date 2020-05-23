@@ -1,0 +1,11 @@
+The "acl" and "user_xattr" mount options are enabled by default on ext
+filesystems.
+
+Change default mount options:
+# tune2fs -o <opt1>[,^notopt2,...] <device>
+
+Example:
+
+# tune2fs -o acl,^user_xattr /dev/sda2
+Sets acl as a default mount option
+Turns off user_xattr as a default mount option

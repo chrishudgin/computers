@@ -1,0 +1,17 @@
+The xinetd "wait" option for a network service indicates whether xinetd itself
+should accept multiple simultaneous connections to a service (using multiple
+processes) (wait = no) or wait until the network service daemon has exited
+before accepting a new connection (wait = yes).
+
+The service daemon in question may accept multiple simultaneous connections to
+itself even if xinetd does not accept multiple connections to that service's
+port.
+
+UDP services typically have wait = yes.  This prevents xinetd from spawning a
+   new thread every time more UDP datagrams arrive.
+
+TCP services typically have wait = no in order to accept new persistent
+   connections (one per thread) while others are still being serviced.
+
+Services of type INTERNAL (like discard, chargen, echo) are handled directly by
+xinetd rather than by spawning an external daemon.

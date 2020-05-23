@@ -1,0 +1,18 @@
+CIFS filesystems can be mounted with username/password authentication if the
+SMB server is configured accordingly.  For example:
+
+# mount -t cifs -o username=joe,password=FooBar //server1/data /mnt
+
+To avoid having to put username and password credentials into a process command
+string or into the world-readable /etc/fstab, use the CIFS mount option
+"credentials" instead, as in this example:
+
+# mount -t cifs -o credentials=/etc/smb.cred //server1/data /mnt
+
+where the credentials file is readable only by root or by the user connecting
+to the SMB share and contains the share's username and password in plain text
+as follows:
+
+username=someuser
+password=somepassword
+domain=somedomain    (this line is needed only if a domain is applicable)

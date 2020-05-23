@@ -1,0 +1,8 @@
+Create a repo file in /etc/yum.repos.d:
+# yum-config-manager --add-repo="http://some.site/some/path" 
+   (or use ftp or file instead of http)
+
+If the packages in the repo are signed by a GPG key that is not yet imported
+into the /etc/pki/rpm-gpg directory, import the key:
+# rpm --import http://some.site/some/path/to/keyfile
+(See rpmkeys(8) for more information about rpm --import.)

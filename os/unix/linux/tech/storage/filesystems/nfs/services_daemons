@@ -1,0 +1,90 @@
+RHEL 7 NFS SERVERS
+
+SERVER SYSTEMD UNITS AND DAEMONS
+
+The following systemd units must be running or active on the NFS server:
+The NFS client services, plus:
+# systemctl enable nfs-server
+# systemctl start nfs-server
+
+nfs-server.service starts:
+   nfs-idmapd.service (pulled in as dependency)
+   rpc.mountd (pulled in as dependency)
+   rpc.nfsd
+
+Kerberos
+
+On a server sharing Kerberized NFS shares, the Kerberos services must be
+configured and started:
+# systemctl start krb5kdc.service
+# systemctl start kadmin.service
+
+In addition, the nfs-secure-server and nfs-secure services must be
+started (requiring /etc/krb5.keytab to be set up beforehand):
+# systemctl start nfs-secure.service
+# systemctl start nfs-secure-server.service
+nfs-secure.service starts rpc.gssd.
+
+*****
+
+RHEL 5 and 6 NFS SERVERS
+
+SERVER SERVICES AND DAEMONS
+
+The following services must be running on the NFS server:
+portmap (RHEL 5)
+rpcbind (RHEL 6)
+nfslock
+nfs (the actual NFS server processes)
+
+# chkconfig portmap on (RHEL 5)
+# chkconfig rpcbind on (RHEL 6)
+# chkconfig nfslock on
+# chkconfig nfs on
+# service portmap start (RHEL 5)
+# service rpcbind start (RHEL 6)
+# service nfslock start
+# service nfs start
+
+The "nfs" service starts:
+rpc.rquotad
+rpc.mountd
+lockd
+nfsd
+rpc.idmapd
+
+*****
+
+RHEL 7 NFS CLIENTS
+
+The following systemd units must be running or active on an NFS client:
+# systemctl is-active nfs-client.target  (verify active)
+
+nfs-client.target pulls in (directly or indirectly):
+   rpcbind.service (rpcbind daemon)
+   gssproxy.service (gssproxy daemon)
+   rpc-statd.service (rpc.statd daemon)
+
+Kerberos
+
+For a client of Kerberized NFS shares, the nfs-secure service must be started
+(requiring /etc/krb5.keytab to be set up beforehand):
+# systemctl start nfs-secure.service
+
+nfs-secure.service starts
+   rpc-gssd.service (rpc.gssd daemon)
+
+*****
+
+RHEL 5 and 6 NFS CLIENTS
+
+The RHEL 5 and RHEL 6 NFS clients default to mounting NFS filesystems with NFS
+protocol version 3 (NFSv3) even if the NFS server also offers protocol version
+4 (NFSv4).  To specify an NFSv4 mount, use the "mount.nfs4" command or specify
+"-t nfs4" on the "mount" command line.
+
+The following services must be running on an NFS client:
+
+portmap (RHEL 5)
+rpcbind (RHEL 6)
+nfslock for NFSv3 and earlier (runs rpc.statd continuously and lockd on demand)

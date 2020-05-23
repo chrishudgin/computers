@@ -1,0 +1,20 @@
+Partition limits:
+
+MBR:
+
+Up to 4 primary partitions or up to 3 primary partitions and 1 extended
+partition which may have logical drives.  Each logical drive is defined in an
+extended boot record (EBR).  The first EBR is located at the beginning of the
+extended partition.  Each additional EBR is placed at the beginning of its
+respective logical drive.  EBRs form a linked list with no arbitrary length
+limit.
+
+BIOS requires the beginning of a partition that is intended to be bootable (and
+flagged as such in the MBR) be located within the first 1023 cylinders of a
+disk.
+
+GPT:
+
+GPT-partitioned disks can have up to 128 partitions.  They typically have a
+fake ("protective") MBR in sector 0 that shows MBR-aware disk utilities the
+entire disk used by a single partition.

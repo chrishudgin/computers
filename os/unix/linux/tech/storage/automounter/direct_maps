@@ -1,0 +1,11 @@
+A direct map in /etc/auto.master or /etc/auto.master.d/*.autofs allows one or
+more NFS filesystems to be mounted relative to the root directory (/) on the
+client:
+
+# cat /etc/auto.master.d/mynfs.autofs
+/-	/etc/auto.mynfs
+
+# cat /etc/auto.mynfs
+/mynfs1		server1:/mynfs1
+/mynfs2	-ro	server1:/mynfs2
+/mynfs3		server1:/mynfs2

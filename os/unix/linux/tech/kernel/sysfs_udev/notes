@@ -1,0 +1,35 @@
+/sys/bus/*/drivers contains a list of drivers required for devices on the
+various buses.
+
+udev uses /sys entries and udev rules in /{lib,etc}/udev/rules.d to create
+entries dynamically in /dev.
+
+# udevadm control --reload : reload udev rule files after making changes
+   to them.  This does not perform any triggers.
+
+# udevadm trigger [path] : send "change" event to all subsystems, causing
+   /dev files to be rebuilt.  Device scope can be narrowed with options to
+   select certain device names, properties, and attributes; details in
+   udevadm(8).  [path] should begin with /dev.
+
+# udevadm [-a] -p /sys/block/sda : show device properties or attributes
+   for /dev/sda
+
+# udevadm info -q path /dev/sda : show the path in /sys for /dev/sda
+
+# udevadm info --export-db : dump info for all devices, including names, paths,
+   and udev environment variables for each device that can be used to create
+   and modify rules.
+
+# udevadm monitor : show udev events in real time
+
+Values in udev rules files are specified as:
+KEY==value_to_compare, KEY=value_to_assign
+   (note == vs. =)
+
+In addition to matching against the static attributes of a device, udev can
+also check the result (output) of a user-specified command (such as
+/usr/lib/udev/scsi_id) in a rule description to match a particular device.
+
+Additional examples are at:
+http://fibrevillage.com/sysadmin/93-udevadm-command-examples

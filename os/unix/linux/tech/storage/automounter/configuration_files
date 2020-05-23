@@ -1,0 +1,14 @@
+/etc/sysconfig/autofs : Sets command line options for automount daemon
+
+/etc/autofs.conf : Sets parameters for /usr/sbin/automount, including timeout
+                   for automatic unmounts of filesystems that are not busy.
+
+/etc/auto.master : Sets the map file or built-in map (like -hosts) for each
+                   mount point used by the automounter.  Adding entries to this
+                   file is deprecated.  Add files to /etc/auto.master.d instead.
+
+Includes /etc/auto.master.d/*.autofs
+The entries in each such file must be in the same format as /etc/auto.master
+itself.
+
+/etc/auto.misc : used for local removable media like CD-ROMs and floppy disks

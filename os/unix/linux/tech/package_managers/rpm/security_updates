@@ -1,0 +1,30 @@
+Reference: https://access.redhat.com/solutions/10021 (yum security)
+
+Install yum security plugin required to list and install security updates
+specifically:
+# yum install yum-plugin-security   (on RHEL 6; not needed on RHEL 7)
+
+List security updates only, summarized
+(correlates RHSA ID with package version):
+# yum updateinfo list security updates
+
+List installed security updates only, summarized
+(correlates RHSA ID with package version):
+# yum updateinfo list security installed
+
+Provide detailed descriptions of available (not installed) security updates
+# yum info-sec --security   (default selector is "updates")
+
+Provide detailed descriptions of installed security updates
+# yum info-sec --security installed
+
+Install security updates only (i.e. bring all packages up to the minimal levels
+that do not have known security errata):
+# yum --security update-minimal
+
+Update all packages with security errata to their latest versions:
+# yum --security update
+
+For more information:
+# man yum-security (RHEL 6)
+# man yum (RHEL 7)

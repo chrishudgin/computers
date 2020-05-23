@@ -1,0 +1,66 @@
+Goal: Pass HTTP traffic through firewall at 10.0.0.224:80 to 10.0.0.93:8080
+
+Ensure that the HTTP server is able to process HTTP requests on port 8080
+from itself:
+# nc 10.0.0.93 8080
+
+This may require adjusting iptables rules to close port 80 and open port 8080:
+# iptables -t filter -D INPUT -p tcp -m tcp --dport 80 -m conntrack --ctstate NEW -j ACCEPT
+# iptables -t filter -I INPUT -p tcp -m tcp --dport 8080 -m conntrack --ctstate NEW -j ACCEPT
+
+Ensure IPv4 forwarding is enabled on the firewall machine, 10.0.0.224:
+# cat /proc/sys/net/ipv4/ip_forward
+1
+
+On the firewall machine (10.0.0.224):
+
+Perform DNAT on incoming packets from other hosts so that they will specify the
+new destination:
+# iptables -t nat -I PREROUTING -d 10.0.0.224 -p tcp --dport 80 -j DNAT --to-destination 10.0.0.93:8080
+
+Allow the packets to be forwarded by the filter table after it has been DNAT-ed:
+# iptables -t filter -I FORWARD -d 10.0.0.93 -p tcp -m tcp --dport 8080 -j ACCEPT
+
+Perform SNAT on traffic leaving the firewall for the HTTP server so that the
+HTTP server will send its responses back to the firewall instead of to the
+original client's address (which is not translated by DNAT):
+# iptables -t nat -I POSTROUTING -p tcp -d 10.0.0.93 --dport 8080 -j SNAT --to-source 10.0.0.224
+
+The SNAT is necessary because if the HTTP server responds to the client
+directly, the client will see packets coming from a different server (the HTTP
+server) than the server to which it thought it sent the request (the firewall)
+and will ignore those packets.
+
+Perform DNAT on packets originating on the firewall and destined for the HTTP
+server:
+# iptables -t nat -I OUTPUT -d 10.0.0.224 -p tcp -m tcp --dport 80 -j DNAT --to-destination 10.0.0.93:8080
+
+This DNAT in the OUTPUT chain is necessary because packets originating on the
+local host (the firewall machine in this case) do not traverse the PREROUTING
+chain, but they do traverse the OUTPUT chain.
+
+*****
+
+Packets originating on hosts other than the firewall machine and destined for
+port 80 will traverse the following chains, in order:
+
+PREROUTING (nat table)
+FORWARD (filter table)
+POSTROUTING (nat table)
+
+Packets originating from the firewall itself and addressed to port 80 will
+traverse the following chains, in order:
+
+OUTPUT (nat table)
+OUTPUT (filter table)
+POSTROUTING (nat table)
+
+Reference chain traversal flow diagrams:
+https://gist.github.com/mcastelino/c38e71eb0809d1427a6650d843c42ac2
+
+*****
+
+The firewall transparently allows responses to DNAT-ed and SNAT-ed requests to
+be sent through the firewall to the original client systems.  No additional
+explicit rules are needed to de-NAT the reponse packets, as this is done
+automatically by netfilter.

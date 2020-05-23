@@ -1,0 +1,43 @@
+All file context rules are contained in:
+/etc/selinux/targeted/contexts/files/file_contexts[.local]Change file context
+
+*****
+
+Set file context:
+# chcon [-R] -u <selinux_user> -r <selinux_role> -t <selinux_type> <filename>
+   -R : recurse through directories
+
+Set file context to match that of another file:
+# chcon --reference=<sourcefile> <destfile>
+
+Caution: a filesystem relabel will reset all file contexts back to their
+policy-defined values.  Permanent changes to contexts must be backed by
+corresponding policy changes (through semanage fcontext).
+
+*****
+
+Restore file context
+
+By default, if a file already has a security context, restorecon will restore
+only the type portion of the context, not the user, role, and range portions.
+
+Restore full SELinux context to a file (not just type):
+# restorecon -F [-R] [-v] <filename>
+  -F : full context restore
+  -R : recurse through directories
+  -v : show any changes made to context
+
+This is useful immediately after replacing a system file, e.g. copying back
+from a saved original that might not have the correct context for the system
+file.
+
+*****
+
+Verify file context
+
+Show correct SELinux context for a file per policy (type can be file, dir,
+pipe, etc.):
+# matchpathcon [-m type] <filename>
+
+Verify if SELinux context for file is correct
+# matchpathcon -V <filename>

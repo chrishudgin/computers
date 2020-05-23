@@ -1,0 +1,6 @@
+/etc/auto.net <host>
+/etc/auto.smb <host>
+
+These are not configuration files but utility scripts to list filesystems
+exported by <host> and the mount options (like hard,intr) that the automounter
+will use if or when they are later automounted.

@@ -1,0 +1,8 @@
+The Kickstart Configurator is installed with:
+# yum install system-config-kickstart
+
+Kickstart Configurator does not support the creation of LVM logical volumes
+or allow individual packages to be selected for installation.
+
+To begin with an existing Kickstart configuration file (optional):
+# system-config-kickstart /root/anaconda-ks.cfg

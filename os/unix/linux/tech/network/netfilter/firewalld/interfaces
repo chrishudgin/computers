@@ -1,0 +1,17 @@
+The zone of a network interface is controlled by the ZONE parameter in the
+interface's /etc/sysconfig/network-script/ifcfg-* file (e.g. ZONE=public).
+
+If an interface is not assigned to any zone, the firewall rules of the default
+zone will apply to it.
+
+The loopback interface is a special case and is treated as a trusted interface
+(all traffic coming from it is accepted).
+
+List interfaces in a given zone (default zone if none specified):
+# firewall-cmd [--zone=<zonename>] --list-interfaces
+eth0 eth1
+
+Persistently change zone assigned to interface, removing it from any other zone:
+# firewall-cmd --zone=<zonename> --change-interface=<ifname>
+Example:
+   # firewall-cmd --zone=dmz --change-interface=eth1

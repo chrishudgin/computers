@@ -1,0 +1,9 @@
+On XFS, inodes are added dynamically and automatically to keep the filesystem
+from running out of available inodes.
+
+There is a preset limit on the amount of filesystem space that can be allocated
+to inodes, but this can be changed with xfs_growfs, as in:
+
+# xfs_growfs -m 30 /dev/sda2  (sets imaxpct to 30, i.e. 30% of filesystem space)
+
+The current value of imaxpct can be shown with xfs_info <mntpt>.

@@ -1,0 +1,4 @@
+prlimit [--resource_name=SOFTLIMIT:HARDLIMIT] [--pid PID]
+prlimit [--resource_name=SOFTLIMIT:HARDLIMIT] [COMMAND]
+   get or set resource limits for a running process or a new command
+   --resource_name can be nproc, stack, core, cpu, etc. (see man page for list)

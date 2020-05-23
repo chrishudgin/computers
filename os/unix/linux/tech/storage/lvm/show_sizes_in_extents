@@ -1,0 +1,11 @@
+The --units parameter to lvs, pvs, etc. does not support displaying a unit
+of "extents" directly, but if the extent size is known a custom unit equal
+to an extent can be specified.
+
+For example, if the extent size is 4m (the default, 4 mebibytes):
+
+# pvs -o name,size --units 4m
+
+# lvs -o name,size --units 4m
+
+# lvs --segments --units 4m

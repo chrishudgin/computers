@@ -1,0 +1,3 @@
+To get filesystem parameters for an ext2/3/4 filesystem:
+
+# tune2fs -l /dev/sdb1

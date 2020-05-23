@@ -1,0 +1,21 @@
+Identify NIC by blinking its LED:
+# ethtool -p eth0
+
+Show permanent (hardware) MAC address of eth0 since network bonding assigns a
+software MAC address:
+# ethtool -P eth0
+
+Show NIC statistics, including error statistics:
+# ethtool -S eth0
+
+Set speed, duplex, autonegotiation, driver message level, etc. :
+# ethtool -s eth0 ...
+
+Example:
+   # ethtool -s eth0 speed 1000 duplex full autoneg off
+
+Flash firmware on NIC using a file:
+# ethtool -f eth0 /some/file
+
+Show NIC driver/chipset features and their on/off statuses:
+# ethtool -k eth0

@@ -1,0 +1,43 @@
+For reporting information on specific types of hardware (like disks or RAID
+controllers), dedicated tools like hdparm, ethtool, and vendor tools will
+often provide the most complete and accurate information.
+
+lshw, when run as superuser, provides an overview of all installed hardware
+with some ability to drill down to obtain more detail (see the -class option
+below).
+
+lshw also lists the driver used for each detected peripheral device.
+
+Useful examples:
+
+Summary mode:
+# lshw -short
+
+Show firmware specifications, cache levels and sizes, and physical DIMM layout
+(slots, installed capacity in each slot, DIMM serial numbers, vendors, model
+numbers):
+# lshw -class memory
+
+Show summary data for each device by its bus address:
+# lshw -businfo
+
+Show details for all detected devices in a specified hardware class:
+# lshw -class <class_type>
+
+where <class_type> is one of the following or possibly some other category
+found in the "Class" columnn of the output of "lshw -short":
+
+system (including system serial number)
+memory (see example above)
+disk (including disk firmware and disk serial numbers)
+storage (controllers)
+network
+bus (including motherboard)
+processor
+generic
+communication
+volume (including partitions and filesystems)
+bridge
+input
+multimedia
+display (video card)

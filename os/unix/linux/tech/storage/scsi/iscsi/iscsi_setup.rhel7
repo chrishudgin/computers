@@ -1,0 +1,164 @@
+Target setup:
+
+Reference:
+https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/Storage_Administration_Guide/ch24.html
+
+# firewall-cmd --zone=public --add-service iscsi-target
+# firewall-cmd --zone=public --add-service iscsi-target --permanent
+# firewall-cmd --info-zone=public
+# firewall-cmd --info-zone=public --permanent
+
+# yum install targetcli
+# systemctl enable target
+# systemctl start target
+# mkdir /iSCSI
+# targetcli
+(Create backstores, i.e. backing store devices, or in this case files)
+/backstores/fileio create target1_lun1 /iSCSI/target1_lun1 100M write_back=false sparse=false
+/backstores/fileio create target1_lun2 /iSCSI/target1_lun2 200M write_back=false sparse=false
+(Outside of targetcli, do a chmod 600 /iSCSI/* at this point)
+
+(Create an iSCSI target)
+cd /iscsi
+create iqn.2015-05.net.solarcore:rhel7vm1.target1
+create iqn.2015-05.net.solarcore:rhel7vm1.target2
+(This creates a target and a default portal that listens on all IPs, i.e.
+   listens on address 0.0.0.0.  We wish to create a portal for each address on
+   the two storage subnets instead.)
+/iscsi/iqn.2015-05.net.solarcore:rhel7vm1.target1/tpg1/portals delete ip_address=0.0.0.0 ip_port=3260
+/iscsi/iqn.2015-05.net.solarcore:rhel7vm1.target2/tpg1/portals delete ip_address=0.0.0.0 ip_port=3260
+/iscsi/iqn.2015-05.net.solarcore:rhel7vm1.target1/tpg1/portals create 192.168.0.107
+/iscsi/iqn.2015-05.net.solarcore:rhel7vm1.target1/tpg1/portals create 192.168.1.107
+/iscsi/iqn.2015-05.net.solarcore:rhel7vm1.target2/tpg1/portals create 192.168.0.107
+/iscsi/iqn.2015-05.net.solarcore:rhel7vm1.target2/tpg1/portals create 192.168.1.107
+
+(Create iSCSI LUNs that map to the previously created backstores)
+/iscsi/iqn.2015-05.net.solarcore:rhel7vm1.target1/tpg1/luns create /backstores/fileio/target1_lun1 1
+/iscsi/iqn.2015-05.net.solarcore:rhel7vm1.target1/tpg1/luns create /backstores/fileio/target1_lun2 2
+/iscsi/iqn.2015-05.net.solarcore:rhel7vm1.target2/tpg1/luns create /backstores/fileio/target2_lun1 1
+/iscsi/iqn.2015-05.net.solarcore:rhel7vm1.target2/tpg1/luns create /backstores/fileio/target2_lun2 2
+
+(Create ACLs; this will make all LUNs in this target portal group visible to
+   the specified iSCSI initiator)
+/iscsi/iqn.2015-05.net.solarcore:rhel7vm1.target1/tpg1/acls create iqn.2015-05.net.solarcore:66c15865e77
+/iscsi/iqn.2015-05.net.solarcore:rhel7vm1.target2/tpg1/acls create iqn.2015-05.net.solarcore:66c15865e77
+
+(Save the configuration)
+cd /
+saveconfig
+exit
+
+Check that configuration is correct
+# targetcli ls
+
+*****
+
+Initiator setup:
+
+# yum install lvm2
+
+Edited /etc/lvm/lvm.conf to include the following filter line:
+   filter = [ "r/block/", "r/disk/", "r/sd.*/", "a/.*/" ]
+# dracut -f
+
+# yum install device-mapper-multipath
+# mpathconf --enable --with_multipathd y  (this will start multipathd)
+# systemctl enable multipathd
+
+Updated defaults stanza of /etc/multipath.conf to add:
+        path_grouping_policy multibus
+
+("path_grouping_policy multibus" sets policy to active/active instead of
+   normal default policy of failover, i.e. active/passive)
+
+# systemctl reload multipathd
+
+# yum install iscsi-initiator-utils
+   This also creates /etc/iscsi/initiatorname.iscsi, which contains a Red Hat
+   IQN concatenated with a random hex string as a pre-generated iSCSI
+   initiator ID.  I changed the IQN to iqn.1999-08.net.solarcore but kept the
+   random hex string, 66c15865e77
+# Edited /etc/iscsi/iscsid.conf to change:
+   node.session.timeo.replacement_timeout = 120
+to
+   node.session.timeo.replacement_timeout = 15
+(This results in faster resumption of I/O to a multipath device when one
+ path to that device fails)
+# systemctl enable iscsid
+# systemctl start iscsid
+# iscsiadm -m iface -I iface0 --op=new
+# iscsiadm -m iface -I iface1 --op=new
+# iscsiadm -m iface -I iface0 --op=update -n iface.net_ifacename -v eth2
+# iscsiadm -m iface -I iface1 --op=update -n iface.net_ifacename -v eth3
+(Using net_ifacename instead of hwaddress seems to prevent startup timeouts)
+# iscsiadm -m iface -I iface0 --op=update -n iface.initiatorname -v iqn.1999-08.net.solarcore:66c15865e77
+# iscsiadm -m iface -I iface1 --op=update -n iface.initiatorname -v iqn.1999-08.net.solarcore:66c15865e77
+Changed the iSCSI initiator name in /etc/iscsi/initiatorname.iscsi to:
+iqn.1999-08.net.solarcore:66c15865e77
+Configure iSCSI targets on rhel7vm1 at this point, then continue below.
+# iscsiadm -m discovery -t sendtargets -p rhel7vm1-iscsi0 --interface=iface0
+# iscsiadm -m discovery -t sendtargets -p rhel7vm1-iscsi1 --interface=iface1
+# iscsiadm -m node -T iqn.1999-08.net.solarcore:rhel7vm1.target1 -p rhel7vm1-iscsi0 -I iface0 --login
+# iscsiadm -m node -T iqn.1999-08.net.solarcore:rhel7vm1.target1 -p rhel7vm1-iscsi1 -I iface1 --login
+
+Remove extraneous iface files (those that are not appropriate for a given
+portal) from /var/lib/iscsi/nodes/targetname/portalname, i.e.
+/var/lib/iscsi/nodes/*/*
+This will prevent the iscsi service from attempting to log in through interfaces
+that have no route to the specified portal, which if allowed could slow down
+iscsi startup at boot by several minutes and result in
+   iscsiadm -m node --loginall=automatic 
+generating a non-zero exit code, even if all *necessary* logins do complete
+successfully in a timely manner.
+
+Example:  If iface0 is defined on eth2, which is on non-routable network
+192.168.0.0/24, then it should not be used to connect to portal
+192.168.1.107/24, which is on a different non-routable network
+(192.168.1.0/24).
+
+So, remove the file:
+/var/lib/iscsi/nodes/iqn.1999-08.net.solarcore:rhel7vm1.target1/192.168.1.107,3260,1/iface0
+
+Repeat for other inappropriate interface files under the portal directories.
+Then continue with path checks below.
+
+# multipath -ll
+
+Edit /etc/multipath/bindings to change mappings of names to WWIDs if desired:
+Then run:
+# multipath -F
+# multipath -r
+# multipath -ll
+
+Create logical volumes and filesystems on the multipath devices:
+
+# fdisk /dev/mapper/mpatha  (created partition 1 to take up the whole disk)
+# fdisk /dev/mapper/mpathb  (created partition 1 to take up the whole disk)
+# fdisk /dev/mapper/mpathc  (created partition 1 to take up the whole disk)
+# fdisk /dev/mapper/mpathd  (created partition 1 to take up the whole disk)
+# partprobe /dev/mapper/mpatha
+# partprobe /dev/mapper/mpathb
+# partprobe /dev/mapper/mpathc
+# partprobe /dev/mapper/mpathd
+# pvcreate /dev/mapper/mpatha1
+# pvcreate /dev/mapper/mpathb1
+# pvcreate /dev/mapper/mpathc1
+# pvcreate /dev/mapper/mpathd1
+# vgcreate vg01 /dev/mapper/mpatha1 /dev/mapper/mpathb1
+# vgcreate vg02 /dev/mapper/mpathc1 /dev/mapper/mpathd1
+# lvcreate -l100%FREE -n lv01 /dev/vg01 /dev/mapper/mpatha1
+# lvcreate -l100%FREE -n lv02 /dev/vg01 /dev/mapper/mpathb1
+# lvcreate -l100%FREE -n lv01 -m 1 /dev/vg02
+# mkfs.ext4 /dev/vg01/lv01
+# mkfs.ext4 /dev/vg01/lv02
+# mkfs.ext4 /dev/vg02/lv01
+# mkdir /iscsi{1,2,3}
+
+Added the following entries to /etc/fstab:
+/dev/vg01/lv01 /iscsi1 ext4 defaults,_netdev 0 0
+/dev/vg01/lv02 /iscsi2 ext4 defaults,_netdev 0 0
+/dev/vg02/lv01 /iscsi3 ext4 defaults,_netdev 0 0
+
+# mount /iscsi1
+# mount /iscsi2
+# mount /iscsi3

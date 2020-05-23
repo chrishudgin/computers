@@ -1,0 +1,9 @@
+To get a block device name given major and minor numbers (8:16 in this example):
+
+# udevadm info -rq name /sys/dev/block/8:16
+/dev/sdb
+
+To get the major and minor numbers given a block device name:
+
+# lsblk --noheadings -r -d -o MAJ:MIN /dev/sdb
+8:16

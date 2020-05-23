@@ -1,0 +1,3 @@
+Recreate LVM device files in /dev:
+
+# vgmknodes

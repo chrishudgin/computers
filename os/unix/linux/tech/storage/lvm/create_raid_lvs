@@ -1,0 +1,28 @@
+LVM RAID commands and options are documented in lvmraid(7).
+
+Create a concatenated volume:
+# lvcreate --type linear -n lv_concat -l100%PV vg02 /dev/sdi1 /dev/sdj1
+
+Create a striped volume:
+# lvcreate --type raid0 -i 2 -n lv_raid0 -l100%PV vg02 /dev/sdg1 /dev/sdh1
+
+Create a mirrored volume:
+# lvcreate --type raid1 -m 1 -n lv_raid1 -l100%PV vg02 /dev/sdi1 /dev/sdj1
+
+Create a RAID 10 volume:
+# lvcreate --type raid10 --mirrors 1 --stripes 2 -n lv_raid10 -l100%PV vg01 /dev/sdc1 /dev/sdd1 /dev/sde1 /dev/sdf1
+
+For RAID 10 volumes, mirror pairs are allocated in the order that PVs are
+specified.  In this example, /dev/sdc1 and /dev/sdd1 would constitute one
+mirror pair and /dev/sde1 and /dev/sdf1 would constitute the other.
+Consequently, striping would be from /dev/sdc1 to /dev/sde1 and from /dev/sdd1
+to /dev/sdf1.  This ordering is hardcoded into the RAID 10 implementation,
+so it is not configurable, nor is it saved in the LV metadata.
+
+Create a RAID 5 volume:
+# lvcreate --type raid5 --stripes 3 -n lv_raid5 -l100%PV vg02 /dev/sdp1 /dev/sdq1 /dev/sdr1 /dev/sds1
+(Note: --stripes is the number of data devices, not including parity)
+
+Create a RAID 6 volume:
+# lvcreate --type raid6 --stripes 3 -n lv_raid6 -l100%PV vg02 /dev/sdp1 /dev/sdq1 /dev/sdr1 /dev/sds1 /dev/sdt1
+(Note: --stripes is the number of data devices, not including parity)

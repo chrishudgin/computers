@@ -1,0 +1,171 @@
+Note: As of RHEL 7.6, nftables has been introduced as a replacement for
+iptables.  iptables remains available, however.
+
+iptables generates and queries packet filtering rules for IPv4.
+ip6tables generates and queries packet filtering rules for IPv6.
+Both commands use the same syntax.
+
+iptables-save   # writes current iptables rules to standard output
+   iptables-save > /etc/sysconfig/iptables  # save to iptables input file
+
+The [0:0] syntax in the policy lines in /etc/sysconfig/iptables reset the
+packet and byte counters for the listed chains:
+:INPUT ACCEPT [0:0]
+:FORWARD ACCEPT [0:0]
+:OUTPUT ACCEPT [0:0]
+
+service iptables save  # saves current iptables rules to /etc/sysconfig/iptables
+   (requires iptables systemd service to be installed)
+
+The final command in /etc/sysconfig/iptables should be COMMIT.
+
+iptables and firewalld are interfaces to the kernel netfilter, implemented in
+   the ip_tables kernel module and related iptables_* modules.
+   firewalld requires iptables to be installed.
+   The iptables systemd service is optional but can be used to for compatibility
+      with RHEL 6 scripts to start and stop netfilter.  It is provided by the
+      package "iptables-services".
+
+There are several tables, each of which can have a chain of rules, and each
+rule has a target that specifies the disposition for a matching packet.
+
+Tables in order of processing:
+raw
+mangle
+nat
+filter (the default)
+security
+
+Chains:
+For the filter table, the predefined chain names are:
+INPUT:  inbound packets from elsewhere whose destination is this server
+FORWARD:  packets received from another host and destined elsewhere
+OUTPUT:  packets originating on this server and destined elsewhere
+
+For the nat table, the predefined chain names are:
+PREROUTING:  before packet destinations are determined, before any other chains
+INPUT  (Note: packets not destined for this host will be sent to FORWARD chains)
+OUTPUT
+POSTROUTING:  immediately before packets are sent out of the host
+
+Packets will traverse chains for more than one table:
+   PREROUTING -> INPUT
+   PREROUTING -> FORWARD -> POSTROUTING
+   OUTPUT -> POSTROUTING
+
+Reference chain traversal flow diagrams:
+https://gist.github.com/mcastelino/c38e71eb0809d1427a6650d843c42ac2
+
+Additional chains can be created (-N chain_name), or they can be deleted
+   (-X chain_name) if their rules have been flushed and they are not a target
+   of any rule
+
+Rules can be manipulated and displayed with:
+-A : append at end of chain
+-I [rulenum]:  insert at beginning of chain or immediately before rulenum
+   Rule numbers for each chain can be seen in the output of
+      # iptables -L --line-numbers
+-D:  delete
+-R:  replace
+-C:  check (verify whether a specified rule is in the table)
+-L [-t table] [chain]:  list rules (default table is filter)
+  -v : verbose (include input and output interfaces)
+-S [-t table] [chain]:  show rules using iptables command input format (default
+   table is filter)
+-P:  set policy (ACCEPT or DROP) for a built-in chain (INPUT/FORWARD/OUTPUT)
+   The policy for a chain determines the final disposition of a packet when no
+   other rule in the chain matches
+-F [-t table] [chain]:  flush chain (delete all active rules in the chain)
+   Without options, -F flushes all rules in all chains
+
+and further with:
+-m module_name:  match (i.e. invoke module, such as "conntrack" or "tcp",
+   to test packet for conditions determined by a module like an
+   established connection or a destination TCP port)
+-p protocol_name:  check against protocol, such as "tcp" or "icmp"
+(-m and -p can be used together)
+-s source IP
+-d destination IP
+--sport:  source port (used by tcp module)
+  --sport 1234:5678  # match source ports from 1234 to 5678 inclusive
+--dport:  destination port (used by tcp module)
+  --dport 1234:5678  # match destination ports from 1234 to 5678 inclusive
+-i ethX:  inbound interface (for INPUT or FORWARD chains)
+-o ethX:  outbound interface  (for FORWARD or OUTPUT chains)
+-n:  numeric output for addresses and ports
+
+Targets are packet dispositions or further rule chains to jump (-j) to:
+-j ACCEPT  (no further processing of packet)
+-j DROP    (no further processing of packet)
+-j REJECT  (no further processing of packet)
+-j RETURN  (return to calling chain, or if this is a built-in chain, apply
+            chain policy to packet and perform no further processing of it)
+-j user-defined-target chain (initialized with iptables -N chain_name)
+
+Packet processing continues in the calling chain after it has traversed the
+   called chain if it did not encounter any rules that both:
+      a.) matched the packet AND
+      b.) specified that no further processing should be done on the packet
+
+Policies (such as INPUT:DROP) set the default disposition for a packet when no
+   specific rule matches that packet
+
+The conntrack module, which supersedes the "state" module, allows stateful
+packet inspection by tracking connections; it matches packets to states like
+NEW for a new connection, ESTABLISHED for an existing connection, or RELATED
+for a new connection that is related to an existing one, such as an FTP data
+connection related to an FTP command connection.
+
+In the "nat" table (assuming IPv4 forwarding is enabled):
+   The REDIRECT target will redirect packets from one port to another (for
+      example, from privileged port 80 to unprivileged port 8080) on the same
+      IP address.
+         iptables -t nat -A PREROUTING -d <serverIP> -p tcp --dport 80 \
+            -j REDIRECT --to-port 8080
+         iptables -t filter -A INPUT -d <serverIP> -p tcp --dport 8080 -j ACCEPT
+   The DNAT target will redirect packets to a different port and IP address,
+      or to an alias IP.
+         iptables -t nat -A PREROUTING -d <serverIP1> -p tcp --dport 80 \
+            -j DNAT --to-destination <serverIP2>:8080
+         iptables -t nat -A OUTPUT -d <serverIP1> -p tcp --dport 80 \
+            -j DNAT --to-destination <serverIP2>:8080
+         ... where serverIP2 could be the same as serverIP1 (e.g. an alias IP)
+   DNAT can also be used to redirect packets from a firewall to a DMZ host
+      DNAT is done before filtering
+      More information about DNAT is at:
+         https://frozentux.net/iptables-tutorial/chunkyhtml/x4033.html
+   SNAT can be used for changing a packet's source IP so
+      that it appears to be originating from the firewall host rather than
+      from an host behind the firewall that may have a non-routable or
+      private IP address such as an RFC 1918 address (e.g. 192.168.0.x).
+      SNAT is done after filtering.
+   MASQUERADE is like SNAT but can handle a dynamically assigned IP
+      address on the firewall (e.g. via DHCP), not just a static address.
+
+In RHEL 7, rules for the loopback interface and loopback address require
+   special crafting; ordinary rules as used for real network interfaces will
+   not necessarily work.
+
+A standard rule allows all connections from the loopback address:
+-A INPUT -i lo -j ACCEPT
+
+RHEL 7 introduces filtering zones, which allow independent sets of custom chains
+   for each NIC (and thus for their corresponding networks).  The built-in
+   chains all include rules to jump to various "ZONES" target chains, which in
+   turn jump to further target chains by zone.  Each NIC is mapped to a
+   particular zone ("public" is the default zone), and packets passing through a
+   NIC are then filtered by the rules for the zone to which the NIC is assigned.
+   For example, if eth0 is assigned to zone "public":
+       INPUT chain -> INPUT_ZONES chain -> rule for -i eth0 -> IN_public chain
+          -> IN_public_log, IN_public_deny, IN_public_allow chains
+   iptables -S is helpful for listing rules in a way that makes it easy to
+      trace the rule flow
+
+Syntax summaries for -j/-m/-p options are available from iptables command:
+   iptables [options] --help
+      For example:  iptables -j DNAT --help
+                    iptables -m conntrack --help
+                    iptables -p tcp --help
+
+A description of standard module (like tcp) and target (like DNAT) extensions,
+   including their iptables syntax, is in the iptables-extensions(8) man page.

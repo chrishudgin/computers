@@ -1,0 +1,6 @@
+Discover SMB shares:
+
+# smbclient -L [-U username] <server|IPaddr>
+
+For an anonymous listing of shares, which does not require authentication,
+simply hit <Enter> when prompted for a password.

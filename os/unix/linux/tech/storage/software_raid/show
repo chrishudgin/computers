@@ -1,0 +1,5 @@
+Show all active md devices:
+# mdadm -D /dev/md?*
+-D : details
+# cat /proc/mdstat
+# lsblk /dev/md?*

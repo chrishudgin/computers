@@ -1,0 +1,42 @@
+1. Configure /etc/vsftpd/vsftpd.conf:
+
+Enable writes:
+write_enable=YES
+
+Enable anonymous ftp:
+anonymous_enable=YES
+
+Enable writes by anonymous user:
+anon_upload_enable=YES
+
+Set the chroot dir for anonymous ftp logins:
+anon_root=/var/ftp/pub/anonymous
+
+Set uploads by anonymous to be owned by ftp:
+chown_uploads=YES
+chown_username=ftp
+
+Optionally, change the mode for anonymously uploaded files from the default
+of 0600 to make them readable to anonymous users (leave at 0600 for dropbox):
+chown_upload_mode=0644
+
+Optionally, allow the anonymous user to create directories:
+anon_mkdir_write_enable=YES
+
+2. Create a directory under the FTP root dir (which defaults to /var/ftp):
+
+# mkdir -p /var/ftp/pub/anonymous/uploads
+# chown -R ftp:ftp /var/ftp/pub/anonymous
+# chmod 550 /var/ftp/pub/anonymous
+# chmod 730 /var/ftp/pub/anonymous/uploads
+# semanage fcontext -a -t public_content_rw_t '/var/ftp/pub/anonymous/uploads(/.*)?'
+# restorecon -FRv /var/ftp
+
+3. Set SELinux booleans to allow anonymous ftp writes:
+
+# setsebool -P ftpd_anon_write on
+# setsebool -P ftpd_full_access on
+
+4. Restart vsftpd:
+
+# systemctl restart vsftpd

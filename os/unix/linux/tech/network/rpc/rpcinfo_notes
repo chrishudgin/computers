@@ -1,0 +1,11 @@
+rpcinfo [-p] [hostname]  # list registered RPC programs on hostname
+   -p : use older protocol version 2 ("portmapper")
+
+rpcinfo -T tcp|udp hostname prognum|progname [versnum]
+   show whether program (optionally with a specified version number) is
+   available on hostname via TCP or UDP
+
+*****
+
+rpcinfo uses the table in /etc/rpc to map program names (like "nfs") to program
+numbers (like "100003").

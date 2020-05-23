@@ -1,0 +1,4 @@
+To facilitate automation by bypassing the Firstboot initial setup screen,
+set the following directive in the Kickstart configuration file:
+
+firstboot --disabled

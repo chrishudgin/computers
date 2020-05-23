@@ -1,0 +1,19 @@
+PORTS
+
+NFS services use RPC to register their ports, as follows:
+
+Server ports:
+nfs : 2049/tcp and 2049/udp
+mountd : 20048/tcp and 20048/udp (RHEL 7)
+         ephemeral port randomly selected at daemon startup (RHEL 6 and earlier)
+
+Client ports:
+status :  ephemeral port randomly selected at daemon startup
+nlockmgr : ephemeral port randomly selected at daemon startup
+
+Fixed ports can be assigned if necessary (for example, to facilitate simplified
+firewall traversal) in /etc/sysconfig/nfs (RHEL 5, 6, 7) or /etc/nfs.conf (RHEL
+7).
+
+Ports registered with RPC for NFS and other active services can be viewed with:
+$ rpcinfo -p [hostname]

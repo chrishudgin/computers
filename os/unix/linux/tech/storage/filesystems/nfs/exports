@@ -1,0 +1,69 @@
+Directories to export are read from the files:
+   /etc/exports
+   /etc/exports.d/*.exports
+
+The syntax of an export line in these files is as follows:
+
+/dir/to/export [-option1,option2,...] client1(option3,option4,...) [...] [\]
+   [...]
+
+where:
+   options are export options, not client mount options
+   each listed client may be:
+      a single host (hostname or IP address)
+      a set of hosts using wildcards *, ? and [character class]
+        in hostname or domain elements; an example character class is [0-9]
+      an IP subnet using "slash" ( / ) notation for netmask, e.g. 192.168.2.0/24
+      the * character, matching any client
+
+By default:
+   exports are read-only (ro)
+   I/O to read/write (rw) exports is synchronous (sync)
+   the root user on the client is mapped to the user nfsnobody (root_squash)
+   write commits are delayed to allow for I/O batching (wdelay)
+
+Reference: exports(5)
+
+After making changes to these files, re-read and apply the export configuration
+with:
+# exportfs -r
+
+*****
+
+Stop all NFS exports temporarily without modifying /etc/exports or
+/etc/exports.d/*.exports and without bouncing the NFS server daemons:
+# exportfs -ua
+
+*****
+
+The crossmnt export option when specified on a filesystem with children allows
+a client to mount the child filesystems of an exported parent automatically and
+transparently when the child filesystem's files or directories are accessed.
+
+*****
+
+The "mountpoint" or "mp" export option ensures that the export directory is a
+filesystem mount point on the server before it can be mounted anywhere on a
+client.  This option protects against sharing a directory that is intended to
+be a filesystem mount point when the filesystem is not actually mounted.  This
+option is not enabled by default.
+
+*****
+
+The "security_label" export option allows an NFS client to modify the SELinux
+security labels of files and directories in the exported directory or
+filesystem.  To be effective, this option also requires the client to mount the
+exported filesystem with NFS version 4.2.
+
+*****
+
+Show current list of exports and their mount options in format suitable for use
+in file /etc/exports:
+
+# exportfs -s
+/mynfs1  tester1.example.com(rw,sync,wdelay,hide,no_subtree_check,sec=sys,secure,no_root_squash,no_all_squash)
+/mynfs2  tester1.example.com(rw,sync,wdelay,hide,no_subtree_check,sec=sys,secure,root_squash,no_all_squash)
+/mynfs3  tester1.example.com(rw,sync,wdelay,hide,no_subtree_check,sec=sys,secure,root_squash,all_squash)
+/export/home  *(rw,sync,wdelay,hide,no_subtree_check,sec=sys,secure,root_squash,no_all_squash)
+
+This command reports much more detail than "showmount -e".

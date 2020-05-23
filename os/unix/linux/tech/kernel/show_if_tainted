@@ -1,0 +1,5 @@
+A tainted kernel has value > 0 in /proc/sys/kernel/tainted.  The number in the
+file is expressed in decimal; the meaning of each binary bit in the number is
+documented at:
+
+https://www.kernel.org/doc/Documentation/sysctl/kernel.txt.

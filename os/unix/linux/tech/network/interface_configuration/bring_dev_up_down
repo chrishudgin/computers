@@ -1,0 +1,3 @@
+The preferred way to bring devices up or down when they are not managed by
+NetworkManager is with the "ifup" and "ifdown" commands, which perform a number
+of sanity checks and cleanup tasks.

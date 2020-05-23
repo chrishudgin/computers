@@ -1,0 +1,5 @@
+yum plugin configuration files are stored in /etc/yum/pluginconf.d (as defined
+by the yum "pluginconfpath" variable).
+
+yum plugins are Python scripts located in /usr/share/yum-plugins and
+/usr/lib/yum-plugins (as defined by the yum "pluginpath" variable).

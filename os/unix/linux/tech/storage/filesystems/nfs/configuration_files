@@ -1,0 +1,22 @@
+Server
+------
+
+NFS configuration:
+/etc/nfs.conf (used to set debug flag or other parameters for any NFS daemon) 
+/etc/sysconfig/nfs
+
+Static export table:
+/etc/exports
+
+Client
+------
+
+NFS global mount options:
+/etc/nfsmount.conf
+
+Static mount table:
+/etc/fstab
+
+Dynamic mount table:
+/etc/mtab
+/proc/mounts

@@ -1,0 +1,4 @@
+Force expiration of automounted filesystems, causing the automounter to unmount
+them if they are not busy:
+
+# pkill -USR1 automount

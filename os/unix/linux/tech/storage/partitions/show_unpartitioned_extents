@@ -1,0 +1,3 @@
+To show the unpartitioned extents of free space on a disk:
+
+parted /dev/sdb print free | grep 'Free Space' | awk '{print $3}'

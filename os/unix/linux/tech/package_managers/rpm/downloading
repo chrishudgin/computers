@@ -1,0 +1,29 @@
+Reference: https://access.redhat.com/solutions/10154 (yum downloader)
+
+Download one or more RPMs to the current directory without installing them:
+# yumdownloader <pkgname>
+
+Wildcards are supported:
+# yumdownloader 'libvirt-*'
+
+Download a source RPM (SRPM):
+# yumdownloader --source <pkgname>
+
+*****
+
+Download a package instead of installing it during an interactive yum
+transaction:
+# yum update
+(Answer "d" to the y/d/N confirmation prompt)
+
+The file will be placed under the yum cache directory for the repository from
+which the package was retrieved
+(e.g. /var/cache/yum/x86_64/7Server/rhel-7-server-rpms/packages)
+
+Remove downloaded packages from /var/cache/yum with:
+# yum clean packages
+
+*****
+
+To verify the integrity of the downloaded file:
+# rpm -K <pkgfile>     (or -Kv to add the display of signatures)

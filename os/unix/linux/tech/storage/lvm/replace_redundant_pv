@@ -1,0 +1,46 @@
+To replace a faulty PV in a RAID LV when the PV to be replaced is still visible
+but unusable (no data has been lost):
+
+# pvcreate /dev/sdd1
+# vgextend vg02 /dev/sdd1
+# lvconvert --replace /dev/sdc1 /dev/vg02/lv01 /dev/sdd1
+                        OLD PV                   NEW PV
+
+See lvmraid(7) for more information.
+
+*****
+
+To replace a faulty PV in a RAID LV when the PV to be replaced is no longer
+visible (no data has been lost), specifying a new PV to use:
+
+(pvs and lvs -a -o name,lv_health_status,devices will show "unknown" for the
+name of the failed device if it is no longer visible)
+
+First, set up the replacement disk with the UUID of the original disk:
+
+# pvcreate --restorefile /etc/lvm/backup/vg05 --uuid ymUv4z-f9Fs-lNdS-bg5j-gBKe-yAde-e0x8ui /dev/sdn1  # use old disk's UUID from backup file or from error
+   output of pvs ("Couldn't find device with uuid .....")
+
+If the failed disk was in a RAID volume, LVM will automatically configure the
+LV to use the replacement disk, but it still must be synced.
+
+Restore the VG configuration only if it was lost when the PV failed:
+
+# vgcfgrestore --file /etc/lvm/backup/vg05 vg05
+
+Repair affected RAID devices (this may be done automatically for RAID LVs):
+
+# lvconvert --repair /dev/vg05/lv01 /dev/sdn1
+
+Trigger a resync of the RAID LV if necessary:
+
+# lvchange --refresh /dev/vg05/lv01
+
+During LV repair, lvs commands will show % of data copied
+
+After LV repair, subsequent LVM commands will warn:
+   WARNING: Not using lvmetad because a repair command was run.
+To clear this condition, re-enable the lvmetad cache:
+# pvscan --cache
+
+See lvmraid(7) for more information on RAID repair commands.

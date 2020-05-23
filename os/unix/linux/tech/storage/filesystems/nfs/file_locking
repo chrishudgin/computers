@@ -1,0 +1,32 @@
+NFS FILE LOCKING
+
+The rpc.statd daemon on the NFS server and client communicate lock status with
+each other.  If either node reboots, it attempts to notify the other node.  The
+server clears the client's locks whenever the client reboots.  When the server
+reboots, all clients must subsequently send their lock information back to the
+server.  Clients maintain locks and server names persistently on stable
+storage.
+
+Each reboot increment's an NFS client or server's NSM (network status monitor)
+state number so that clients and servers can distinguish lock requests
+following a reboot from those that preceded it.
+
+NFSv3:
+
+File locking is managed by the lockd daemon, which is started and stopped
+automatically as NFSv3 filesystems are mounted and unmounted.
+
+lockd is monitored and managed by rpc.statd.  lockd cannot be started, stopped,
+or killed outside of the control of rpc.statd and the NFSv3 mounting/unmounting
+process.
+
+NFSv4:
+
+File locking is integrated into the NFSv4 protocol and does not use
+the NLM sideband protocol or the lockd daemon.
+
+*****
+
+Caution: NFS does not provide strict file locking semantics, especially among
+multiple clients.  For strict file locking semantics, applications should
+serialize their accesses of any given file.

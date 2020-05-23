@@ -1,0 +1,5 @@
+$ gsettings set org.gnome.desktop.session idle-delay 0 # disable screensaver
+$ gsettings set org.gnome.desktop.screensaver lock-enabled false # disable lock
+
+Per-user GNOME screensaver / lock settings are stored in the binary file
+~/.config/dconf/user

@@ -1,0 +1,3 @@
+firewalld configuration is in /etc/firewalld
+firewalld netfilter rules are in /etc/firewalld/zones/public.xml, etc.
+firewalld netfilter service definitions are in /usr/lib/firewalld/services/*.xml

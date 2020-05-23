@@ -1,0 +1,9 @@
+lvchange|vgchange -a y|n|ay
+
+LV activation can be commanded with lvchange and vgchange with the "-a y"
+(manual activation) or "-a ay" (auto activation) options. In the case of auto
+activation, any LV is activated by default unless the lvm.conf setting
+activation/auto_activation_volume_list has been set, in which case only LVs
+that match entries in the auto_activation_volume_list will be auto activated.
+Manual activation (-a y) ignores this setting and proceeds with LV activation
+unconditionally.

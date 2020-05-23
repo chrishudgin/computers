@@ -1,0 +1,15 @@
+Boot options for installation include:
+
+Local installation DVD or USB flash drive (physical or ISO image) with no
+   network connection required
+Local boot CD or USB flash drive (physical or ISO image) with network access
+   to a package source
+PXE boot using remote DHCP server, remote installer media, remote package
+   source, and Kickstart configuration
+
+Possible RHEL installation package sources are:
+
+Local DVD, CD, or USB flash drive (physical or ISO image file)
+Repo accessible by FTP
+Repo accessible by HTTP
+Repo accessible by NFS

@@ -1,0 +1,6 @@
+There is no direct method to convert a striped LV to a linear (concatenated)
+LV.  The indirect method requires temporarily adding a mirror to the striped LV
+and then converting the mirrored LV to a linear layout on the original disks,
+removing the temporary mirror when finished:
+
+https://access.redhat.com/solutions/368783

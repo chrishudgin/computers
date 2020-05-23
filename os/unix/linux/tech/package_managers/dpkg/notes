@@ -1,0 +1,28 @@
+Show information about a package, including its size, version, dependencies,
+full description, etc. :
+
+$ apt show <pkgname>
+
+Search for package by regex in package name or in its full description:
+
+$ apt-cache search <regex>
+
+Get a list of all packages:
+
+$ apt-cache search .
+
+Show a package's dependencies:
+
+$ apt-cache depends [--installed] <pkgname>
+   --installed : limit output to packages already installed
+
+Show packages that depend on a package (reverse dependencies):
+
+$ apt-cache rdepends [--installed] <pkgname>
+   --installed : limit output to packages already installed
+
+Show the file contents of a package:
+
+$ apt-file list <pkgname>
+
+apt-get transactions are logged in /var/log/apt/history.log

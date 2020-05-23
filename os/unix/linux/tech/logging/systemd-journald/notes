@@ -1,0 +1,47 @@
+systemd-journald collects data from a variety of sources and logs to a circular
+buffer in binary file /run/log/journal/.../system.journal
+
+*****
+
+From systemd-journald.service(8) :
+
+"The systemd service manager invokes all service processes with standard output
+and standard error connected to the journal [the socket
+/run/systemd/journal/stdout] by default."
+
+This can be seen in lsof output for daemon processes, e.g.:
+
+# lsof -p $(systemctl show -p MainPID sshd | cut -d= -f2) -a -d 1,2
+COMMAND  PID USER   FD   TYPE             DEVICE SIZE/OFF  NODE NAME
+sshd    1131 root    1u  unix 0xffff90a2b8219c00      0t0 22537 socket
+sshd    1131 root    2u  unix 0xffff90a2b8219c00      0t0 22537 socket
+
+*****
+
+A persistent (disk-based) systemd-journald log is made only if in
+/etc/systemd/journald.conf, either Storage=persistent, or Storage=auto and
+the directory /var/log/journal exists.
+
+To activate /var/log/journal:
+# mkdir /var/log/journal
+# systemd-tmpfiles --create --prefix /var/log/journal
+   (This ensures the correct mode, owners, and ACLs are set for the directory)
+# killall -USR1 systemd-journald
+The following command should not be necessary but is precautionary:
+# systemctl restart rsyslog.service
+
+To deactivate /var/log/journal:
+# rm -rf /var/log/journal
+   (This will destroy the contents of the journal)
+systemd-journald should now create /run/log/journal automatically.
+Set permissions and ACLs:
+# systemd-tmpfiles --create --prefix /run/log/journal
+The following two commands should not be necessary but are precautionary:
+# systemctl restart systemd-journald.service
+# systemctl restart rsyslog.service
+
+*****
+
+Sizing constraints for the journal can be configured in
+/etc/systemd/journald.conf.  If the journal size exceeds these constraints,
+the beginning of the journal will be overwritten as new events are logged.

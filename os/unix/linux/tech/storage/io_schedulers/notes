@@ -1,0 +1,34 @@
+I/O schedulers reorder I/O requests to block devices to make the requests more
+sequential (less random) for better hard drive performance.
+
+Show I/O elevator (scheduler) currently in use by a device:
+
+# cat /sys/block/sda/queue/scheduler
+noop [deadline] cfq
+
+Current scheduler in use is enclosed in brackets and may be set automatically
+according to storage type.
+
+Temporarily change I/O elevator (scheduler) in use by a device:
+
+# echo cfq > /sys/block/sda/queue/scheduler
+# cat /sys/block/sda/queue/scheduler
+noop deadline [cfq]
+
+To change the system-wide I/O scheduler, add the following line to the kernel
+line in the GRUB configuration:
+
+elevator=deadline  (or eleavator=cfq or elevator=noop)
+
+On RHEL 7, this would be done by adding it to GRUB_CMDLINE_LINUX in
+/etc/default/grub and running grub2-mkconfig -o /boot/grub2/grub.cfg
+
+"Deadline" favors throughput but potentially higher latency for
+   interactive processes since processes using heavy I/O will get more frequent
+   service.  Good policy for database disks.
+"Completely Fair Queueing" (cfq) provides low latency but gives each process
+   an equal I/O share via round-robin, regardless of how much I/O a process
+   needs to perform.  Good policy for a root disk.
+"NOOP" does no reordering of I/O requests and is good for devices
+   with no rotational latency (or rotational latency masked by caching) like
+   flash storage, some SAN LUNs, or RAM disks.

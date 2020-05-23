@@ -1,0 +1,5 @@
+Any kernel and initrd GRUB boot parameters needed for a tuned profile are
+placed automatically in the file /etc/tuned/bootcmdline whenever a tuned
+profile is activated with tuned-adm.  These parameters are then added to
+grub.cfg by the script /etc/grub.d/00_tuned whenever grub2-mkconfig regenerates
+the grub.cfg file.

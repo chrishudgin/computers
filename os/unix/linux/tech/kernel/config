@@ -1,0 +1,2 @@
+The configuration variables and their values set when the kernel was built are
+listed in /boot/config-<kernel_version>

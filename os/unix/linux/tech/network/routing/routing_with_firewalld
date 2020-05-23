@@ -1,0 +1,24 @@
+Route between two networks without NAT or masquerading when firewalld is
+running on the router, and the router has (for example) network interfaces eth0
+and eth1 with IP addresses 192.168.4.213 and 192.168.10.10 on networks
+192.168.4.0/24 and 192.168.10.0/24, respectively:
+
+On systems attached to networks on either side of the router, update the
+routing table both in the persistent and active configuration.  For example,
+on a system (other than the router itself) with eth0 on the 192.168.4.0/24
+network, create a file /etc/sysconfig/network-scripts/route-eth0 with the
+following entry:
+192.168.10.0/24 via 192.168.4.213 dev eth0
+and then run:
+# ip route add 192.168.10.0/24 via 192.168.4.213 dev eth0
+
+On the router, add the following line to /etc/sysctl.conf:
+net.ipv4.ip_forward = 1
+and run:
+# sysctl -p
+
+On the router, configure the firewall to allow unlimited traffic between
+interfaces, or add limits on ports, destinations, etc. as desired:
+# firewall-cmd --permanent --direct --add-rule ipv4 filter FORWARD 0 -i eth0 -o eth1 -j ACCEPT
+# firewall-cmd --permanent --direct --add-rule ipv4 filter FORWARD 0 -i eth1 -o eth0 -j ACCEPT
+# firewall-cmd --reload

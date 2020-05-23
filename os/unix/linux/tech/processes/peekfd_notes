@@ -1,0 +1,2 @@
+peekfd pid [fd] [fd] ...  # displays I/O occurring through a process's file
+   descriptors

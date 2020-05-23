@@ -1,0 +1,29 @@
+"/dev/root" and "rootfs" appearing in the output of df as the devices for the
+root filesystem can be caused by /etc/mtab being a symlink to
+/proc/self/mounts.  Removing the symlink resolves this problem.
+
+Before:
+
+# df -h
+Filesystem            Size  Used Avail Use% Mounted on
+rootfs                 15G  2.9G   11G  21% /
+/dev/root              15G  2.9G   11G  21% /
+...
+
+# ls -l /etc/mtab
+lrwxrwxrwx 1 root root 17 Apr  9 13:24 /etc/mtab -> /proc/self/mounts
+
+Fix:
+
+# rm /etc/mtab
+# shutdown -r now
+
+After:
+
+# df -h
+Filesystem            Size  Used Avail Use% Mounted on
+/dev/sda2              15G  2.9G   11G  21% /
+...
+
+# ls -l /etc/mtab
+-rw-r--r-- 1 root root 325 Apr  9 13:32 /etc/mtab

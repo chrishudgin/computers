@@ -1,0 +1,132 @@
+Perform case-insensitive string search in package names and summaries:
+# yum search http  
+
+Search "all" fields (package names, summaries, descriptions, and URLs):
+# yum search all http
+
+*****
+
+# rpm -q --changelog <pkgname>  # show change log for installed package
+
+As above, but for installed and available packages:
+# repoquery --changelog <pkgname>
+OR
+# yum changelog <pkgname>
+# yum changelog available <pkgname> # limit output to available (but not
+   installed) version of package
+   ("yum changelog" command is provided by yum-plugin-changelog package)
+
+Show detailed information about available bug fixes:
+# yum updateinfo available <pkgname>
+
+Filters for various types of bug fixes (like "security") can be specified as
+arguments to "yum updateinfo".
+
+*****
+
+To list all changed files from one version of a package to another, install
+one version of a package and run a verification against the updated package
+file, as in:
+   # rpm -V|--verify -p <newer_pkg_file>
+
+*****
+
+Show install/remove scripts for a package:
+# rpm -q --scripts <pkgname>
+
+Show all possible fields that can be queried:
+# rpm -q --querytags
+
+Query fields:
+# repoquery --queryformat '%{FIELD1}\ %{FIELD2}\n' <pkgname>
+OR
+# rpm -q --queryformat '%{FIELD1}\ %{FIELD2}\n' <pkgname>
+  using FIELDs from --querytags
+
+Example for displaying the FILECAPS tag (or any other tag) per file in an RPM,
+   filtered (by awk) for files that have a non-empty value for the specified
+   tag:
+
+# rpm -q --queryformat '[%{FILENAMES} %{FILECAPS}\n]' iputils | awk '$2=="="'
+
+The brackets [] are needed when displaying a tag for each file (the array of
+   files) instead of only for the first file in the RPM.
+
+*****
+
+# rpm -q -a|--all --last <pkgname> # show installed packages by chronological
+   installation order, most recent first
+
+Show information about package:
+# repoquery -i <pkgname>
+OR
+# rpm -q -i|--info <pkgname>
+
+Show name of package that provides file:
+# repoquery -f <filename>
+OR
+# rpm -q -f|--file <filename> 
+
+Query against package file rather than package name:
+# rpm -q -p|--package <package_file>
+
+List files in package:
+# repoquery -l <pkgname>
+OR
+rpm -q -l|--list <pkgname>
+OR
+rpm -q --filesbypkg [-a | [<pkgname1> <pkgname2> ...] : show package name for
+   each file, useful when identifying which packages provide a filename pattern
+
+Show capabilities provided by package:
+# repoquery --provides <pkgname>
+OR
+# rpm -q --provides <pkgname>
+
+Show capabilities required by package:
+# repoquery -R|--requires <pkgname>
+OR
+# rpm -q -R|--requires <pkgname>
+
+rpm -q -c|--configfiles <pkgname>  # show config files for package
+rpm -q -d|--docfiles <pkgname>  # show documentation files including man pages
+   for package
+
+*****
+
+List available (eligible to be installed on the local system) packages in all
+enabled repos:
+# repoquery '*'|<pkgname>
+# yum list available [<pkgname>]
+
+By default, packages that are older than those already installed will not
+appear in the output of the above two commands unless --showduplicates is added
+to the command line.
+
+List installed packages as well as available packages in all enabled repos:
+# yum list
+
+List only installed packages:
+# yum list installed
+
+List updates:
+# yum list updates
+
+"yum check-update" performs the same function but also returns an exit code of
+100 if updates are available.
+
+*****
+
+Show all packages in all enabled repos that contain some filename or filename
+pattern:
+
+# yum whatprovides /etc/issue
+# yum whatprovides '*somefilenamepattern*'
+
+Show package that provides some command:
+# yum whatprovides '*/somecommand'
+
+*****
+
+Spec file (pkgname.spec) contains build commands for package, including
+   list of patches to apply to pristine source.

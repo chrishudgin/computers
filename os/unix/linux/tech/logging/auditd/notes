@@ -1,0 +1,54 @@
+systemd service and daemon are both called auditd.
+
+Configuration file is /etc/audit/auditd.conf
+
+Log file is /var/log/audit/audit.log
+
+"Watch rules" are created using auditctl.
+Rule parameters are documented in audit.rules(7).
+
+Set a non-persistent watch rule (change does not survive reboot):
+# auditctl -w <watched_path> -p r|w|x|a -k <name_for_key>
+   If watched_path is a directory, the watch is recursive
+   -p r, w, x : log syscalls that open a file for reading, writing, execution
+   -p a : log syscalls that change the attributes of a watched file
+      -p options can be combined as, for example, rwa
+   -k <name_for_key> : assign an arbitrary key name to this watch rule
+Example:
+   # auditctl -w /etc/shadow -p a -k shadow_watch
+   # auditctl -w /etc/sysconfig/ -p rwa -k sysconfig_watch
+
+Delete a non-persistent watch rule (change does not survive reboot):
+# auditctl -W <watched_path> ... (remainder of rule)
+
+Delete all non-persistent watch rules:
+# auditctl -D
+
+Add a persistent rule:
+Append all auditctl arguments and options for each desired watch rule (but not
+   the auditctl command name itself), one rule per line, to
+   /etc/audit/rules.d/audit.rules
+Restart auditd using service command (not systemctl):
+# service auditd restart
+
+The first rule in audit.rules that matches an event is used to log that event.
+
+List active custom watch rules:
+# auditctl -l
+
+Search by key name for events matching an audited watch rule:
+# ausearch [-i] -k <name_for_key>
+   -i : interpret system call numbers and numeric UIDs/GIDs (translate to names)
+
+Search for all events pertaining to a filename:
+# ausearch [-i] -f <filename>
+   -i : interpret system call numbers and numeric UIDs/GIDs (translate to names)
+
+Many other search options are available.
+
+Log entries include the timestamp in seconds since the epoch, audit event ID,
+filesystem object name, ownership, and SELinux context, as well as the command
+name, its PID, process UID/GID, and its SELinux context.
+
+A single event can generate multiple log entries, each with the same audit
+event ID after the timestamp.

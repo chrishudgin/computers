@@ -1,0 +1,65 @@
+Install:
+
+# yum install <pkgname>|<pkgfile>|<filename> : install package or update
+package if newer version available.
+OR
+# rpm -i <pkgfile> : install package
+
+Fail if another version of the package is already installed, unless the package
+allows multiple versions of itself to be installed (as the kernel package
+does).
+
+Adding --force to rpm -i will allow multiple versions of the same package to be
+installed even when the package normally does not allow this.
+
+Upgrade:
+# yum update <pkgname>|<pkgfile> : upgrade (replace) installed earlier version
+of package.  If package name is specified with a version, then update to that
+version, even if a newer version is available.
+
+OR
+# rpm -U <pkgfile> : install package if no version of it is installed, or
+upgrade (replace) installed earlier version of package.
+
+Downgrade:
+# yum downgrade <pkgname>|<pkgfile> : downgrade package to previous version or
+to the version in pkgfile
+
+# rpm -U --oldpackage <pkgfile> : downgrade package to the version in pkgfile
+
+Freshen:
+# rpm -F <pkgfile> : upgrade package only if an earlier version is already
+installed.
+
+Reinstall:
+# rpm --reinstall <pkgfile>
+
+*****
+
+A yum package specification can be a package name (optionally including the
+package version), an RPM package file, or a filename (e.g. /bin/ksh) provided
+by a package.  Wildcards are allowed.
+
+A package file passed to yum or rpm can be specified as a local filename or as
+an http or ftp URL.  A fully specified ftp or http URL has the form:
+   ftp://<username>:<password>@<hostname>:<port>/path/to/filename
+   http://<username>:<password>@<hostname>:<port>/path/to/filename
+
+*****
+
+Remove:
+# rpm -e <pkgname> : remove package if no other packages depend on it
+# rpm -e --nodeps <pkgname> : ignore dependencies to force package removal
+   (dependent packages are not removed)
+
+Remove all versions of an installed package:
+# rpm -e --allmatches <pkgname>
+
+Force removal of a package when its scripts would otherwise prevent removal:
+# rpm -e --noscripts <pkgname>
+
+*****
+
+During installation or removal of a package, package scripts can be prevented
+from executing by category, or all scripts can be prevented from running with:
+--noscripts

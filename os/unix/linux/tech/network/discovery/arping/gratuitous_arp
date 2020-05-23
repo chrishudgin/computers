@@ -1,0 +1,22 @@
+To send a gratuitous ARP from a server on its own behalf, use arping -A.
+
+Example for a server whose IP address on eth0 is 10.0.0.45:
+
+# arping -A -I eth0 10.0.0.45 -c 1
+-A : send unsolicited (gratuitous) ARP REPLY
+-I eth0 : host interface from which to obtain MAC address and send packet
+-c 1 : count (number of packets to send)
+
+All hosts in the same layer 2 broadcast domain as eth0 on the server will
+receive the ARP REPLY packet  and will update their ARP caches to associate
+10.0.0.45 with the MAC address of eth0 if they already had an entry in their
+ARP caches for 10.0.0.45.  Hosts that did not already have an ARP cache entry
+for 10.0.0.45 will not necessarily add one upon receiving a gratuitous ARP.
+
+(Why -A and not -U?  "tcpdump -vv arp" will show MAC address in packet decode
+when ARP REPLY packet is received, but not when ARP REQUEST packet is
+received.  Add -e to the tcpdump command to see the MAC address either way.)
+
+To display the ARP cache:
+
+# ip n[eighbor] [show]

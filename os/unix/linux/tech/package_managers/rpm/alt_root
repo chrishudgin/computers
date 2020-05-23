@@ -1,0 +1,1 @@
+rpm ... --root /some/dir : Use /some/dir as alternate root path for this command

@@ -1,0 +1,29 @@
+The purpose of anacron is to ensure that certain jobs run periodically on a
+daily, weekly, or monthly basis even if the system is not up continuously, and
+when the exact time of day that a job runs is not important.
+
+anacron is not separate daemon or service but rather a utility run periodically
+as a cron job.
+
+Linkage between cron and anacron:
+cron runs all jobs contained in files in /etc/cron.d, including
+/etc/cron.d/0hourly, which contains the following job:
+   01 * * * * root run-parts /etc/cron.hourly
+run-parts runs all scripts in a directory.
+/etc/cron.hourly/0anacron runs anacron.
+
+Thus, in order for anacon to run, the system need only be online at one minute
+past the hour, and running cron, at least once per day.  However, the setting
+START_HOURS_RANGE=3-22 in /etc/anacrontab limits which hours of the day anacron
+will run the daily, weekly, and monthly jobs.  During this hour range, an
+anacron job that is eligible to run (because it has not run in at least one
+day, week, or month) will run at:
+
+Time that 0hourly runs /etc/cron.hourly/0anacron (1 minute past the hour) +
+base delay in minutes from /etc/anacrontab + RANDOM_DELAY in minutes from
+/etc/anacrontab
+
+The schedule for running jobs in /etc/cron.{daily,weekly,monthly}
+   is maintained in /etc/anacrontab.
+   The last run date for each is stored in
+      /var/spool/anacron/cron.{daily, weekly, monthly}

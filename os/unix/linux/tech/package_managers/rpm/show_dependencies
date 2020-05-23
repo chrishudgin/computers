@@ -1,0 +1,12 @@
+Show all of a package's requirements (dependencies), direct and indirect, in a
+repository:
+# repoquery --requires --resolve --recursive <pkgname>
+   (--recursive requires RHEL 7)
+or
+# yum deplist <pkgname>   (also shows which package provides each dependency)
+
+Show all packages in a repository that depend on a given package:
+# repoquery --whatrequires <pkgname>
+
+Show all installed packages that depend on a given package:
+# rpm -q --whatrequires <pkgname>

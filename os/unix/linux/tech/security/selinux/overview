@@ -1,0 +1,81 @@
+SELinux implements mandatory access control (MAC), meaning that a policy
+administrator can set access restrictions that cannot be overridden by users.
+
+SELinux never grants permissions beyond what are granted by discretionary
+access control (DAC), i.e. standard Unix permissions.  SELinux can only
+implement further restrictions on accesses that would otherwise be allowed by
+DAC settings; DAC permissions are evaluated first.
+
+SELinux denies all access by default; policies selectively grant access.
+
+Policies are implemented by dynamically loaded, bzipped modules located in
+/etc/selinux/targeted/active/modules/###.  semodule -l will list the installed
+modules.
+
+SELinux users are assigned to roles
+An SELinux "subject" is a process.  A subject is granted "permissions" to act
+   on an "object".  The subject runs in a "domain" (an SELinux process context).
+Objects can include files, ports, sockets, or other entities.
+Each object has a "type" (an SELinux object context).
+SELinux policies assign user access to roles, role access to domains, and domain
+   access to types.
+   User -> Role -> Domain (process context) -> Type (object, e.g. file, context)
+
+The default policy, "targeted", means that only targeted processes and Unix
+accounts are subjected to SELinux constraints.  The rest are granted access to
+unconfined domains (but are still subject to standard Unix permissions, i.e.
+discretionary access control, DAC).
+
+In RHEL 7, under the default SELinux policy called "targeted", programs and
+user accounts not assigned other SELinux contexts default to the "unconfined"
+context, which has no SELinux rules governing it.  This allows programs and
+users that are not shipped with the OS to run essentially without SELinux
+restrictions, with only standard Unix process owner and filesystem
+discretionary access control rules having effect.
+
+Predefined SELinux rules use file contexts to govern how programs transition to
+a process context that differs from the process context that they inherit from
+their parent process (e.g. when an sshd_exec_t executable file is run, it
+transitions from its parent process context to sshd_t process context).
+
+A transition can only occur when the following three requirements are satisfied:
+
+1. The origin domain has execute permission on the file (through SELinux
+policy).
+
+2. The file context itself is identified as an entry point for the target
+domain.
+
+3. The origin domain is allowed to transition to the target domain.
+
+*****
+
+Source: https://wiki.gentoo.org/wiki/SELinux/Tutorials/How_does_a_process_get_into_a_certain_context#Process_domain_transition_permission
+
+The servicename_selinux man pages (e.g. sshd_selinux) document the following
+items associated with a service:
+
+File and process contexts
+Booleans
+Port types (e.g.  ssh_port_t) and their permitted ports (e.g. TCP 22)
+Permitted context transitions (e.g. sshd_exec_t executable file to sshd_t
+   process)
+Default entry points to process context types (e.g. /usr/sbin/sshd for sshd_t)
+Permitted file access by file context, including default files/dirs that have
+   each permitted context (e.g. sshd_t process context can access files of
+   type ssh_home_t)
+
+*****
+
+Files and processes inherit the contexts of their parents (directory or
+   parent process) unless an SELinux rule applies to set a different context.
+Copying a file will cause it to inherit the context for its new location
+   (parent directory context or rule), unless --preserve=context is added to
+   the cp command line.
+Moving a file will preserve its context.
+
+*****
+
+Sensitivity (s#) and category (c#) components of a context label are used not
+only for MLS (multi-level security, not enabled by default in RHEL 7) but also
+for libvirt processes to enforce access separation between virtual machines.

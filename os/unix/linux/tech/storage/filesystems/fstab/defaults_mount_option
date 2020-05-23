@@ -1,0 +1,2 @@
+The mount option keyword "defaults" sets the following mount options:
+rw,suid,dev,exec,auto,nouser,async

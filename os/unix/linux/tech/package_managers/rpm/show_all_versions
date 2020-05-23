@@ -1,0 +1,4 @@
+Show all versions of a package that are in a repo:
+# repoquery --show-duplicates <pkgname>
+
+# yum --showduplicates list available <pkgname>

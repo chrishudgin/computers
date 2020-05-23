@@ -1,0 +1,7 @@
+To erase the signatures of partition tables, filesystems, swap devices, or RAID
+devices from a block device, use:
+
+wipefs -a /dev/...
+
+After this is done, blkid will no longer show the (former) usage type of the
+block device.

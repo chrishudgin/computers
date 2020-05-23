@@ -1,0 +1,19 @@
+Create an md device:
+# mdadm -C /dev/md0 -l 5 -n 3 -x 1 /dev/sda{e..h}1
+-C : create
+-l : RAID level (linear,0,1,4,5,6,10)
+-n : number of RAID devices to use, including parity but not including spares
+-x : number of spare devices
+# watch cat /proc/mdstat   (shows progress of "array" creation)
+
+Start all md devices:
+# mdadm -A -s
+-A : assemble
+-s : scan
+
+Stop an md device:
+# mdadm -S /dev/md0
+-S : stop
+
+Remove an md device:
+# mdadm --zero-superblock /dev/sda{e..h}1

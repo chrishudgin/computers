@@ -1,0 +1,6 @@
+Include timestamps in dmesg output:
+# dmesg -T
+
+or use:
+
+# journalctl -k|--dmesg

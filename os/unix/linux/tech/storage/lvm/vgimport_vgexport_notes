@@ -1,0 +1,2 @@
+vgexport will make a volume group's volumes unavailable for activation until
+a subsequent vgimport.  Starting LVM at boot does not perform a vgimport.

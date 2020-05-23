@@ -1,0 +1,8 @@
+Resume an interrupted LV operation like a pvmove:
+
+# lvchange --poll y /dev/vg01/lv_raid10
+
+or if the interrupted operation was a pvmove, running pvmove with no arguments
+will restart it:
+
+# pvmove

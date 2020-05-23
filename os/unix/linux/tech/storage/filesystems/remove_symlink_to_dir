@@ -1,0 +1,2 @@
+rm -rf /symlink_to_dir only removes the symlink, not the dir.
+rm -rf /symlink_to_dir/ removes only the dir, not the symlink.

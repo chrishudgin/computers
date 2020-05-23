@@ -1,0 +1,4 @@
+kill 0 : send a signal to all processes in the same process group as the "kill"
+   command
+
+kill [-SIGNAL] -- -31218 : send a signal to process group 31218

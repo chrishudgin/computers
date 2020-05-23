@@ -1,0 +1,1 @@
+In RHEL 8, yum is a symlink to dnf.

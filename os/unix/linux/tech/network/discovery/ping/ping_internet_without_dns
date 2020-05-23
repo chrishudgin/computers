@@ -1,0 +1,2 @@
+To verify connectivity to the Internet when DNS is not working, send pings to
+IP address 8.8.8.8 or 8.8.4.4, both of which are Google public DNS servers.

@@ -1,0 +1,35 @@
+SSSD (System Security Service Daemon) provides caching for offline
+authentication when the designated LDAP server is temporarily unavailable.  It
+can be used instead of nslcd for this purpose.
+
+Unlike nslcd, sssd can also (in additon to LDAP authentication) handle
+authentication to Active Directory, Kerberos, and IPA (Identity, Policy, and
+Audit server).
+
+Install the package sssd, which adds many dependencies.
+
+By default, there is no /etc/sssd/sssd.conf file, but authconfig-* will create
+it.
+
+Example /etc/sssd/sssd.conf:
+
+id_provider = ldap
+auth_provider = ldap
+chpass_provider = ldap
+ldap_uri = ldap://127.0.0.1
+ldap_id_use_start_tls = True
+ldap_tls_cacertdir = /etc/openldap/cacerts
+[sssd]
+services = nss, pam
+config_file_version = 1
+domains = default
+
+When using sssd, entries in /etc/nsswitch.conf should be as follows:
+passwd: files sss
+shadow: files sss
+group: files sss
+
+Enable and start the sssd service:
+# systemctl enable sssd
+# systemctl start sssd
+

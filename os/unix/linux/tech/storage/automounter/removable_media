@@ -1,0 +1,22 @@
+A removable device (like a CD or USB thumb drive) that is automounted by the
+RHEL 7 GNOME desktop will be mounted at /run/media/<username>/<volname>, e.g.:
+
+/run/media/chudgin/RHEL-7.5 Server.x86_64
+
+If a CD at /dev/cdrom (a symlink to /dev/sr0) is not mounted automatically by
+the GNOME desktop, it can be automounted by accessing /misc/cd, as configured
+in /etc/auto.misc.
+
+USB thumb drives will not automount by default outside of the GNOME desktop
+environment.
+
+*****
+
+Eject removable media, e.g. a CD-ROM, automatically unmounting any filesystems
+on the device first:
+
+# eject <devname>   (/dev/cdrom by default)
+
+Examples:
+# eject /dev/sr0
+# eject /dev/sdc (if /dev/sdc is a USB thumb drive, for example)

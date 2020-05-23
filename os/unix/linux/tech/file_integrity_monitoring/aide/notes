@@ -1,0 +1,19 @@
+AIDE (Advanced Intrusion Detection Environment)
+
+Provided by package "aide".
+
+Configuration file is /etc/aide.conf, which configures which properties to
+record and verify for which files and directories, optionally descending into
+directories recursively for each directory specified.
+
+Initialize database in /var/lib/aide/aide.db.new.gz:
+# aide --init
+
+Rename the database file:
+# mv /var/lib/aide/aide.db.new.gz /var/lib/aide/aide.db.gz
+
+As an additional precaution, consider copying the database file to another
+machine or offline storage medium for safekeeping and future reference.
+
+Check integrity of filesystem objects against values recorded in database:
+# aide --check

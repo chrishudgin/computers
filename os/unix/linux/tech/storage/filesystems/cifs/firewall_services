@@ -1,0 +1,4 @@
+On the SMB client, open the samba-client firewalld service:
+
+# firewall-cmd --permament --add-service=samba-client
+# firewall-cmd --reload

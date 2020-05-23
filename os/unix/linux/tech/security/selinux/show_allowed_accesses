@@ -1,0 +1,91 @@
+*****
+
+To query the current SELinux policies generally, use sesearch or seinfo (part
+of the setools-console package).
+
+*****
+
+Show the direct interactions that a process context type (e.g. sshd_t) is
+permitted to have with files of a given file context type (e.g. sshd_key_t):
+
+# sesearch --allow --source --show_cond sshd_t --target sshd_key_t --class file --direct
+Found 1 semantic av rules:
+   allow sshd_t sshd_key_t : file { ioctl read getattr lock open } ;
+
+In the above example, write access is not shown and therefore is not allowed.
+
+The general syntax of a rule is:
+   allow <domain> <type> : <class> { <permissions> };
+
+<domain> can be a process domain like sshd_t or a set of capabilities like
+nsswitch_domain or can_change_object_identity that a process domain can use if
+allowed by policy.
+
+Leave out constraints (like --target and --class) for broader searches.
+Leave out --direct to show indirect paths to access.
+
+   --show_cond : show any booleans that are required to grant the specified
+                 access and whether or not those booleans are currently enabled
+                 (E) or disabled (D).
+
+*****
+
+Show the type transitions for a process context type when accessing an object
+context type (such as when creating a file in a directory of a certain context,
+overriding the default context of the new file which would be the context of
+the directory):
+
+# sesearch --type --source httpd_t
+...
+type_transition httpd_t httpd_sys_rw_content_t : process httpd_sys_script_t;
+...
+type_transition httpd_t tmp_t : dir httpd_tmp_t;
+...
+
+The lines above indicate that a process of type httpd_t will transition to an
+httpd_sys_script_t context when executing a script of type
+httpd_sys_rw_content_t, and that a process of type httpd_t will transition to
+an httpd_tmp_t context when writing to a directory of type tmp_t (like /tmp or
+/var/tmp).
+
+Given the above, the following additional two commands demonstrate that httpd_t
+processes cannot execute any scripts they may create in /tmp or /var/tmp (which
+have type tmp_t):
+
+# sesearch --type --source httpd_tmp_t
+(No output, so no further process transitions from httpd_tmp_t are allowed
+regardless of the type of object the process is acccesing.)
+
+# sesearch --allow --show_cond --source httpd_tmp_t -p execute
+(No output, so a process that is running under context httpd_tmp_t while
+accessing a file in /tmp or /var/tmp cannot execute it.)
+
+This can be confirmed directly with:
+# sesearch --show_cond --allow --source httpd_t --target tmp_t -p execute
+(No output)
+
+*****
+
+# sepolicy transition -s sshd_t : show all process context types to which
+   a process executing as sshd_t can transition and through which executable
+   file contexts it can do so
+
+To show permitted entry points (permitting transition to another SELinux
+context) for executable files with a given file context:
+
+# sesearch --allow --show_cond --target sshd_exec_t --class file --direct --perm=entrypoint
+Found 1 semantic av rules:
+   allow sshd_t sshd_exec_t : file { ioctl read getattr lock execute execute_no_trans entrypoint open } ;
+
+In the above example, an executable (such as /usr/sbin/sshd) with file context
+sshd_exec_t is shown to be allowed to transition to process context sshd_t when
+it runs (and this is indeed what /usr/sbin/sshd does).
+
+Example in which a boolean (kerberos_enabled) must be set to "on" to enable access, and which is set to "on" as shown by the capital "E" in the output:
+# sesearch --allow --show_cond --source httpd_t --target tmp_t -p write
+Found 2 semantic av rules:
+   allow httpd_t tmp_t : dir { ioctl read write getattr lock add_name remove_name search open } ; 
+ET allow httpd_t tmp_t : dir { ioctl read write getattr lock add_name remove_name search open } ; [ kerberos_enabled ] 
+
+A capital "D" in place of the "E" would indicate that the access was disabled
+because the boolean was set to "off".

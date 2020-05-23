@@ -1,0 +1,13 @@
+One way to run a script once every two weeks through cron:
+
+0 6 * * 2 expr `date +\%s` / 604800 \% 2 >/dev/null || /scripts/fortnightly.sh
+
+This checks whether the number of times that a week's worth of seconds has
+elapsed since the epoch is divisible by 2.
+
+This can still potentially fail during DST changes and leap seconds.
+
+Reference:  https://stackoverflow.com/a/19278657
+
+Alternatively, keep a persistent marker and toggle it each time the weekly
+cron job runs.

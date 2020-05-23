@@ -1,0 +1,9 @@
+netstat is deprecated; it is replaced by features in ss, ip, and nstat
+
+netstat -s  # display packet and connection statistics by protocol
+nstat  # iproute2 pacakge replacement for "netstat -s"
+
+netstat -i  # show summary statistics for each interface, including error
+   counts
+ip -s link [show [eth0]] # iproute2 package replacement for "netstat -i"
+ip -s -s link [show [eth0]] # show error counts by type of error

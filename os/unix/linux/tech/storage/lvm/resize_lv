@@ -1,0 +1,16 @@
+Add a specified quantity of space to an LV:
+# lvresize -L +4GB /dev/myvg/mylvol
+# lvresize -l +30 /dev/myvg/mylvol   (adds 30 extents)
+# lvresize -l +50%FREE /dev/myvg/mylvol (adds 50% of the free space in the VG)
+# lvresize -l -50M /dev/myvg/mylvol   (subtracts 50M from the LV)
+
+# lvresize -r ... : resize filesystem as well as logical volume
+   If the filesystem is being shrunk (not possible with XFS), it will be
+   unmounted temporarily
+
+lvresize can be used to extend a striped volume to additional storage using a
+different number of columns than the original stripe contained, but the
+original data remains striped with the original number of columns.  The new
+size of the LV should be specified in extents or extents added rather than
+-l100%free to ensure that the desired total amount of space is used for the
+LV.

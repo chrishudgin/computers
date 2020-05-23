@@ -1,0 +1,4 @@
+find / -context 'system_u:object_r:root_t:s0'
+   Find all files with exact specified SELinux context
+find / -context '*:*:sshd_exec_t:*'
+   Find all files with pattern-matched SELinux context (wildcards allowed)

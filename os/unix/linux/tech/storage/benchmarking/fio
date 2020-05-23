@@ -1,0 +1,3 @@
+The fio utility, provided by the fio package, can generate test I/O according
+to user-specifiable profiles (random, sequential, multithreaded, asynchronous,
+etc.) and report performance statistics for the I/O that was generated.

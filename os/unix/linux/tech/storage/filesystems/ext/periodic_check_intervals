@@ -1,0 +1,5 @@
+Periodic check frequencies for ext filesystems are controlled by the tune2fs
+   -c (mount count interval) and -i (time interval) options
+By default, these periodic checks are disabled for new ext filesystems on RHEL 7
+
+tune2fs -l /dev/sda2  # show all tunable values for an ext filesystem

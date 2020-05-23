@@ -1,0 +1,15 @@
+The Kickstart configuration file automatically created during installation,
+/root/anaconda-ks.cfg, does not include settings for post-installation tasks
+like registering with subscription-manager.  Post-installation task settings
+are recorded in /root/initial-setup-ks.cfg.
+
+*****
+
+Packages in a group that are marked mandatory or default are installed as part
+of that group.  Packages that are marked optional are not unless they are
+required to satisfy dependencies.
+
+*****
+
+Kickstart can install ("install") or upgrade an existing installation
+("upgrade").

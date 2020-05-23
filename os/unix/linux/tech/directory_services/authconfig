@@ -1,0 +1,2 @@
+The easiest method to configure remote user authentication in RHEL 7 is with
+authconfig-tui or authconfig-gtk.

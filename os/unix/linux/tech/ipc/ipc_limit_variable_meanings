@@ -1,0 +1,20 @@
+The following values are system-wide limits:
+
+Shared memory limits
+
+shmall : Maximum total shared memory in bytes
+shmmax : Maximum shared memory segment size in bytes
+shmmni : Maximum number of shared memory segments
+
+Semaphore limits
+
+semmsl : Maximum number of semaphores per array
+semmns : Maximum total number of semaphores
+semopm : Maximum operations per semop call
+semmni : Maximum number of semaphore arrays
+
+Message queue limits
+
+msgmax : Maximum number of bytes in a single message
+msgmnb : Maximum number of bytes in a single message queue
+msgmni : Maximum number of message queues

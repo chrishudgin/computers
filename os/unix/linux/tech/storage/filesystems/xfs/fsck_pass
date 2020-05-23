@@ -1,0 +1,7 @@
+The fsck.xfs program is a stub which does nothing and always returns with a
+successful status.  xfs_repair now performs filesystem checking and repair for
+XFS.  Checking of an XFS filesystem is done automatically when it is mounted.
+
+Thus, the fsck_pass field in /etc/fstab is not useful for XFS filesystems.  If
+it is set to 0, fsck.xfs is not run; if it is set to a non-zero value, fsck.xfs
+is run but does nothing and always exits successfully.

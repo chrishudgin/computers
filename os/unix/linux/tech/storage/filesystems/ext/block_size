@@ -1,0 +1,5 @@
+Block size for an ext filesystem is set by mkfs according to the size of the
+filesystem.  Valid block sizes are 1024, 2048, and 4096 bytes; the value
+chosen by mkfs can be overridden at filesystem creation time, as in:
+
+# mkfs -t ext4 -b 4096 /dev/sdb1

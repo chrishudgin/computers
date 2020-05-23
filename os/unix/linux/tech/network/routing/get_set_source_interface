@@ -1,0 +1,24 @@
+To get the source network interface and source network address that would
+be used when sending traffic to a remote destination:
+
+# ip route get <ipaddr>    (Can't use hostname, only IP address)
+
+Example:
+
+# ip route get 23.60.11.32
+23.60.11.32 via 192.168.0.1 dev eth0  src 192.168.0.104 
+    cache  mtu 1500 advmss 1460 hoplimit 64
+
+If there are multiple interfaces or IP addresses on the same network, the first
+IP address or parent interface (in the case of alias interfaces) is used by
+default as the source for outgoing packets.
+
+To change this after the interfaces and IP addresses have been brought up:
+
+# ip route change 10.0.0.0/8 dev eth0 src 10.0.0.140
+
+Alternatively, set an iptables source NAT (SNAT) rule in POSTROUTING, such as:
+# iptables -t nat -A POSTROUTING -o eth0 -j SNAT --to-source 10.0.0.140
+
+Note:  Setting SRCADDR in an ifcfg-* file with multiple IP addresses does NOT
+   accomplish the same thing!

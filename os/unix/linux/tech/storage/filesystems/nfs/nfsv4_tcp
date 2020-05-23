@@ -1,0 +1,24 @@
+NFS version 4 uses TCP (not UDP) as its transport mechanism.  All NFSv4 servers
+must support TCP for NFS transport.
+
+By default, the NFSv4 client does not need to contact rpcbind on a remote NFS
+server to obtain an NFS port number.  Instead, the NFSv4 client by default will
+contact the remote server on port 2049/tcp.
+
+*****
+
+Determine whether <hostname>, if reachable, is using NFSv4 protocol over TCP
+for sharing:
+
+# rpcinfo -T tcp <hostname> nfs 4
+
+program 100003 version 4 ready and waiting  # service is available
+
+OR
+
+rpcinfo: RPC: Program not registered  # service is not available
+
+OR
+
+rpcinfo: RPC: Program/version mismatch; low version = 3, high version = 4
+program 100003 version 1 is not available  # available at different version

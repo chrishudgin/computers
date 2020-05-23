@@ -1,0 +1,26 @@
+The yum database is stored in /var/lib/yum.
+yum logs to /var/log/yum.log.
+
+*****
+
+Some packages are "protected", meaning that yum will not remove them.  These
+include yum itself, systemd (in /etc/yum/protected.d/systemd.conf), and the
+latest installed kernel.
+
+*****
+
+All yum configuration variables, as well as the format and directives of a
+repository file, are documented in yum.conf(5).  Repository file format is
+described in the section "[repository] OPTIONS".  Repo files must have a .repo
+filename extension and reside in /etc/yum.repos.d (as defined in the yum
+configuration variable "reposdir").
+
+*****
+
+By default on RHEL 7, yum metadata expires after 21600 seconds, or 6 hours.
+
+*****
+
+The yum "Cleanup" step cleans up versions of packages that have been removed.
+The "Verifying" step then verifies that the "new" packages (if any) were
+installed and "old packages" (if any) were removed.

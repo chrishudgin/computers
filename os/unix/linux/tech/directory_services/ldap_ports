@@ -1,0 +1,3 @@
+An LDAP server listens on the following ports:
+389 (LDAP)
+636 (LDAP over SSL)

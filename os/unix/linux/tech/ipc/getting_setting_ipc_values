@@ -1,0 +1,28 @@
+The standard Unix ipcs command can be used to display existing shared memory
+segments, semaphores, and message queues as well as their system-level limits.
+
+Alternatively, the system limits can be shown by:
+
+Shared memory:
+$ cat /proc/sys/kernel/shm{all,max,mni}
+
+The value for shmmin (minimum shared memory segment size) is nominally set to 1
+byte but has an effective minimum size of one memory page (4096 bytes).
+
+Semaphores:
+$ cat /proc/sys/kernel/sem
+(shows semmsl, semmns, semopm, and semmni)
+
+Message queues:
+$ cat /proc/sys/kernel/msg{max,mnb,mni}
+
+*****
+
+System limits for shared memory, semaphore, and message queue parameters can be
+set dynamically by modifying the values in the kernel pseudo-files above
+directly or by using the sysctl command (and /etc/sysctl.{conf,d/*.conf} for
+persistence), as in these examples:
+
+# sysctl -w kernel.shmmax=18446744073692774399
+# sysctl -w kernel.sem="250 32000 100 128"
+# sysctl -w kernel.msgmax=8192

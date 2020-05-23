@@ -1,0 +1,2 @@
+mpstat -P ALL  # show per-CPU statistics and summary data
+mpstat -P ALL | grep -v all  # omit summary data

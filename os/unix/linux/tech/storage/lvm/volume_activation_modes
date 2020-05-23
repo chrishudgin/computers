@@ -1,0 +1,7 @@
+By default, volumes are activated with activation mode of "degraded", meaning
+RAID volumes with redundancy will be activated if redundant PVs are missing,
+but any volumes with missing non-redundant PVs will not be activated.
+
+To force activation of volumes with missing non-redundant PVs, use
+"--activationmode partial" with activation commands vgchange -ay
+and lvchange -ay.

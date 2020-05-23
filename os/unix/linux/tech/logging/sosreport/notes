@@ -1,0 +1,24 @@
+sosreport places its compressed output tarball in /var/tmp/sosreport*
+
+*****
+
+Within the generated tarball, files are located in subdirectories corresponding to their actual locations on the system, and command outputs are recorded in
+subdirectories of the directory "sos_commands".
+
+*****
+
+List all plugins, their statuses (enabled or disabled), plugin options, and
+plugin profiles (groupings of plugins):
+# sosreport -l
+
+List plugin profiles and the plugins they enable:
+# sosreport --list-profiles
+
+Limit plugins to those in a specified profile:
+# sosreport -p <profile>
+
+Enable or disable a plugin:
+# sosreport -e|-d <plugin1>[,plugin2,...]
+
+Set a value for a plugin option:
+# sosreport -k <plugin.option=value>

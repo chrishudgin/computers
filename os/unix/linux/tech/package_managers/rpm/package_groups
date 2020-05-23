@@ -1,0 +1,82 @@
+RPM PACKAGE GROUPS
+
+Show group membership of a package:
+
+# rpm -qg pkgname
+
+Show all installed package group names:
+
+# rpm -qa --queryformat '%{GROUP}\n' | sort | uniq
+
+*****
+
+YUM ENVIRONMENTS AND YUM PACKAGE GROUPS
+
+Environments bundle package groups, which in turn bundle packages.
+
+A package can be in more than one group.
+
+Group names are not case-sensitive.
+
+List the environments:
+
+# yum groups list environment
+
+Show the package groups in an environment:
+
+# yum groups info 'Server with GUI'
+
+Show the packages in a group:
+
+# yum groups info base
+
+Each package in the group is shown with an indicator as follows:
+= : installed as part of the group
++ : will be installed as part of the group
+- : excluded and will not be installed as part of the group
+(no preceding character) : not installed as part of the group or not installed
+at all
+
+List all package groups, including "hidden" ones, along with their IDs:
+(Hidden groups are those that are normally installed through an environment
+group)
+
+# repoquery -ag  (does not include environment groups)
+OR
+# yum groups list ids hidden
+
+Show the groups to which a package belongs:
+# repoquery --groupmember <pkgname>
+
+Install missing packages from an environment:
+(should not be necessary on RHEL 7; just use "yum groups install <groupname>")
+
+# yum groups mark install "Server with GUI"
+# yum groups mark convert "Server with GUI"
+# yum groups install "Server with GUI"
+
+Install one or more environment groups and/or package groups:
+
+# yum groups install "Virtualization Host" "Virtualization Client"
+(in this example, "Virtualization Host" is an environment group
+ and "Virtualization Client" is a package group)
+
+Mandatory packages are always installed and cannot be excluded.
+Default packages are installed unless they are excluded.
+   Packages appearing in the default list that were not installed when a group
+   was installed may have been added to the group by the repo maintainer at a
+   later date, after the package group was first installed on the system.
+   A subsequent "yum group install <groupname>"
+   or "yum group update <groupname" will install the missing default packages.
+   "yum update" by itself will not install missing default packages.
+Optional packages are not installed as part of group.
+
+Note that in some groups, like "Remote Desktop Client", all packages are listed
+as "optional".  In such a case, no packages will be installed as part of an
+installation of the group.
+
+Install a package group while excluding some packages from installation:
+# yum groups install print-server -x gutenprint-cups -x paps
+
+Remove packages that were installed as part of a group:
+# yum groups remove print-server

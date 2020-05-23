@@ -1,0 +1,7 @@
+SIGKILL will immediately terminate even a stopped process, unless it is in
+uninterruptible sleep.
+
+Other signals may not be delivered to a process that is stopped until the
+process wakes up.  In bash, a signal sent by jobspec (but not by PID) to a
+stopped background job will cause the job's processes to wake up so that they
+can process the signal immediately.

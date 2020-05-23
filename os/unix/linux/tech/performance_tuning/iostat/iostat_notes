@@ -1,0 +1,15 @@
+By default (with no options), and in the first output report when given a
+repeat interval, iostat shows cumulative CPU and storage device usage
+statistics since the last boot.
+
+iostat [device1] [device2] [...]  # show disk device I/O statistics
+   device can be a partition or a whole disk
+iostat -d [device1] [device2] [...] # omit CPU statistics
+iostat -x [device1] [device2] [...] # add extended statistics to report,
+   including wait time, service time, and % utilization
+   (svctm field is deprecated; use await)
+iostat -y  # omit cumulative statistics since last boot
+iostat -m  # report in megabytes instead of kilobytes
+iostat -h  # add a blank line between each device's statistics for readability
+iostat -N  # show LVM VG/LV names rather than device mapper (dm-*) names
+iostat -p  # include partitions in output

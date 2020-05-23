@@ -1,0 +1,34 @@
+Use the findmnt command to get the underlying block device name for a mount
+   point, or vice versa:
+
+# findmnt --noheadings -o SOURCE /appdir3
+/dev/mapper/vg01-lv03
+
+# findmnt --noheadings -o TARGET /dev/vg01/lv03
+/appdir3
+
+To find a filesystem mount point by UUID, LABEL, or MAJ:MIN:
+
+# findmnt --noheadings -o TARGET UUID=fe41dacc-3232-43fc-a020-16d3c27b0390
+/appdir3
+
+# findmnt --noheadings -o TARGET LABEL=var
+/var
+
+# findmnt --noheadings -o TARGET 8:6
+/home
+
+To search /etc/fstab instead of the kernel's current mount table,
+   add option --fstab
+
+Or to search all block devices for a UUID or LABEL, use findfs:
+
+# findfs UUID=fe41dacc-3232-43fc-a020-16d3c27b0390
+/dev/sdb1
+# findfs LABEL=var
+/dev/sda3
+
+To get device major:minor numbers for a mounted filesystem:
+
+# lsblk --noheadings -o MAJ:MIN $(findmnt --noheadings -o SOURCE /appdir3) | tr -d ' '
+253:4

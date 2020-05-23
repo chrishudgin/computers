@@ -1,0 +1,9 @@
+Force the mount to use a specified version of NFS instead of the highest
+possible version supported by both the server and client:
+# mount -o nfsvers=<version> ...
+
+The NFS version (e.g. vers=4.1) used for a given mount can be found in the list
+of mount options shown by the "mount" command with no arguments.
+
+Show a complete list of all mount options in use for all NFS mounts:
+# nfsstat -m

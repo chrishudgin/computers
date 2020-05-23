@@ -1,0 +1,17 @@
+Volume groups can be split or merged with vgsplit / vgmerge
+All logical volumes in the source VG must be deactivated first, e.g. with
+vghange -an vg02
+
+The elements to split off can be specified as logical volumes or physical
+volumes, but either way entire physical volumes must be split:
+
+# vgsplit --name lv01 vg01 vg02   # moves all PVs for lv01 from vg01 to vg02
+
+# vgsplit vg01 vg02 /dev/sdaa1 /dev/sdab1
+  # moves PVs /dev/sdaa1 and /dev/sdab1 from vg01 to vg02
+
+After the split, the affected LVs in the target VG and all LVs in the source VG
+must be reactivated.
+
+To reverse a split, perform the split again but with source and target VGs
+exchanged in the vgsplit command.

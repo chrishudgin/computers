@@ -1,0 +1,18 @@
+tcpdump  # capture all network traffic
+tcpdump -i eth0 host foobox  # limit capture to eth0 and traffic to/from foobox
+tcpdump -e  # show layer 2 traffic
+tcpdump -X  # show contents of packets, not just packets descriptions
+tcpdump -n  # numeric--don't resolve hostnames
+tcpdump -nn  # numeric--don't resolve hostnames or port (service) names
+tcpdump -tttt # include date in timestamps
+tcpdump not port ssh  # exclude ssh traffic
+tcpdump 'src host 10.0.10.11 and (tcp port 80 or icmp)'
+tcpdump -w file  # save raw packet data to file
+tcpdump -r file  # read saved raw packet data
+
+tcpdump supports very precise filtering of packets, down to specific fields
+   set to certain bit values within IP and TCP headers
+
+tcpdump supports boolean operators (and, or, not), grouping of conditions
+   within parentheses, mathematical relations (<, >, ==, !=), byte ranges [2:5],
+   packet types ([icmp[icmptype] != icmp-echo), and bit shifting (<<, >>)

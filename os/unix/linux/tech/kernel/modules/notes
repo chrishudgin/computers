@@ -1,0 +1,42 @@
+Kernel modules are under /lib/modules/$(uname -r) and have filenames *.ko.xz
+
+lsmod shows dependency relationships between loaded modules in the "Used by"
+field.
+
+modprobe will load module dependencies in addition to the specified module.
+The dependencies are stored in /lib/modules/$(uname -r)/modules.dep
+depmod recreates this table and runs automatically at boot.
+
+Custom parameters and insertion/removal commands for kernel modules can be
+   specified in /etc/modprobe.d/*.conf
+   Example for cdrom.conf:
+      options cdrom debug=1
+
+Parameters can be also be specified at run time (but not persistently) through
+   modprobe <module> <field>=<value>
+   Example:
+      modprobe cdrom debug=1
+
+Statically configured parameters set when the kernel was built are listed in
+   /boot/config-$(uname -r)
+
+modinfo -F <fieldname> <module> : display one field of information for a module
+   modinfo -F vermagic ext4 : display kernel version for which ext4 module
+      was built
+   modinfo -F parm <module> : display parameter names/types (if any) of a module
+
+Show the values of some (not necessarily all, or any) parameters for a kernel
+module:
+# systool -v -m <module>
+Values are read from /sys/module/<module>/parameters/*
+
+modprobe --show-depends <module> : show module dependencies in load order as
+   "insmod" commands and module paths/filenames
+
+modprobe -r <module> : unload module from kernel, plus any other unused modules
+   on which it depends.  This will fail to unload any modules if there are
+   other loaded modules that depend on the module specified.
+
+Modules that need to be loaded at boot but are not loaded automatically by the
+kernel should be listed in files in /etc/modules-load.d/*.conf.  These modules
+are loaded by systemd-modules-load.service.

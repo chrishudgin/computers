@@ -1,0 +1,23 @@
+To show number of data stripes in a striped volume or the number of mirrored
+   copies in a mirrored volume:
+
+# lvs -o name,segtype,data_stripes
+
+To distinguish between number of data stripes and number of mirrors in a
+   RAID 10 volume:
+
+# lvs -o name,segtype,data_stripes,stripes
+stripes divided by data_stripes is the number of mirrored copies
+(RAID 10 in LVM currently supports only two-way mirroring)
+
+To show number of data copies in any volume that uses mirroring:
+
+# lvs -o name,data_copies
+(For other types of volumes with redundancy like RAID 5 and RAID 6, data_copies
+indicates the number of devices that must be lost before data loss occurs--as
+with mirroring)
+
+To show internal sub-volumes of RAID volumes, such as rimage and rmeta
+   sub-volumes of mirrors, add the -a option to lvs.
+
+# lvs -a -o vg_name,name,segtype

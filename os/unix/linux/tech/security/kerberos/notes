@@ -1,0 +1,17 @@
+The following message on a properly configured Kerberos client simply indicates
+that kinit has not yet been run for any Kerberos user during the current user
+login session:
+
+$ klist
+klist: No credentials cache found (ticket cache KEYRING:persistent:0:0)
+
+Example of resolution, to gain access to tickets usable by user lisa:
+$ kinit lisa
+
+Verify success:
+$ klist
+Ticket cache: KEYRING:persistent:0:0
+Default principal: ldapuser1@EXAMPLE.COM
+
+Valid starting       Expires              Service principal
+05/16/2020 21:35:29  05/17/2020 21:35:27  krbtgt/EXAMPLE.COM@EXAMPLE.COM

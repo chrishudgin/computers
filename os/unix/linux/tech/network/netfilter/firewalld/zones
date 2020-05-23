@@ -1,0 +1,25 @@
+General information about firewalld zone concepts is in firewalld.zones(5).
+
+Network interfaces and source addresses (of incoming traffic) can be bound to a
+zone.  Any zone that has at least one network interface or source address bound
+to it is an "active" zone.
+
+By default, all zones permit all outgoing traffic and all incoming traffic that
+is related to existing outgoing traffic.
+
+Get names of all zones:
+# firewall-cmd --get-zones
+block dmz drop external home internal public trusted work
+
+Get names of active zones:
+# firewall-cmd --get-active-zones
+
+Get or set default zone (does not change existing interface assignments to
+zones):
+# firewall-cmd --get-default-zone
+# firewall-cmd --set-default-zone=<zonename>
+
+Show zone configuration:
+# firewall-cmd --list-all-zones
+OR
+# firewall-cmd --info-zone <zonename>

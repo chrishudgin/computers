@@ -1,0 +1,67 @@
+References:
+http://advancelinux.blogspot.com/2012/02/configuring-on-rhel-6-introduction.html
+
+In this example, we configure an iSCSI target on the target server
+and configure an iSCSI initiator on the initiator server.
+
+The name and location of the target file or disk that will be shared is
+arbitrary, but it must be given the appropriate SELinux security context.
+
+On target server:
+
+# iptables -I INPUT -p tcp -m tcp --dport 3260 -j ACCEPT
+# service iptables save
+# service iptables restart
+
+# yum install scsi-target-utils
+# chkconfig tgtd on
+# service tgtd start
+
+# mkdir /ISCSI
+# dd if=/dev/zero of=/ISCSI/target1 bs=1M count=100
+# chcon -t tgtd_var_lib_t /ISCSI/target1
+
+Append an entry to /etc/tgt/targets.conf so that the sharing will be persistent
+across reboots:
+
+<target iqn.1999-08.net.solarcore:rhel6vm1.target1>
+    backing-store /ISCSI/target1
+    write-cache off
+</target>
+
+# service tgtd restart
+# tgt-admin --show  # verify that the target appears in the output
+
+On initiator server:
+
+# yum install iscsi-initiator-utils
+# iscsiadm -m discovery -t sendtargets -p rhel6vm1  # verify expected targets
+# iscsiadm -m node -T iqn.1999-08.net.solarcore:rhel6vm1.target1 -p rhel6vm1 --login
+
+Check /var/log/messages to verify that the device files for the iSCSI targets
+have been added.
+
+You can now partition the target device, create filesystems on it, mount it,
+etc. as you would any physical SCSI device (/dev/sd*)
+
+Make sure any fstab entries for the target include the _netdev mount option.
+
+*****
+
+To discontinue use of iSCSI:
+
+On initiator server:
+Stop any use of the target, unmount filesystems on it, remove entries for
+it from /etc/fstab, etc., and then:
+# isciadm -m node -T iqn.1999-08.net.solarcore:rhel6vm1.target1 -p rhel6vm1-iscsi0 --logout
+# isciadm -m node -T iqn.1999-08.net.solarcore:rhel6vm1.target1 -p rhel6vm1-iscsi1 --logout
+# iscsiadm -m discovery -p rhel6vm1-iscsi0 --op=delete
+# iscsiadm -m discovery -p rhel6vm1-iscsi1 --op=delete
+   This "delete" command will remove all entries for rhel6vm1-iscsi0 and
+   rhel6vm1-iscsi1 iSCSI targets from /var/lib/iscsi/nodes
+
+On target server:
+
+Remove entry for the target from /etc/tgt/targets.conf, and then:
+# service tgtd stop
+# chkconfig tgtd off

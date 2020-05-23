@@ -1,0 +1,5 @@
+lvconvert can add and remove mirrors and create snapshots.
+
+lvconvert can also change settings for a logical volume such as RAID type and
+block location allocation policy (which prefers to allocate blocks contiguously
+by default).

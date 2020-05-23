@@ -1,0 +1,7 @@
+A block device can be set read-only:
+
+# blockdev --setro <device>
+
+To reset the device to read/write:
+
+# blockdev --setrw <device>

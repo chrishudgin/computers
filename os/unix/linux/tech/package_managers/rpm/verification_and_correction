@@ -1,0 +1,34 @@
+Check self-consistency of installed package set--duplicates, dependencies, etc.:
+# yum check
+
+*****
+
+Verify package:
+# rpm -V <pkgname>
+
+Verify package containing specified file:
+# rpm -V -f <filename>
+
+Discrepancy types are documented in rpm(8):
+
+S file Size differs
+M Mode differs (includes permissions and file type)
+5 digest (formerly MD5 sum) differs
+D Device major/minor number mismatch
+L readLink(2) path mismatch
+U User ownership differs
+G Group ownership differs
+T mTime differs
+P caPabilities differ
+
+*****
+
+rpm -K [-v] <pkgfile>.rpm : verify cryptographic signature of RPM file
+
+*****
+
+Restore file permissions for files owned by mypkg:
+# rpm --setperms mypkg
+
+Restore user/group owners for files owned by mypkg:
+# rpm --setugids mypkg

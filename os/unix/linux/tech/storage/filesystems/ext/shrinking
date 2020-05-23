@@ -1,0 +1,4 @@
+A force fsck must be performed on an unmounted ext4 filesystem before shrinking
+it:
+
+# e2fsck -f /dev/sdb1

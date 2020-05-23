@@ -1,0 +1,2 @@
+To determine whether a running process has an executable stack, use
+   pmap $PID | grep stack

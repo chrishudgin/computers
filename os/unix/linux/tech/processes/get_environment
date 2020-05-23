@@ -1,0 +1,7 @@
+To see the initial environment of a running process that was in effect when
+the process was started:
+
+# tr '\0' '\n' < /proc/<PID>/environ
+
+Changes made to a process's environment while it is running are not reflected
+in /proc/<PID>/environ.

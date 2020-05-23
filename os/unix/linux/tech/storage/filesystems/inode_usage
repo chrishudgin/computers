@@ -1,0 +1,6 @@
+df -i : show inode usage for entire filesystem
+du --inodes [-s] [/path ...] : show inode usage for paths (default is .)
+
+Whether a filesystem is out of free blocks or inodes, the error message will be
+the same:
+"No space left on device"

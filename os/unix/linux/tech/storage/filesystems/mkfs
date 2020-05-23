@@ -1,0 +1,3 @@
+mkfs can be used to create a filesystem within a regular file as well as on a
+block device.  A filesystem created within a regular file can be mounted as
+a loopback device.

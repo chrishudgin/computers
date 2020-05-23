@@ -1,0 +1,38 @@
+Note: In the example below, a "dropbox" is a directory ("uploads" in the example
+below) in which anonymous users can upload files but cannot read directory
+contents or files.  To constrain the directory size, quotas should be used,
+or the uploads directory should be placed on a dedicated volume.
+
+1. Configure /etc/vsftpd/vsftpd.conf:
+
+Enable writes:
+write_enable=YES
+
+Enable anonymous ftp:
+anonymous_enable=YES
+
+Enable writes by anonymous user:
+anon_upload_enable=YES
+
+Set uploads by anonymous to be owned by root for security reeasons:
+chown_uploads=YES
+chown_username=root
+
+Optionally, allow the anonymous user to create directories:
+anon_mkdir_write_enable=YES
+
+2. Create a directory under the FTP root dir (which defaults to /var/ftp):
+
+# mkdir -p /var/ftp/uploads
+# chown root:ftp /var/ftp/pub/uploads
+# chmod 730 /var/ftp/pub/uploads
+# semanage fcontext -a -t public_content_rw_t '/var/ftp/uploads(/.*)?'
+# restorecon -FRv /var/ftp/uploads
+
+3. Set SELinux booleans to allow anonymous ftp writes:
+
+# setsebool -P ftpd_anon_write on
+
+4. Restart vsftpd:
+
+# systemctl restart vsftpd

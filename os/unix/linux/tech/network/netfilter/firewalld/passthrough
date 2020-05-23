@@ -1,0 +1,12 @@
+firewall-cmd accepts a --passthrough parameter in order to take subsequent
+   arguments in iptables syntax.  --passthrough is an example of direct
+   manipulation of tables using --direct.  --passthrough itself requires an
+   argument of ipv4, ipv6, or eb to specify whether the passthrough command is
+   from iptables, ip6tables, or ebtables
+
+Example of using --passthrough:
+# firewall-cmd --permanent --direct --passthrough ipv4 -I FORWARD -m physdev --physdev-is-bridged -j ACCEPT
+success
+# systemctl restart firewalld
+# firewall-cmd --direct --get-all-passthroughs
+ipv4 -I FORWARD -m physdev --physdev-is-bridged -j ACCEPT

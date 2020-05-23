@@ -1,0 +1,26 @@
+A summary log of all package actions (installation, removal, update) is stored
+in /var/log/yum.log.
+
+The yum history database is stored in the directory /var/lib/yum/history.
+
+Show yum transaction history summary including sequence numbers, optionally
+filtered by one or more package names:
+# yum history list [all | <pkgname1> <pkgname2> ...]
+(Note: the characters EE in the "Altered" column of the output mean that a
+package's script displayed a message during the transaction--not necessarily
+an error message.)
+
+"all" means all transactions, not just the most recent ones.
+
+Show details of a yum transaction by sequence number:
+# yum history info 44
+
+Undo a single yum transaction by sequence number:
+# yum history undo 45
+
+Redo a single yum transaction by sequence number:
+# yum history redo 45
+
+Rollback to a previous yum transaction (undoes all transactions subsequent to
+given transaction number):
+# yum history rollback 41

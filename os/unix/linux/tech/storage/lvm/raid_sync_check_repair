@@ -1,0 +1,26 @@
+To force a RAID synchronization check (a scrub) of a RAID LV:
+
+# lvchange --raidsyncaction check /dev/vg03/lv_raid1
+# lvs -o name,sync_percent /dev/vg03/lv_raid1
+Look in /var/log/messages to see if errors are reported during the check.
+
+If synchronization errors are detected, take the RAID LV offline:
+
+# umount /appl
+# lvchange -an /dev/vg03/lv_raid1
+
+Resync the RAID LV:
+
+If the PV with the "bad copy" of the data is known:
+# lvchange --rebuild /dev/sdn1 /dev/vg03/lv_raid1
+
+Otherwise (use primary mirror as "good" copy):
+# lvchange --resync /dev/vg03/lv_raid1
+
+Or perform the check and automatic repair in a single command with the RAID LV
+left online:
+# lvchange --raidsyncaction repair /dev/vg03/lv_raid1
+
+Bring the LV back online and remount it:
+# lvchange -ay /dev/vg03/lv_raid1
+# mount /dev/vg03/lv_raid1 /appl

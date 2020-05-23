@@ -1,0 +1,2 @@
+Memory in use by files on a tmpfs filesystem is accounted for in the buff/cache
+column of the output of the "free" command.

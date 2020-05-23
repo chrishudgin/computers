@@ -1,0 +1,7 @@
+The physical extent size defaults to 4 MB but can be set to a different value
+when a volume group is created:
+
+# vgcreate -s 8M myvg /dev/sdb1 /dev/sdc1
+# vgs -o vg_extent_size myvg
+  Ext  
+  8.00m

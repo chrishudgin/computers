@@ -1,0 +1,37 @@
+To install ABRT:
+
+# yum install abrt-cli
+
+Then reboot to ensure all ABRT services are started, such as abrtd, abrt-oops,
+and abrt-ccpp ("ccpp" means C/C++ and handles crashes created by binary
+executables).
+
+By default, the kernel dumps core files into the crashed program's current
+directory according to the filename pattern specified in
+/proc/sys/kernel/core_pattern (default pattern is simply "core", to which is
+appended a dot and the crashed process's PID).  When ABRT starts, it
+overwrites the contents of this file with a pipe to /usr/libexec/abrt-hook-ccpp
+followed by filename pattern specifiers (%s %c etc.)  Restarting abrtd does not
+reinstall the core_pattern hook; to do that, restart abrt-ccpp.service.
+
+ABRT is configured in /etc/abrt and /etc/libreport
+
+ABRT will not necessarily generate a full ccpp report for every core dump.  For
+example, by default, programs that are not part of a GPG-signed RPM package
+will not have a report generated for them.  Neither will processes that die
+from a SIGQUIT, for example.  Processes that die from a SIGSEGV will, though.
+
+To generate an ABRT report even for programs that were not installed as part
+of a package, set the following variable in abrt-action-save-package-data.conf:
+ProcessUnpackaged = yes
+
+ABRT will not only capture information about the terminated process in
+   /var/spool/abrt/ccpp-*, it will also generate an sosreport in that
+   directory to capture system configuration information.
+
+ABRT will also generate reports for kernel oopses, system crash dumps, and
+   python crashes.
+
+abrt-cli list : show a summary of each generated report
+abrt-cli remove /var/spool/ccpp-[....] : remove a report
+abrt-cli report : upload an ABRT report to Red Hat support, generating a ticket

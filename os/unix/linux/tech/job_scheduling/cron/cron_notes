@@ -1,0 +1,35 @@
+Running the crontab without any options or arguments overwrites the user's
+existing crontab.
+
+*****
+
+To specify another user's crontab, use:
+   crontab -u username ...
+
+*****
+
+Environment variables can be set in crontab files, on their own lines.  The
+default PATH within a cron job is /usr/bin:/bin.  As with any other environment
+variable, PATH can be set to a different value in the crontab file itself or in
+whatever script or program is run by the cron job.  The scope of a PATH setting
+is limited to the particular crontab file in which it is set.
+
+Best practice is to set the PATH explicitly or specify full paths to commands
+in cron jobs.
+
+*****
+
+The intent behind the /etc/cron.{hourly,daily,weekly,monthly} directories is to
+allow packages and administrators to drop in scripts to run at the specified
+intervals without having to specify particular times.
+
+*****
+
+cron mails the combined standard output and standard error from a job to the
+   user unless stdout and stderr are redirected in the crontab entry
+
+*****
+
+Text occurring after an unescaped % sign in a crontab entry is sent as standard
+input to the command; subsequent unescaped % signs in the entry are interpreted
+as newlines.

@@ -1,0 +1,7 @@
+To add a mirror to an unmirrored volume:
+
+# lvconvert --type raid1 -m +1 -y /dev/vg01/lv01 /dev/sdd1  (adds mirror on /dev/sdd1)
+
+To remove a mirror from a mirrored volume:
+
+# lvconvert --type raid1 -m -1 -y /dev/vg01/lv01 /dev/sdd1  (removes mirror from /dev/sdd1)

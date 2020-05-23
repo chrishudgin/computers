@@ -1,0 +1,37 @@
+To extract just one or more files from an RPM (for example, to restore one file
+that is corrupted or missing on the system) without having to reinstall the
+entire RPM (which might overwrite customizations made to other files from the
+package):
+
+Identify the package and version that supplies the file:
+
+# rpm -qf </path/to/file>
+
+Download the RPM:
+
+# yumdownloader <pkg_name.version>
+
+Show the list of files in the package without extracting them:
+
+# rpm2cpio <pkg_name>.rpm | cpio -idumvt
+
+Extract the desired file or files:
+
+# rpm2cpio <pkg_name>.rpm | cpio -idumv ./<path/to/file1> ./<path/to/file2> '*.txt' ...
+   Paths in a cpio archive are relative to the current directory
+
+Example:
+
+# mkdir tmp; cd tmp
+# yumdownloader rootfiles
+# rpm2cpio rootfiles-8.1-6.1.el6.noarch.rpm | cpio -idumvt
+-rw-r--r--   1 root     root           18 May 20  2009 ./root/.bash_logout
+-rw-r--r--   1 root     root          176 May 20  2009 ./root/.bash_profile
+-rw-r--r--   1 root     root          176 Sep 22  2004 ./root/.bashrc
+-rw-r--r--   1 root     root          100 Sep 22  2004 ./root/.cshrc
+-rw-r--r--   1 root     root          129 Dec  3  2004 ./root/.tcshrc
+3 blocks
+# rpm2cpio rootfiles-8.1-6.1.el6.noarch | cpio -idumv ./root/.bashrc ./root/.bash_profile
+# ls -l ./root/.bashrc /.root/.bash_profile
+-rw-r--r--. 1 root root 176 May 20  2009 ./root/.bash_profile
+-rw-r--r--. 1 root root 176 Sep 22  2004 ./root/.bashrc

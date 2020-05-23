@@ -1,0 +1,47 @@
+For statically-defined network configuration, the default route is defined as
+follows, in order of highest to lowest precedence:
+
+A "default" statement in /etc/sysconfig/network-scripts/route-<ifname>, if
+present.
+Example:
+# cat /etc/sysconfig/network-scripts/route-eth0
+default via 10.0.0.1 dev eth0
+
+The GATEWAY directive in /etc/sysconfig/network, if set there.
+This method is deprecated in RHEL 7.
+Example:
+# cat /etc/sysconfig/network
+GATEWAY=10.0.0.1
+
+The first GATEWAY directive set in the /etc/sysconfig/network-scripts/ifcfg-*
+files (which are processed in numerically ascending order) for interfaces that
+are up and for which DEFROUTE=yes:
+Example:
+# egrep -H 'DEFROUTE|GATEWAY' /etc/sysconfig/network-scripts/ifcfg-*:
+/etc/sysconfig/network-scripts/ifcfg-eth0:DEFROUTE=yes
+/etc/sysconfig/network-scripts/ifcfg-eth0:GATEWAY=192.168.122.1
+/etc/sysconfig/network-scripts/ifcfg-eth1:DEFROUTE=yes
+/etc/sysconfig/network-scripts/ifcfg-eth1:GATEWAY=192.168.2.1
+/etc/sysconfig/network-scripts/ifcfg-eth2:DEFROUTE=no
+/etc/sysconfig/network-scripts/ifcfg-eth2:GATEWAY=10.0.0.1
+(192.168.122.1 would be the default gateway in this case, if it had not been set
+ globally or in /etc/sysconfig/network-scripts/route-eth[012])
+
+In the above example, the routing table would show two default routes, the
+first via 192.168.122.1 and the second via 192.168.2.1, which is probably not
+desirable.  The first default route in the table would take precedence.
+
+Reference:
+https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/networking_guide/sec-editing_network_configuration_files
+
+*****
+
+On some operating systems, the default router does not necessarily have to be
+on a subnet on which the host has an interface, but it does have to be on a
+subnet to which the host has a non-default route defined.  For example, a host
+on the 192.168.0.0/24 network could have a default router 10.0.0.1 on the
+10.0.0.0/8 subnet, as long as there is an entry in the host's routing table
+with a specified route to the 10.0.0.0/8 network.
+
+On Linux, an indirect route to a default gateway is not allowed; the default
+gateway must be on a subnet that is local to the host.

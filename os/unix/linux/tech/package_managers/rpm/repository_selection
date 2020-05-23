@@ -1,0 +1,31 @@
+List all visible repos from Red Hat (enabled and disabled):
+# subscription-manager repos --list
+
+List enabled repos from any source:
+# yum repolist
+
+A repo ID preceded by a ! means that the metadata for the repo is out of date.
+To resolve:
+# yum clean expire-cache
+# yum makecache
+
+List all repos from any source (enabled and disabled):
+# yum repolist all
+
+Enable a repo from Red Hat for use by subsequent yum commands.
+# subscription-manager repos --enable=<repo_id>
+
+Select a different repository for a single yum command; the repo is not added
+to the persistent list:
+# yum --enablerepo=rhel-6-server-optional-rpms install rubygems
+
+Force selection from a particular repository:
+# yum --disablerepo='*' --enablerepo=rhel-6-server-optional-rpms install rubygems
+
+Enable a repo persistently:
+# yum-config-manager --enable rhel-6-server-optional-rpms
+
+Disable package selection from Red Hat Subscription Manager repos:
+Move /etc/yum.repos.d/redhat.repo to a different directory (e.g. /root).
+Set enabled=0 in /etc/yum/pluginconf.d/subscription-manager.conf
+# yum clean all

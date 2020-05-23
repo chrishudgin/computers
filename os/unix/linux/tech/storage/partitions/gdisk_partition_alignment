@@ -1,0 +1,2 @@
+gdisk (which works only on GPT-formatted disks) aligns partitions on 4K
+(eight sector) boundaries.

@@ -1,0 +1,23 @@
+Reference: attr(5)
+
+Extended attribute tools are provided by the attr package.
+
+Extended attributes are arbitrary name-value pairs associated with a file or
+directory.
+
+Extended attributes are supported on ext2/3/4 and XFS filesystems. 
+
+There are four classes of extended attributes, each of which forms a namespace:
+   security
+   system
+   trusted
+   user
+
+   SELinux uses the "security" class to store a file's context.
+   POSIX ACLS and Capabilities use the "system" class to store their data.
+
+By default, getattr shows only attributes in the "user" class.
+
+In order for ext2/3/4 filesystems to support extended attributes in the "user"
+class, they must be mounted with the user_xattr mount option, which is the
+default.

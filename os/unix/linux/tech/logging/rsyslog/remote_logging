@@ -1,0 +1,67 @@
+On the server:
+
+Uncomment lines in /etc/rsyslog.conf to allow UDP or TCP connections.
+
+For UDP connections:
+$ModLoad imudp
+$UDPServerRun 514
+
+For TCP connections:
+$ModLoad imtcp
+$InputTCPServerRun 514
+
+Optionally, create a template for a syslog file path that includes the hostname
+of the logging client so that each client's logs (including those of the
+central logging host) will be directed (but not exclusively) to its own file
+on the central logging host.  Without redirection to a template filename,
+all client log messages will be written to the same set of log files used by
+the central logging host for its own local messages.
+
+Create a template file path and a rule that uses it by appending the following
+lines to /etc/rsyslog.conf:
+
+$template DynamicFile, "/var/log/loghost/%HOSTNAME%/%syslogfacility-text%.log"
+*.* -?DynamicFile
+
+(The - character means asynchronous writes)
+
+All variables available for use in dynamic filenames are documented in the
+"Available Properites" section of rsyslog.conf(5).
+
+Comment out or modify other entries in /etc/rsyslog.conf on the central loghost
+so that messages from clients are not logged to the loghost's standard syslog
+files anymore, only to the new dynamic files.
+
+Configure logrotate to rotate any new dynamic log file names.  In this example,
+add the following line to the list of files managed in /etc/logrotate.d/syslog:
+/var/log/loghost/*/*.log
+
+Open the firewall to allow remote connections.
+
+For UDP connections:
+# firewall-cmd --permanent --add-service=syslog
+# firewall-cmd --reload
+
+For TCP connections:
+# firewall-cmd --permanent --add-port=514/tcp
+# firewall-cmd --reload
+
+Restart the rsyslog service:
+# systemctl restart rsyslog
+
+rsyslogd will now listen for connections on port 514/udp or port 514/tcp:
+# lsof -i :514
+COMMAND    PID USER   FD   TYPE DEVICE SIZE/OFF NODE NAME
+rsyslogd 21579 root    3u  IPv4 340443      0t0  TCP *:shell (LISTEN)
+rsyslogd 21579 root    4u  IPv6 340444      0t0  TCP *:shell (LISTEN)
+
+*****
+
+On the clients:
+
+Add a line like the following to /etc/rsyslog.conf, using the actual FQDN of
+the central loghost:
+*.* @@server1.example.com:514
+
+Restart the rsyslog service on the clients:
+# systemctl restart rsyslog

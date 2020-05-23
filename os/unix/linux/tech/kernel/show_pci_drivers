@@ -1,0 +1,2 @@
+Show kernel driver used for each PCI device that uses one:
+# lspci -k

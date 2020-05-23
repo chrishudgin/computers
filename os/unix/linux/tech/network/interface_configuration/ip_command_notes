@@ -1,0 +1,39 @@
+ip command replaces ifconfig, route, arp
+ip allows aliases (multiple IP addresses) to be assigned to NICs;
+   these are not visible to ifconfig
+   To make multiple IP addresses per physical interface persistent, create
+      IPADDR#, PREFIX# entries in ifcfg-eth* (aliases)
+      or create ifcfg-ethX:# files (virtual interfaces)
+ip objects and commands can be abbreviated as long as they are unambiguous
+Default command for an ip object is "list" (e.g. "ip a" == "ip address list")
+
+ip addr add 10.0.0.21/8 dev eth0  # assign IP address to NIC
+ip addr del 10.0.0.21/8 dev eth0  # delete IP address from NIC
+ip addr flush dev eth0  # delete all IP addresses from NIC
+
+Other commands include "change" and "replace"
+
+ip link set eth0 up|down  # bring NIC up or down
+   Placing an IP address on a NIC does not by itself bring the link up
+ip neigh list  # display ARP cache (replaces arp command)
+ip route add default via 10.0.0.1 [dev eth0] # add default route
+ip route get 10.0.0.50  # show outgoing interface and IP to reach 10.0.0.50
+ip netns exec blue ...  # execute command in IP namespace "blue"
+ip -4|-6 ... : limit to IPv4 or IPv6 addresses
+ip -r ... # resolve (some) displayed IP addresses to hostnames
+ip -o ... # display each output record on one line, not multiple lines
+ip -o addr show [up] | grep " 10.0.0.93/" | awk '{print $2}' : get NIC with IP
+ip -br[ief] ... # display limited information (such as IP address and NIC state)
+
+A status flag of UP means that the NIC is running, i.e. enabled for use
+A status flag of LOWER_UP means that the lower layer (the physical layer) is
+   up--meaning that there is a physical (or wireless) link and the link has
+   not been administratively disabled (as with "ip link set eth0 down").
+All status flags are documented in netdevice(7) and are defined in
+   /usr/include/linux/if.h in enum net_device_flags.
+
+Context-sensitive help is available by specifying partial commands followed
+   by the keyword "help"
+man pages for the ip command include pages titled ip-arg where "arg" is a
+   recognized argument to the ip command, like "address", "route",
+   or "neighbour" (note British spelling)

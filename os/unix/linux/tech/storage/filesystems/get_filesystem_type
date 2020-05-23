@@ -1,0 +1,8 @@
+To determine the filesystem type on a block device, whether or not it is
+mounted:
+
+# blkid -o value -s TYPE /dev/vg02/lv_stripe
+xfs
+
+# blkid -o value -s TYPE /dev/vg02/lv_concat
+ext4

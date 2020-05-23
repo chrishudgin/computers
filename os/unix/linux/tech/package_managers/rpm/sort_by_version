@@ -1,0 +1,6 @@
+Sort RPM package names by version, oldest to newest:
+
+$ rpm -q <pkgname> | rpmdev-sort
+
+The rpmdev-sort command is provided in RHEL 7 and higher by the rpmdevtools
+package.

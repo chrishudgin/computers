@@ -1,0 +1,17 @@
+To see the PVs on which a logical volume resides, add the "devices" field:
+
+# lvs -a -o vg_name,name,segtype,devices
+   or
+# dmsetup ls --tree -o blkdevname
+
+To show mappings of logical volumes to PVs:
+
+New style:
+# pvs --segments -o +lv_name
+   or
+# pvs -o name,lv_name,seg_le_ranges,seg_size
+
+Old style:
+# pvdisplay --maps /dev/sdd1
+
+The old style shows the explicit mapping of physical extents to logical extents.

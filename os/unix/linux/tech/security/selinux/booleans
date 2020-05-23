@@ -1,0 +1,18 @@
+Booleans each enable or disable a predefined set of policy "allow" rules for
+a module.
+
+All SELinux boolean values can be shown with:
+# semanage boolean -l  (includes brief description of each boolean's effect)
+
+Show one boolean value by name:
+# getsebool ftpd_anon_write
+ftpd_anon_write --> off 
+
+Change one boolean value by name:
+# setsebool [-P] ftpd_anon_write on
+   -P : make setting permanent
+
+*****
+
+The *_exec_content booleans, like user_exec_content, allow the given SELinux
+user (like user_u in the above example) to execute shell scripts.

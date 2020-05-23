@@ -1,0 +1,3 @@
+Any custom kernel boot arguments placed into /boot/grub2/grub.cfg during
+installation are copied from the custom arguments passed to the kernel during
+the boot to the installer.

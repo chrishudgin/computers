@@ -1,0 +1,13 @@
+nfsstat(8) shows NFS server and client statistics, including operation counts
+by NFS protocol version.
+
+# nfsstat [-s|-c] [-l] [-Z[interval]] ...
+   -s : limit to server-side statistics
+   -c : limit to client-side statistics
+   -l : format output as a list for easier parsing, instead of as a table;
+        cannot be used with -Z (see below)
+   -Z : display new statistics from time command started (break with Ctrl-C),
+        or at interval in seconds; no output for interval if no NFS operations
+        occurred; do not add whitespace between -Z and interval value
+
+# nfsstat -m : show all mount options for mounted NFS filesystems

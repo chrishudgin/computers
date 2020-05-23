@@ -1,0 +1,8 @@
+Enable panic mode--drop all packets (set policy to DROP for all chains):
+# firewall-cmd --panic-on
+
+Show if panic mode is enabled (yes or no):
+# firewall-cmd --query-panic
+
+Turn off panic mode (set policy to ACCEPT for all chains):
+# firewall-cmd --panic-off

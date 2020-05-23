@@ -1,0 +1,32 @@
+To configure an LDAP client on the command line using nslcd:
+
+Install the packages:
+openldap
+openldap-clients
+nss-pam-ldapd
+
+Edit the following directives in /etc/nslcd.conf:
+
+uri (e.g. ldap://192.168.0.1 or ldaps://192.168.0.1 for SSL)
+base (e.g. dc=example,dc=com)
+ssl (yes, no, or start_tls)
+tls_cacertdir /etc/openldap/cacerts
+
+Edit the following directives in /etc/openldap/ldap.conf to match what was
+set in /etc/nslcd.conf:
+
+BASE
+URI
+TLS_CACERTDIR
+
+Edit /etc/nsswitch.conf to add "ldap" to the hosts, passwd, shadow, and groups
+services:
+
+hosts: files ldap dns
+passwd: files ldap
+shadow: files ldap
+group: files ldap
+
+Enable and start the nslcd service with systemctl:
+# systemctl enable nslcd
+# systemctl start nslcd

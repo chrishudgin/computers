@@ -1,0 +1,25 @@
+Online documentation:
+https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/selinux_users_and_administrators_guide/
+
+*****
+
+Services (like httpd and ftpd) and users (like user_u and guest_u) that are
+confined by SELinux have HTML descriptions of their SELinux properties in the
+selinux-policy-devel package, under /usr/share/selinux/devel/html.
+
+To install the user- and service-specific *_selinux HTML documents and man
+pages:
+   # yum install selinux-policy-devel policycoreutils-devel
+   # sepolicy manpage -a|-d <process_domain> -p /usr/share/man/man8
+   # mandb
+   # man httpd_selinux; man guest_selinux
+
+The associated man pages are generated dynamically by "sepolicy manpage" each
+time it is run so that they reflect the currently loaded policy with respect to
+items like ports and file contexts associated with a user or service.  If
+changes are made to a user or service's SELinux policy (like adding an
+associated port with semanage port), the man pages for that user or service
+should be regenerated using the above commands to document the local policy
+changes.
+
+The "sepolicy manpage" command options are documented in sepolicy-manpage(8).

@@ -1,0 +1,2 @@
+PID 0 is not shown by the ps command, but some tools (like blkparse) report it
+as swapper or sched (scheduler), which is actually part of the kernel.

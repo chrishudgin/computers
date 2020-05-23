@@ -1,0 +1,6 @@
+nmap -sX hostname|network  # X is scan type (many types available)
+nmap -sV ...  # detect versions of running network services
+nmap -sT ...  # limit to TCP connect scans
+nmap -sU ...  # limit to UDP scans
+nmap -sn 10.0.0.0/24  # ping scan all hosts on network
+nmap -p22-25 ... # scan port numbers 22 through 25

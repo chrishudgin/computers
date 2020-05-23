@@ -1,0 +1,29 @@
+Set an extended attribute on a file or directory:
+$ setfattr -n <class>.<name> -v <value> <file>
+
+Show all of a file's extended attributes from all classes:
+$ getfattr -m - -d <file>
+   -m : match attribute pattern; "-m -" matches all attributes
+   -d : dump attribute values
+
+Remove a an extended attribute from a file by attribute name:
+$ setfattr -x <class>.<name>
+
+Example of setting, viewing, and removing extended attributes on a file:
+
+$ setfattr -n security.selinux -v "system_u:object_r:var_t:s0" /home/joe/foo
+$ setfacl -m user:bin:rwx /home/joe/foo  # note this is setfacl, not setfattr
+$ setfattr -n user.mydata -v somedata /home/joe/foo
+$ getfattr --absolute-names -m - -d /home/joe/foo
+# file: /home/joe/foo
+security.selinux="system_u:object_r:var_t:s0"
+system.posix_acl_access=0sAgAAAAEABgD/////AgAHAAEAAAAEAAYA/////xAABwD/////IAAEAP////8=
+user.mydata="somedata"
+$ setfattr -n security.selinux -v "unconfined_u:object_r:user_home_t:s0" /home/joe/foo
+   or $ restorecon -F /home/joe/foo
+$ setfattr -x system.posix_acl_access /home/joe/foo
+   or $ setfacl -b /home/joe/foo
+$ setfattr -x user.mydata /home/joe/foo
+$ getfattr --absolute-names -m - -d /home/joe/foo
+# file: /home/joe/foo
+security.selinux="unconfined_u:object_r:user_home_t:s0"

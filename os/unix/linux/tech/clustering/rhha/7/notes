@@ -1,0 +1,30 @@
+References:
+
+Overview:  https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/high_availability_add-on_overview/index
+
+Administration:  https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/high_availability_add-on_administration/index
+
+Reference:  https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/high_availability_add-on_reference/index
+
+STONITH can be managed by RHHA 7 as a resource type
+
+For resource management, each node runs crmd (Cluster Resource Manager Daemon)
+and lrmd (Local Resource Manager Daemon).  lrmd acts as an interface between
+crmd and agents.
+
+Membership and quorum configuration is stored in /etc/corosync/corosync.conf
+
+Cluster node and resource configuration is stored in
+   /var/lib/pacemaker/cib/cib.xml
+
+Cluster service daemons are grouped under the pcd.service systemd service.
+
+The pcs command is the main administrative command for cluster setup and
+operations.
+
+The Web UI uses the hacluster user account.
+
+For administrative commands, a resource group is treated as a resource.
+
+Resources in a resource group are started in the order in which they were
+added to a resource group.

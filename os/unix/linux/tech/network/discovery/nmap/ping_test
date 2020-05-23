@@ -1,0 +1,12 @@
+Not all hosts respond to broadcast pings even if they respond to pings to their
+specific IP addresses.
+
+An alternative to a ping loop in a script is to use nmap:
+
+# nmap -sn -n network/maskbits
+
+Example:
+
+# nmap -sn -n 192.168.0.0/24
+
+In older versions of nmap, use -sP instead of -sn; both mean "no port scan"

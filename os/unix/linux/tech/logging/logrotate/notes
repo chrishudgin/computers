@@ -1,0 +1,17 @@
+logrotate configuration is read from:
+/etc/logrotate.conf  (general and default options)
+/etc/logrotate.d/*   (package-specific configuration files)
+
+All directives for logrotate configuration files are described in logrotate(8).
+
+*****
+
+/var/lib/logrotate/logrotate.status contains the time and date of the last
+rotation for each rotated log file.  Each such record is initialized with the
+first run of logrotate on the server.
+
+*****
+
+/var/log/audit/audit.log is not rotated by logrotate.  auditd rotates its own
+log files automatically when they reach a certain size, as determined by the
+max_log_file setting (which defaults to 8 MB) in /etc/audit/auditd.conf.

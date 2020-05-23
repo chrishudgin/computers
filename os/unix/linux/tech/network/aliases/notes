@@ -1,0 +1,13 @@
+Add an IP address to an existing interface eth0:
+
+ip address add 10.0.0.194/8 label eth0:1 dev eth0
+
+The "label eth0:1" is optional, but including it allows the alias to be seen
+   by ifconfig.
+
+To make the alias permanent, create a file
+   /etc/sysconfig/network-scripts/ifcfg-eth0:1
+with an entry for DEVICE=eth0:1 and other fields as normal
+
+Only fields whose values differ from those in the parent device config file
+   (like IPADDR) must be included int the alias's configuration file

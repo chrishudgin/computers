@@ -1,0 +1,10 @@
+To bring a temporarily absent disk back online in a VG if it is not brought
+back automatically as it should be:
+
+# vgextend --restoremissing vg01 /dev/sdd1  (/dev/sdd1 must be the device that
+   was missing, and it must now be available with the same name as before)
+
+To trigger a resync of a RAID LV after a transient disk failure
+(disk is back online):
+
+# lvchange --refresh /dev/vg02/lv01

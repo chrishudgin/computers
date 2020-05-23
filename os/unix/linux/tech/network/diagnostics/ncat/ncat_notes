@@ -1,0 +1,20 @@
+ncat -l 1000  # listen on TCP port 1000 using all interfaces
+ncat -u -l addr 1000
+   listen to UDP port 1000 on specified address only
+ncat [-p source port] [-s source addr] myserver 123
+   start connection to TCP port 123 on myserver from a given source port/IP
+ncat -e /some/cmd -l 8081 --keep-open  # execute command for each connection
+   (remote end can then interact with command, albeit with an empty prompt)
+ncat -z myserver 123
+   test connection to TCP port 123 on myserver and exit immediately
+   exit codes:
+       0 = successful connection
+       1 = unsuccessful connection
+       2 = other errors unrelated to connection status
+
+ncat can be used on both ends of a connection to test end-to-end network
+   transport to a given port
+
+A listening ncat process will serve data it reads from standard input
+
+ncat can forward an ssh connection through a proxy

@@ -1,0 +1,19 @@
+Label an XFS filesystem:
+
+During creation of the filesystem:
+# mkfs.xfs -L <somelabel> /dev/sdb1
+
+After creation of the filesystem (with filesystem unmounted):
+# xfs_admin -L <somelabel> /dev/sdb1
+
+After creation of the filesystem (with filesystem mounted):
+# xfs_io -c "label -s <somelabel>" /myfs1
+
+Display the label:
+# blkid -o value -s LABEL /dev/sdb1
+
+Remove the label (with filesystem mounted):
+# xfs_io -c "label -c" /myfs1
+
+Remove the label (with filesystem unmounted):
+# xfs_admin -L '--' /dev/sdb1

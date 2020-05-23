@@ -1,0 +1,5 @@
+If the global LVM device filter in /etc/lvm/lvm.conf must be changed, run
+pvscan --cache afterward to update the lvmetad cache with the new list of PVs
+that passed filtering.
+
+pvscan will scan all block devices (including partitions) for LVM signatures.

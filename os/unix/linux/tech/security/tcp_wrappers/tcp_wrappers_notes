@@ -1,0 +1,50 @@
+TCP wrappers and daemons linked to libwrap.so allow access by default
+
+For a new connection, hosts.allow is checked first; if no match, then
+   hosts.deny is checked; if still no match, access is allowed
+
+File syntax is:
+
+daemon[@server] : [username@]client[, ...] [ : spawn|twist /some/command ]
+...
+where server and client can be hostname or IP address patterns
+
+Example:
+# cat /etc/hosts.deny
+sshd : foo.bar.com
+
+/etc/hosts.{allow,deny} permits IPv4 network addresses to be specified with
+   CIDR notation
+
+A client list specifier in /etc/hosts.[allow|deny] can include wildcards (? and
+   * in IP addresses; ALL to match all daemon binary names or all hosts) or
+   partial specifications like .foo.com or 192.168. if wildcards are not used
+   in the same specification string; it also supports specifying a filename
+   (with full path) containing additional specifiers and exceptions to a list
+   match with the EXCEPT keyword (e.g. .foo.bar EXCEPT bad.foo.bar)
+
+Some services support allowing/denying connections from a particular username,
+   as in this example:
+
+   myservice: joe@foo.bar.com
+
+   sshd does NOT support access control by username in hosts.{allow,deny}
+   configure sshd user access control with the AllowUsers and DenyUsers
+   directives in /etc/ssh/sshd_config.
+
+spawn runs a specified shell command in addition to the named daemon
+twist runs a specified shell instead of the named daemon
+
+Other options are available in the third field to control a daemon's
+   environment and the user/group under which it runs
+
+tcpdmatch(8) is a tool for testing whether a connection from a specified client
+   to a specified daemon would be allowed or denied.
+
+   Example:
+
+   # tcpdmatch sshd tester1.example.com
+   client:   hostname tester1.example.com
+   client:   address  192.168.122.150
+   server:   process  sshd
+   access:   denied

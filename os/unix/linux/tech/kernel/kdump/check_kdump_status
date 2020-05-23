@@ -1,0 +1,8 @@
+RHEL 6:
+   # service kdump status
+RHEL 7:
+   # systemctl is-active kdump
+
+# cat /sys/kernel/kexec_crash_{loaded,size}
+1
+134217728

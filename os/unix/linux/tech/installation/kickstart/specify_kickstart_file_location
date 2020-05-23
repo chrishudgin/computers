@@ -1,0 +1,23 @@
+When booted to install media, a location for a Kickstart configuration file can
+be appended to the kernel command line by pressing Tab while the "Install"
+option is highlighted in the installer text menu.
+
+Syntax for specifying the location of a Kickstart configuration file on the
+installer's kernel command line is:
+
+ks=cdrom:/ks.cfg
+ks=hd:sdb1:/ks.cfg
+ks=hd:fd0:/ks.cfg
+ks=ftp://192.168.122.1/pub/ks.cfg
+ks=http://192.168.122.1/ks.cfg
+ks=nfs:192.168.122.1:/ks.cfg
+
+To specify a Kickstart configuration file to be used with virt-install:
+
+# virt-install ...
+-x ks=file:/my.ks
+-x ks=...  (see other examples above)
+
+If the Kickstart configuration file is placed on an anonymous FTP server, it
+should be world-readable and have the correct SELinux context for a file in
+its directory.

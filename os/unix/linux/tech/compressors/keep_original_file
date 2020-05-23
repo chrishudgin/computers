@@ -1,0 +1,5 @@
+Option -k|--keep is supported by bunzip2 and unxz to preserve original file.
+
+Alternatively, use -c|--stdout in gunzip, bunzip2, or unxz to redirect output
+to stdout instead of replacing the original file and use shell redirection to
+direct stdout to a new file.

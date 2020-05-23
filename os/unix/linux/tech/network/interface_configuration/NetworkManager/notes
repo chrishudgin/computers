@@ -1,0 +1,116 @@
+A NetworkManager "connection" is a profile for a given interface, stored as an
+ordinary ifcfg file in /etc/sysconfig/network-scripts.
+
+NetworkManager can store multiple profiles for an interface that can then be
+selectively activated or deactivated.
+
+All NetworkManager tools require the NetworkManager service to be running.
+
+NetworkManager includes a running service because NetworkManager monitors
+up/down status of connections.  If a connection is brought down for a given
+interface and another connection for that interface is set to "autoconnect yes",
+NetworkManager will start that connection immediately and automatically.
+
+"autoconnect" also toggles the ONBOOT flag in the ifcfg-* files.
+The connection name is recorded as the "NAME" field in the ifcfg-* files.
+The setting ipv4.ignore-auto-dns sets PEERDNS=no in the ifcfg-* file for the
+   specified connection, preventing DHCP from overwriting /etc/resolv.conf.
+
+*****
+
+Tab completion is available for nmcli commands.
+Context-specific syntax help is available from the command line:
+# nmcli connection add help
+The nmcli(1) man page includes examples.
+More examples are available in nmcli-examples(5), including a complete example
+   (Example 9) of adding a new connection with a static configuration.
+
+Show status of "connections" and their properties through NetworkManager CLI:
+
+# nmcli [-f field1,field2,...] connection show [connection name]
+
+Lower case values are static settings in the connection's configuration.
+Upper case values are the current live values for the associated device if
+   the selected connection is currently active on the device.
+
+All properties are documented in nm-settings(5)
+
+Show status of NICs through NetworkManager CLI:
+
+# nmcli device status
+
+Add a new connection using DHCP with autoconnect turned on (default settings):
+
+# nmcli connection add con-name "Hotel connection" type ethernet ifname eth0
+
+Add a new connection with a static IP and autoconnect turned off:
+
+# nmcli con add con-name "eth0 static" type ethernet ifname eth0 autoconnect no ip4 192.168.122.150/24 gw4 192.168.122.1
+# nmcli con mod "eth0 static" ipv4.addresses "192.168.122.100/24 192.168.122.2"
+   (change IP address and gateway through one setting)
+# nmcli con mod "eth0 static" +ipv4.addresses 192.168.122.150/24 (add an IP)
+# nmcli con mod "eth0 static" ipv4.dns 192.168.122.1  (set primary DNS)
+# nmcli con mod "eth0 static" +ipv4.dns 8.8.8.8  (add secondary DNS)
+# nmcli con down "eth0 static" (only needed if this connection is already
+   active)
+# nmcli con up "eth0 static"  (bring connection online; also stops other 
+                               connections on the same interface)
+
+Edit an existing connection using nmcli and connection name:
+
+# nmcli connection edit "System eth0"
+nmcli> help  (shows all commands available in connection edit mode)
+nmcli> help set  (shows help on a particular command)
+nmcli> print   (shows all variables for the connection and their values)
+nmcli> set property.name value  (set any property)
+   set ipv4.method auto   (for DHCP)
+   set ipv4.method manual  (for static IP)
+   set ipv4.dns 192.168.122.1,192.168.1.1  (set list of values for a property)
+nmcli> remove property.name  (clear values for property)
+nmcli> save  (otherwise changes are lost)
+
+Command history with up arrow and down arrow are available in the nmcli shell.
+
+To change a connection property's value on the command line:
+# nmcli connection modify "System eth0" ipv4.dns 192.168.122.1
+# nmcli connection modify "System eth0" +ipv4.dns 192.168.1.1 (add to list)
+# nmcli connection modify "System eth0" -ipv4.dns 192.168.1.1 (remove from list)
+
+Delete a connection:
+
+# nmcli connection delete "New eth0"
+
+Reload NetworkManager's configuration with the values currently in ifcfg-* :
+
+# nmcli connection reload  (does not change active network configuration)
+
+Apply changes in network configuration variables to running connections:
+# nmcli connection up "System eth0"
+
+Disable an interface temporarily:
+
+# nmcli dev disconnect eth0 (removes IP networking config from device but
+   leaves physical link set to up)
+
+Disable all managed interfaces:
+
+# nmcli net off
+
+Restart an interface and bring online a connection with autoconnect yes
+   (if any):
+
+# nmcli dev connect eth0
+
+*****
+
+Alternative interfaces:
+
+TUI for NetworkManager:
+
+# nmtui (not recommended for RHEL 7.0 or 7.1, only RHEL 7.2 or later)
+
+Remember to include netmask in CIDR notation when entering an IP address using
+nmtui (e.g. 192.168.122.100/24 rather than simply 192.168.122.100)
+
+GUI for NetworkManager:
+# nm-connection-editor

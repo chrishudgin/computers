@@ -1,0 +1,29 @@
+Until a recent kernel patch (part of RHEL 7, for example, but not RHEL 6),
+there were no privilege restrictions on creating a hard link to any file whose
+directory entry (name) was visible to a given user, or following a symbolic
+link made by one user in a directory with the sticky bit set to another user's
+file.
+
+Thus, joeuser could create a hard link in his home directory to /etc/shadow and
+possibly convince root to chown -R joeuser:joeuser /home/joeuser, thereby
+changing the ownership of /etc/shadow.  This particular vulnerability with hard
+links could only occur if joeuser's home directory and /etc/shadow were in the
+same filesystem.  For this and other reasons, best practice for security is to
+make /home separate from the OS filesystems.
+
+Or, in a timing attack, joeuser could remove a regular file in a directory with
+the sticky bit set (like /tmp) and replace it with a symlink just before root
+accesses it by name (after security checks have already been done for what had
+been a regular file) and thereby cause root to follow the link unknowingly to a
+different file.
+
+With the patch, kernel variables fs.protected_hardlinks and
+fs.protected_symlinks can prevent these behaviors when they are set to 1
+(default in RHEL 7).
+
+Even with these settings, a chown command run by root against joeuser's home
+directory would still change the ownership of /etc/shadow if joeuser had
+created a symlink to it in his home directory.  To prevent this from happening,
+root should use the -h option to the chown command to ensure that symlinks are
+not dereferenced during ownership changes and changes are instead made to the
+symlinks themselves.

@@ -1,0 +1,23 @@
+Extent ranges on a PV (as in an lvcreate command) can be specified as PV[:PE-PE]
+
+Example for placing a logical volume in a given set of extents:
+
+# lvcreate --type linear -l 48 -n mylv vg02 /dev/sdb1:0-47
+
+Example for relocating extents within a PV or to a given location on a
+different PV:
+
+# pvmove --alloc anywhere /dev/sdb1:0-24 /dev/sdb1:100-124
+
+The extents will be moved regardless of which PEs are in use by which LVs (so
+LVs could end up with discontinuous PE ranges), but the target PEs must not
+already be in use by LVs or the pvmove command will abort without taking action.
+
+Discontinuous PE ranges can be coalesced with a pvmove to another PV using
+the default ("normal") allocation policy which prefers to allocate PEs
+sequentially by LV.
+
+The physical extents selected for a pvmove can be restricted to those used by
+a single logical volume, leaving PEs used by other LVs in place:
+
+# pvmove -n lvol1 /dev/sdc1 /dev/sdd1

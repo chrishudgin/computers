@@ -1,0 +1,59 @@
+Goal: Pass HTTP traffic through firewall at 10.0.0.224:80 to 10.0.0.93:8080
+
+Ensure that the HTTP server is able to process HTTP requests on port 8080
+from itself:
+# nc 10.0.0.93 8080
+
+This may require adjusting firewall rules to close port 80 and open port 8080:
+# firewall-cmd --remove-service=http
+# firewall-cmd --add-port=8080/tcp
+
+Ensure IPv4 forwarding is enabled on the firewall machine, 10.0.0.224:
+# cat /proc/sys/net/ipv4/ip_forward
+1
+
+On the firewall machine (10.0.0.224):
+
+Allow inbound packets from other hosts addressed to port 80 on the firewall
+machine to be forwarded to the HTTP server, with NAT transparently handling
+return packets through the firewall to the client.  Packets addressed to port
+80 are "marked" with a hexadecimal value in the PREROUTING mangle chain before
+being subjected to DNAT (changing destination IP address to 10.0.0.93 and port
+number to 8080) in the PREROUTING nat table.
+# firewall-cmd --add-masquerade
+# firewall-cmd --add-forward-port=port=80:proto=tcp:toport=8080:toaddr=10.0.0.93
+
+Perform DNAT on packets originating on the firewall and destined for the HTTP
+server:
+# iptables -t nat -I OUTPUT -d 10.0.0.224 -p tcp -m tcp --dport 80 -j DNAT --to-destination 10.0.0.93:8080
+
+This DNAT in the OUTPUT chain is necessary because packets originating on the
+local host (the firewall machine in this case) do not traverse the PREROUTING
+chain, but they do traverse the OUTPUT chain.
+
+*****
+
+Packets originating on hosts other than the firewall machine and destined for
+port 80 will traverse the following chains, in order:
+
+PREROUTING (mangle table)
+PREROUTING (nat table)
+FORWARD (filter table)
+POSTROUTING (nat table)
+
+Packets originating from the firewall itself and addressed to port 80 will
+traverse the following chains, in order:
+
+OUTPUT (nat table)
+OUTPUT (filter table)
+POSTROUTING (nat table)
+
+Reference chain traversal flow diagrams:
+https://gist.github.com/mcastelino/c38e71eb0809d1427a6650d843c42ac2
+
+*****
+
+The firewall transparently allows responses to DNAT-ed and SNAT-ed requests to
+be sent through the firewall to the original client systems.  No additional
+explicit rules are needed to de-NAT the reponse packets, as this is done
+automatically by netfilter.

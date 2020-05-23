@@ -1,0 +1,9 @@
+Add or remove previously defined service from permanent or runtime config:
+# firewall-cmd [--permanent] --add-service=<servicename>
+# firewall-cmd [--permanent] --remove-service=<servicename>
+Example:
+   # firewall-cmd --permanent --add-service=http
+
+Add or remove port from permanent or runtime config:
+# firewall-cmd [--permanent] --add-port=<port>/<protocol>
+# firewall-cmd [--permanent] --remove-port=<port>/<protocol>

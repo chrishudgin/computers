@@ -1,0 +1,3 @@
+In RHEL 7, mcelog is run as a daemon (with the --daemon option) through
+mcelog.service rather than as a periodic cron job.  mcelog reads from
+/dev/mcelog.

@@ -1,0 +1,51 @@
+Create a copy-on-write snapshot of a logical volume:
+
+Note:  It is not necessary to run xfs_freeze before creating an LVM snapshot
+of a logical volume with an XFS filesystem on it.  The lvcreate command will
+perform the freeze and unfreeze implicitly.
+
+Create the snapshot:
+
+# lvcreate --type snapshot -n applv_snap -L 100m [-p r] /dev/vg02/applv /dev/sdab1
+(-p r sets read-only permission instead of the default rw)
+(-s can be used instead of --type snapshot)
+
+The lvs command will show the volume type of "s" in LV attributes and will
+show the name of the origin LV.
+
+Mount the snapshot (read-write is the default):
+
+# mount -o nouuid[,ro] /dev/vg02/applv_snap /applv_snap
+
+-o nouuid is needed to allow two filesystems (the origin and snapshot LV) with
+the same UUID to be mounted at the same time.
+
+Merge the snapshot back into the original, so that the original reverts to
+its content when the snapshot was created:
+
+Unmount any filesystems that are mounted on the original and snapshot volume:
+# umount /applv_snap
+# umount /applv
+Merge:
+# lvconvert --merge /dev/vg02/applv_snap
+When the merge is complete, the snapshot volume is automatically removed.
+
+To remove the snapshot and dispose of its contents instead of merging them:
+
+# umount /applv_snap
+# lvremove [-f] /dev/vg02/applv_snap
+
+*****
+
+If a snapshot fills up (when more blocks have been modified on the origin than
+exist in the snapshot volume), the state of the snapshot volume will change to
+invalid and the snapshot can no longer be used at all.  If a filesystem was
+mounted on the snapshot volume, it will be unmounted automatically as soon as
+the snapshot volume becomes invalid.
+
+*****
+
+Performing an "lvchange -an" on a snapshot volume will deactivate the origin
+volume as well.  If a snapshot is no longer needed, unmount it (if applicable)
+and remove it with lvremove.  It does not need to be deactivated with
+lvchange -an before removal.

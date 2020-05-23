@@ -1,0 +1,23 @@
+pgrep and pkill support extended regular expressions as patterns to match
+
+pgrep -a <string>  : show full command line of process whose command name
+   matches string
+   (pgrep -l shows command name of matched process but not its arguments)
+   -f : match string against full process command lines, not just command names
+        (e.g. match "libexec" in a process running /usr/libexec/sssd/sssd_be)
+
+pgrep and pkill have many other options to match against other selection
+criteria like parent process PID, newest process matched, processes in a given
+process group or associated with a given terminal or user, etc.
+
+*****
+
+pkill sends a SIGTERM by default.  However, when used with -u username, pkill
+first sends a SIGTERM and then SIGHUP and SIGCONT to all processes owned by the
+specified user.  Login shells ignore SIGTERM, but they terminate when sent
+SIGHUP.  Thus, for example, the following commands will have different effects
+even when the same processes are involved:
+
+$ pkill -t pts/1  (sends SIGTERM; login shell ignores, but children are terminated)
+$ pkill -u testuser (sends SIGTERM, terminating children, then SIGHUP which
+terminates login shell as well)

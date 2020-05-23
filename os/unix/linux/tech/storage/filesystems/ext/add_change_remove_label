@@ -1,0 +1,7 @@
+Add or change a label on an ext filesystem:
+# tune2fs -L <label> /dev/sda2
+
+Remove a label from an ext filesystem:
+# tune2fs -L "" /dev/sda2
+
+Alternatively, use e2label(8) instead of tune2fs.

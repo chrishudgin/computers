@@ -1,0 +1,8 @@
+Install or update one or more packages (similar to rpm -U):
+# yum install <pkgname1> [<pkgname2] ...
+
+Update one or more packages (similar to rpm -F):
+# yum update <pkgname1> [<pkgname2] ...
+
+Update all packages:
+# yum update

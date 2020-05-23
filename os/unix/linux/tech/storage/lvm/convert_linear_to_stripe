@@ -1,0 +1,8 @@
+There is no direct method to convert a linear (concatenated) LV to a striped
+LV.  The indirect method requires temporarily adding a mirror to the linear LV,
+converting the mirrored LV to a RAID 5 LV with dedicated parity disk,
+and then converting the LV to a striped LV:
+
+https://access.redhat.com/solutions/227433
+
+This procedure first became available in RHEL 7.4.

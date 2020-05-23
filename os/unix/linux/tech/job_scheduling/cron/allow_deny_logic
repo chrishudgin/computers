@@ -1,0 +1,9 @@
+The logic for allow/deny files is the same for cron and at.
+
+If neither allow nor deny exist, only root can run jobs.
+
+If allow exists, then only the users listed in it can run jobs; deny is
+ignored.
+
+If allow does not exist but deny does, then all users except those listed in
+deny can run jobs.

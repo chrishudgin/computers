@@ -1,0 +1,64 @@
+Initiator name used by iscsid and iscsiadm is in /etc/iscsi/initiatorname.iscsi
+
+# iscsiadm -m <mode> [...]
+
+iscsiadm modes:
+
+discoverydb
+discovery (of targets using -t sendtargets -p <portal> -I <iface>)
+node : a portal to a particular target on a target server
+session : a logged-in connection to a node
+iface : a network interface used to initiate a session
+fw : firmware on physical HBAs that include an iSCSI initiator feature
+host : a virtual HBA consisting of an HBA number, an IP address, and NIC
+
+Without qualifiers, iscsiadm -m <mode> provides summary information.
+
+Limiting the scope of a query (such as by providing a target name) often
+yields more detailed information, as in iscsiadm -m node -T <targetname>
+
+Qualifiers can include:
+-T <target>
+-I <iface>
+-p <portale>
+
+Operations can include:
+-l|--login in node mode
+-u|--logout in node mode
+-o|--op= (used in various modes but required in iface mode to define an iface)
+         new  (creates an instance of an item without yet specifying its values)
+         update -n <item> -v <value>   to specify values for an item
+         delete  (deletes an item, deactivating it first if it is running)
+-R|--rescan in node or session mode to scan LUNs for that node or session
+   (possibly qualified by a particular target, portal, and/or iface)
+
+By default (without -o nonpersistent), iscsiadm commands update the database of
+records (ifaces, nodes, discovered targets) in /var/lib/iscsi.  The next time
+the iscsi service starts, it attemps to log in to all previously known nodes
+(thus creating sessions) using the configured ifaces.
+
+Add -P #  (if # is 1 or higher) for more detailed output from iscsiadm
+
+To show the interfaces configured for iSCSI:
+
+# iscsiadm -m iface
+default tcp,<empty>,<empty>,<empty>,<empty>
+iser iser,<empty>,<empty>,<empty>,<empty>
+iface1 tcp,08:00:27:F2:24:7B,<empty>,<empty>,<empty>
+iface0 tcp,08:00:27:4C:85:38,<empty>,<empty>,<empty> 
+
+From this information, the ifaces can be mapped to their respective NICs.
+
+To show the interfaces in use for a given target:
+
+# iscsiadm -m node [-T <target_name>]
+
+Example:
+
+# iscsiadm -m node -T iqn.1999-08.net.solarcore:cent6vm1.target1 | grep iface.iscsi_ifacename
+iface.iscsi_ifacename = iface1
+iface.iscsi_ifacename = iface0
+
+To show the SCSI device name (/dev/sd*) for each iSCSI target name, target
+   portal (network path), LUN, and interface (iface)--more detail than lsscsi:
+# iscsiadm -m session -P 3

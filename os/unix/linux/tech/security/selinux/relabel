@@ -1,0 +1,8 @@
+To force an SELinux relabel of all filesystems that have SELinux support
+(i.e. those mounted with the "seclabel" mount option):
+
+# touch /.autorelabel
+# reboot
+
+An automatic relabel does not restore default SELinux users and roles to file
+contexts, only their default types.

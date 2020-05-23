@@ -1,0 +1,9 @@
+The size of a tmpfs filesystem is determined by the "size" mount option:
+
+# mount -t tmpfs -o size=<bytes>[k|m|g] tmpfs /some/mount/point
+
+Example:
+
+# mount -t tmpfs -o size=100m tmpfs /mnt
+
+The default size is half of RAM.

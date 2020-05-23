@@ -1,0 +1,8 @@
+Contrary to what is documented in crontab(5), for cron jobs that run hourly or
+   less frequently:
+crond runs jobs that were scheduled in the "missing" hours of a DST forward
+   time adjustment run immediately after the time adjustment occurs.
+During a backward DST time jump (to standard time), jobs scheduled during the
+   clock hours that occur twice are run only once.
+
+The documentation in crond(8) regarding Daylight Saving Time is correct.

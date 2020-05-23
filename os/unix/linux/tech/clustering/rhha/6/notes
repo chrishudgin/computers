@@ -1,0 +1,10 @@
+Stopping all cluster services:
+
+# ccs --stopall --nodisable
+
+List current fence master node ID:
+# fence_tool ls
+# clustat   (to get hostname corresponding to node ID shown by fence_tool)
+
+/var/log/cluster/rgmanager.log shows only rgmanager events for that particular
+node

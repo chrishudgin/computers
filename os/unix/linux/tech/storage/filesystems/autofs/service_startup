@@ -1,0 +1,10 @@
+On RHEL 7:
+
+Automount (NFS)
+
+To allow automounting of NFS exports, make sure the NFS client services are
+running on the client.  Then start autofs on the client:
+# systemctl enable autofs
+# systemctl start autofs
+autofs.service starts
+   the automount daemon

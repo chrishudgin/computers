@@ -1,0 +1,14 @@
+Register:
+# subscription-manager register
+
+Attach:
+# subscription-manager attach --auto
+or
+# subscription-manager list --available  (get pool ID for desired subscription)
+# subscription-manager attach --pool=<pool_ID>
+
+An "entitlement" is an attached subscription.
+
+Remove subscription manager configuration data from system (but not from Red
+Hat's own subscription database):
+# subscription-manager clean

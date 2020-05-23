@@ -1,0 +1,11 @@
+The mount option keyword "defaults" is only needed as a field placeholder in
+/etc/fstab.  If any custom mount options are needed, the keyword "defaults"
+can be omitted.
+
+Thus, the following /etc/fstab entries are equivalent:
+
+/dev/sda2 /foo xfs ro,defaults 0 0
+/dev/sda2 /foo xfs defaults,ro 0 0
+/dev/sda2 /foo xfs ro 0 0
+
+"defaults" sets the following mount options: rw,suid,dev,exec,auto,nouser,async

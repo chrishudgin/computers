@@ -1,0 +1,18 @@
+To offline a disk:
+
+# echo offline > /sys/block/sdb/device/state
+
+To online an offlined disk:
+
+# echo running > /sys/block/sdb/device/state
+
+To delete a disk after offlining it:
+
+# echo 1 > /sys/block/sdb/device/delete
+
+To scan a SCSI bus for disks, create their device files, and bring them online:
+
+# echo "- - -" > /sys/class/scsi_host/host16/scan
+
+To scan an individual disk (for example, if it is a LUN that has been resized):
+# echo 1 > /sys/block/sdb/device/rescan

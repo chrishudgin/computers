@@ -1,0 +1,25 @@
+Reference:
+
+https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/installation_guide/sect-consoles-logs-during-installation-x86
+
+Anaconda sets up the following virtual console windows during installation:
+
+Ctrl-Alt-F1: tmux terminal multiplexer (/dev/pts/*) on tty1
+Ctrl-Alt-F2: root shell on tty2
+Ctrl-Alt-F3: root shell on tty3
+Ctrl-Alt-F4: syslog on tty4 (also sent to file /tmp/syslog)
+   syslog is configured for *.*;authpriv.none;local1.none
+   Anaconda uses local1 facility and also logs its messages directly elsewhere
+     (see tmux section below)
+Ctrl-Alt-F5: root shell on tty5
+Ctrl-Alt-F6: graphical installer or, if installer is running in text mode,
+   root shell on tty6
+
+tmux terminals (/dev/pts/*) multiplexed on tty1:
+
+Ctrl-b 1: Main Anaconda window including stderr from anaconda
+   Installer user interface for text installs
+Ctrl-b 2: root shell on /dev/pts/1
+Ctrl-b 3: Anaconda installation log (tail -F /tmp/anaconda.log)
+Ctrb-b 4: Storage log (tail -F /tmp/storage.log)
+Ctrl-b 5: Logs from other utilities (tail -F /tmp/program.log)

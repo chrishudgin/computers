@@ -1,0 +1,34 @@
+sysctl display and modifies kernel tunable parameters under /proc/sys.
+
+Tunables that start with vm, for example (like vm.swappiness) can be found
+under /proc/sys/vm--hence the value of vm.swappiness can be read from
+/proc/sys/vm/swappiness.
+
+Show all kernel tunable parameters and their values:
+# sysctl -a
+
+Show a kernel tunable parameter and its value by name:
+# sysctl <parameter_name>
+Example:
+# sysctl vm.swappiness
+
+Set a kernel tunable parameter's value non-persistently:
+# sysctl -w vm.swappiness=10
+
+Set a kernel tunable parameter's value persistently:
+Set the variable and its value in a sysctl configuration file and then load
+kernel tunable parameters values from configuration files
+   /run/sysctl.d/*.conf
+   /etc/sysctl.d/*.conf
+   /usr/local/lib/sysctl.d/*.conf
+   /usr/lib/sysctl.d/*.conf
+   /lib/sysctl.d/*.conf
+   /etc/sysctl.conf
+with:
+# sysctl --system
+
+Load kernel tunable parameters only from /etc/sysctl.conf:
+# sysctl -p
+
+The meanings of parameters tunable through sysctl are documented in the kernel
+source tarball in the Documentation/sysctl directory.

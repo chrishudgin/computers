@@ -1,0 +1,3 @@
+File access times on an NFS server are not necessarily updated by file accesses
+from a client.  Setting various *atime mount options
+(atime,noatime,relatime,etc.) has no effect on NFS client mount behavior.

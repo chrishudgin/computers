@@ -1,0 +1,2 @@
+chrt can set the scheduler for a process and its priority within that
+   scheduler; chrt can be used to set a process to real-time priority

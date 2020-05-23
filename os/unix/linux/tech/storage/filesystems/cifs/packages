@@ -1,0 +1,10 @@
+Recommended server packages for serving SMB shares:
+samba
+or use pacakge group "File and Storage Server"
+
+Recommended client packages for listing SMB shares and mounting CIFS
+filesystems:
+
+samba-client (provides smbclient for, e.g. smbclient -L <servername>)
+cifs-utils (provides mount.cifs)
+or use package group "Network File System Client"

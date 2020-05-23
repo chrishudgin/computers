@@ -1,0 +1,9 @@
+crond searches for jobs in:
+/etc/crontab
+/etc/cron.d/*
+/var/spool/cron/*
+
+anacron searches for jobs in:
+/etc/anacrontab
+
+cron logs to the file /var/log/cron

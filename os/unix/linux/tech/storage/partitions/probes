@@ -1,0 +1,43 @@
+partprobe, partx, and kpartx have different purposes.
+
+After a disk has been partitioned:
+
+The file /proc/partitions contains the kernel's current list of all known
+partitions on all disks.  This may not reflect the actual partitioning of the
+disks.  partprobe, partx, and kpartx all update the kernel's view of devices
+and partitions, as well as creating the necessary device files for them.
+
+partprobe /dev/sda creates partition device files in /dev for "disk" and loop
+   devices (e.g. /dev/sda1, /dev/loop0p1).  These are only needed if the "disk"
+   partition devices in /dev like /dev/sdb1 will be accessed directly (not
+   through parent multipath devices like mpatha1).
+
+   partprobe works in RHEL 5 and 7 but not in RHEL 6 if any partitions on the
+   disk are in use.
+
+partx -av /dev/sda informs the kernel of the new partitions so they can be
+   used, even if other partitions on the disk are already in use by mounted
+   filesystems or active swap.
+
+   partx works in RHEL 6 when partprobe does not.
+   partx fails unconditionally in RHEL 7, but partprobe does the jobs of
+      partprobe and partx in RHEL 7.
+
+kpartx -av /dev/mapper/mpatha creates device mapper entries in /dev (dm-*) and
+   symlinks to them in /dev/mapper (e.g. mpatha1).  These are
+   only needed if the partitions on the "disk" devices like sdb will be accessed
+   indirectly through device mapper (through multipath devices like mpatha1).
+
+Running partprobe, partx, and kpartx may not flush buffers used to cache
+partition layouts on devices (e.g. /dev/sdb and /dev/sdd) that underlie
+multipath devices (e.g. /dev/mapper/mpatha).  To flush these buffers so that
+fdisk, gdisk, parted, etc. show the partitions on the underlying devices:
+
+# blockdev --flushbufs /dev/sdb /dev/sdd
+
+References:
+https://access.redhat.com/solutions/227073
+https://access.redhat.com/solutions/57542
+
+Detecting and making available partitions contained within a KVM .qcow2 image
+requires the use of the guestmount utility rather than partprobe/partx/kpartx.  

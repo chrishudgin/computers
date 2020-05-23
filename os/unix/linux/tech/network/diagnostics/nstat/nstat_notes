@@ -1,0 +1,8 @@
+nstat : display packet and connection statistics by protocol
+
+nstat is the iproute2 package replacement for "netstat -s"
+
+By default, nstat shows incremental changes to counters since previous
+invocation of nstat, printing only the counters whose values have changed.
+
+nstat -a : show absolute values of all counters.

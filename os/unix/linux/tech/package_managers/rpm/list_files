@@ -1,0 +1,2 @@
+List files in a repository package that is not currently installed:
+# repoquery -l pkgname

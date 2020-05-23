@@ -1,0 +1,11 @@
+Show all local customizations to non-default values for all management
+groupings, as semanage commands:
+
+# semanage -o
+
+Note: management groupings are set to all default values with -D.
+
+Show local customizations for a given management grouping (e.g. login, fcontext,
+port, boolean), even if they have been changed back to default values:
+# semanage <management_grouping> -l -C
+  -C : limit output to locally customized values

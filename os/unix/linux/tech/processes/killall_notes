@@ -1,0 +1,2 @@
+killall <command> : kill any process running <command>
+killall -r <regex> : kill any process matching regex

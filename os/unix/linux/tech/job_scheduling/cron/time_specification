@@ -1,0 +1,19 @@
+If both the day-of-month and day-of-week field (third and fifth fields in
+crontab) are not *, they are logically OR'd with the each other, so that the
+following cron job will run at 5:01 on April 3rd as well as on every Wednesday
+in April:
+1 5 3 4 3 /bin/ls
+
+However, the following cron job will run only on April 3rd:
+1 5 3 4 * /bin/ls
+
+and the following cron job will run only on Wednesdays in April:
+1 5 * 4 3 /bin/ls
+
+*****
+
+crontab entry fields can also use lists (e.g. 1,2,7), ranges (e.g. 1-5) and
+divisors representing intervals (e.g. */10 meaning once every ten time units).
+Strings like "@yearly" or "@hourly" can be used as the entire time
+specification (jobs will be run at the beginning of the specified interval), as
+well as the string "@reboot" to run a job once after reboot.

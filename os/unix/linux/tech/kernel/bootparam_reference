@@ -1,0 +1,5 @@
+Some (but not all) boot parameters understood by the Linux kernel are
+documented in the bootparam(7) man page.
+
+Parameters passed on the kernel command line but processed by other subsystems
+are documented elsewhere, such as in dracut.cmdline(7) and systemd-udevd(8).

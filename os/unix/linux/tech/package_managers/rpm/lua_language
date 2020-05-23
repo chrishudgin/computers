@@ -1,0 +1,6 @@
+RPM allows the use of an embedded programming language called Lua for
+scriptlets.  Lua can be used in the absence of a Unix shell and associated Unix
+tools (or before they are installed).
+
+The bash RPM, for example, has its postinstall and postuninstall scriptlets
+written in Lua for inserting and removing entries into /etc/shells.

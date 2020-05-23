@@ -1,0 +1,6 @@
+Custom file context rules can be added with semanage and then applied with
+restorecon:
+# semanage fcontext -a -t some_existing_t '/foo(/.*)?'
+# restorecon -Rv /foo
+
+More examples are in semanage-fcontext(8).

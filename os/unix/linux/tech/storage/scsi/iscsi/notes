@@ -1,0 +1,171 @@
+Terminology and naming:
+
+An iSCSI target serves storage through the iSCSI protocol on port 3260.
+An iSCSI initiator uses the storage provided by an iSCSI target.
+An iSCSI node is an initiator or a target (or possibly both).
+   (This is different from the iscsiadm definition of a node, q.v.)
+An iSCSI address consists of an iSCSI name (e.g. an IQN) and a network portal.
+   The IQN has the format iqn.YYYY-MM.com.example:uniquestring
+   YYYY-MM is the date on which the organization acquired the domain
+      (example.com in this example)
+         iqn.1999-08.net.solarcore:66c15865e77
+         iqn.1999-08.net.solarcore:rhel7vm1.target2
+         iqn.1999-08.com.foo:storagebox7
+   The maximum length of an iSCSI name is 223 bytes, per RFC 3270.
+   The network portal consists of an IP address and an optional port number
+   which defaults to 3260.
+
+SCSI devices of iSCSI type show vendor "IET" (iSCSI Enterprise Target)
+   or "LIO-ORG" (Linux I/O) in the output of lsscsi.
+
+*****
+
+Security:
+Authentication, which may be bidirectional, is provided by optional CHAP
+   (username/password) and/or ACLs based on initiator IP address or name.
+   CHAP username/password info on the initiator side is configured in
+      /etc/iscsi/iscsid.conf for values global to all discovery/logins,
+      otherwise kept in persistent database files in /var/lib/iscsi
+   CHAP username/passowrd info on the target side is part of the targetcli
+      saveconfig.json file
+   There are separate username/password variables for discovery mode and
+      for "normal" mode (iSCSI login)
+Within each target, target portal groups (TPGs) can be created that group ACLs,
+   LUNs, and portals (target IP address / port number) together for
+   administration and security.  In this way, access can be granted or limited
+   to specific initiators (or sets of initiators) to specific LUNs using
+   specific IP addresses on the target server.
+   If multiple NICs are added to a TPG, the LUNs within it can be multipathed
+      over the network(s) between the target and initiator.
+   Multipathing can be load-balanced if the initiator supports it (as with
+      multibus mode in device mapper multipath [DMM] on Linux).
+Encryption, if any, must be provided by a lower-level protocol like IPsec.
+
+*****
+
+SCSI reservations:
+
+iSCSI supports persistent reservation on iSCSI targets, regardless of the
+physical type of the target (file, LUN, SCSI disk, etc.)
+
+*****
+
+Connections:
+
+Persistent connection information on initiators is stored in /var/lib/iscsi.
+
+For each path(network interface)/target pair, there will be one iSCSI "host"
+(virtual HBA) created on the initiator.
+
+*****
+
+Packages:
+
+On RHEL 7:
+iSCSI target is provided by the targetcli package, which in turn provides the
+   "target" systemd service.
+iSCSI initiator is provided by the iscsi-initiator-utils package, which in turn
+   provides the "iscsid" (iSCSI control) and "iscsi" (iSCSI login and device
+   scanning) systemd services.
+
+Restarting the "iscsi" service causes the service to go down briefly;
+   while the service is down, any attempted I/O to an iSCSI-mounted
+   filesystem will generate errors and cause the filesystem to become
+   write-protected (read-only) for the duration of the mount.
+   The only workaround is to unmount, fsck, and remount the filesystem after
+   iSCSI has been restarted.
+
+*****
+
+Scanning for new or resized LUNs:
+
+To scan for newly allocated iSCSI LUNs or resized LUNs, do not restart the
+iscsid or iscsi service; instead, issue a recsan of the iSCSI target(s):
+
+# iscsiadm -m node [-T iqn.1999-08.net.solarcore:rhel7vm1.target1] --rescan
+
+or use the same commands that would be used to scan for any new SCSI LUNs:
+# echo "- - -" > /sys/class/scsi_host/host#/scan 
+   (repeat for all host# paths to the LUN)
+# echo 1 > /sys/block/sdX/device/rescan
+   (repeat for all LUNs whose sizes may have changed)
+The multipath driver should also detect the paths to the new LUN once the above
+commands are run.
+
+If LUNs have been resized, also run:
+
+# multipathd resize map mpatha
+# multipathd resize map mpathb
+etc.
+
+*****
+
+Showing iSCSI HBA to IP associations:
+
+To map a SCSI HBA number (as seen in lsscsi) to an iSCSI interface (IP address),
+NIC, or MAC address:
+# systool -c iscsi_host -v host3
+Class = "iscsi_host"
+
+  Class Device = "host3"
+  Class Device path = "/sys/devices/platform/host3/iscsi_host/host3"
+    hwaddress           = "08:00:27:87:E7:4A"
+    initiatorname       = "(null)"
+    ipaddress           = "10.0.1.103"
+    netdev              = "(null)"
+    uevent              = 
+
+    Device = "host3"
+    Device path = "/sys/devices/platform/host3"
+      uevent              = "DEVTYPE=scsi_host"
+
+or use iscsiadm:
+
+# iscsiadm -m host
+tcp: [19] 10.0.1.103,[08:00:27:87:E7:4A],<empty> <empty>
+tcp: [20] 10.0.0.103,[08:00:27:9D:40:67],<empty> <empty>
+tcp: [21] 10.0.1.103,[08:00:27:87:E7:4A],<empty> <empty>
+tcp: [22] 10.0.0.103,[08:00:27:9D:40:67],<empty> <empty>
+Here 19, 20, 21, and 22 are the HBA numbers (what Linux calls SCSI "hosts")
+
+*****
+
+Failure detection and recovery:
+
+iscsi logs a ping timeout after 5 seconds of no reply from a remote interface IP
+and then starts the "Recovery Timeout" timer.
+
+Taking a path down (as with ifconfig eth2 down or disconnecting a physical or
+virtual cable) will result in all I/O to the affected multipath devices (along
+all paths) to be hung for the value of "Recovery Timeout" seconds as shown by
+# iscsiadm -m session -P 3 | grep "Recovery Timeout"
+which defaults to 120 seconds on RHEL 6 and 5 or 15 seconds on RHEL 7, after
+which multipath will declare the failed path and all device names along that
+path faulted and resume the previously hung I/O to the affected devices along
+the remaining online path(s).  In this way, hung I/O is not discarded or lost
+but rather simply held (queued) by the transmitting node until an unresponsive
+path is declared dead.
+
+To change the recovery/replacement timeout for iSCSI targets that have
+already been discovered:
+# iscsiadm -m node -T iqn.1999-08.net.solarcore:cent6vm1.target1 -p cent6vm1-iscsi0 -I iface0 -o update -n node.session.timeo.replacement_timeout -v 15
+(Repeat for other target/port/iface combinations)
+...
+Then logout/login of each iSCSI session to make the change effective:
+# iscsiadm -m node -T iqn.1999-08.net.solarcore:cent6vm1.target1 -p cent6vm1-iscsi0 -I iface0 --logout
+# iscsiadm -m node -T iqn.1999-08.net.solarcore:cent6vm1.target1 -p cent6vm1-iscsi0 -I iface0 --login
+(Repeat for other target/port/iface combinations)
+...
+
+To change the recovery/replacement timeout globally for all iSCSI targets that
+have not yet been discovered, edit the value for
+node.session.timeo.replacement_timeout
+in /etc/isci/iscsid.conf
+For the change to the setting to take effect:
+Stop all I/O to iSCSI devices and unmount iSCSI filesystems
+# vgchange -an all iSCSI vgs
+# systemctl stop iscsi
+# systemctl restart iscsid # provides iSCSI session/connection management
+# systemctl start iscsi # logs into known/configured targets
+# vgchange -ay all iSCSI vgs
+Remount all iSCSI filesystems

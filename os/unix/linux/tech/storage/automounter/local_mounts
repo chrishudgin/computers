@@ -1,0 +1,8 @@
+For local device mounts (as opposed to NFS mounts), as in /etc/auto.misc, the
+server name component of the location field for the device is left empty, e.g.
+
+:/dev/cdrom
+
+whereas an NFS location would be of the form
+
+server1:/mynfs/share

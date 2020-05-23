@@ -1,0 +1,3 @@
+The kernel's exported symbols are listed in /boot/symvers-<kernel_version>.gz
+
+The kernel's full namelist is contained in /boot/System.map.<kernel_version>

@@ -1,0 +1,23 @@
+Show SELinux context of a process:
+# ps -Z <PID>
+OR
+# ps --context <PID>
+
+*****
+
+List all process domains:
+# seinfo -adomain -x
+
+*****
+
+Individual process domains (like httpd_t) can be toggled between permissive and
+enforcing modes.
+
+Set process domain to permissive:
+# semanage permissive -a httpd_t
+
+Show all permissive process domains:
+# semanage permissive -l
+
+Set process domain not to be permissive:
+# semanage permissive -d httpd_t

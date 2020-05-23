@@ -1,0 +1,30 @@
+Force RAID integrity check and repair (of /dev/md1 in this example):
+# mdadm --action=check /dev/md1
+   # watch cat /proc/mdstat
+   # tail -f /var/log/messages
+# mdadm --action=repair /dev/md1
+   # watch cat /proc/mdstat
+   # tail -f /var/log/messages
+
+Replace failed RAID 1,4,5,6,10 disk (/dev/sdag1 in this example,
+  assuming no spare) in RAID device /dev/md1:
+(/proc/mdstat will show [F] next to each failed disk)
+# mdadm /dev/md1 -f /dev/sdag1
+-f : fail
+# mdadm /dev/md1 -r /dev/sdag1
+-r : remove
+(Replace physical disk and partition replacement, then continue)
+# mdadm /dev/md1 -a /dev/sdag1
+-a : add
+(Resync should start automatically)
+   # watch cat /proc/mdstat
+   # tail -f /var/log/messages
+
+Replace failed RAID 0 disk in RAID device /dev/md0:
+# umount /mnt
+# mdadm -S /dev/md0
+(Replace physical disk and partition replacement, then continue)
+# mdadm -A -s
+# mkfs -t ext4 /dev/md0
+# mount /dev/md0 /mnt
+(Restore data to /mnt)

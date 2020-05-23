@@ -1,0 +1,3 @@
+Show installed packages by yum group through which they were installed,
+optionally in Kickstart input format:
+# show-installed [--format=kickstart]

@@ -1,0 +1,16 @@
+Show SELinux context of a file:
+# ls -Z <filename>
+
+Preserve a copied file's SELinux context:
+# cp --preserve=context /from/file /to/file
+OR
+# cp -a /from/file /to/file
+
+Copying a file using cp without options or with -p will not preserve its
+SELinux context.  Instead, the copy of the file, just as any newly created
+file, will inherit the SELinux context of its destination directory, regardless
+of what the default context of the file would be as determined by policy from
+the file /etc/selinux/targeted/contexts/file/file_contexts.  Thus, running
+restorecon on a newly created file will in some cases change its context, and
+will in any event ensure that the file's context matches the context from
+policy.

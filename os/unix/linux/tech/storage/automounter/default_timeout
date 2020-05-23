@@ -1,0 +1,2 @@
+In RHEL 7, default timeout for an automounted filesystem is 5 minutes,
+configurable via the "timeout" parameter in /etc/autofs.conf.

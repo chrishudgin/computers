@@ -1,0 +1,3 @@
+nscd caches both positive and negative results; both eventually time out
+   of the cache
+nscd -i hosts  # flush (invalidate) nscd hosts cache immediately

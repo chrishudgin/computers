@@ -1,0 +1,2 @@
+lvmconf exists to modify the LVM locking configuration to enable or disable
+cluster or HA LVM support.

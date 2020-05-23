@@ -1,0 +1,2 @@
+A list of filesystem types supported by the running kernel is available in
+/proc/filesystems

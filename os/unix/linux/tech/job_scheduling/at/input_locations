@@ -1,0 +1,2 @@
+atd searches for jobs in:
+/var/spool/at/*

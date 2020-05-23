@@ -1,0 +1,8 @@
+Syntax for specifying the location of installation media within a Kickstart
+configuration file is:
+
+cdrom
+harddrive --partition=/dev/sda10 --dir=/tmp/inst
+url --url http://192.168.122.1/inst
+url --url ftp://192.168.122.1/pub/inst
+nfs --server=192.168.122.1 --dir=/inst

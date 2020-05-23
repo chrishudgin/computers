@@ -1,0 +1,22 @@
+Install motif and xterm packages
+
+Create ~/.xinitrc:
+xterm bash
+
+Set the default systemd target to multi-user:
+# systemctl set-default multi-user.target
+# systemctl isolate multi-user.target
+
+Log into console as a non-root user and run:
+xinit
+
+In the xterm window that appears, enter
+mwm &
+
+To revert to standard GNOME desktop:
+
+Exit from all running xterms.  This will cause mwm and X to stop as well.
+rm ~/.xinitrc
+
+# systemctl set-default graphical.target
+# systemctl isolate graphical.target

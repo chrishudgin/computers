@@ -1,0 +1,18 @@
+loopback devices can be used as though they were simple "disk" devices,
+   partitioned and with entries in /dev (loop0p1, loop1p3, etc.).
+
+Partitioned loopback devices can optionally be used with device mapper by running kpartx on them:
+
+# kpartx -a /dev/loop0  (adds loop0p1, etc. to /dev/mapper)
+# kpartx -d /dev/loop0  (removes loop0p1, etc. from /dev/mapper)
+
+*****
+
+To configure as a loopback device, and then mount, a file (such as an ISO file)
+that already contains a filesystem, in a single step:
+
+# mount -o loop /some/file.iso /media
+
+Unmounting a loopback filesystem that was mounted in this specific way will
+also automatically delete the loopback device (e.g. /dev/loop0) that was
+created for it.

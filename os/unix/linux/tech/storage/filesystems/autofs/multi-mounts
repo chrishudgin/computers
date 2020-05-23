@@ -1,0 +1,12 @@
+Multiple mount points can be specified relative to each other using the
+multi-mounts syntax in an indirect map file, as in the following example:
+
+server	-rw,hard,intr	/ -ro myserver.me.org:/ \
+			/usr myserver.me.org:/usr \
+			/home myserver.me.org:/home
+
+In this example, the autofs client would mount:
+
+/some/path/server	from	myserver.me.org:/
+/some/path/server/usr	from	myserver.me.org:/usr
+/some/path/server/home	from	myserver.me.org:/home

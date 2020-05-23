@@ -1,0 +1,23 @@
+With NFS4, all shares exported from a server that a client is permitted to
+mount can be mounted with a single command under a single mount point by
+mounting the "pseudo-root" filesystem of the NFS server.  (The actual root
+filesystem of the NFS server does not need to be shared.)
+
+Example:
+
+If server1 shares /share1 and /share2 to a given client:
+
+# mount server1:/ /mnt  (pseudo-root mount)
+
+# ls -l /mnt
+total 0
+drwxr-xr-x. 2 root root 22 Jul 26 10:49 share1
+drwxr-xr-x. 2 root root 19 Jul 25 21:06 share2
+
+# df -h /mnt/share{1,2}
+Filesystem       Size  Used Avail Use% Mounted on
+server1:/mynfs1   97M  5.3M   92M   6% /mnt/share1
+server1:/mynfs2   97M  5.3M   92M   6% /mnt/share2
+
+This works even if "showmount -e server1" fails due to firewall rules (e.g.
+ports for rpc-bind, mountd, and nfs services blocked on server1).

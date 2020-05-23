@@ -1,0 +1,3 @@
+To get the WWID of a SCSI device:
+
+# /usr/lib/udev/scsi_id --whitelisted --device=/dev/sdX

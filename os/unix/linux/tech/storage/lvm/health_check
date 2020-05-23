@@ -1,0 +1,6 @@
+Check the health of logical volumes:
+
+# lvs -o name,lv_health_status
+
+(Sample status might be "partial" for missing PVs or "refresh needed" for
+RAID volume that has data out of sync after losing and regaining PVs)

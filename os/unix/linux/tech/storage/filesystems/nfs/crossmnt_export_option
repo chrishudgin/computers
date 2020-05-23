@@ -1,0 +1,65 @@
+The crossmnt export option when specified on a filesystem with children allows
+a client to mount the child filesystems of the exported parent automatically
+and transparently when the child filesystem's files or directories are
+accessed from the client.
+
+On RHEL 6 and earlier, a filesystem implicitly mounted from a client through a
+parent filesystem exported with crossmnt will not appear in the output of df or
+in /etc/mtab but will still appear in the file /proc/mounts.
+
+Explicit mounts of child filesystems are still possible if desired, with or
+without the crossmnt export option being set on the parent filesystem.
+However, if the crossmnt export option is not set for the parent, the child
+filesystems must be exported explicitly in order for clients to access them.
+
+Example:
+
+On NFS server, local filesystem /share1/extra is mounted below local filesystem
+/share1.
+
+On NFS server rhel5host running RHEL 5:
+# cat /etc/exports
+/share1        *(rw,crossmnt,fsid=0)
+/share1/extra  *(rw)
+# On RHEL 5, explicit export of /share1/extra is needed
+# for a client to access it
+
+On NFS server rhel6or7host running RHEL 6 or 7:
+# cat /etc/exports
+/share1        *(rw,crossmnt)
+# On RHEL 6 or 7, an explicit export of /share1/extra is NOT needed with
+# crossmnt export option set on export /share1
+
+Start NFS sharing as usual.
+
+On NFS client of rhel5host:
+# mount -t nfs4 rhel5host:/ /share1
+   # Actually mounts server's /share1, not server's /
+   # Also makes /share1/extra filesystem available to client,
+   # even though it is not explicitly mounted on the client,
+   # because /share1 was exported with the crossmnt option.
+   # Note that /share1/extra must still be explicitly exported from server.
+$ ls -l /share1/extra   # shows contents of server fs /share1/extra
+                        # even though it's not explicitly mounted on client
+
+On NFS client of rhel6or7host:
+# mount -t nfs4 rhel6or7host:/share1 /share1
+   # Also makes /share1/extra filesystem available to client,
+   # even though it is not explicitly mounted on the client,
+   # because /share1 was exported with the crossmnt option.
+$ ls -l /share1/extra   # shows contents of server fs /share1/extra
+                        # even though it's not explicitly mounted on client
+
+*****
+
+"crossmnt" versus "nohide":
+
+The "nohide" export option allows a client to access a child filesystem
+transparently, without an explicit mount of the child filesystem, as long as
+the parent and child are both exported from the server and the parent is
+mounted on the client.  What the "crossmnt" export option does is make the
+export of child filesystems *automatic* when their parent is explicitly
+exported.
+
+The "nohide" behavior is inherent in NFSv4, even if the "hide" export option is
+specified.

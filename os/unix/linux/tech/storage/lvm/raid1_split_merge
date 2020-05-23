@@ -1,0 +1,23 @@
+To split a data sub-LV (a mirror component) from a raid1 LV:
+
+(Before the split, lv_raid1 has sub-LVs lv_raid1_rimage_0 and lv_raid1_rimage_1)
+# lvconvert --splitmirrors 1 [--trackchanges] /dev/vg02/lv_raid1
+
+--trackchanges keeps a log of changed blocks so that only changed blocks will
+be resynced upon a later merge.
+
+The split mirror sub-LV is read-only but can be mounted:
+
+# mount -o nouuid /dev/vg02/lv_raid1_rimage_1 /mnt
+
+To merge the split mirror LV into the original raid1 LV:
+
+# umount /mnt
+# lvconvert --mergemirrors lv_raid1_rimage_1
+
+*****
+
+To split a raid1 sub-LV into a new LV, which cannot be merged back into the
+original:
+
+# lvconvert --splitmirrors 1 -n lv_raid1_split /dev/vg03/lv_raid1

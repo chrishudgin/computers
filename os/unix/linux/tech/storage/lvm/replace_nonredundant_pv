@@ -1,0 +1,35 @@
+To replace a faulty PV in a non-redundant LV with a PV in a different slot when
+the PV to be replaced is still visible but unusable, and data has therefore
+been lost:
+
+/dev/sdj at 16:0:6:0 fails, containing PV /dev/sdj1
+We will use disk /dev/sdz at 16:0:0:22 containing PV /dev/sdz1
+   as its replacement
+Check /var/log/messages for H:C:T:L ID (e.g. 16:0:6:0) of failed disk
+   and find its device name (e.g. /dev/sdj) from lsscsi
+# umount /appl
+# lvchange -an /dev/vg02/app_lv
+# pvs -o +uuid /dev/sdj1   (the cached UUID should still be shown)
+   In this example, the UUID is X3JWIs-IrDn-eda1-i0R5-7r2p-fnrE-Yd8WHJ
+# pvscan --cache  (/dev/sdj1 will no longer appear in pvs;
+   [unknown] will appear instead)
+# echo delete > /sys/block/sdj/device/delete (faulty disk can be replaced later
+   with a new disk in the same slot, but we continue with the steps below)
+# fdisk /dev/sdz  (create partition table with partition type 8e)
+# partprobe /dev/sdz
+# pvscan --cache
+# pvcreate --restorefile /etc/lvm/backup/vg02 --uuid=X3JWIs-IrDn-eda1-i0R5-7r2p-fnrE-Yd8WHJ /dev/sdz1
+# lvchange -ay /dev/vg02/appl_lv
+# vgcfgbackup vg02
+# mkfs -t ext4 /dev/vg02/app_lv
+# mount /appl
+[Restore data]
+To move data to new PV in original slot after the faulty disk is replaced:
+# echo "- - -" > /sys/class/scsi_host/host16/scan
+# fdisk /dev/sdj (create partition table with partition type 8e)
+# partprobe /dev/sdj
+# pvcreate /dev/sdj1
+# vgextend vg02 /dev/sdj1
+# pvmove /dev/sdz1 /dev/sdj1
+# vgreduce vg02 /dev/sdz1
+# pvremove /dev/sdz1

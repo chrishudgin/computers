@@ -1,0 +1,80 @@
+# mount --[r]bind /olddir /newdir : make /olddir available at /newdir as well
+   --rbind: recursive, i.e. submounts below /olddir are made available under
+      /newdir as well.
+
+*****
+
+Mount options for a bind mount can be changed as follows without affecting
+the mount options of the original mount:
+
+# mount -o remount,bind,... /olddir /newdir
+
+*****
+
+Bind mounts that are nested under the original mount point are not recursive.
+For example:
+# mount /dev/sdb1 /foo
+# mkdir /foo/nested_foo
+# mount --bind /foo /foo/nested_foo
+
+The bound mount dir /foo/nested_foo shows the nested_foo dir from /foo:
+# ls -l /foo/nested_foo
+total 0
+drwxr-xr-x. 2 root root 6 Jan 31 13:07 nested_foo
+
+But it's empty, not another (recursive) view of /foo:
+# ls -l /foo/nested_foo/nested_foo
+total 0
+
+*****
+
+# umount /newdir; umount /olddir
+OR
+# umount /olddir; umount /newdir
+
+Each umount operates independently, so umounting the filesystem at one mount
+point does not make it unavailable at other bound mount points.  The umount
+order does not matter as long as /newdir and /olddir are not nested with
+respect to each other; if they are nested, the usual umount order rules
+apply (children before parents).
+
+*****
+
+This technique is useful for making a directory available under a chrooted
+environment as well as outside it.  In this case, perform the bind mounts
+before chrooting.
+
+*****
+
+Bind mounts can also be useful for finding files in a filesystem that are
+effectively masked or "hidden" from directory listings due to the presence of
+an overlaying mount.  These files take up space (as shown by df) but cannot be
+located using ordinary directory listing commands as long as the overlaying
+filesystem is mounted.
+
+Example:
+
+Filesystems /foo and /foo/bar are mounted in the correct order.
+2 GB of files are present in the /foo filesystem.
+1 GB of those files are present under the /foo/bar directory in the /foo
+   filesystem (not in the other filesystem mounted on /foo/bar).  These files
+   are hidden while /foo/bar is mounted, but they continue to take up space
+   in the /foo filesystem.
+df accurately shows that filesystem /foo has 2 GB of files in it.
+du -sx /foo shows only 1 GB of space used by files that du can find since it
+   cannot search below the /foo/bar directory in the /foo filesystem as long
+   as another filesystem is mounted on /foo/bar.
+
+To find and remove the masked or "hidden" files without having to unmount
+   /foo/bar, perform a temporary bind mount:
+# mount --bind /foo /mnt
+Clean up files under /mnt/bar
+# umount /mnt
+
+*****
+
+In RHEL 7, the /etc/mtab file and the mount(8) command show bind mounts by
+default, but they will not display a "bind" mount option to distinguish bind
+mounts from regular mounts.
+
+The df command requires the -a option to show bind mounts.

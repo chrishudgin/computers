@@ -1,0 +1,23 @@
+One way to prevent a server from responding to ICMP echo request (ping) packets
+is by creating a .conf file in /etc/sysctl.d with the line:
+
+net.ipv4.icmp_echo_ignore_all = 1
+
+followed by:
+
+# sysctl -p /etc/sysctl.d/somename.conf
+
+or
+
+# systemctl reboot
+
+Alternatively:
+
+From the firewalld.richlanguage(5) man page in the icmp-block section:
+# firewall-cmd --permament --add-rich-rule='rule icmp-block name="echo-request"'
+# firewall-cmd --reload
+
+Note that the firewall-cmd solution will not block local ping packets, only
+those originating on a remote host.  However, it has the advantage of being
+more flexible, allowing (for example) pings to be blocked only on specific
+network interfaces after they have been assigned to zones.

@@ -1,0 +1,17 @@
+Install packages:
+
+# yum install kexec-tools crash
+# debuginfo-install kernel
+
+Default action upon a kernel crash is reboot; configured in /etc/kdump.conf
+
+Reboot.  Make sure kdump service is running.
+
+To generate a sample crash dump:
+# echo c > /proc/sysrq-trigger
+
+Run crash:
+
+# crash /usr/lib/debug/lib/modules/$(uname -r)/vmlinux /var/crash/[....]/vmcore
+
+More information is available in Red Hat's Kernel Crash Dump Guide

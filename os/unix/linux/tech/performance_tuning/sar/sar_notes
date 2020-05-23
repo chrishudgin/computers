@@ -1,0 +1,8 @@
+sar -dp  # show disk statistics, use sdX device names rather than major/minor #
+sar -f /var/log/sa/sa20  # show statistics for 20th day of month
+
+sa1 runs every 10 minutes from /etc/cron.d/sysstat and writes to /var/log/saXX
+sa2 runs once per day from /etc/cron.d/sysstat and writes to /var/log/sarXX
+
+sa/sar logs are kept for 28 days by default
+   (HISTORY=28 in /etc/sysconfig/sysstat)

@@ -1,0 +1,10 @@
+Configure an interface with a single dynamic IP address, default gateway, and
+DNS resolver configuration through DHCP:
+
+# dhclient eth0
+
+Release the current DHCP lease, remove the leased IP address from an
+interface, and remove associated routing table entries if they can no longer
+be used:
+
+# dhclient -r eth0

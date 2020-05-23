@@ -1,0 +1,11 @@
+Show partition size in bytes:
+# lsblk -b -r -n -o SIZE /dev/sda2
+104857600
+
+OR
+
+Show partition size on MBR disk in 1k blocks:
+# sfdisk -s /dev/sda2
+
+Show partition size on GPT disk in sectors, plus other information:
+# sgdisk -i 2 /dev/sda  (shows size of partition /dev/sda2)

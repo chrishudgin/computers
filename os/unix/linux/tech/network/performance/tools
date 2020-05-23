@@ -1,0 +1,17 @@
+There is no native "nettop" tool in RHEL that will show which processes are
+using the most network bandwidth, but there is a two-step equivalent:
+
+1.  Use iptraf to determine which TCP/UDP ports are being used to send the most
+traffic.
+
+2.  Use lsof to match the TCP/UDP port numbers to PIDs.
+
+
+To report real-time bandwidth utilization per NIC (similar to nicstat), use
+# sar -n DEV 1
+
+To report real-time error counts (errors per second), use:
+# sar -n EDEV 1
+
+Error statistics are collected in:
+# ethtool -S <iface>

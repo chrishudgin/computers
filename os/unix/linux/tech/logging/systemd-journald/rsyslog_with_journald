@@ -1,0 +1,14 @@
+On systems like RHEL 7 with both systemd and rsyslog:
+
+syslog(3) writes to the socket /dev/log
+systemd-journald reads from /dev/log
+rsyslogd reads from /run/log/journal/*/system.journal
+   and /run/systemd/journal/socket
+
+Kernel messages are captured by systemd-journald as it reads /dev/kmsg.  The
+kernel logs its messages to /dev/console even if systemd-journald and rsyslog
+do not (unless the kernel option "quiet" was set at boot).  Therefore, the
+following line in /etc/rsyslog.conf is not necessary and is commented out by
+default:
+
+#kern.*                                                 /dev/console

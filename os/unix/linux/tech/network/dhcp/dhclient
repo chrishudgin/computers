@@ -1,0 +1,3 @@
+Configure an interface, default gateway, and DNS resolver through DHCP:
+
+# dhclient eth0

@@ -1,0 +1,19 @@
+To determine the type of event for which a sleeping process is waiting,
+check the "wchan" field in the "ps" command.
+
+Example for a process that is running on a terminal with Ctrl-S set (
+suspend terminal output):
+
+$ ps -o wchan 3877
+WCHAN
+n_tty_write
+
+Example for a process that has explicitly called sleep():
+$ ps -o wchan 3899
+WCHAN
+hrtimer_nanosleep
+
+Example for a process that has called wait() to wait for a child process:
+$ ps -o wchan 3866
+WCHAN
+wait

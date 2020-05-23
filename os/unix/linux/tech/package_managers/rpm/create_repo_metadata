@@ -1,0 +1,16 @@
+Create repo metadata necessary for a package collection to be used as a repo:
+
+Place the packages in /some/path or /some/path/Packages.
+Place group info and other metadata into .xml files, if desired (optional).
+Run:
+# createrepo /some/path
+
+Add an entry for the repo in clients' .repo file in /etc/yum.repos.d.
+
+The repo can now be used to list packages, package metadata (like dependencies
+and changelogs), and package contents.
+
+*****
+
+Removing the repo consists of removing the directory /some/path/repodata and
+removing the .repo file entry in /etc/yum.repos.d on clients.

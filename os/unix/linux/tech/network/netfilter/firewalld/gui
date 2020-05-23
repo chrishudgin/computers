@@ -1,0 +1,19 @@
+The firewalld GUI is firewall-config, provided by the firewall-config package.
+The GUI can both show and change the runtime and permanent configurations,
+including
+
+zones
+interfaces
+services
+ipsets
+ports
+protocols
+sources
+destinations
+masquerading
+forwarding
+ICMP filtering
+rich rules
+
+The GUI can also enable "panic mode", which immediately blocks all incoming
+and outgoing IP traffic.

@@ -1,0 +1,5 @@
+To force a RHEL 7 installation to proceed in text mode rather than graphical
+mode:
+1. Boot the installer image
+2. Highlight "Install Red Hat Enterprise Linux" and hit the Tab key
+3. Append inst.text to the GRUB boot entry

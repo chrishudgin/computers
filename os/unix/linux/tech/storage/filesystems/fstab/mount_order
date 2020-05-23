@@ -1,0 +1,11 @@
+The order of entries in /etc/fstab matters, since mounts are performed
+sequentially according to their order in the file regardless of the
+hierarchical relationships of their mount points.
+
+Thus, placing an entry for /foo/bar ahead of an entry for /foo in /etc/fstab
+would be incorrect.
+
+*****
+
+The mount option keyword "defaults" sets the following mount options:
+rw,suid,dev,exec,auto,nouser,async

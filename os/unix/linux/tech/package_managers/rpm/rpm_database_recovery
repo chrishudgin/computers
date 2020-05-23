@@ -1,0 +1,25 @@
+A hanging rpm command may be a sign of database corruption.
+
+The RPM database is stored in Berkeley DB format in /var/lib/rpm.  If the RPM
+database is in an inconsistent state, RPM commands may fail or hang.  To
+attempt to put the RPM database into a consistent state by replaying
+transactions:
+
+Kill any processes that have the RPM database open.  Then run:
+# /usr/bin/db_recover -h /var/lib/rpm
+
+Sometimes only the indexes are corrupted, or there are stale locks.
+Indexes and stale locks can safely be removed:
+
+Kill any processes that have the RPM database open.  Then run:
+# rm -f /var/lib/rpm/__db.*
+Any subsequent rpm command will recreate the index files.  To rebuild them
+immediately:
+# rpm [-v[v]] --rebuilddb
+# cd /var/lib/rpm
+# /usr/lib/rpm/rpmdb_verify Packages (to ensure the database is valid)
+
+systemd-tmpfiles-setup.service also removes /var/lib/rpm/__db.* at boot
+
+Reference including further diagnostic and troubleshooting steps:
+https://access.redhat.com/solutions/6903

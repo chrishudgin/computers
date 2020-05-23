@@ -1,0 +1,15 @@
+Various means of preventing direct root logins in RHEL 7 are described at:
+
+https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/security_guide/sec-controlling_root_access
+
+For example, preventing direct root login in GDM requires adding a requirement
+(an extra configuration line in /etc/pam.d/*gdm*) for PAM-aware GDM services to
+use pam_securetty.so in addition to other modules that they use by default.
+
+Limit root login access on consoles by commenting out entries in /etc/securetty
+
+*****
+
+To limit use of the "su" command to members of the wheel group, uncomment the
+following line in /etc/pam.d/su:
+#auth           required        pam_wheel.so use_uid

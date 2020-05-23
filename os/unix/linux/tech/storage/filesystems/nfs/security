@@ -1,0 +1,29 @@
+Security mount options for NFS are, by increasing level:
+
+sec=
+   none : equivalent to all_squash (see below)
+   sys (the default) : permissions on files are based on UID/GID.
+   krb5 : user authentication done through Kerberos, file access as with sys
+   krb5i : krb5 plus integrity checking of transferred data
+   krb5p : krb5i plus encryption of transferred data
+
+The highest security setting on either end of the connection (server or client)
+represents the minimum level permitted for the mount, unless more than one
+security setting is designated in the mount options (see paragraph below).
+
+To designate more than one allowable security mount option, separate by colons
+the security mount options that are to be permitted, as in this example:
+# mount -o sec=krb5:krb5i:krb5p server1:/share /mnt
+
+If the NFS share is exported with the all_squash option, all UIDs/GIDs are
+effectively mapped to nfsnobody:nfsnobody, access is permitted on a file or dir
+only if user or group nfsnobody has that permission, and only root can remove a
+file from a directory of mode 1777.
+
+If mounting different shares from the same server that require different
+security mount options, specify each security mount option explicitly when
+mounting rather than relying on the default (sec=sys) to take effect
+automatically.
+
+On RHEL 7, the nfs-secure systemd service must be running in order for any of
+the Kerberos security mount options to be usable.

@@ -1,0 +1,19 @@
+The layout of a Kickstart configuration file is:
+
+commands
+
+%packages
+@^envgroupname (environment group, i.e. a group of groups)
+@groupname
+packagename
+-packagename (exclude package unless it is mandatory for a group or required
+   by another package's dependencies)
+%end
+
+%pre   (Optional pre-partitioning actions)
+...
+%end
+
+%post  (Optional post-installation actions)
+...
+%end

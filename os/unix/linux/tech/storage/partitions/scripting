@@ -1,0 +1,2 @@
+For scripting changes to a disk's partition table, parted has a relatively
+user-friendly command and input syntax compared to sfdisk and sgdisk.

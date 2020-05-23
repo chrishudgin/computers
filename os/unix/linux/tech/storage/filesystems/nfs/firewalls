@@ -1,0 +1,39 @@
+RHEL 7 NFS SERVERS
+
+FIREWALLD
+
+The following firewalld services must be open on the NFS server:
+
+To allow clients to mount an NFS filesystem exported from the server:
+# firewall-cmd --permanent --add-service=nfs
+# firewall-cmd --permanent --add-service=nfs3 (if NFSv3 exports are used)
+# firewall-cmd --reload
+
+To allow clients to get a list of exports from the server:
+# firewall-cmd --permanent --add-service=rpc-bind
+# firewall-cmd --permanent --add-service=mountd
+# firewall-cmd --reload
+
+*****
+
+RHEL 5 and 6 NFS SERVERS
+
+IPTABLES
+
+To allow NFSv4 traffic through a firewall, it is sufficient to add a single
+rule to /etc/sysconfig/iptables before the final REJECT or DROP rules:
+
+For RHEL 5:
+
+-A RH-Firewall-1-INPUT -m state --state NEW -m tcp -p tcp --dport 2049 -j ACCEPT
+
+For RHEL 6:
+
+-A INPUT -p tcp -m state --state NEW -m tcp --dport 2049 -j ACCEPT
+
+To allow NFSv3 traffic through a firewall, NFS services must be configured to
+use fixed (rather than randomly assigned) ports, and a number of firewall rules
+must be created.
+
+Details for configuring NFSv3 traffic to pass through firewalls are at:
+https://www.cyberciti.biz/faq/centos-fedora-rhel-iptables-open-nfs-server-ports/

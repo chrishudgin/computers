@@ -1,0 +1,41 @@
+lsof /somefile   # show processes that have /somefile open
+
+lsof /mntpt   # show all open files in a filesystem
+lsof +L1 -a /mntpt   # show only open deleted files in a filesystem
+   (+L1 means limit to files with a link count less than 1)
+
+lsof -p PID   # limit to a given process
+lsof -p PID -a -d 0-2  # limit to a given process and given file descriptors
+
+lsof -c string   # limit to processes starting with string
+lsof -c /regex/  # limit to processes matching regex
+
+lsof /dir   # show open files in /dir but not its subdirectories
+lsof +d /dir  # show open files in /dir and its immediate subdirectories
+lsof +D /dir   # same as +d but recurse subdirectories
+   Unless /dir is a mount point, these three commands will not show files that
+   are open but deleted, because searching a directory tree will find only
+   files that still appear within it--i.e. files that still have directory
+   entries (names), which deleted files do not.
+
+   To find open, deleted files within a filesystem, use "lsof +L1 -a /mntpt"
+
+lsof -i [TCP|UDP]@[hostname|ipaddr][:port]  # show connections to hostname or
+   ipaddr and/or port number
+
+lsof -a  # applies logical AND to all conditions given on command line,
+   regardless of where the "-a" appears on the command line
+   (default behavior is to apply logical OR to all conditions
+    except negations denoted by ^ before a specifier string like a username)
+
+More examples are in /usr/share/doc/lsof-*/00QUICKSTART
+
+*****
+
+fuser /somefile   # show processes that have /somefile open
+fuser ssh/tcp  # show processes that have TCP port 22 open
+fuser -m   # same as fuser -c
+fuser -k -SIGNAL /dir  # send SIGNAL instead of default SIGKILL to processes
+   with open files in /dir
+fuser -v   # verbose (includes command name)
+   and list each PID on a separate line

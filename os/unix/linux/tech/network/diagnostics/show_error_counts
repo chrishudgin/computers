@@ -1,0 +1,2 @@
+ip -s link [show [eth0]] : iproute2 package replacement for "netstat -i"
+ip -s -s link [show [eth0]] : show error counts by type of error

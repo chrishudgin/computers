@@ -1,0 +1,2 @@
+Force unused automounts to expire (i.e. be unmounted):
+# kill -USR1 <automount_PID>

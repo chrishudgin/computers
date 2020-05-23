@@ -1,0 +1,8 @@
+XFS supports growing but not shrinking.
+
+Grow mounted XFS filesystem to full size of logical volume that has been
+extended with lvextend:
+
+# xfs_growfs /myfs
+OR
+# xfs_growfs /dev/myvg/myvol1 (provided the FS on the logical volume is mounted)

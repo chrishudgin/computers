@@ -1,0 +1,9 @@
+Documentation for the kernel is available at:
+
+https://www.kernel.org/doc/Documentation
+
+and for any specific kernel version in the Documentation directory of the
+source tarball.
+
+The documentation is not comprehensive; rather, the aim is to document features
+of note to developers and end users, including tunable parameters.

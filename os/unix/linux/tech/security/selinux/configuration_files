@@ -1,0 +1,3 @@
+Configuration file in RHEL 7 is /etc/selinux/config.
+
+The rules for the "targeted" policy are contained under /etc/selinux/targeted.

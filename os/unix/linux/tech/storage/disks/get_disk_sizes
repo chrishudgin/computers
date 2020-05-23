@@ -1,0 +1,19 @@
+Show sizes of all disks, ignoring duplicates (multiple paths to the same disk);
+   sort by ascending size:
+
+# lsblk --bytes --paths --list -o TYPE,SIZE,NAME,SERIAL,HCTL | awk '$1 == "disk"' | sort -k 4 -u | sort -n -k 2 | awk '{print $2,$3,$5}'
+
+This works only if each disk has a serial number and that serial number is
+unique.  In virtualized environments, not all disks may have a serial number.
+
+For vitualized systems where disks do not have unique serial numbers and there
+is no multipathing visible to the host, use:
+
+# lsblk --bytes --paths --list -o TYPE,SIZE,NAME,HCTL | awk '$1 == "disk"' | sort -n -k 2 | awk '{print $2,$3,$4}'
+
+If there is multipathing for all of the disks of interest but no unique disk
+serial numbers, filter the above output by HCTL values to eliminate the
+redundant controller paths, or use:
+
+# lsblk --bytes --paths --list -o TYPE,SIZE,NAME /dev/mapper/mpath* | awk '$1 == "mpath"' | sort -n -k 2 | awk '{print $2,$3,$4}'
+(this will not account for devices with custom names not of the form "mpath*")

@@ -1,0 +1,16 @@
+getfattr can be used to dump extended attribute information: for possible later
+restoration with setfattr:
+
+$ getfattr -m - -d <targetfile> > <restorefile>
+$ setfattr --restore=<restorefile>
+   (the name of the target file is contained in the restorefile and therefore
+    must not be specified on the "setfattr --restore" command line)
+
+Backing up extended attributes with tar requires the use of additional,
+non-default options:
+
+$ tar ... --acls --selinux --xattrs ...
+
+The restore(8) utility (counterpart to dump) cannot restore extended
+attributes.  Files with extended attributes will cause restore to abort when it
+attempts to extract them.

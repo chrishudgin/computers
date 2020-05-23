@@ -1,0 +1,23 @@
+Show SELinux context of a process connected to a port:
+# ss -Z ...
+OR
+# lsof -Z ...
+
+*****
+
+semanage can be used to add custom port binding privileges (e.g. port 8080) for
+given SELinux port context types (like http_port_t):
+
+httpd is not permitted to bind to port 8080 by default:
+# semanage port -l | grep '^http_port_t'
+http_port_t                    tcp      80, 81, 443, 488, 8008, 8009, 8443, 9000
+
+Add port 8080 to the list of allowed ports:
+# semanage port -a -t http_port_t -p tcp 8080
+
+Verify that port 8080 is now in the list:
+# semanage port -l | grep '^http_port_t'
+http_port_t                    tcp      8080, 80, 81, 443, 488, 8008, 8009, 8443, 9000
+
+Remove port 8080 from the allowed list later if needed:
+# semanage port -d -t http_port_t -p tcp 8080

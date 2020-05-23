@@ -1,0 +1,17 @@
+The yum-config-manager command can be used to show or set the value of any
+variable in the configuration of yum itself or any of its repos:
+
+Show configuration variables and their settings for yum and enabled repos:
+# yum-config-manager
+
+Show yum global configuration variables:
+# yum config-manager main
+
+Show values of all variables in a specified repo ("rhelcert" in this example):
+# yum-config-manager rhelcert
+
+Persistently change the value of a global yum variable:
+# yum-config-manager --setopt=installonly_limit=5 --save main
+
+Persistently change the value of a repo variable:
+# yum-config-manager --setopt=rhelcert.gpgcheck=1 --save rhelcert

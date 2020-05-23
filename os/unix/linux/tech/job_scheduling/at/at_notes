@@ -1,0 +1,54 @@
+An "at" job is stored as an executable shell script.  The user's environment
+variables (except for a few like linker preload paths) and their current values
+are copied into the script as they were at the time the "at" command was run.
+The commands to run are stored at the bottom of the script in a here document.
+
+"at" runs jobs from the directory from which the "at" command was run (it
+changes into that directory before running the commands listed in the job).
+
+When an "at" job runs, it is not associated with a terminal and is therefore
+not liable to be terminated at user logout as a job in an interactive login
+session might be.
+
+General syntax:
+# at [options] <timespec> [<datespec>]
+where a fully specified timespec is of the form HH:MM
+and a fully specified datespec is of the form YYYY-MM-DD
+
+Start time can also be specified as a base plus additive, e.g.,
+# at now + 4 hours
+The additive can be expressed in minutes, hours, days, or weeks.
+"at 3 pm + 3 days" means 3 PM three days from today, regardless of the current
+time (i.e. regardless of whether it is currently before or after 3 PM).
+
+Submit script to run through at:
+# at -f /some/script ...
+The entire script is copied into the 
+
+Show "at" job content for a given job number:
+# at -c
+
+List all pending jobs for user (or all users if run as root):
+# atq
+
+Query or submit job to designated queue:
+# at -q [a-zA-Z]
+"at" supports optional job queues denoted by a single letter, a through z
+   or A through Z (capital letters trigger batch-style processing), in
+   descending order of priority (higher nice numbers).
+   The default queue for an "at" job is queue a.
+   The default queue for a "batch" job is queue b.
+
+*****
+
+Best practice is to set the PATH explicitly or specify full paths to commands
+in "at" jobs.
+
+*****
+
+One useful role for "at" is to set up a job to reset some part of the system
+configuration to a known, safe value after a few minutes when a potentially
+risky command is about to be run (such as a command that might disable network
+access if it fails to work properly).  If the potentially risky command does
+work as intended, the administrator can then remove the pending "at" job before
+it resets the configuration.

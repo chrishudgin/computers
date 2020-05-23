@@ -1,0 +1,3 @@
+All Kickstart directives are documented in:
+/usr/share/doc/pykickstart-*/kickstart-docs.rst
+(installed by the pykickstart package)

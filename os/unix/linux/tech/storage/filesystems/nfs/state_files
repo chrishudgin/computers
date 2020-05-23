@@ -1,0 +1,25 @@
+The NFS persistent state directory is /var/lib/nfs
+
+Server
+------
+
+Exports:
+/var/lib/nfs/etab
+
+Mounts from client (information may not be reliable):
+/var/lib/nfs/rmtab
+
+Lock and notification status:
+/var/lib/nfs/statd/sm/*
+/var/lib/nfs/statd/state
+
+nfsd settings:
+/proc/fs/nfsd/*
+
+
+Client
+------
+
+Lock and notification status:
+/var/lib/nfs/statd/sm/*
+/var/lib/nfs/statd/state

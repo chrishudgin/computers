@@ -1,0 +1,3 @@
+The Samba server configuration file /etc/samba/smb.conf contains comments with
+recommendations and requirements for SELinux settings and contexts for Samba
+shares directories.

@@ -1,0 +1,51 @@
+Documentation for all configuration files in and below /etc/sysconfig,
+   including network configuration scripts and files in
+   /etc/sysconfig/network-scripts like ifup, ifdown and ifcfg-*, can be found in
+   /usr/share/doc/initscripts-*/sysconfig.txt
+
+BOOTPROTO=none and BOOTPROTO=static are equivalent (anything other than
+   "bootp" or "dhcp" means "none")
+It is possible to configure an interface to use both DHCP and a static IP
+address by setting BOOTPROTO=dhcp and also including an IPADDR and PREFIX 
+value in the same ifcfg file.
+
+HWADDR matches the hardware MAC address of the interface
+MACADDR sets the MAC address of the interface (do not use with HWADDR)
+
+To set multiple static IP addresses on an interface, use:
+
+IPADDR0=
+PREFIX0=
+GATEWAY0=
+IPADDR1= 
+PREFIX1=
+IPADDR2=
+PREFIX2=
+etc.
+
+with appropriate values.
+
+PEERDNS allows /etc/resolv.conf to be overwritten by static network info during
+network startup using DNS1, DNS2 values in ifcfg-* files.  Defaults to yes, but
+has no effect in a static IP configuration if neither DNS1 nor DNS2 are set.
+/etc/resolv.conf can also be (and usually is) overwritten by dhclient when it
+configures an interface for DHCP, and by NetworkManager if it is enabled.
+
+ZONE sets firewall zone for the interface (for example, "public")
+
+ETHTOOL_OPTS (deprecated) sets arguments to ethtool for the interface, such
+   as speed, duplex, and autonegotiation
+   udev rules are the preferred way to set these options at boot
+
+ipcalc calculates network parameters like network, prefix, netmask,
+   and/or broadcast address given the necessary information like IP address in
+   CIDR notation
+
+ifup-post calls ifup-routes and ifup-aliases
+
+route-* content should no longer be in the following format: 11.0.0.0/8 via 11.0.0.0.1 dev eth0
+Instead, use:
+ADDRESS#=
+NETMASK#=
+GATEWAY#=
+with # being an optional integer >= 0

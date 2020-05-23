@@ -1,0 +1,12 @@
+List all available performance profiles:
+# tuned-adm list
+
+Show active performance profile:
+# tuned-adm active
+
+Change the active performance profile:
+# tuned-adm active <profile>
+
+Standard tuned profile configuration files can be found under /usr/lib/tuned.
+Custom profiles should be created in subdirectories of /etc/tuned, e.g.
+   /etc/tuned/myprofile/tuned.conf

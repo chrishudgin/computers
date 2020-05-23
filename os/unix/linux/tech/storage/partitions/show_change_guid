@@ -1,0 +1,13 @@
+Show the GUID of a disk, as well as other information:
+# sgdisk -p /dev/sdb | grep GUID | awk -F: '{print $2}' | tr -d ' '
+
+Note:  If the disk has not actually been formatted as a GPT disk, the displayed
+GUID will be a random (garbage) string each time the above command is run.
+
+Show the GUID of a partition (/dev/vdb2 in this example):
+# sgdisk -i 2 /dev/vdb | grep "^Partition unique GUID" | awk -F: '{print $2}' | tr -d ' '
+
+Change the GUIDs of a GPT-formatted disk and all of its partitions to a new
+random value (e.g. to prepare a clone disk image for independent use):
+
+# sgdisk -G /dev/sdb

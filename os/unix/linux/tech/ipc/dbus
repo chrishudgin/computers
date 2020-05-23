@@ -1,0 +1,3 @@
+D-Bus is a facility for IPC that allows many processes to communicate
+   with each other without having to set up individual 1-to-1 connections
+   between processes (because D-Bus is a *bus*).

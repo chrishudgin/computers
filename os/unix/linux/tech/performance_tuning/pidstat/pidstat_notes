@@ -1,0 +1,4 @@
+pidstat : show per-process resource usage statistics for non-sleeping processes
+pidstat -d -l <interval> : show per-process I/O in real time
+   Or use iotop command
+pidstat -w : show context switches per second

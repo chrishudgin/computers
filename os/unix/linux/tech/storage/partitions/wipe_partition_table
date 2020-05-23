@@ -1,0 +1,8 @@
+To wipe ("zap") all partition information from a GPT-formatted disk so that it
+can be repartitioned from scratch (perhaps as a non-GPT-formatted disk)
+
+# sgdisk -Z /dev/sdd
+OR
+# wipefs -a /dev/sdd
+
+wipefs works on MBR-formatted disks as well as GPT-formatted disks.

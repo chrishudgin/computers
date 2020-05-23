@@ -1,0 +1,9 @@
+hdparm can perform throughput testing/measurement (-T and -t) as well as
+   get/set many performance tunables for physical hard drives (such as caching
+   and read-ahead)
+hdparm -g /dev/sda  # show drive geometry
+hdparm -I /dev/sda  # display hardware identification details of drive
+   (type, model, firmware version, geometry, capabilities, features, physical
+    and logical sector sizes)
+hdparm --fwdownload /dev/sda  # update drive firmware
+hdparm --fibmap /some/file  # show disk extents used by file (fragmentation)

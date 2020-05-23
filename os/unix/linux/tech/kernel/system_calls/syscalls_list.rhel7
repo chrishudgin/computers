@@ -1,0 +1,2 @@
+On RHEL 7, system calls are listed in /usr/include/asm/unistd_{x32,64}.h if
+the kernel-headers package is installed.

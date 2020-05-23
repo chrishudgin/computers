@@ -1,0 +1,14 @@
+traceroute can send UDP (the default), TCP (-T), or ICMP (-I) probes
+   Firewall rules and router settings long the network path may block some
+      or all of these
+traceroute --mtu ...  # also report the MTUs
+Some traceroute options (but not the defaults) require superuser privileges
+
+tracepath and mtr are alternatives to traceroute that do not require superuser
+   privileges
+tracepath also reports the path MTU between endpoints
+
+mtr -r -c # ... : run mtr in report mode rather than interactive curses (-t)
+   mode
+   -c # : number of traces to run before showing report and exiting
+mtr -w ... : wide (don't truncate FQDNs in report to preset column width)

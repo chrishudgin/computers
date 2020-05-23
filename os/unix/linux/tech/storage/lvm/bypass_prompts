@@ -1,0 +1,4 @@
+To bypass confirmation prompts, add -y to an LVM command.
+
+To overwrite an existing filesystem signature without prompting in an lvcreate
+command, add -W y

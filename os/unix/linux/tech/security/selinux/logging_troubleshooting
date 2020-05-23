@@ -1,0 +1,20 @@
+SELinux logs to /var/log/audit/audit.log if auditd is running
+   and to /var/log/messages if rsyslogd is running.
+
+Disable "dontaudit" policy statements in SELinux (i.e. enable full auditing):
+# semodule -DB
+
+Rebuild policy with "dontaudit" policy statements enabled:
+# semodule -B
+
+Show detailed information for hex_alert_ID shown in /var/log/messages:
+# sealert -l hex_alert_ID
+   # sealert -l 2057ea76-0d25-4004-8637-d1c24538181a
+
+Show all SELinux alerts (denials) along with suggestions for commands to enable
+the access that was denied:
+# sealart -a /var/log/audit/audit.log
+
+Each AVC (Access Vector Cache) record contains the attempted operation (such as
+"execute"), PID, command, path or name of target object, and the source and
+target contexts.

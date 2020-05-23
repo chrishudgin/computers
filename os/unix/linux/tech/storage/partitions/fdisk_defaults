@@ -1,0 +1,33 @@
+fdisk defaults:
+
+Version			DOS compatibility mode	Allocation units
+RHEL 6 and earlier	On			Cylinders
+RHEL 7			Off			Sectors
+
+On RHEL 6 and earlier, use fdisk -uc to turn off DOS compatibility mode and
+use sectors as the allocation unit.  This is not necessary in RHEL 7 and later.
+
+*****
+
+fdisk DOS compatibility mode exists to ensure that newly created partitions on
+a previously unpartitioned disk begin and end on cylinder boundaries (a DOS
+partitioning requirement).  The first partition created will begin on sector
+63, the beginning of the (fudged) second "track" on the disk, which does not
+actually correspond to a physical track on modern disks.
+
+Partitioning a disk with a DOS (MBR) partition label does not in itself
+guarantee that this DOS partition alignment requirement is met.
+
+For disks that do not have to be accessed by DOS, the DOS cylinder boundary
+requirement is not needed and partitions can begin and end on any sector
+boundary.  However, some modern disks use 4K physical sector sizes (and thus 4K
+I/O sizes) internally instead of traditional 512 byte sectors and I/Os.  On
+these disks, partitions should be aligned on 4K (eight 512 byte sector)
+boundaries to improve performance.  A manufacturer's use of 4K physical sectors
+on a drive reduces space wasted in gaps between sectors and in the number of
+error-correcting bytes needed on the disk.
+
+fdisk does not enforce 4K partition boundary alignment, but it does start the
+first partition at a 4K boundary, sector 2048 ((2048 * 512 bytes) mod 4096 = 0).
+As long as partitions are started at default values and are sized in multiples
+of 4 kilobytes, the partitions will be aligned on 4K boundaries.

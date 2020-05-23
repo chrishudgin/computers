@@ -1,0 +1,33 @@
+ss -tunap  # list all (-a) open TCP (-t) and UDP (-u) ports and connections
+  with numeric (-n) port numbers and IP addresses
+  including process information (-p), if any, for each open port or connection
+
+Without -a, ss shows only active connections, not listening ports
+
+With -l, ss shows only listening ports, not active connections
+
+ss supports filter specifications like sport (source port), dport
+   (destination port), and socket state along with boolean operators
+   Example:
+      ss state established
+      ss state fin-wait-1
+
+Some network ports are opened directly by the kernel instead of by a userland
+process.  lsof will not list these ports because lsof is process-oriented.
+Instead, use ss.
+
+Example to show socket endpoints for established connections to/from
+   TCP port 3260:
+
+# ss -pont state established '( sport = :3260 or dport = :3260 )'
+-p : show process using the socket (if any)
+-o : include timer information (such as keepalive value in minutes)
+-n : show port numbers rather than service names
+-t : show TCP sockets only
+sport : source (local) port
+dport : destination (typically remote) port
+
+Ports can also be selected for display by equality and inequality operators
+
+Many more examples are at:
+https://www.cyberciti.biz/tips/linux-investigate-sockets-network-connections.html

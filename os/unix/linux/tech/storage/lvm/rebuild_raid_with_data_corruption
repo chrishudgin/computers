@@ -1,0 +1,11 @@
+If a PV in a RAID LV is suspected to have been corrupted while the RAID LV was
+offline, keep the LV offline and rebuild the data on the PV:
+
+# lvchange --rebuild /dev/sdn1 /dev/vg05/lv_raid1
+
+This forces all data to be copied back to the specified PV.
+
+Then bring the LV online and mount it:
+
+# lvchange -ay /dev/vg05/lv_raid1
+# mount /dev/vg05/lv_raid1 /appl

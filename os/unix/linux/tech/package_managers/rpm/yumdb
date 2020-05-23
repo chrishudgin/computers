@@ -1,0 +1,8 @@
+The /var/lib/yum/yumdb/* directories contain one subdirectory with metadata
+files for each package that was installed through yum and is either still
+installed or was removed outside of yum's control (i.e. through an rpm
+command).
+
+Synchronize yum db to RPM db, using package data from enabled repos:
+# yumdb sync
+(this will also recreate /var/lib/yum/yumdb if it is missing)

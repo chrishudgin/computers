@@ -1,0 +1,25 @@
+# seinfo -u[username] [-x]: show SELinux usernames
+   -x : also show role assignments for each user
+# seinfo -r[rolename] : show SELinux roles
+   -x : also show types assigned to the role
+
+# semanage login -l : show mappings from Unix accounts to SELinux users
+# semanage user -l : show mappings from SELinux users to roles
+
+semanage can be used to assign Unix accounts to different SELinux users (like
+guest_u, for example) which have lower sets of privileges (such as not being
+allowed to switch to another Unix user account) than the default unconfined_u
+SELinux user:
+# semanage -a -s guest_u <account_name>
+   (effective for fresh logins of account)
+Undo with:
+# semanage -d -s guest_u <account_name>
+  (restores default SELinux user to account)
+
+Change default SELinux user (user_u in this example) for new accounts:
+# semanage login -m [-S targeted] -s user_u [-r s0] __default__
+Revert to distribution default SELinux user of unconfined_u for new accounts:
+# semanage login -m -S targeted -s unconfined_u -r s0-s0:c0.c1023 __default__
+
+$ id -Z : show SELinux context of current user
+unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023

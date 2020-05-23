@@ -1,0 +1,9 @@
+The easiest way to install the directory client packages on RHEL 7 is with:
+# yum groups install "Directory Client"
+# yum install pam_krb5
+# yum install ipa-client
+
+Red Hat recommends:
+# yum install authconfig-gtk sssd krb5-workstation pam_krb5
+and if needed for IPA or Windows authentication:
+# yum install ipa-client samba-winbind realmd

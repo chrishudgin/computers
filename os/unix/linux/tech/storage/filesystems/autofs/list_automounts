@@ -1,0 +1,5 @@
+List all automount maps:
+# automount -m
+
+Directories automounted under /net using the hosts map are not listed by the
+command above, but the hosts map itself is.

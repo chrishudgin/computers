@@ -1,0 +1,16 @@
+Check whether an ext filesystem's "clean" flag is set:
+
+# dumpe2fs -h /dev/sda2 2>/dev/null | grep "Filesystem state"
+Filesystem state:	clean
+
+Other possible states are:
+
+Filesystem state:	not clean
+Filesystem state:	not clean with errors
+
+However, an ext filesystem that is marked clean may not necessarily be
+error-free and may be flagged as needing a fsck after it is mounted and I/O has
+occurred.  More information on the limitations of relying on the "clean" flag
+is at:
+
+https://access.redhat.com/solutions/2181161

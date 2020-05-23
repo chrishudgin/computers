@@ -1,0 +1,47 @@
+targetcli [commands]
+
+Within the targetcli shell:
+help [command]
+
+The commands available (including help on them) depend on the current path.
+
+A value for an argument can be specified using the syntax argname=value using
+the argument name given in the help statement for the command.
+Example:  create ... various lun parameters ... write_back=false
+
+Tab completion is available.
+
+Changes take effect immediately but must be saved with "saveconfig" to be
+persistent.
+
+To navigate the tree of "configuration nodes" interactively in the targetcli
+shell, type "cd" without any arguments and use arrow keys to select a path.
+
+To get and set options (either globally or for the object in the current path),
+use the "get" and "set" commands.
+
+To show existing sessions (logins), use the "sessions detail" command.
+
+*****
+
+Overview of steps to set up a new iSCSI target in targetcli:
+
+1. Create backstore (file or block device).
+
+Creating a backstore of type fileio will also create the backing file itself
+in the specified Linux directory and with the specified size.  You must set
+desired ownership and permissions on the file outside of targetcli.
+
+2. Create a target that will make the backstores visible through iSCSI.
+
+3. Configure portals (IP address and port) through which the target will be
+visible.  Default is port 3260 on all IP addresses (0.0.0.0), but the default
+portal can be deleted and replaced with more specific portals.
+
+4. Create iSCSI LUNs that map to the backstores.  These associate a logical unit
+number for each LUN with the backing store.
+
+5. Create ACLs to limit access to a target to a specified initiator ID or IDs.
+In RHEL 7, iSCSI initiator ID is in /etc/iscsi/initiatorname.iscsi
+
+6. Save the configuration.

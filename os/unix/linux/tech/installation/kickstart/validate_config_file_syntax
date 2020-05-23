@@ -1,0 +1,6 @@
+Verify the syntax of a Kickstart configuration file:
+# ksvalidator /root/anaconda-ks.cfg
+
+This step is not required but is recommended.
+
+ksvalidator is provided by the pykickstart package.

@@ -1,0 +1,19 @@
+To display an LVM configuration parameter from /etc/lvm/lvm.conf:
+
+# lvmconfig [--withcomment] devices/multipath_component_detection
+
+To display the default value for an LVM configuration parameter:
+
+# lvmconfig --typeconfig default devices/multipath_component_detection
+
+To display only settings that have been modified from their default values:
+
+# lvmconfig --typeconfig diff
+
+To modify a setting for a single LVM command, add --config section/setting to
+the command, as in:
+
+# vgchange -ay --config devices/multipath_component_detection=0
+
+To modify a setting persistently, edit /etc/lvm/lvm.conf.  All subsequent LVM
+commands will use the new settings.

@@ -1,0 +1,31 @@
+Filter the list of filesystems to be mounted or unmounted by filesystem type:
+
+# mount -a [-v] -t [no]type1,type2,...
+# umount -a [-v] -t [no]type1,type2,...
+   -v : verbose
+
+If "no" is prepended to the first type in the list, it negates all types in the
+list.
+
+Filter the list of filesystems by mount by mount options listed in /etc/fstab:
+
+# mount -a [-v] -O [no]option1,[no]option2,...
+
+Filter the list of filesystems to mount by mount options currently active
+for the filesystem (regardless of /etc/fstab contents, despite what man page
+says):
+
+# umount -a [-v] -O [no]option1,[no]option2,...
+
+
+
+Only mounts matching all specified types/options pass the filter.
+
+Caution!  For both mount and umount, if "no" is prepended to a -O option, it
+does not match a filesystem "no... " mount option but rather eliminates
+(negates) all matches FOR that option.
+
+For example, if /mnt is mounted with the noatime option:
+# umount -a -O noatime
+does NOT unmount /mnt but DOES unmount all filesystems that do not show the
+mount option "atime" in their explicit mount options.

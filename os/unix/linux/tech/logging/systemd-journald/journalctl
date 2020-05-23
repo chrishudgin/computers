@@ -1,0 +1,25 @@
+# journalctl -u some.unit1 -u some.unit2 .... : limit output to systemd
+   messages logged by and about specified units (such as messages logged by
+   systemd itself indicating start or stop of the service)
+
+# journalctl -e : jump to end of journal
+# journalctl -x : include explanations of systemd messages
+# journalctl -b : limit output to what was logged since last boot
+
+# journalctl -p PRI[..PRI2] : limit output to priority PRI or higher,
+    or range PRI..PRI2 (inclusive)
+  PRI and PRI2 are standard syslog priorities:
+     debug, info, notice, warning, err, crit, alert, emerg
+
+# journalctl -n # : limit to # lines of output (similar to tail command)
+# journalctl -f : tail journal in "follow" mode
+
+# journalctl --since "2018-06-26 15:47:05" --until "2018-06-26 16:00:00" :
+   limit to entries in date/time range
+   Either --since or --until option may be omitted, as may either DATE or TIME
+
+# journalctl -o verbose : show metadata fields and their values for log entries
+   These fields are documented in systemd.journal-fields(7).
+# journalctl FIELDNAME=VALUE : limit to entries with specified metadata value
+   Example:
+   # journalctl _COMM=sshd

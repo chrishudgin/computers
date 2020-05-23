@@ -1,0 +1,18 @@
+To allow Apache to serve content from user home directories on RHEL 7:
+
+Comment out the following line from /etc/httpd/conf.d/userdir.conf:
+UserDir disabled
+
+Uncomment the following line from /etc/httpd/conf.d/userdir.conf:
+UserDir public_html
+
+# setsebool -P httpd_enable_homedirs on
+# systemctl restart httpd
+
+As <username>:
+$ chmod 711 ~
+$ mkdir ~/public_html
+Add content to ~/public_html/index.html
+
+User home directories will be accessible from:
+http://<hostname>/~<username>/index.html

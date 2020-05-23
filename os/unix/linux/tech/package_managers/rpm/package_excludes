@@ -1,0 +1,14 @@
+To exclude packages persistently from being subject to yum commands like "yum
+install" or "yum update", edit /etc/yum.conf to set the "exclude" configuration
+option:
+
+exclude=<pkgname1>[,<pkgname2>,...]
+
+Example:
+
+exclude=kernel,ksh,virt-who
+
+Wildcards (*) are allowed.
+
+Do not specify more than one exclude statement per repo, since only the last
+exclude statement in the repo file is used.

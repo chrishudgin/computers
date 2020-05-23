@@ -1,0 +1,2 @@
+Latest configuration backup for each volume group is in /etc/lvm/backup.
+Previous configuration backups are in /etc/lvm/archive.

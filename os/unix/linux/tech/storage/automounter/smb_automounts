@@ -1,0 +1,17 @@
+SMB automount maps have the following format:
+
+<mountpoint>	-fstype=cifs[,...]	:<UNC_path>
+
+Note the leading colon required before the UNC path for the server and share.
+
+Examples:
+
+A public share (no username or password, all users can read and write
+anonymously):
+
+/smb/public -fstype=cifs,password="",noperm ://w10vm1.solarcore.net/Users/Public
+
+A share from a user's home directory, private to their Windows and Linux
+accounts:
+
+/smb/chris/mysmb1 -fstype=cifs,credentials=/home/chudgin/smb.cred,uid=chudgin,gid=chudgin ://w10vm1.solarcore.net/Users/chris/mysmb1

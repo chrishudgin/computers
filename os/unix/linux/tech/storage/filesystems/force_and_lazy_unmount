@@ -1,0 +1,23 @@
+Force unmount and lazy unmount:
+
+# umount [-f] [-l] <mount_point>
+
+   -f : force unmount
+        This option is intended to be used on hung NFS filesystems;
+           it does not kill processes that are using the filesystem
+           and therefore will not succeed if processes are still using
+           the filesystem.
+
+   -l : lazy unmount--remove mount from filesystem tree immediately, even
+        if some processes are still accessing the (possibly hung) filesystem.
+
+Any processes that were using a non-hung filesystem unmounted with a lazy
+unmount will remain running.
+
+Any processes that were using a hung filesystem will remain hung unless they
+are terminated, or until access to the filesystem is restored (but the
+filesystem will remain unmounted until mounted again by an administrator).
+
+No new processes will hang when attempting to access the filesystem's mount
+point directory, which is no longer an active mount point since the filesystem
+was unmounted.

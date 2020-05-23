@@ -1,0 +1,25 @@
+To show the serial port hardware physically present in a server:
+
+# setserial -g /dev/ttyS*
+(UART "unknown" is shown if port is not physically present or UART is not
+ recognized)
+# dmesg | grep tty
+
+*****
+
+To change the serial port speed that the kernel uses for a given port, add
+the speed in bps to the console= argument on the kernel command line.
+
+Example in /etc/default/grub on RHEL 7:
+
+GRUB_CMDLINE_LINUX="crashkernel=auto rd.lvm.lv=rhel_server1/root console=tty0 console=ttyS0,115200"
+
+In KVM guest machines, the virtual serial port is set to 9600 bps by default
+but can be configured to a different speed as shown above.
+
+Also update the parameter GRUB_SERIAL_COMMAND in /etc/default/grub to set
+the desired serial port speed.
+
+Example in /etc/default/grub on RHEL 7:
+
+GRUB_SERIAL_COMMAND="serial --speed=115200 --unit=0 --word=8 --parity=no --stop=1"

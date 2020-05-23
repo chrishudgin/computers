@@ -1,0 +1,72 @@
+i386 system call mechanism in 2.6.11 kernel:
+
+*****
+
+include/asm-i386/mach-default/irq_vectors.h:
+
+#define SYSCALL_VECTOR		0x80
+
+*****
+
+arch/i386/kernel/traps.c:
+
+#define _set_gate(gate_addr,type,dpl,addr,seg) \
+
+...
+
+static void __init set_system_gate(unsigned int n, void *addr)
+{
+        _set_gate(idt_table+n,15,3,addr,__KERNEL_CS);
+}
+
+...
+
+set_system_gate(SYSCALL_VECTOR,&system_call);
+
+*****
+
+arch/i386/kernel/entry.S:
+
+ENTRY(system_call)
+
+...
+
+syscall_call:
+        call *sys_call_table(,%eax,4)
+        movl %eax,EAX(%esp)             # store the return value
+
+...
+
+ENTRY(sys_call_table)
+        .long sys_restart_syscall       /* 0 - old "setup()" system call, used for restarting */
+        .long sys_exit
+        .long sys_fork
+        .long sys_read
+...
+
+*****
+
+kernel/exit.c:
+
+fastcall NORET_TYPE void do_exit(long code)
+{
+...
+}
+
+...
+
+asmlinkage long sys_exit(int error_code)
+{
+        do_exit((error_code&0xff)<<8);
+}
+
+*****
+
+References:
+
+http://www.faqs.org/docs/kernel_2_4/lki-2.html#ss2.11  (2.4 kernel)
+
+https://stackoverflow.com/questions/2535989/what-are-the-calling-conventions-for-unix-linux-system-calls-on-i386-and-x86-6
+
+More detailed information, including coverage of x86-64 system calls:
+https://blog.packagecloud.io/eng/2016/04/05/the-definitive-guide-to-linux-system-calls/

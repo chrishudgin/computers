@@ -1,0 +1,7 @@
+Show physical sector size:
+# lsblk -r -n -d -o PHY-SEC /dev/sdb
+4096
+
+Show logical sector size:
+# lsblk -r -n -d -o LOG-SEC /dev/sdb
+512

@@ -1,0 +1,57 @@
+A user process and its descendants can (and by default, do) have their total
+thread count limited to a soft and hard values configurable in the shell with:
+
+$ ulimit [-S|-H] -u #
+
+or through the setrlimit(2) system call by specifying a value for the
+RLIMIT_NPROC resource.  An attempt to create a new process or thread beyond
+this limit with fork() or pthread_create() will result in the call failing with
+error EAGAIN.
+
+A shell process may determine its current thread count limits with:
+
+$ ulimit [-S|H] -u
+
+or
+
+$ getconf CHILD_MAX  # shows soft limit only
+
+Any process may determine its current thread count soft limit with sysconf(3)
+by specifying the int argument _SC_CHILD_MAX.
+
+sysconf note: A numeric return value of -1 from the sysconf function means
+"unlimited" if errno is not set to a nonzero value.
+
+*****
+
+The highest numeric value permitted for a PID is set by the kernel variables
+PID_MAX_DEFAULT and PID_MAX_LIMIT in the kernel source file:
+
+include/linux/threads.h
+
+In kernel 3.10 used in RHEL 7, the values of PID_MAX_DEFAULT and PID_MAX_LIMIT
+are defined as:
+
+#define PID_MAX_DEFAULT (CONFIG_BASE_SMALL ? 0x1000 : 0x8000)
+
+#define PID_MAX_LIMIT (CONFIG_BASE_SMALL ? PAGE_SIZE * 8 : \
+        (sizeof(long) > 4 ? 4 * 1024 * 1024 : PID_MAX_DEFAULT))
+
+On a 64-bit machine, PID_MAX_LIMIT is over 4 million (4194304).
+
+The value of PID_MAX_DEFAULT can be queried in userspace with:
+
+$ sysctl kernel.pid_max
+
+or set in the running kernel with:
+
+# sysctl -w kernel.pid_max=#
+
+*****
+
+When a process is created and the next selected PID value is greater than or
+equal to pid_max, the process will instead be created with the first available
+PID > RESERVED_PIDS where RESERVED_PIDS is defined in the kernel source file
+kernel/pid.c as:
+
+#define RESERVED_PIDS           300

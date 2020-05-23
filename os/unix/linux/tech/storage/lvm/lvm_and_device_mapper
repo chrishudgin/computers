@@ -1,0 +1,11 @@
+LVM is implemented as a layer on top of device mapper, which maps virtual
+block devices (volumes, which could be linear, RAID, etc.) to physical devices.
+
+LVM devices like /dev/vg01/lv01 correspond to device mapper devices like
+/dev/dm-1.
+
+To convert a device mapper device file to major:minor number:
+# dmsetup info /dev/vg01/lv01
+
+To convert a device mapper file's major:minor (e.g. 253:2) number to filename:
+# dmsetup info -j 253 -m 2

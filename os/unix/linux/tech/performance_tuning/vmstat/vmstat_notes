@@ -1,0 +1,5 @@
+vmstat -s : report summary statistics, one per line
+
+vmstat -f : report number of forks since boot
+   By placing this command in a shell loop with a sleep, the number of forks
+   in a given time interval can be computed.

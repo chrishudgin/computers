@@ -1,0 +1,20 @@
+RHEL 7.2 and later include ReaR (Relax-and-Recover).
+
+*****
+
+To recover a system from a generic RHEL 7 installation ISO and xfsdumps stored
+on an NFS server:
+
+Boot to the ISO device.
+With the installation option selected on the initial menu, hit Tab.
+Add the kernel command line parameter "rescue" and hit Enter.
+Select the option to start a shell.
+Configure an IP address on the network interface:
+   # ip address add 10.0.0.93/24 dev em1
+Mount the NFS share that contains the xfsdumps:
+   # mount -o ro 10.0.0.226:/archive /mnt
+
+Use fdisk, mkfs, xfsrestore, and grub2-install to set up the new boot disk.
+Edit /etc/fstab and /boot/grub2/grub.cfg on the new boot disk to ensure that
+the UUIDs are correct, or use xfs_admin -U <device> to set the desired UUID for
+each filesystem.

@@ -1,0 +1,51 @@
+rsyslog configuration is contained in:
+/etc/rsyslog.conf
+/etc/rsyslog.d/*.conf
+
+The available facilities and priorities are described in syslog(3).
+
+*****
+
+rsyslogd performs asynchronous writes by default.  The default can be changed
+   in /etc/rsyslog.conf, with asynchronous writes selectively enabled for a
+   given log file by prepending it with a "-", as in -/var/log/maillog
+
+*****
+
+In addition to sending log output to files, rsyslog can also send log output
+to a module, as in:
+*.emerg							:omusrmsg:*
+which sends messages at the emergency priority through the omusrmsg (output
+module user message) module to all logged in users (*).
+
+*****
+
+rsyslog can use files as an input source with the imfile module in
+/etc/rsyslog.conf :
+
+$ModLoad imfile
+
+followed by directives that indicate the filename to monitor, monitoring
+interval, log facility and level, etc.
+
+This feature is useful for logging events through the syslog facility from
+software that cannot be configured to use syslog but does create its own log
+file.
+
+*****
+
+To log only messages of a specified priority rather than messages of that
+priority and higher, prepend = to the priority in /etc/rsyslog.conf, as in:
+cron.=debug						-/var/log/cron.debug
+
+Priorities can also be negated by prepending them with !
+
+*****
+
+For remote logging destinations in /etc/rsyslog.conf, @remote-host sends syslog
+messages via UDP and @@remote-host sends them via TCP.
+
+*****
+
+Local logging facilites are local0 through local7.  In RHEL 7, local7 is used
+for /var/log/boot.log.

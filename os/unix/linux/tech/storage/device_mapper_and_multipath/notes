@@ -1,0 +1,103 @@
+RPM is device-mapper-multipath
+Configuration file is /etc/multipath.conf
+Enable multipath with:
+# mpathconf --enable
+# service multipathd start
+# chkconfig multipathd on
+
+Show major:minor numbers of multipath devices (/dev/dm-*):
+# dmsetup ls
+The numeric portion of a /dev/dm-#### device name is its minor number.
+
+Show hierarchy of /dev/mapper devices down to their underlying block devices:
+# dmsetup ls --tree -o blkdevname
+
+Show the /dev/mapper devices and filesystems that make use of a given block
+device:
+# lsblk /dev/sdj
+NAME            MAJ:MIN RM  SIZE RO TYPE  MOUNTPOINT
+sdj               8:144  0  200M  0 disk  
+└─mpathb        253:3    0  200M  0 mpath 
+  └─mpathb1     253:5    0  196M  0 part  
+    └─vg01-lv02 253:11   0  192M  0 lvm   /iscsi2
+
+Show the underlying block device(s) of a device mapper device:
+# dmsetup info --noheadings -c -o blkdevs_used /dev/dm-4
+sdf1
+Note: The "underlying block devices" for the top level of a layered volume
+(like a RAID 10 LVM volume) will themselves be device mapper (dm-*) devices.
+
+To show current running multipathd config parameters:
+# multipathd show config
+
+The following option in /etc/multipath.conf enables active/active mode:
+	path_grouping_policy	multibus
+This option can be set:
+   globally (in the defaults stanza)
+   per storage device (in the devices stanza)
+   per LUN (in the multipaths stanza) 
+
+Blacklist exceptions must use the same selector (wwids, for example) as in
+the blacklist section in order for the exceptions to take effect.
+
+UID, GID, and permissions mode can be set on raw multipath block devices if
+desired by adding entries for those devices to the "multipaths" section of
+/etc/multipath.conf and specifying the desired values.
+
+multipathd will remember (by storing entries in /etc/multipath/{bindings,wwids})
+previously discovered multipath devices and will continue to treat them as
+multipath devices even if some paths are missing upon startup.
+
+I/O can be verified to be occurring across multiple paths per LUN using iostat 1
+To test, run dd with a small block size, large count, and oflag=dsync, as in:
+    dd if=/dev/zero of=zfile bs=1 count=10240k oflag=dsync
+
+Multipath top-level device names (like mpathb) are also known as "maps".
+An underlying device name like sdb is known as a "path",
+   so a "map" (like mpathb) consists of multiple "paths" (like sdb and sdd).
+To show the underlying devices for one or more multipath devices:
+# dmsetup deps -o devname [/dev/mapper/....]
+   or
+# dmsetup info -c -o name,blkdevname,devnos_used,blkdevs_used
+
+All dmsetup options are listed by:
+# dmsetup info -c -o help
+including many not mentioned in the dmsetup man page.
+
+kpartx is responsible for adding device mapper devices that include a disk
+   partition on the map device (like /dev/mapper/mpathbp1)
+
+A "path" (that is, a path to a single device) may be taken offline and online:
+# multipathd fail path sdd
+# multipathd reinstate path sdd
+
+... or removed and added:
+
+# multipathd remove path sdd
+# multipathd add path sdd
+
+The multipathd command can also be run interactively:
+# multipathd -k
+
+If a path claimed by multipath is down, the "multipath -ll" command may hang.
+In this case, use "multipath -l" instead to avoid running active path checks
+that may hang.
+
+Flush a single path from management:
+# multipath -f <device_id>   (from /dev/mapper/<device_id>)
+
+Flush all paths from management, even if multipathd daemon is not running:
+# multipath -F
+
+Paths that are in active use (for instance, by a mounted filesystem) cannot be
+flushed.
+
+A list of discovered WWIDs is kept in /etc/multipath/wwids
+Bindings between map names and their WWIDs are kept in /etc/multipath/bindings
+
+To cause multipath to scan and report unclaimed devices, run
+# multipath
+Add -v# for details (# is single digit verbosity level 0 or higher)
+
+dmsetup suspend/resume can temporarily stop and restart I/Os to a /dev/mapper
+device.

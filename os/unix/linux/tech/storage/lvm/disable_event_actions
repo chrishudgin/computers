@@ -1,0 +1,5 @@
+dmeventd is responsible (through LVM plugins) for triggering LVM RAID repair
+actions and snapshot capacity warning messages.  This feature can be disabled
+for LVM volumes with:
+
+# vgchange --monitor n

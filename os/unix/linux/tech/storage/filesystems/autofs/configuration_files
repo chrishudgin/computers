@@ -1,0 +1,5 @@
+Automount is configured in the following files:
+
+/etc/autofs.conf (settings for automounter operations and optionally for maps)
+/etc/auto.master{.d/*.autofs} (collectively constitute the master map)
+/etc/auto.{misc,net,smb,...} (indirect maps and programs that generate them)

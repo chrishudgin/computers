@@ -1,0 +1,10 @@
+# yum install kexec-tools
+
+Add crashkernel=128M (or larger value) to kernel command line in GRUB.
+
+RHEL 6:
+   # chkconfig kdump on
+RHEL 7:
+   # systemctl enable kdump
+
+Reboot.

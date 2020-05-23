@@ -1,0 +1,2 @@
+lvcreate requires a size specification to be given with -L or -l; it will not
+use all available space by default.

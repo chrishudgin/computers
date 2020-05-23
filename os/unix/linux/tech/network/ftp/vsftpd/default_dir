@@ -1,0 +1,2 @@
+The default directory served by vsftpd is the home directory of the ftp user.
+On RHEL 7, this directory is /var/ftp.

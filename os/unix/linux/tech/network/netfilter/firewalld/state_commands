@@ -1,0 +1,12 @@
+Get status of firewalld:
+# firewall-cmd --state
+running
+
+Reload configuration while maintaining state of active connections:
+# firewall-cmd --reload
+
+Save active runtime configuration to permanant configuration:
+# firewall-cmd --runtime-to-permanent
+
+Show active runtime configuration of a zone (interfaces, services, ports, etc.):
+# firewall-cmd [--permanent] [--zone=<zonename>] --list-all

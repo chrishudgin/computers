@@ -1,0 +1,15 @@
+To save or copy a partition table
+
+On a disk smaller than 2 TB, use sfdisk:
+
+# sfdisk -d /dev/sda | sfdisk /dev/sdb
+
+On a disk larger than 2 TB, use sgdisk:
+
+# sgdisk -R $dest $source
+# sgdisk -G $dest  # Randomizes GUIDs on disk and partitions to avoid duplicates
+
+Example:
+
+sgdisk -R /dev/sdb /dev/sda
+sgdisk -G /dev/sdb

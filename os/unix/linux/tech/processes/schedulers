@@ -1,0 +1,11 @@
+The default process scheduling class is SCHED_OTHER (aka SCHED_NORMAL).
+
+Lower priority schedulers are SCHED_BATCH and SCHED_IDLE.
+
+Real-time schedulers are SCHED_FIFO and SCHED_RR (round robin).
+
+Descriptions of the schedulers available to processes are available in
+sched_setscheduler(2).
+
+A process's current scheduling class can be determined by:
+$ ps -o cls <PID>

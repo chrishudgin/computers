@@ -1,0 +1,11 @@
+{pvs,vgs,lvs} are more flexible replacements for {pvdisplay,vgdisplay,lvdisplay}
+
+To show all arguments supported by the -o option to {pvs,vgs,lvs}:
+
+# pvs|vgs|lvs -o help
+
+*****
+
+Limit the display of lvs to a selected set of volume groups and/or LVs:
+
+lvs [options] /dev/vg01 /dev/vg02/lv01 ...

@@ -1,0 +1,22 @@
+Processes inherit their nice level from their parent process.
+Default nice value for any process in SCHED_OTHER (the default scheduling
+   class) is 0.
+Default nice value for a command run as "nice /some/command" is 10.
+
+nice -n <nice#> <command>
+renice -n <nice#> <PID>
+   nice# ranges from -20 (least nice) to 19 (nicest)
+   When run as a non-privileged user, renice can only increase a process's
+     niceness or leave it unchanged.
+
+ps -o pri shows process priorities ranging from 0 (lowest) to 39 (highest)
+   with a default priority of 19
+   and real time processes are shown with a priority of 139
+pri = -(nice) + 19
+
+ps -o ni shows nice level ranging from -20 (least nice) to 19 (nicest).
+
+top shows process priorities ranging from 0 (highest) to 39 (lowest)
+   with a default priority of 0
+   and real time processes are shown with a priority of "rt"
+PRI = NICE + 20

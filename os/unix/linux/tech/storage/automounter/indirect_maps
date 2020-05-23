@@ -1,0 +1,19 @@
+An indirect map allows multiple filesystems to be mounted under (relative to) a
+specified directory on the client:
+
+# cat /etc/auto.master.d/export_home.autofs
+/export/home	/etc/auto.export_home
+
+# cat /etc/auto.export_home
+sherry	server3:/export/home/sherry
+layla	server2:/export/home/layla
+*	server1:/export/home/&
+bonnie	server0:/export/home/bonnie
+
+A wildcard match is attempted last, after all other possible matches have
+failed, regardless of where the line with the wildcard key appears in the map
+file relative to lines with exact (non-wildcard) keys.
+
+Thus, in the example above, user bonnie would have her home directory mounted
+from server0, not server1, because exact matches are attempted before wildcard
+matches.

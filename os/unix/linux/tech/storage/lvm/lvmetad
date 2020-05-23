@@ -1,0 +1,24 @@
+Reference: https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/logical_volume_manager_administration/metadatadaemon
+
+The lvmetad daemon is started by the static lvm2-lvmetad.service unit if
+use_lvmetad=1 in /etc/lvm/lvm.conf.  In RHEL 7, use_lvmetad=1 is set by
+default.
+
+The use of lvmetad is optional.  It has two purposes--performance enhancement
+by caching LVM metadata in memory (instead of scanning all disks for LVM
+metadata each time an LVM command is run), and interfacing with udev to
+activate LVM objects as soon as they become available instead of waiting for a
+full LVM scan of all block devices to complete during boot before LVM object
+activations take place.
+
+However, with lvmetad active, a pvscan of a given device will only wait a few
+seconds before the scan attempt times out.  During boot on a system with many
+disks present, limited parallel I/O bandwidth, and many pvscan operations
+occuring at once, a PV scan of a given device may not finish before it gives
+up.  Consequently, LVM objects that depend on the unscanned PV may not activate
+automatically during boot, necessitating manual intervention.
+
+A workaround for this problem is to set use_lvmetad=0 in /etc/lvm/lvm.conf,
+rebuild the initramfs with dracut, and reboot.  This will prevent the
+lvm2-lvmetad.service unit from starting and allow pvscans to complete without
+timing out prematurely.
