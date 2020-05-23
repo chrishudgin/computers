@@ -1,0 +1,12 @@
+Mask a systemd service's unit configuration file so that once it is stopped, it
+cannot be started by systemd again until it is subsequently unmasked:
+# systemctl mask some.unit
+
+Unmask it:
+# systemctl unmask some.unit
+
+Masking does not stop a running service, nor does it prevent a unit's
+executable files from being run manually.
+
+Masking can be used to indicate to users and administrators that a service
+*should* not be started.

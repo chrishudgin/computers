@@ -1,0 +1,25 @@
+Each systemd service is associated with a cgroup of the same name as the
+service.  Grouping related processes in a cgroup allows them to be tracked
+and administered together, such as when it is necessary to ensure that all
+processes related to a service are killed.
+
+List cgroups and their member processes in a tree:
+
+# systemd-cgls
+...
+auditd.service
+  │ ├─607 /sbin/auditd
+  │ ├─609 /sbin/audispd
+  │ └─611 /usr/sbin/sedispatch
+...
+postfix.service
+  │ ├─1259 /usr/libexec/postfix/master -w
+  │ ├─1262 pickup -l -t unix -u
+  │ └─1263 qmgr -l -t unix -u
+...
+
+# systemd-cgls /system.slice/postfix.service
+/system.slice/postfix.service:
+├─1259 /usr/libexec/postfix/master -w
+├─1262 pickup -l -t unix -u
+└─1263 qmgr -l -t unix -u

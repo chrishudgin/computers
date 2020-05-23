@@ -1,0 +1,14 @@
+The startup and stop timeout variables for a systemd unit of type service are
+named as follows in the unit files:
+
+TimeoutStartSec
+TimeoutStopSec
+
+but "systemctl show <unit_name>" displays them as:
+
+TimeoutStartUSec
+TimeoutStopUSec
+
+respectively.
+
+Discussion: https://github.com/systemd/systemd/issues/2047

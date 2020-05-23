@@ -1,0 +1,16 @@
+systemd mount units are named according to their mount point directories, with
+a - replacing each / after the first one in the path.  The root filesystem's
+mount unit is a special case named "-.mount" in order for it not to have an
+empty unit name component.
+
+mount units can either be created dynamically at boot by systemd parsing
+entries in /etc/fstab, or they can be created statically with mount unit
+files.
+
+Some systemd-specific mount unit parameters can be set in /etc/fstab to
+customize mount behaviors.  One example is x-systemd.requires=<some.unit> which
+sets Requires and After dependencies between the mount and a systemd unit.
+Other options are documented in systemd.mount(5).
+
+Filesystem entries in /etc/fstab are processed by systemd-fstab-generator(8) to
+create mount unit files in memory dynamically.

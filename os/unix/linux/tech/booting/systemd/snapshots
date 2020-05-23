@@ -1,0 +1,6 @@
+systemd can record a snapshot of running service state, which can be restored
+any time later until the next reboot.
+
+# systemctl snapshot [NAME]
+# systemctl isolate NAME.snapshot
+# systemctl delete NAME.snapshot

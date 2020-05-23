@@ -1,0 +1,23 @@
+At boot:
+systemd-tmpfiles-setup-dev.service runs, which runs:
+   /usr/bin/systemd-tmpfiles --prefix=/dev --create --boot
+systemd-tmpfiles-setup.service runs, which runs:
+   /usr/bin/systemd-tmpfiles --create --remove --boot --exclude-prefix=/dev
+
+15 minutes after boot and every 24 hours thereafter,
+   systemd-tmpfiles-clean.timer calls systemd-tmpfiles-clean.service,
+   which runs:
+   /usr/bin/systemd-tmpfiles --clean
+
+The --clean option to systemd-tmpfiles only processes rules that include a
+   time interval in their specification (like 10d for 10 days)
+
+Files are deleted only if their modification time, access time, and inode
+   change time are all older than the specified time interval.
+
+systemd-tmpfiles processes entries in configuration files
+   {/usr/lib,/run,/etc}/tmpfiles.d/*.conf (from lowest to highest precedence)
+Configuration file syntax is documented in tmpfiles.d(5).
+
+Test the effects of a single customized configuration file:
+# systemd-tmpfiles [options] /etc/tmpfiles.d/somefile.conf

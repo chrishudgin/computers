@@ -1,0 +1,26 @@
+systemd service types:
+
+simple : daemon starts and is not expected to exit; sockets should be set up
+   before daemon starts (as with a systemd socket unit)
+   systemd will start dependent units as soon as daemon is started.
+
+forking : parent process is expected to fork() and exit(); child is daemon.
+   systemd will start dependent units as soon as the parent process exits.
+
+oneshot : non-daemon process that performs an action and exits.
+   systemd will start dependent units as soon as the process exits.
+   (Compare to simple, above.)
+   By default (that is, with the service's RemainAfterExit property set to no),
+      systemd will run the service's ExecStart method, wait for it to exit,
+      and then immediately run the service's ExecStop method.
+   If RemainAfterExit=yes is set in the Service section of the service's unit
+      file, then systemd will not run the service's ExecStop method until it is
+      commanded to run.
+
+notify : as with simple, but systemd will start dependent units once the
+   process sends a notification to systemd.
+
+idle : as with simple, but waits up to 5 seconds before starting to give
+   other processes more time to finish writing to the console.
+   Used for services like getty and rescue that generate console login prompts.
+   Contrary to documentation, does NOT wait for all other jobs to start.

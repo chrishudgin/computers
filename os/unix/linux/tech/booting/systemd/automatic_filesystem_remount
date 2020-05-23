@@ -1,0 +1,46 @@
+systemd will attempt to mount a filesystem automatically whenever its block
+device changes from an unavailable state to an available state, unless the
+filesystem has the "noauto" mount option set.
+
+This means that if a filesystem is administratively unmounted and its block
+device is made unavailable and then available again, systemd will immediately
+remount the filesystem.
+
+Rationale: A device may become available at any time, not just at boot, and any
+filesystem that uses it might reasonably be expected to mount as soon as the
+device becomes available.  systemd does not distinguish between devices
+becoming available "at boot" versus any other time.
+Reference: https://github.com/systemd/systemd/issues/6066
+
+Note: Automatic mounting of a filesystem when its device becomes available
+is a special case of dependent service startup.  If a generic service is
+stopped and then restarted, its (stopped) dependent services are not normally
+restarted automatically.
+
+To prevent an immediate automatic remount from happening, use one of the
+following methods after unmounting the filesystem:
+
+Option 1. Mask the mount unit for the filesystem:
+
+# systemctl mask some.mount
+
+The block device can then be taken offline and online without an automatic
+filesystem remount occurring.
+
+When maintenance on the block device is finished, unmask the mount unit:
+# systemctl unmask some.mount
+
+Remount the filesystem if necessary.
+
+Option 2. Comment out the filesystem's entry in /etc/fstab and then run:
+# systemctl daemon-reload
+to force systemd to re-read the contents of /etc/fstab.
+
+The block device can then be taken offline and online without an automatic
+filesystem remount occurring.
+
+When maintenance on the block device is finished, uncomment the filesystem's
+entry in /etc/fstab and run:
+# systemctl daemon-reload
+
+Remount the filesystem if necessary.

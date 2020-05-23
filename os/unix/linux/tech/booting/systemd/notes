@@ -1,0 +1,166 @@
+TYPES
+
+Show all types:
+# systemctl -t help
+Available unit types:
+service
+socket
+busname
+target
+snapshot
+device
+mount
+automount
+swap
+timer
+path
+slice
+scope
+
+
+MISCELLANEOUS
+
+Default action is "list-units", which lists active and failed units
+   "active" units are those that are running.
+   "failed" means the unit was started and subsequently died.
+--all : include units that are inactive or not loaded into the systemd
+   configuration.
+
+export SYSTEMD_PAGER=""
+   disables paging of systemctl output, also allowing lines to wrap
+   equivalent to adding --no-pager to systemctl command line
+
+
+BOOTING
+
+To boot temporarily to a selected target, add the following to the kernel
+comamnd line in grub.cfg:
+   systemd.unit=some.target   # e.g. rescue.target or emergency.target
+
+emergency.target does not mount filesystems other than the root fs
+rescue.target mounts all filesystems
+
+Passing the argument "single" on the kernel command line is equivalent to
+specifying "systemd.unit=rescue.target".
+
+Neither emergency.target nor rescue.target will start networking.
+
+To show the current default boot target:
+# systemctl get-default
+
+To select a permanent default boot target:
+# systemctl set-default some.target # e.g. multi-user.target or graphical.target
+This creates a symlink from /etc/systemd/system/default.target to 
+/usr/lib/systemd/system/some.target
+
+CHANGING ACTIVE TARGET
+
+To enter a different target while the system is already booted:
+# systemctl isolate some.target   # e.g. runlevel1.target
+
+
+PROPERTIES
+
+# systemctl show --property=prop1,prop2,... some.unit
+Properties include variables like Require, Wants, After, ExecStart, 
+   Documentation, etc.
+
+
+DEPENDENCIES
+
+To show units on which a specified unit depends:
+# systemctl list-dependencies [-all] some.unit
+
+To show units that depend on a specified unit:
+# systemctl list-dependencies --reverse [-all] some.unit
+
+Tree is expanded only for target type units unless --all is specified, in
+   which case the entire selected subtree is expanded.
+
+default.target is the default unit if no unit is specified on the command line.
+
+To show timings of unit startups in dependency chain:
+# systemd-analyze critical-chain [some.unit]
+
+To show timings of all unit startups, from longest to shortest:
+# systemd-analyze blame
+
+To summarize overall startup time:
+# systemd-analyze time
+
+A simplified graphical tree of the dependencies of standard systemd units can
+be found in bootup(7) and dracut.bootup(7).
+
+
+STATUS
+
+# systemctl status [-l] [-n #] some.unit|PID
+   Among other items, this will report which unit file was loaded in
+   /usr/lib/systemd/system or /etc/systemd/system
+-l : do not truncate each line of output to fit terminal width
+-n # : show up to # most recent journal lines for the service (default is 10)
+
+To show status of default target:
+# systemctl status default.target
+
+To show whether a unit is active (running):
+# systemctl is-active some.unit
+
+To show whether units are enabled, disabled, static, or masked:
+# systemctl list-unit-files [some.unit]
+OR
+# systemctl is-enabled some.unit
+
+To show jobs that are in progress (i.e. those that have not completed):
+# systemctl list-jobs
+
+To filter output to a particular object type (like service or target), add
+--type=<object_type>,[<object_type>,...] to systemctl command line.
+# systemctl list-units --type=service,socket
+
+
+RESTARTS
+
+Through the Restart service parameter in a service's unit file, systemd
+services may optionally be configured to restart when they are stopped for
+various reasons (signals, abnormal exit, any exit) other than a deliberate stop
+of the service through systemctl.
+
+Configure service to restart for any reason other than "systemctl stop":
+
+[Service]
+Restart=always
+
+
+GENERATORS
+
+Generators generate systemd units at boot for non-systemd services, like
+   System V init scripts
+
+Generators are located in /usr/lib/systemd/system-generators
+
+
+SPECIAL SYSTEMD UNITS
+
+Some built-in systemd units have special intrinsic behaviors.  The list of
+   these special units and their purposes are in systemd.special(7)
+
+path unit will activate a corresponding service (if it is not already active)
+when the path (which could be a filename with wildcards) becomes available.
+
+socket units activate a corresponding service when a connection is made to the
+socket (similarly to how xinetd works).
+
+Scope units map to user login sessions, grouping the associated processes.
+Thus, running "systemctl stop" on a session's scope unit will terminate the
+session and all of its processes with SIGHUP.  Alternatively, use loginctl(1)
+to manage existing sessions.
+
+TROUBLESHOOTING
+
+Interactive:
+# SYSTEMD_LOG_LEVEL=debug /some/systemd/command
+
+At boot:
+Add "Environment=SYSTEMD_LOG_LEVEL=debug" to the [Service] section of the
+   unit file for the target service

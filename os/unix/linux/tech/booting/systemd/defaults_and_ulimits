@@ -1,0 +1,31 @@
+References:
+/etc/systemd/system.conf
+systemd-system.conf(5)
+
+When starting services, systemd does not apply any custom ulimit values set in
+/etc/security/limits.{conf,d/*.conf}.  Instead, it uses default values for
+ulimits and private systemd configuration variables, both of which
+can be customized in /etc/systemd/system.{conf,conf.d/*.conf}.  The ulimits
+set there apply to all services started by systemd.  The variables
+listed in these files belong to the [Manager] configuration section and
+have names prefixed by the word "Default", as in "DefaultLimitNOFILE".
+The names of the drop-in files are arbitrary as long as they end in ".conf".
+
+Example:
+
+# cat /etc/systemd/system.conf.d/LimitNOFILE.conf
+[Manager]
+DefaultLimitNOFILE=65536
+
+Further customization to ulimits on a per-service basis can be made by
+creating custom unit files or drop-in unit configuration files with
+the appropriate variables (minus the "Default" name prefix) in the [Service]
+configuration section, as in this example for the lvm2-monitor.service:
+
+# cat /etc/systemd/system/lvm2-monitor.service.d/LimitNOFILE.conf
+[Service]
+LimitNOFILE=65536
+
+Limits set in either of these ways (default or per-service) modify both the
+hard and soft ulimits of the associated services' processes when they are
+started through systemd.

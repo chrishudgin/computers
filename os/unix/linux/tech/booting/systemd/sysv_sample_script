@@ -1,0 +1,49 @@
+#!/bin/sh
+#
+# svtest:	SysV test
+#
+# chkconfig: 3 99 01
+# description: SysV integration test script
+#
+
+. /etc/rc.d/init.d/functions
+
+TDIR=/iscsi1
+TFILE=svtestfile
+
+start() {
+	touch ${TDIR}/${TFILE}
+}
+
+stop() {
+	rm -f ${TDIR}/${TFILE}
+}
+
+# See how we were called.
+case "$1" in
+    start)
+	start
+	;;
+    stop)
+	stop
+	;;
+    status)
+	if [ -f ${TDIR}/${TFILE} ]; then
+		RETVAL=0
+	else
+		RETVAL=1
+	fi
+        ;;
+    restart|force-reload)
+	stop
+	start
+	;;
+    reload)
+	stop
+	start
+	;;
+    *)
+	echo $"Usage: $0 {start|stop|status|restart|force-reload|reload}"
+        exit 2
+esac
+exit $RETVAL

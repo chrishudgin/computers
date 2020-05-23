@@ -1,0 +1,11 @@
+Vendor presets determine whether a given systemd unit is enabled or disabled by
+default.
+
+Vendor preset settings are stored in files in /usr/lib/systemd/system-preset
+and consist of enable/disable statements with service names (which can include
+wildcards).  The RHEL 7 policy default is "disable" for all services except
+those that are explicitly enabled.
+
+A package's postinstall script may call "systemctl preset <servicename>" to
+enable or disable the service provided by the package according to the vendor
+preset value.

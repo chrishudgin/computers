@@ -1,0 +1,6 @@
+# cp -p myapp.service /etc/systemd/system
+# chown root:root /etc/systemd/system/myapp.service
+# chmod 664 /etc/systemd/system/myapp.service
+# systemctl daemon-reload
+# systemctl enable myapp.service
+# systemctl start myapp.service

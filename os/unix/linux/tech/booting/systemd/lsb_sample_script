@@ -1,0 +1,55 @@
+#!/bin/sh
+#
+# lsbtest:	LSB test
+#
+# chkconfig: 2345 98 02
+#
+
+### BEGIN INIT INFO
+# Provides: lsbtest
+# Required-Start: $local_fs $network $remote_fs $named $time
+# Required-Stop: $local_fs $network $remote_fs $named
+# Default-Start: 2 3 4 5
+# Default-Stop: 0 1 6
+# Short-Description: LSB test
+# Description: LSB test
+### END INIT INFO
+
+. /etc/rc.d/init.d/functions
+
+start() {
+	touch /home/chudgin/afile
+}
+
+stop() {
+	rm -f /home/chudgin/afile
+}
+
+# See how we were called.
+case "$1" in
+    start)
+	start
+	;;
+    stop)
+	stop
+	;;
+    status)
+	if [ -f /home/chudgin/afile ]; then
+		RETVAL=0
+	else
+		RETVAL=1
+	fi
+        ;;
+    restart|force-reload)
+	stop
+	start
+	;;
+    reload)
+	stop
+	start
+	;;
+    *)
+	echo $"Usage: $0 {start|stop|status|restart|force-reload|reload}"
+        exit 2
+esac
+exit $RETVAL

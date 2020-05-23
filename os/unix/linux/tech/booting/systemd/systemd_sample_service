@@ -1,0 +1,14 @@
+[Unit]
+Description=Run a script in VxFS fileystem /opt/app/foo that uses /opt/app/bar
+After=multi-user.target
+RequiresMountsFor=/opt/app/foo
+RequiresMountsFor=/opt/app/bar
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/opt/app/foo/startmyapp /opt/app/bar/datafile
+ExecStop=/opt/app/foo/stopmyapp
+
+[Install]
+WantedBy=multi-user.target

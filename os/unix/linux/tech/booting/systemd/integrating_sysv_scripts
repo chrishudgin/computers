@@ -1,0 +1,28 @@
+*** Sys V scripts will not necessarily run after all other systemd services ***
+*** For more control over when legacy scripts run, use LSB scripts instead ***
+*** For maximum control, replace scripts with native systemd services ***
+
+To integrate a legacy System V boot script:
+
+Create the script in /etc/rc.d/init.d and make it executable
+The script must have the following entries in comments:
+
+# chkconfig: 35 99 01
+# description: SysV integration test script
+
+where the "35" is the list of runlevels in which the script will be started
+(could be any set of digits between 0 and 6 inclusive)
+the "99" is the sequence number for the start script (S99)
+the "01" is the sequence number for the stop script (K01)
+Other pairs of numbers besides 99/01 can be used, as needed
+
+Run "chkconfig scriptname reset" to create S or K symlinks as appropriate
+   in ALL /etc/rc.d/rc[0-6].d directories
+S scripts are created in dirs listed in the first parameter to the commented
+    chkconfig in the script
+K scripts are created in all other rc[0-6].d dirs
+
+Running "systemctl enable scriptname" is equivalent to "chkconfig scriptname on"
+   which automatically creates S scripts in the /etc/rc.d/rc[2345].d dirs
+   but does not honor the parameter to the commented chkconfig line in the
+   script and does not create any K scripts

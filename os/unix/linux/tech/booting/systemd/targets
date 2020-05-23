@@ -1,0 +1,18 @@
+A systemd target is a grouping of units.
+
+There are two types of targets--those that are used to define an
+administratively selectable overall system state (i.e. those that can in
+systemd terminology be "isolated") and those that are not.
+
+Targets that can be isolated are the replacement for runlevels.
+
+Targets that can be isolated have the target unit property "AllowIsolate" set
+to "yes".
+
+Examples:
+network.target cannot be isolated
+multi-user.target can be isolated
+
+Attempting to boot via "systemd.unit=some.target" on the kernel command line to
+a target that cannot be isolated will result in an incomplete startup with no
+login prompt.
