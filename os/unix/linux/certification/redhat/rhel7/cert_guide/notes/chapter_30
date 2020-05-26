@@ -1,0 +1,32 @@
+Configuring Aggregated Network Interfaces
+
+The phrase "network bonding happened completely in user space" should read
+"network bonding happened completely in kernel space".
+
+Understanding IPv6 Addresses
+
+Link-local addresses do not necessarily include the interface MAC address.
+Other algorithms, such as with random number generators, can also be used to
+generate the interface portion of the IPv6 address (that is, the portion to the
+right of the prefix).
+
+The example link-local address should be (after correcting typos and flipping
+the 7th bit of the MAC address from the left per the actual algorithm):
+fe80::c:29ff:fe04:714a/64
+
+Managing IPv6 Address Configurations
+
+SLAAC addresses do not necessarily include the interface MAC address.  Other
+algorithms, such as with random number generators, can also be used to generate
+the interface portion of the IPv6 address (that is, the portion to the right of
+the prefix).
+
+"ip route show" shows only IPv4 routes by default, not IPv6 routes.
+
+"ip -6 router show" should be "ip -6 route show".
+
+"ping6 ff02::%eth0" should be "ping6 ff02::1%eth0".
+
+Review Questions:
+
+7. The correct answer should be "ping6 ff02::1%eth0"

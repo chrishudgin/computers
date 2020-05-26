@@ -81,9 +81,23 @@ Network teaming:
 
 Examples of nmcli syntax for teaming are in nmcli-examples(5)
 Examples of runner configurations in JSON syntax are in
-   /usr/share/doc/teamd-1.9/example_configs
+   /usr/share/doc/teamd-1.9/example_ifcfgs
 The IP address for a team interface must be added with nmcli before the
    method is set to manual.
+teamnl is the command to modify a team's configuration options other than those
+   that are managed by nmcli.
+
+Order of steps for configuring a new team connection with nmcli commands:
+0. Make sure devices that are to be used as team slaves do not have an existing
+   configuration.  If they do, disconnect them and remove their configs.
+1. Create the team interface.
+2. Assign static IP address(es) if appropriate.
+3. Set IPv4 method to manual if static IPv4 addresses are being used.
+4. Assign network devices (what teamd calls "ports") to the team interface.
+5. Bring up the team interface.
+6. Bring up the team interface's "ports".
+
+Examples of steps 1 and 4 are documented in nmcli-examples(5).
 
 #####
 
