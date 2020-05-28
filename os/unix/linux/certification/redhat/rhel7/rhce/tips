@@ -24,6 +24,9 @@ Expect to have to configure a persistent static route to access VMs.
 Use ssh to access VMs rather than working on console to aid in copy/paste
 Run semanage fcontext and restorecon when necessary.
 Ensure firewall ports are permanently opened.
+Consider using --timeout=<secs> with firewall-cmd to revert potentially
+   dangerous temporary (no --permanent) changes automatically in case they
+   cause a problem
 Ensure services are started and enabled.
 # yum install selinux-policy-devel
    (provides subsystem-specific SELinux man pages, like httpd_selinux)
@@ -131,6 +134,8 @@ Important links in the manual:
 
 elinks cannot access http(s) content that requires authentication
 
+Use curl for non-interactive fetches.  curl -k accepts self-signed certs.
+
 _default_ virtual hosts should be defined in files that come alphabetically
 before any other files in /etc/httpd/conf.d
 
@@ -168,3 +173,16 @@ Note that the firewall-cmd solution will not block local ping packets, only
 those originating on a remote host.  However, it has the advantage of being
 more flexible, allowing (for example) pings to be blocked only on specific
 network interfaces after they have been assigned to zones.
+
+Understand that for port forwarding with firewalld to facilitate bidirectional
+traffic, IP masquerading (which is really SNAT) may need to be activated as
+well.  This is so that traffic being forwarded by the firewall will use the
+firewall's own IP address, causing replies to be sent back to the firewall
+instead of to the originating system (which will not be expecting traffic
+directly from the replier--it will appear "unrelated" to an existing
+connection).
+
+Rich rules are mainly needed when limiting the scope of a rule to a particular
+source address that isn't already matched (implicitly with --add-interface or
+explicitly with --add-source) by a zone's configuration, for logging, or for
+rate limiting.

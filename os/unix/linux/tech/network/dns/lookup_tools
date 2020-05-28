@@ -2,10 +2,10 @@ nslookup is deprecated
 
 The "host" command uses the local resolver and /etc/resolv.conf
    (but not /etc/hosts)
-host hostname [server]
+host [-t record_type] hostname [server]
 host -a hostname  # Set query type to "ANY"
 
-dig [@server] [+search] hostname type  # type can by ANY, A, MX, etc.
+dig [@server] [+search] hostname type  # type can by ANY, A, AAAA, MX, etc.
 dig [@server] [+search] -x 10.0.0.42  # -x required for reverse lookup
 By default, dig does not append domain names in the "search" list in
    /etc/resolv.conf.  To use the "search" list from resolv.conf, use +search
