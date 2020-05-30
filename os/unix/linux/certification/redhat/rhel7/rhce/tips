@@ -29,8 +29,12 @@ Run semanage fcontext and restorecon when necessary.
 Ensure firewall ports are permanently opened.
 Consider using --timeout=<secs> with firewall-cmd to revert potentially
    dangerous temporary (no --permanent) changes automatically in case they
-   cause a problem
+   cause a problem; or run firewall-cmd commands on the console instead of in
+   ssh sessions.
 Ensure services are started and enabled and verify that they start at boot.
+# yum install setroubleshoot-server
+   (provides sealert command to explain SELinux AVC denial messages in
+    /var/log/messages)
 # yum install selinux-policy-devel
    (provides subsystem-specific SELinux man pages, like httpd_selinux)
 # mandb
@@ -191,3 +195,10 @@ Rich rules are mainly needed when limiting the scope of a rule to a particular
 source address that isn't already matched (implicitly with --add-interface or
 explicitly with --add-source) by a zone's configuration, for logging, or for
 rate limiting.
+
+#####
+
+NFS:
+
+Server-side firewall services that should be opened include:
+nfs mountd rpc-bind
