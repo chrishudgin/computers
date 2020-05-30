@@ -21,3 +21,16 @@ http_port_t                    tcp      8080, 80, 81, 443, 488, 8008, 8009, 8443
 
 Remove port 8080 from the allowed list later if needed:
 # semanage port -d -t http_port_t -p tcp 8080
+
+A given port/protocol combination (e.g. 8080/tcp) can be assigned to more than
+one SELinux port type (e.g. http_port_t) at a time if the "-m" (modify) option
+is used in the "semanage port" command to assign the port to an additional port
+type.
+
+Example:
+# semanage port -l | grep 8081
+transproxy_port_t              tcp      8081
+# semanage port -m http_port_t -p tcp 8081
+# semanage port -l | grep 8081
+http_port_t                    tcp      8081, 80, 81, 443, 488, 8008, 8009, 8443, 9000
+transproxy_port_t              tcp      8081

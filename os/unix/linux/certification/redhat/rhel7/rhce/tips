@@ -19,17 +19,21 @@ Expect to have to configure a persistent static route to access VMs.
       10.0.0.0/8 via 192.168.4.2 dev eth0
    or through nmcli, as:
       nmcli con mod system-eth0 ipv4.addresses "192.168.4.10/8 192.168.4.2"
+      nmcli con mod system-eth0 ipv4.method manual
    where 192.168.4.2 is the gateway.
    followed by "systemctl restart network"
 Use ssh to access VMs rather than working on console to aid in copy/paste
+   Keep multiple ssh sessions per VM in case a command inadvertently prevents
+      new ssh sessions from being opened.
 Run semanage fcontext and restorecon when necessary.
 Ensure firewall ports are permanently opened.
 Consider using --timeout=<secs> with firewall-cmd to revert potentially
    dangerous temporary (no --permanent) changes automatically in case they
    cause a problem
-Ensure services are started and enabled.
+Ensure services are started and enabled and verify that they start at boot.
 # yum install selinux-policy-devel
    (provides subsystem-specific SELinux man pages, like httpd_selinux)
+# mandb
 # yum install bash-completion
 Remember to use _netdev in /etc/fstab for network storage devices/filesystems
    (NFS, SMB, iSCSI)
@@ -180,7 +184,8 @@ well.  This is so that traffic being forwarded by the firewall will use the
 firewall's own IP address, causing replies to be sent back to the firewall
 instead of to the originating system (which will not be expecting traffic
 directly from the replier--it will appear "unrelated" to an existing
-connection).
+connection), since the originating system may not be accessible directly from
+the replier (traffic having to pass through the firewall system to reach it).
 
 Rich rules are mainly needed when limiting the scope of a rule to a particular
 source address that isn't already matched (implicitly with --add-interface or
