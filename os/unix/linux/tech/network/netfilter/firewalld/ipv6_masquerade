@@ -1,0 +1,23 @@
+The firewall-cmd command --add-masquerade is for IPv4 masquerading only.
+
+Masquerading for IPv6 can be enabled using direct rules or, more simply,
+through a rich rule:
+
+# firewall-cmd --permanent --zone=public --add-rich-rule='rule family="ipv6" masquerade'
+# firewall-cmd --reload
+
+This will add the following rule to the ip6tables filter table:
+-A FWDO_public_allow -j ACCEPT
+
+and the following rule to the ip6tables nat table:
+-A POST_public_allow -j MASQUERADE
+
+It will also enable IPv6 forwarding on all interfaces:
+
+net.ipv6.conf.all.forwarding = 1
+net.ipv6.conf.default.forwarding = 1
+...
+net.ipv6.conf.eth0.forwarding = 1
+net.ipv6.conf.eth1.forwarding = 1
+...
+net.ipv6.conf.lo.forwarding = 1
