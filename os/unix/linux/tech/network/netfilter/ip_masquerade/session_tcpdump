@@ -1,5 +1,6 @@
-Example tcpdump from a masquerading host (server3) and a client (server4)
-initiating a connection to server1 from the behind the firewall on server3.
+Example tcpdumps from a masquerading host (server3) and a client (server4)
+initiating an HTTP connection to server1 from the behind the firewall on
+server3.
 
 On server3, eth0 is on the same ("public") subnet as server1 and is performing
 masquerading.  eth1 on server3 is on the same ("private") subnet as server4.
