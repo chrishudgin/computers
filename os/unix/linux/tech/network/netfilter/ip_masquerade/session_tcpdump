@@ -1,0 +1,34 @@
+Example tcpdump from a masquerading host (server3) and a client (server4)
+initiating a connection to server1 from the behind the firewall on server3.
+
+On server3, eth0 is on the same ("public") subnet as server1 and is performing
+masquerading.  eth1 on server3 is on the same ("private") subnet as server4.
+
+[root@server3 /]# tcpdump -i any port http  # shows traffic for eth0 and eth1
+tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
+listening on any, link-type LINUX_SLL (Linux cooked), capture size 65535 bytes
+09:59:09.881250 IP server4.example.com.38954 > server1.example.com.http: Flags [S], seq 3115540573, win 14600, options [mss 1460,sackOK,TS val 84778859 ecr 0,nop,wscale 7], length 0
+09:59:09.881301 IP server3.example.com.38954 > server1.example.com.http: Flags [S], seq 3115540573, win 14600, options [mss 1460,sackOK,TS val 84778859 ecr 0,nop,wscale 7], length 0
+09:59:09.881668 IP server1.example.com.http > server3.example.com.38954: Flags [S.], seq 264107172, ack 3115540574, win 14480, options [mss 1460,sackOK,TS val 410734414 ecr 84778859,nop,wscale 7], length 0
+09:59:09.881684 IP server1.example.com.http > server4.example.com.38954: Flags [S.], seq 264107172, ack 3115540574, win 14480, options [mss 1460,sackOK,TS val 410734414 ecr 84778859,nop,wscale 7], length 0
+09:59:09.881949 IP server4.example.com.38954 > server1.example.com.http: Flags [.], ack 1, win 115, options [nop,nop,TS val 84778860 ecr 410734414], length 0
+09:59:09.881968 IP server3.example.com.38954 > server1.example.com.http: Flags [.], ack 1, win 115, options [nop,nop,TS val 84778860 ecr 410734414], length 0
+09:59:09.882108 IP server4.example.com.38954 > server1.example.com.http: Flags [P.], seq 1:148, ack 1, win 115, options [nop,nop,TS val 84778860 ecr 410734414], length 147
+09:59:09.882123 IP server3.example.com.38954 > server1.example.com.http: Flags [P.], seq 1:148, ack 1, win 115, options [nop,nop,TS val 84778860 ecr 410734414], length 147
+09:59:09.882398 IP server1.example.com.http > server3.example.com.38954: Flags [.], ack 148, win 122, options [nop,nop,TS val 410734415 ecr 84778860], length 0
+09:59:09.882413 IP server1.example.com.http > server4.example.com.38954: Flags [.], ack 148, win 122, options [nop,nop,TS val 410734415 ecr 84778860], length 0
+09:59:09.882784 IP server1.example.com.http > server3.example.com.38954: Flags [P.], seq 1:347, ack 148, win 122, options [nop,nop,TS val 410734415 ecr 84778860], length 346
+09:59:09.882799 IP server1.example.com.http > server4.example.com.38954: Flags [P.], seq 1:347, ack 148, win 122, options [nop,nop,TS val 410734415 ecr 84778860], length 346
+09:59:09.883060 IP server4.example.com.38954 > server1.example.com.http: Flags [.], ack 347, win 123, options [nop,nop,TS val 84778861 ecr 410734415], length 0
+09:59:09.883076 IP server3.example.com.38954 > server1.example.com.http: Flags [.], ack 347, win 123, options [nop,nop,TS val 84778861 ecr 410734415], length 0
+
+[root@server4 /]# tcpdump host server1 and port http
+tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
+listening on eth0, link-type EN10MB (Ethernet), capture size 65535 bytes
+09:59:09.835801 IP server4.example.com.38954 > server1.example.com.http: Flags [S], seq 3115540573, win 14600, options [mss 1460,sackOK,TS val 84778859 ecr 0,nop,wscale 7], length 0
+09:59:09.836496 IP server1.example.com.http > server4.example.com.38954: Flags [S.], seq 264107172, ack 3115540574, win 14480, options [mss 1460,sackOK,TS val 410734414 ecr 84778859,nop,wscale 7], length 0
+09:59:09.836525 IP server4.example.com.38954 > server1.example.com.http: Flags [.], ack 1, win 115, options [nop,nop,TS val 84778860 ecr 410734414], length 0
+09:59:09.836676 IP server4.example.com.38954 > server1.example.com.http: Flags [P.], seq 1:148, ack 1, win 115, options [nop,nop,TS val 84778860 ecr 410734414], length 147
+09:59:09.837223 IP server1.example.com.http > server4.example.com.38954: Flags [.], ack 148, win 122, options [nop,nop,TS val 410734415 ecr 84778860], length 0
+09:59:09.837596 IP server1.example.com.http > server4.example.com.38954: Flags [P.], seq 1:347, ack 148, win 122, options [nop,nop,TS val 410734415 ecr 84778860], length 346
+09:59:09.837619 IP server4.example.com.38954 > server1.example.com.http: Flags [.], ack 347, win 123, options [nop,nop,TS val 84778861 ecr 410734415], length 0

@@ -151,6 +151,9 @@ before any other files in /etc/httpd/conf.d
 
 Firewall:
 
+Many examples in man pages firewall-cmd(1) and firewalld.richlanguage(5).
+Also use firewall-cmd --help for complete syntax.
+
 Know how to enable IP forwarding directly by creating a .conf file in
 /etc/sysctl.d with the line:
 
@@ -195,6 +198,10 @@ Rich rules are mainly needed when limiting the scope of a rule to a particular
 source address that isn't already matched (implicitly with --add-interface or
 explicitly with --add-source) by a zone's configuration, for logging, or for
 rate limiting.
+
+If a rich rule and basic rule both refer to the same service (like http),
+remove the one that isn't needed in order to ensure that the preferred rule is
+the one applied.
 
 #####
 
