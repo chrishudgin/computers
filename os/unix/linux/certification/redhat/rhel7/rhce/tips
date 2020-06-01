@@ -120,16 +120,19 @@ MariaDB:
 
 Apache:
 
-# yum groupinstall web-server
+# yum groupinstall "Web Server"
    (this includes httpd, httpd-manual, mod_ssl, and crypto-utils, among other
     packages)
+# yum install php mod_wsgi
+   (this installs mod_php and mod_wsgi for native PHP and Python script support,
+    respectively)
 
 # man httpd_selinux
 
-Set up a _default_:80 VirtualHost entry with a DocumentRoot directive to
-   catch all accesses that are not directed to a specific virtual host
-   (including references to the system hostname if they are not caught by a
-    more specific virtual host reference)
+Set up a _default_:80 VirtualHost entry in /etc/httpd/conf.d/00-default.conf
+   with a DocumentRoot directive to catch all accesses that are not directed
+   to a specific virtual host (including references to the system hostname if
+   they are not caught by a more specific virtual host reference)
 
 The Apache manual is available at http://<hostname>/manual
 
@@ -142,10 +145,49 @@ Important links in the manual:
 
 elinks cannot access http(s) content that requires authentication
 
-Use curl for non-interactive fetches.  curl -k accepts self-signed certs.
+Use curl for non-interactive fetches.
+curl --insecure accepts self-signed certs for TLS-protected content.
+curl -u <username:password> to access user/password-protected content.
 
 _default_ virtual hosts should be defined in files that come alphabetically
 before any other files in /etc/httpd/conf.d
+
+A VirtualHost requires, at minimum, two sections in a configuration file:
+
+<Directory /some/dir>
+  Require all granted
+  AllowOverride None
+</Directory>
+
+<VirtualHost some.hostname.com:80>
+  DocumentRoot /www/my/sitedir
+  ServerName some.hostname.com
+</VirtualHost>
+
+Other directives that may need to be added to the VirtualHost section are:
+  ServerAlias some www.hostname.com *.internal.hostname.com
+  ErrorLog logs/some-errorlog
+  CustomLog logs/some-accesslog combined
+
+If it is necessary to configure multiple TLS-protected virtual hosts, the
+configuration file for each should begin as a copy of
+/etc/httpd/conf.d/ssl.conf with all lines outside of
+<VirtualHost></VirtualHost> removed.
+
+To redirect http to https, add the following lines to a VirtualHost that
+responds to port 80:
+
+	RewriteEngine on
+	RewriteRule ^(/.*)$ https://%{HTTP_HOST}$1 [redirect=301]
+
+To redirect only references to a particular server name from http to https, add
+a ServerName directive to the same VirtualHost definition that contains the
+rewrite rules.  For example:
+
+	ServerName secure.example.com
+
+and make sure that there is another default VirtualHost for port 80 that does
+not redirect to https.
 
 #####
 

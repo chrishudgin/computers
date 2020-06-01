@@ -11,3 +11,9 @@ Directories for drop-in config files for Apache and for its modules are:
 
 Apache modules are installed in /etc/httpd/modules (symlink to
 /usr/lib64/httpd/modules)
+
+Installing the Required Software
+
+"Basic Web Server" is a yum environment group that will install many packages.
+To add web server functionality to an existing installation, chose the smaller
+yum group "Web Server" instead.

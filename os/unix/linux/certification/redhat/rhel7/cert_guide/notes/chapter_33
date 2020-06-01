@@ -1,0 +1,6 @@
+Configuring Apache for Using TLS Certificates
+
+9. The given RewriteRule will not redirect http traffic to https.  Use the
+following instead:
+
+RewriteRule ^(/.*)$ https://%{HTTP_HOST}$1 [redirect=301]
