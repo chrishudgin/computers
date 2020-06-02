@@ -25,7 +25,9 @@ Expect to have to configure a persistent static route to access VMs.
 Use ssh to access VMs rather than working on console to aid in copy/paste
    Keep multiple ssh sessions per VM in case a command inadvertently prevents
       new ssh sessions from being opened.
-Run semanage fcontext and restorecon when necessary.
+Run semanage fcontext and restorecon when necessary, including on any files
+   that are copied to a server from an external source (such as TLS keys
+   or Kerberos keytab files).
 Ensure firewall ports are permanently opened.
 Consider using --timeout=<secs> with firewall-cmd to revert potentially
    dangerous temporary (no --permanent) changes automatically in case they
@@ -33,11 +35,23 @@ Consider using --timeout=<secs> with firewall-cmd to revert potentially
    ssh sessions.
 Ensure services are started and enabled and verify that they start at boot.
 # yum install setroubleshoot-server
-   (provides sealert command to explain SELinux AVC denial messages in
-    /var/log/messages)
-# yum install selinux-policy-devel
-   (provides subsystem-specific SELinux man pages, like httpd_selinux)
+    provides sealert command to explain SELinux AVC denial messages in
+    /var/log/messages and /var/log/audit/audit.log;
+    To find them:  grep sealert /var/log/messages
+                   grep AVC /var/log/audit/audit.log
+
+Service-specific access control is generally preferred over firewalld access
+control where possible.
+
+If necessary to determine proper SELinux contexts for targets like files or
+ports:
+# yum whatprovides sepolicy
+(The package is policycoreutils-devel)
+# yum install policycoreutils-devel
+# sepolicy manpage -a -p /usr/share/man/man8
 # mandb
+# man -k _selinux | grep <some_service_like_ftpd>
+
 # yum install bash-completion
 Remember to use _netdev in /etc/fstab for network storage devices/filesystems
    (NFS, SMB, iSCSI)
@@ -123,9 +137,9 @@ Apache:
 # yum groupinstall "Web Server"
    (this includes httpd, httpd-manual, mod_ssl, and crypto-utils, among other
     packages)
-# yum install php mod_wsgi
+# yum install php php-mysql mod_wsgi
    (this installs mod_php and mod_wsgi for native PHP and Python script support,
-    respectively)
+    respectively, plus the PHP interface to MariaDB)
 
 # man httpd_selinux
 
