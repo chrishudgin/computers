@@ -1,0 +1,8 @@
+For port forwarding with firewalld to facilitate bidirectional traffic, IP
+masquerading (which is really SNAT) may need to be activated as well.  This is
+so that traffic being forwarded by the firewall will use the firewall's own IP
+address, causing replies to be sent back to the firewall instead of to the
+originating system (which will not be expecting traffic directly from the
+replier--it will appear "unrelated" to an existing connection), since the
+originating system may not be accessible directly from the replier (traffic
+having to pass through the firewall system to reach it).
