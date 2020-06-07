@@ -1,0 +1,2 @@
+Use the "workgroup= " parameter in smb.conf to set either the Windows domain
+name or workgroup.

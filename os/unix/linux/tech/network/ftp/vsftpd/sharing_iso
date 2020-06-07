@@ -1,0 +1,7 @@
+When using FTP to share an ISO image mounted as a loopback device (for example,
+to use as a RHEL package repository), mount it with the mount option
+context="system_u:object_r:public_content_t:s0" to avoid having to set the
+ftpd_full_access seboolean to true.  A mount with the context= option is needed
+rather than a more conventional "semanage fcontext / restorecon" sequence
+because a read-only filesystem such as an ISO image cannot have its contents
+modified with restorecon or any other tool.

@@ -22,6 +22,8 @@ Expect to have to configure a persistent static route to access VMs.
       nmcli con mod system-eth0 ipv4.method manual
    where 192.168.4.2 is the gateway.
    followed by "systemctl restart network"
+   Some exam candidates report no gateway or DNS server information provided.
+       In this case, is the IPA server both?
 Use ssh to access VMs rather than working on console to aid in copy/paste
    Keep multiple ssh sessions per VM in case a command inadvertently prevents
       new ssh sessions from being opened.
@@ -104,6 +106,9 @@ working:
 
 Network teaming:
 
+Link aggregation on the exam can be done either with bonding or teaming, but
+teaming is recommended.
+
 Examples of nmcli syntax for teaming are in nmcli-examples(5)
 Examples of runner configurations in JSON syntax are in
    /usr/share/doc/teamd-1.9/example_ifcfgs
@@ -157,6 +162,9 @@ Important links in the manual:
       How-To / Tutorials -> Authentication and Authorization
          http://server1.example.com/manual/howto/auth.html
 
+The -c option to htpasswd reinitializes (empties) the file before adding a
+user.  Only use the -c option the first time htpasswd is run.
+
 elinks cannot access http(s) content that requires authentication
 
 Use curl for non-interactive fetches.
@@ -188,6 +196,10 @@ configuration file for each should begin as a copy of
 /etc/httpd/conf.d/ssl.conf with all lines outside of
 <VirtualHost></VirtualHost> removed.
 
+Do not use a passphrase for the TLS private key so that Apache can start
+without user interaction to decrypt it; on exam, the public/private keypair
+will be provided with wget (but restorecon them afterward to make them cert_t)
+
 To redirect http to https, add the following lines to a VirtualHost that
 responds to port 80:
 
@@ -202,6 +214,8 @@ rewrite rules.  For example:
 
 and make sure that there is another default VirtualHost for port 80 that does
 not redirect to https.
+
+Apache logs are in /var/log/httpd
 
 #####
 
@@ -261,3 +275,45 @@ NFS:
 
 Server-side firewall services that should be opened include:
 nfs mountd rpc-bind
+
+#####
+
+DNS with unbound:
+
+Make the following changes to /etc/unbound/unbound.conf:
+
+interface: 0.0.0.0
+access-control: 192.168.4.0/24 allow
+domain-insecure=example.com
+forward-zone:
+	name: "."
+	forward-addr: 192.168.4.200
+
+# firewall-cmd --permanent --add-service=dns
+# firewall-cmd --reload
+
+#####
+
+Email null client with postfix
+
+# postconf -e 'relayhost=[server1.example.com]'
+# postconf -e 'inet_interfaces=loopback-only'
+# postconf -e 'mydestination='
+# systemctl reload postfix
+
+Reference: less /usr/share/doc/postfix-2.10.1/README_FILES/STANDARD_CONFIGURATION_README ("Postfix on a null client")
+
+#####
+
+Samba
+
+Users whose credentials will be used to mount or otherwise interact with a
+Samba share must exist in both the Samba user database (smbpasswd -a
+<username>) and the Linux user account list (useradd <username>).
+
+#####
+
+IPv6
+
+Do not use nmtui for IPv6 on the exam; it will segfault and remove the existing
+connection configuration.  Use nmcli instead.

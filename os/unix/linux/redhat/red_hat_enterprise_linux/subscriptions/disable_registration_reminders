@@ -2,3 +2,6 @@ Disable Red Hat subscription registration reminder pop-ups on an unregistered
 system:
 # systemctl stop rhsmcertd.service
 # systemctl disable rhsmcertd.service
+
+In addition, as a desktop user, run:
+$ gconftool-2 -t bool -s /apps/rhsm-icon/hide_icon true
