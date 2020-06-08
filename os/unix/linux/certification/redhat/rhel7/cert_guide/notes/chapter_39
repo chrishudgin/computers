@@ -48,6 +48,7 @@ On server1:
 
 In /etc/ssh/sshd_config, add (for example) the following lines:
 
+TCPKeepAlive Yes
 ClientAliveInterval 60
 ClientAliveCountMax 60
 AllowUsers lisa
