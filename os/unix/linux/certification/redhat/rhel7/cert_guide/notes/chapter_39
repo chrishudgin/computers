@@ -39,3 +39,31 @@ other than the default (which binds to the remote server's loopback interface
 only).  Without "GatewayPorts Yes" being set, the "ssh -fNR <bind_addr>:...."
 command will still run and forward traffic but will ignore the <bind_addr>
 given and bind only to the loopback interface (the default).
+
+Lab 39.1
+
+1.
+
+On server1:
+
+In /etc/ssh/sshd_config, add (for example) the following lines:
+
+ClientAliveInterval 60
+ClientAliveCountMax 60
+AllowUsers lisa
+Port 2022
+
+# semanage port -a -t ssh_port_t -p tcp 2022
+# firewall-cmd --permanent --add-port=2022/tcp
+# firewall-cmd --reload
+# systemctl restart sshd
+
+On server2:
+
+# ssh -p 2022 lisa@server1.example.com
+
+2.
+
+On server1:
+
+# ssh -fNL 3333:localhost:80 root@server2.example.com
