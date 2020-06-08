@@ -1,0 +1,41 @@
+"Do I Know This Already?" Quiz
+
+8. The correct name of the parameter is "ServerAliveInterval".
+
+Configuring SSH Tunnels
+
+Tunnels can be configured to pass traffic from the local system through a
+jump server to a remote system (-L) or in the opposite direction (-R).
+
+Throughout this section, the direction stated for the forwarding is backward.
+
+The local forwarding example:
+
+ssh -fNL 5555:localhost:80 root@server2.example.com
+
+forwards port 5555 on the originating host to port 80 on server2 (which is the
+localhost after the connection is made).  It does NOT forward port 80 on
+server2 to port 5555 on the originating host as stated in the text.
+
+The remote forwarding example:
+
+ssh -fNR 80:localhost:8088 root@lab.sandervanvugt.nl
+
+forwards port 80 on the remote host (lab.sandervanvugt.nl) to the originating
+machine, and thence to localhost (which is also the originating machine) port
+8088.  It does NOT forward remote port 8088 to local port 80 as stated in the
+text.
+
+The direction of forwarding in all three examples in Table 39.3 is stated
+incorrectly as well.
+
+Review Questions
+
+7. The command in the answer should be:
+ssh -fNR 8088:localhost:80 user@server.somewhere.com
+
+10. "GatewayPorts Yes" needs to be set only if a bind address is set to a value
+other than the default (which binds to the remote server's loopback interface
+only).  Without "GatewayPorts Yes" being set, the "ssh -fNR <bind_addr>:...."
+command will still run and forward traffic but will ignore the <bind_addr>
+given and bind only to the loopback interface (the default).

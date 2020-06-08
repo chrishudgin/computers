@@ -1,0 +1,20 @@
+"Do I Know This Already?" Quiz
+
+10. Neither the answer nor the explanation is entirely correct.  The correct
+answer is:
+
+mail -s hello root@server2 < .    (note the trailing dot)
+
+and this works not because a dot is being sent to the mail command as its
+standard input text (which is not how input redirection works), but because the
+mail command is attempting to read from the current directory (.) and is
+immediately receving a status of EOF with an errno of "EISDIR".
+
+The Email Transmission Process
+
+The statement that "the default mail server process cannot receive messages"
+only applies to messages coming in from other systems.  The default postfix
+server in RHEL 7 can receive messages that are sent from the localhost and can
+send messages anywhere.
+
+The "my_network" parameter should be "mynetworks".

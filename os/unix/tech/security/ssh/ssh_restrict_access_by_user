@@ -1,4 +1,4 @@
 ssh access by user account can be controlled with the AllowUsers, DenyUsers,
    AllowGroups, and DenyGroups directives in /etc/ssh/sshd_config, each of
    which may optionally have a host specification appended, as in:
-   AllowUsers mike,joe@somehost.foo.com
+   AllowUsers mike joe@somehost.foo.com
