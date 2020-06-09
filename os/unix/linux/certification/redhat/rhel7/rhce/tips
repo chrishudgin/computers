@@ -6,6 +6,11 @@ Review https://www.lisenet.com/2016/passed-rhce-on-rhel-7/
 
 During exam:
 
+SERVICES (must be enabled and running)
+FIREWALL (must be enabled, running, configured for all necessary ports/services)
+SELINUX (must be enforcing, verified all with restorecon)
+PERSISTENCE/REBOOT (do checks before and after reboot)
+
 Remember how to break into a system using rd.break, remount, chroot, and
 touch /.autorelabel
 
@@ -286,24 +291,29 @@ Client:
 # yum group install "Network File System Client"
 
 Server-side firewall services that should be opened include:
-nfs mountd rpc-bind
+nfs
+Note: mountd rpc-bind could be opened but should not be if they are not required
 
 Server-side systemd services:
-rpcbind
 nfs-server
 nfs-server-secure (for Kerberized NFS)
+Note: rpcbind may also be enabled during package installation
 
 Client-side systemd services:
-rpcbind
 nfs-secure (for Kerberized NFS)
+Note: rpcbind may also be enabled during package installation
 
-# exportfs -r
+# exportfs -rv
 
 Without the use of the export option "no_root_squash" on the server, root on
 the client is mapped to the nfsnobody user for filesystem access.  To allow
 nfsnobody to write to the filesystem, simply do the following on the server:
 
 # chown nfsnobody:nfsnobody /myshare
+
+On RHEL 7.0, it should not be necessary to set the SELinux context of an NFS
+share to nfs_t in order to share it.  By default, the client will see its
+SELinux type as nfs_t, however.
 
 #####
 
