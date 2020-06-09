@@ -13,6 +13,10 @@ security setting is designated in the mount options (see paragraph below).
 
 To designate more than one allowable security mount option, separate by colons
 the security mount options that are to be permitted, as in this example:
+On the server:
+# cat /etc/exports
+/share server2(rw,sec=krb5:krb5i:krb5p)
+On the client:
 # mount -o sec=krb5:krb5i:krb5p server1:/share /mnt
 
 If the NFS share is exported with the all_squash option, all UIDs/GIDs are
@@ -25,5 +29,6 @@ security mount options, specify each security mount option explicitly when
 mounting rather than relying on the default (sec=sys) to take effect
 automatically.
 
-On RHEL 7, the nfs-secure systemd service must be running in order for any of
-the Kerberos security mount options to be usable.
+On RHEL 7, the nfs-secure-server systemd service must be running on the server
+and the nfs-secure systemd service must be running on the client in order for
+any of the Kerberos security mount options to be usable.

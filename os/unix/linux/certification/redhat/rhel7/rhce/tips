@@ -91,15 +91,21 @@ package group, set DNS client resolution with nmcli, run "authconfig-gtk /
 authconfig-tui" or "ipa-client-install --mkhomedir
 [--domain=somedomain.example.com] [--no-ntp]", ensure that the sssd service is
 enabled and started.  If authconfig-tui must be used, they should give you a
-keytab file to copy into place (/etc/krb5.keytab) for your client VMs
+keytab file to copy into place (/etc/krb5.keytab) for your client VMs,
+downloaded using (e.g.)
+   wget -O /etc/krb5.keytab http://somewhere.example.com/my.keytab
 
 According to Sander van Vugt's crash course notes, Kerberized login is likely
-to be set up already, and the only step necessary to obtain additional Kerberos
-credentials will be to copy the specified /etc/krb5.keytab file into place
-for each VM.  Run "klist -k" to verify that credentials are loaded.
+to be set up already.  This can be verified by using ssh to log in as a
+Kerberized user account and running "klist" to view the principals attached to
+the login session (the default shown should be <username>@<REALM>).   The only
+step necessary to obtain additional Kerberos credentials will be to copy the
+specified /etc/krb5.keytab file into place as root for each VM.  Run "klist -k"
+to verify that the necessary credentials are present in the keytab after it has
+been copied to the target system.
 
-Enter the following command to verify that Kerberos user authentication is
-working:
+Alternatively, as root, enter the following command to verify that Kerberos
+user authentication is working:
 # kinit admin  (enter the password of the "admin" user on the Kerberos server)
 
 #####
@@ -273,8 +279,31 @@ same subnet.
 
 NFS:
 
+Server:
+# yum group install "File and Storage Server"
+
+Client:
+# yum group install "Network File System Client"
+
 Server-side firewall services that should be opened include:
 nfs mountd rpc-bind
+
+Server-side systemd services:
+rpcbind
+nfs-server
+nfs-server-secure (for Kerberized NFS)
+
+Client-side systemd services:
+rpcbind
+nfs-secure (for Kerberized NFS)
+
+# exportfs -r
+
+Without the use of the export option "no_root_squash" on the server, root on
+the client is mapped to the nfsnobody user for filesystem access.  To allow
+nfsnobody to write to the filesystem, simply do the following on the server:
+
+# chown nfsnobody:nfsnobody /myshare
 
 #####
 
@@ -334,3 +363,13 @@ IPv6
 
 Do not use nmtui for IPv6 on the exam; it will segfault and remove the existing
 connection configuration.  Use nmcli instead.
+
+#####
+
+Time synchronization
+
+Note that a time synchronization service (ntpd or chronyd) may already be
+running on the exam systems.
+
+For NTP peering, don't forget to persistently open the "ntp" service in the
+firewall.
