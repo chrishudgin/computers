@@ -4,6 +4,18 @@ Before exam:
 
 Review https://www.lisenet.com/2016/passed-rhce-on-rhel-7/
 
+Common reasons for failing:
+
+Not reading all tasks at the start of the exam, before starting any work.
+Not reading each task very carefully.
+Failing to recognize ordering dependencies between tasks, resulting in the
+   need for rework if they are not done in the most logical or necessary order.
+Spending too much time researching or troubleshooting a given task.
+Failing to ensure that all changes persist through reboot and contine to work
+   correctly afterward.
+Failing to reboot all VMs one last time before finishing.  Any VM that cannot
+   reboot unattended will result in a failing exam grade.
+
 During exam:
 
 SERVICES (must be enabled and running)
@@ -62,6 +74,8 @@ ports:
 # yum install bash-completion
 Remember to use _netdev in /etc/fstab for network storage devices/filesystems
    (NFS, SMB, iSCSI)
+
+Remember to check for the use of any non-standard ports and use "semanage port" commands to configure SELinux to allow services to use them.
 
 #####
 
@@ -315,10 +329,22 @@ On RHEL 7.0, it should not be necessary to set the SELinux context of an NFS
 share to nfs_t in order to share it.  By default, the client will see its
 SELinux type as nfs_t, however.
 
+If an NFS share needs to be used by services other than NFS, set its SELinux
+context to public_content_t or public_content_rw_t via the -o context mount
+option on the client side or with NFS version 4.2 and semanage fcontext /
+restorecon on the NFS server side.
+
+For NFS version 4.2:
+
+Server, in /etc/sysconfig/nfs:
+RPCNFSDARGS="-V 4.2"
+
+Client, in /etc/fstab:
+Include mount option v4.2
+
 #####
 
 DNS with unbound:
-
 
 Make the following changes to /etc/unbound/unbound.conf:
 
@@ -367,6 +393,50 @@ Users whose credentials will be used to mount or otherwise interact with a
 Samba share must exist in both the Samba user database (smbpasswd -a
 <username>) and the Linux user account list (useradd <username>).
 
+A "Samba-only user account" is one with no Linux password explicitly set (which
+is the default behavior of useradd), a shell of /sbin/nologin, and a Samba user
+account (smbpasswd -a <username>) with a password.
+
+The server-side SELinux type for Samba shares that don't need to be used by
+other services should be samba_share_t.  This type is not documented in the
+smbd_selinux man page, but it is mentioned in the comments in
+/etc/samba/smb.conf.
+
+By default, any Samba user can connect to a share.  Use the "valid users"
+variable to limit which users and groups (e.g. user1, @salesgroup) can connect.
+
+By default, a Samba share is shared with "read only = yes".  If the "write
+list" variable is set to a list of user and/or Linux groups (@groupname), then
+those users and group members can write to the share even if "read only" is set
+to yes.  If "writable = yes" is set, then ALL authenticated Samba users can
+write to the share.  Note, however, that in all cases, writes are only allowed
+if Linux permissions *also* allow write access.
+
+References:
+man smb.conf 
+Examples and explanatory comments in /etc/samba/smb.conf
+
+List Samba users:
+# pdbedit -L
+
+A Samba share is referred to on the client as //servername/sharename, e.g.
+//server1.example.com/mysambashare
+
+Use "multiuser,sec=ntlmssp" as mount options for multiuser cifs mounts, along
+with a mount option for user= or credentials= typically using a Samba account
+with minimal privileges on the filesystem (the default read-only privileges,
+for example).
+
+After mounting the filesystem as multiuser, su - to a Samba user, run
+cifscreds <servername>, and test access.
+
+An example of the syntax of a Samba credentials file is:
+# cat /root/mycredsfile
+username=smbnobody
+password=password
+
+which assumes that there is such a Linux user account and Samba user account.
+
 #####
 
 IPv6
@@ -383,3 +453,15 @@ running on the exam systems.
 
 For NTP peering, don't forget to persistently open the "ntp" service in the
 firewall.
+
+Perform any time synchronization tasks before any tasks that rely on Kerberos
+features (like Kerberized NFS) or MariaDB databases.
+
+#####
+
+Group collaboration
+
+If a task states that "group collaboration" must be set for a directory, this
+probably means setting group ownership, group write bit, setgid bit, and
+possibly also a recursive group rwX ACL and recursive default group rwx ACL.
+Make sure the mask (rwx) allows group write permissions as well.

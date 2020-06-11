@@ -1,0 +1,110 @@
+"Do I Know This Already?" Quiz
+
+3. The correct answer is a, not b.  Shares are marked "read only = yes" by
+default, implying "writable = no" (the two settings are synomymous).  However,
+with a "write list" specified, even if "read only = yes", all users and groups
+in the write list can write to the share if the Linux permissions also allow
+them to write.
+
+Conversely, when "read only = no", implying "writable = yes", all authenticated
+users can write to the share if the Linux permissions also allow them to write.
+
+4. Answers b is also true; in order for a user to be able to read or write
+files on the share, the appropriate Linux permissions must be set on the files.
+The "valid users" variable only controls which users and groups can connect to
+the share.
+
+8. To clarify, "use_samba_home_dirs" is required on the client side in order
+for Linux users to use Samba shares from a remote server as their Linux home
+directories.  In contrast, "samba_enable_home_dirs" allows Linux user home
+directories on the server side to be shared via Samba.
+
+Creating Shares
+
+The filename should be "smb.conf", not "smb.-conf"
+
+Mounting Samba Shares Through automount
+
+There should be a space or tab between the * and -fstype=cifs in the example
+line from /etc/auto.guests.
+
+Exercise 37.5
+
+In step 6, the directory should be /srv/samba/sambashare, and the /srv/samba
+directory should be created first.
+
+Review Questions
+
+4. The wording of the question is confusing.  To clarify, "use_samba_home_dirs"
+is required on the client side in order for Linux users to use Samba shares
+from a remote server as their Linux home directories.  In contrast,
+"samba_enable_home_dirs" allows Linux user home directories on the server side
+to be shared via Samba.
+
+Lab 37.1
+
+1.
+
+The share called account is probably meant to be read-only to members of the
+sales group.
+
+Users linda and laura are members of the sales group but not the account group.
+Users lori and bob are members of the account group but not the sales group.
+
+# useradd -s /sbin/nologin -G sales,account smbnobody
+# smbpasswd -a smbnobody
+(set password to "password")
+# smbapasswd -a linda
+# smbapasswd -a laura
+# smbapasswd -a lori
+# smbapasswd -a bob
+# mkdir /sales
+# mkdir /account
+# semanage fcontext -a -t samba_share_t "/sales(/.*)?"
+# semanage fcontext -a -t samba_share_t "/account(/.*)?"
+# restorecon -Rv /sales
+# restorecon -Rv /account
+# chgrp sales /sales
+# chgrp account /account
+# chmod 2775 /sales
+# chmod 2775 /account
+
+Add the following lines to /etc/samba/smb.conf:
+[sales]
+path = /sales
+write list = @sales
+valid users = @sales, @account
+
+[account]
+path = /account
+write list = @account
+valid users = @account, @sales
+
+# systemctl start smbd
+# systemctl start nmbd
+# systemctl enable smbd
+# systemctl enable nmbd
+
+2.
+
+# firewall-cmd --permanent --add-service=samba
+# firewall-cmd --reload
+
+3.
+
+# echo "username=smbnobody" > /root/smb-multiuser
+# echo "password=password" >> /root/smb-multiuser
+# mkdir /sales
+# mkdir /account
+# echo "//server1/sales /sales cifs credentials=/root/smb-multiuser,sec=ntlmssp,multiuser,_netdev 0 0" >> /etc/fstab
+# echo "//server1/account /account cifs credentials=/root/smb-multiuser,sec=ntlmssp,multiuser,_netdev 0 0" >> /etc/fstab
+
+4.
+
+# su - linda
+$ cifscreds add server1
+(linda should now be able to write to /sales and read from /account)
+
+# su - bob
+$ cifscreds add server1
+(bob should now be able to write to /account and read from /sales)
