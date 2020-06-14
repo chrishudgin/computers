@@ -158,7 +158,51 @@ Examples of steps 1 and 4 are documented in nmcli-examples(5).
 
 MariaDB:
 
-# yum groupinstall mariadb mariadb-client
+# yum groupinstall "MariaDB Database Client"
+# yum groupinstall "MariaDB Database Server"
+
+If connectivity between Apache and MariaDB is needed:
+# yum install php php-mysql
+
+Security hardening including setting the MariaDB root password:
+# mysql_secure_installation
+
+Configuration:
+
+Configuration files are /etc/my.cnf{,.d/*.cnf}
+
+Sample configuration files:
+/usr/share/mysql/*.cnf  (note that this is not under /usr/share/doc)
+
+List all parameters for mysqld that can be set in the configuration files,
+   including parameters bind-address and skip-networking:
+# /usr/libexec/mysqld --help --verbose
+
+Firewall:
+
+# firewall-cmd --permanent --add-service=mysql
+# firewall-cmd --reload
+
+SELinux:
+
+Default data directory is /var/lib/mysql, which can be seen in the startup
+messages for the mariadb systemd service.  SELinux type mysqld_db_t
+
+Backup:
+
+# mysqldump -u root -p [somedbname | --all-databases ] > /backups/mybackup.dump
+
+Restore:
+
+Drop the affected databases and create them without content.  Then:
+# mysql -u root -p somedbname < /backups/mybackup.dump
+
+When running a "CREATE USER" SQL command, remember to enclose the user's
+password (like any string) within single quotes:
+> create user 'lisa'@'localhost' identified by 'password';
+
+After running GRANT or REVOKE commands:
+FLUSH PRIVILEGES;
 
 #####
 
