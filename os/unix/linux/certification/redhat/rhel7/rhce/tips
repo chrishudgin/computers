@@ -77,6 +77,13 @@ Remember to use _netdev in /etc/fstab for network storage devices/filesystems
 
 Remember to check for the use of any non-standard ports and use "semanage port" commands to configure SELinux to allow services to use them.
 
+One recommendation is to install and enable (systemctl enable) all necessary
+software and services at the start of the exam, as well as permanently opening
+firewall ports and setting persistent SELinux file contexts (semanage fcontext)
+and custom port contexts (semanage port).  Once these steps are done for all
+software as needed, you can focus on configuring the individual services like
+Apache, iSCSI, etc.
+
 #####
 
 iSCSI:
@@ -203,6 +210,9 @@ password (like any string) within single quotes:
 
 After running GRANT or REVOKE commands:
 FLUSH PRIVILEGES;
+
+SQL and command syntax help is available within MariaDB.  For example:
+> help grant
 
 #####
 
@@ -509,3 +519,34 @@ If a task states that "group collaboration" must be set for a directory, this
 probably means setting group ownership, group write bit, setgid bit, and
 possibly also a recursive group rwX ACL and recursive default group rwx ACL.
 Make sure the mask (rwx) allows group write permissions as well.
+
+#####
+
+bash shell scripting
+
+For arithmetic, the $(( expr )) construction is preferred over $[ expr ]
+
+A good example of various bash progrmaming constructs is
+/etc/sysconfig/network-scripts/network-functions
+
+Variables in the headers of C-style "for" loops that are not being expanded
+must not be preceded by a $ sign :
+
+initcount=10
+for (( counter=$(( $initcount * 100 )); counter>1; counter-- ))
+do
+	echo $counter
+	sleep 1
+done
+
+All syntax is available in the man page:
+# man bash
+
+Syntax for internal shell commands:
+# help  (lists all internal shell commands)
+# help '(('
+# help function
+# help for
+# help read
+# help test
+etc.
