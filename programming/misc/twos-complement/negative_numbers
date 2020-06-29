@@ -1,0 +1,10 @@
+The sign bit in an n-bit signed two's complement binary representation of a
+number has the numeric value of 2^(-n).  Knowing this simplifies computing the
+numeric value of a negative number expressed in two's complement
+representation.
+
+For example, using 8-bit two's complement, the leftmost bit (sign bit) has a
+numeric value of 2^(-8) or -128.  To compute the numeric value of binary
+10011010, express the value of the leftmost bit as -128 and then add the
+positive values of the remaining bits (2^4 + 2^3 + 2^1 = 16 + 8 + 2 = 26),
+yielding -128 + 26 = -102.
