@@ -1,0 +1,11 @@
+On some terminals (notably VT100 compatibles), GNU grep with color enabled will
+skip over writing the character at the right edge of the terminal if the search
+string includes the text at that edge.
+
+The workaround is to set the environment variable GREP_COLORS=ne
+
+References:
+
+https://unix.stackexchange.com/questions/283983/how-does-a-program-decide-whether-or-not-to-have-coloured-output/284000#284000
+
+https://invisible-island.net/xterm/xterm.faq.html#grep_colors

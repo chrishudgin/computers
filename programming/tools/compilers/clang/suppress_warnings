@@ -1,0 +1,21 @@
+Suppress all warning messages by using the "-w" command line option to cc.
+
+Example:
+
+$ cat hello.c
+#include <stdio.h>
+
+main()
+{
+	printf("hello, world\n");
+}
+$ cc hello.c
+hello.c:3:1: warning: type specifier missing, defaults to 'int' [-Wimplicit-int]
+main()
+^
+1 warning generated.
+$ alias cc='cc -w'
+$ cc hello.c
+$ ./a.out
+hello, world
+$
