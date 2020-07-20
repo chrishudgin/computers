@@ -25,7 +25,15 @@ To branch to an absolute offset address that uses a full 32 bit value, that
 value must be loaded into a register (from a literal pool, for example) whose
 value is then used as the address of the branch target by specifying the
 register (instead of an immediate value) as an operand to the branch
-instruction.
+instruction.  Branching to an address stored in a register is supported by the
+BX and BLX instructions, but not by the B and BL instructions.  BX and BLX also
+support branching to a pc-relative label like B and BL do.  Branching to an
+absolute address can also be done by popping the address from the stack
+directly into the pc register or loading the pc with an LDR instruction (which
+will fetch the target address from a literal pool using a pc-relative offset to
+reach the pool--recall that literal pools, like all data, can be inserted near
+the code that uses them if necessary to avoid exceeding the pc-relative offset
+lmimit when accessing their contents).
 
 Further information:
 
