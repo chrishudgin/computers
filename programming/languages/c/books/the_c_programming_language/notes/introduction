@@ -1,0 +1,23 @@
+“the run-time library required to implement self-contained programs is tiny.”
+
+On Unix-like systems, the runtime library required for self-contained programs
+is provided by the crt*.o object files (where "crt" means "C runtime").  These
+are responsible for such tasks as setting the initial values of the stack and
+frame pointer registers and calling main() and exit().
+
+Although the statement refers to self-contained programs rather than those that
+explicitly reference libraries, it was written at a time when static linking
+was the norm and demand-paging with shared program text in memory was not.
+Thus, an entire program and all the libraries it required would typically have
+to be loaded into memory before the program could be executed, and each
+instance of a given executable in memory would require a full duplicate memory
+allocation.
+
+*****
+
+“The standard makes portability issues explicit, and prescribes a set of
+constants that characterize the machine on which the program is run.”
+
+These constants with machine-specific values such as LONG_MAX and DBL_MAX are
+defined in limits.h and float.h.  The standard sets minimum values that these
+constants can have.
