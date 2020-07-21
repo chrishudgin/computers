@@ -1,0 +1,7 @@
+ARM Instruction Format
+
+The instruction pipeline described has three stages, as early ARM processors
+had.  Later ARM designs have more pipeline stages.  The nominal three stage
+pipeline remains integrated into the ISA in that the value read from the PC
+register is that of the current instruction plus two, regardless of the number
+of hardware pipeline stages.

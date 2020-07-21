@@ -1,0 +1,15 @@
+Raspberry Pi Memory
+
+The description of PC-relative addressing incorrectly states that addresses
+within 4096 bytes of the value of the PC can be addressed.  In fact, the range
+is +4095 to -4095 bytes (not words).
+
+Data
+
+“The last “\n” character is how we represent a new line. If we don’t include
+this, you must press return to see the text in the terminal window.”
+
+While the '\n' character does flush the output buffer, it is not true that
+pressing return will also flush it.  Leaving out the '\n' character will simply
+cause the next output to be appended directly after what preceded it, on the
+same line.
