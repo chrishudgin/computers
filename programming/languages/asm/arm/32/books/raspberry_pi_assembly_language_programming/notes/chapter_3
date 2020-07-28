@@ -1,0 +1,9 @@
+Beginning GDB
+
+The examples of the "examine memory" (x) command have extraneous and mutually
+inconsistent parameters.
+
+"x /4ubft" is equivalent to "x /4bt"
+"x /4ubfi" is equivalent to "x /4i"
+"x /4ubfx" is equivalent to "x /4x"
+"x /4ubfd" is equivalent to "x /4d"
