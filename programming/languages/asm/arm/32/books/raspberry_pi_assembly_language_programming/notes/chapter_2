@@ -1,0 +1,20 @@
+Rotate Right Extend
+
+For an RRX operation, the carry flag is described as being the right of bit 0.
+Since RRX is a form of rotation, this is equivalent to treating the carry flag
+as being to the left of bit 31 (i.e. to the left of the leftmost bit in the
+word).
+
+*****
+
+MOV/MVN
+
+The MOV instruction cannot accept a 16-bit immediate operand as shown in the
+example:
+
+MOV   R2, #0x6E3A
+
+When the GNU assembler encounters a MOV (sic) instruction that requires a
+16-bit immediate operand, it automatically replaces the specified MOV
+instruction with a MOVW instruction since MOVW can accept a 16-bit immediate
+operand.
