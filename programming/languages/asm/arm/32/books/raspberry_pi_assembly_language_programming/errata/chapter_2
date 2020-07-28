@@ -1,0 +1,14 @@
+Shifting and Rotating
+
+In the following sentence:
+
+“Now if we shift 0x30 right by 4 bits, we undo what we just did and see how it
+is equivalent to dividing by 24."
+
+... "24" should be "2^4".
+
+*****
+
+MVN
+
+"MVT is a distinct opcode" should read "MVN is a distinct opcode"
