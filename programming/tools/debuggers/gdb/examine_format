@@ -14,4 +14,5 @@ s is size abbreviation: b(byte), h(alfword), w(ord), g(iant) or doubleword
    g: 64 bits
 
 GDB interprets examined data according to the native byte order for the machine
-(e.g. little endian for x86, big endian for earlier generations of PowerPC).
+(e.g. little endian for x86, ARM, and MIPS running Linux, big endian for SPARC,
+PA-RISC, and earlier generations of PowerPC).
