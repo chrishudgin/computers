@@ -9,3 +9,11 @@ ConditionFileIsExecutable=!/usr/sbin/ntpd
 ConditionFileIsExecutable=!/usr/sbin/openntpd
 ConditionFileIsExecutable=!/usr/sbin/chronyd
 ConditionFileIsExecutable=!/usr/sbin/VBoxService
+
+*****
+
+systemd-timesyncd synchronizes the system clock to a single time source using
+the SNTP protocol.  The list of time servers from which systemd-timesyncd
+chooses can be overridden from the default values by setting the variables NTP
+and (optionally) FallbackNTP in /etc/systemd/timesyncd.conf, each as a
+space-separated argument list.
