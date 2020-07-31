@@ -1,4 +1,4 @@
-Use a USB to serial cable to connect to a remote server's console port:
+Use a PL2303 USB to serial cable to connect to a remote server's console port:
 
 screen /dev/tty.usbserial 9600
 
