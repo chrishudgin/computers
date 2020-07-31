@@ -1,0 +1,11 @@
+To disable WiFi and Bluetooth completely, add the following lines to
+/boot/config.txt :
+
+dtoverlay=disable-wifi
+dtoverlay=disable-bt
+
+Run:
+
+# systemctl mask wpa_supplicant.service
+(Debian distros only) # systemctl mask hciuart.service
+# systemctl reboot

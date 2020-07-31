@@ -1,0 +1,13 @@
+Raspbian:
+
+# raspi-config
+Interfacing Options -> Serial -> Enable
+# systemctl reboot
+
+CentOS:
+
+Add the following line to /boot/config.txt:
+
+enable_uart=1
+
+# systemctl reboot
