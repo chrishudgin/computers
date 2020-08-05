@@ -1,0 +1,23 @@
+With the Raspberry Pi powered off and unplugged, install the RTC HAT hardware.
+
+After booting:
+
+# yum install i2c-tools
+
+Add the following lines to /boot/config.txt :
+dtparam=i2c_arm=on
+dtoverlay=i2c-rtc,ds1307  (or ds3231 instead of ds1307)
+
+Add the following line to /etc/modules-load.d/i2c.conf :
+i2c-dev
+
+# i2cdetect -y 1 (should show ID #68 in the table)
+# systemctl reboot
+
+# i2cdetect -y 1 (should show "UU" in the entry for ID #68 in the table)
+
+Verify that RTC clock time is correct and NTP time is synced :
+# timedatectl
+
+If the RTC clock time needs to be set to the NTP time :
+# hwclock -w

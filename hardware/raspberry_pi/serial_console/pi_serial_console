@@ -1,0 +1,57 @@
+Hardware connections:
+
+Connect TTL leads to the Raspberry Pi GPIO header as follows:
+
+Top row pins:
+3rd: black (ground)
+4th: white (Pi transmit / cable receive)
+5th: green (Pi receive / cable transmit)
+
+If 3rd pin on top row is not available, alternate ground is 5th pin from the
+left on the bottom row.
+
+*****
+
+Mac software setup:
+
+Downloaded CP210x USB to serial driver from:
+http://www.silabs.com/Support%20Documents/Software/Mac_OSX_VCP_Driver.zip
+
+Installed CP210x serial over USB driver.
+
+Created ~chudgin/.screenrc as :
+
+termcapinfo xterm* ti@:te@
+
+to allow normal terminal window scrolling when using GNU screen.
+
+Establish serial console session from Mac to Raspberry Pi:
+
+$ screen /dev/tty.SLAB_USBtoUART 115200
+
+Ctrl-A k to quit
+
+*****
+
+Raspberry Pi software setup:
+
+# raspi-config
+Interfacing Options -> Serial -> Enable
+# cp -p /boot/cmdline.txt /boot/cmdline.txt.orig
+# vim /boot/cmdline.txt
+# diff /boot/cmdline.txt.orig /boot/cmdline.txt
+1c1
+< console=serial0,115200 console=tty1 root=PARTUUID=5e3da3da-02 rootfstype=ext4 elevator=deadline fsck.repair=yes rootwait quiet splash plymouth.ignore-serial-consoles
+---
+> console=tty1 console=serial0,115200 root=PARTUUID=5e3da3da-02 rootfstype=ext4 elevator=deadline fsck.repair=yes rootwait
+# systemctl reboot
+
+*****
+
+CentOS software setup:
+
+Add the following line to /boot/config.txt:
+
+enable_uart=1
+
+# systemctl reboot
