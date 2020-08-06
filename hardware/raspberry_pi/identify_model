@@ -1,0 +1,13 @@
+Identify the model and revision of Raspberry Pi board:
+$ xargs -0 < /sys/firmware/devicetree/base/model
+
+Example:
+
+$ xargs -0 < /sys/firmware/devicetree/base/model
+Raspberry Pi Zero Rev 1.3
+
+*****
+
+Additional hardware information, including SoC, RAM, and identities and
+locations of ports and pins on the board (available in Raspberry Pi OS):
+$ pinout
