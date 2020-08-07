@@ -1,0 +1,22 @@
+When running "apt-get update", the following error may occur for backports
+repositories whose public keys have changed:
+
+W: GPG error: http://deb.debian.org/debian buster-backports InRelease: The following signatures couldn't be verified because the public key is not available: NO_PUBKEY 04EE7237B7D453EC NO_PUBKEY 648ACFD622F3D138
+
+The public keys are identified by the hexadecimal strings following the text
+"NO_PUBKEY".  In this example, they are 04EE7237B7D453EC and 648ACFD622F3D138.
+
+To add the new public keys to the apt keychain, run the following commands for
+each key to be added, substituting the actual value of the missing key:
+
+# gpg --keyserver keyserver.ubuntu.com --recv-key 04EE7237B7D453EC
+# gpg -a --export 04EE7237B7D453EC | apt-key add -
+
+Repeat the commands for each missing key:
+
+# gpg --keyserver keyserver.ubuntu.com --recv-key 648ACFD622F3D138
+# gpg -a --export 648ACFD622F3D138 | apt-key add -
+
+The Ubuntu keyserver is appropriate to use even with Raspbian.
+
+Once this is done, apt-get commands should work again.
