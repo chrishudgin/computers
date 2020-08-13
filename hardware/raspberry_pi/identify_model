@@ -1,9 +1,9 @@
 Identify the model and revision of Raspberry Pi board:
-$ xargs -0 < /sys/firmware/devicetree/base/model
+$ tr '\0' '\n' < /sys/firmware/devicetree/base/model
 
 Example:
 
-$ xargs -0 < /sys/firmware/devicetree/base/model
+$ tr '\0' '\n' < /sys/firmware/devicetree/base/model
 Raspberry Pi Zero Rev 1.3
 
 *****
