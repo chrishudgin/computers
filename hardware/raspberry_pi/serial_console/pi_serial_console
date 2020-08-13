@@ -1,4 +1,4 @@
-Hardware connections:
+Hardware connections for a TTL to USB adapter cable:
 
 Connect TTL leads to the Raspberry Pi GPIO header as follows:
 
@@ -9,6 +9,22 @@ Top row pins:
 
 If 3rd pin on top row is not available, alternate ground is 5th pin from the
 left on the bottom row.
+
+*****
+
+Hardware connections for a TTL to DB9 / RS-232 adapter board:
+
+Use a null modem cable, not a straight through cable.
+
+Connect TTL leads to the Raspberry Pi GPIO header as follows:
+
+Bottom row pins:
+1st: red (3.3V power) to power on adapter board; DO NOT USE 5V POWER!
+
+Top row pins:
+3rd: black (ground) to ground on adapter board
+4th: green (transmit) to transmit (sic) on adapter board
+5th: brown (receive) to receive (sic) on adapter board
 
 *****
 
@@ -44,6 +60,10 @@ Interfacing Options -> Serial -> Enable
 < console=serial0,115200 console=tty1 root=PARTUUID=5e3da3da-02 rootfstype=ext4 elevator=deadline fsck.repair=yes rootwait quiet splash plymouth.ignore-serial-consoles
 ---
 > console=tty1 console=serial0,115200 root=PARTUUID=5e3da3da-02 rootfstype=ext4 elevator=deadline fsck.repair=yes rootwait
+
+If using a hardware CRT terminal like a Wyse-60, use a speed of 9600 instead
+of 115200.
+
 # systemctl reboot
 
 *****
@@ -55,3 +75,11 @@ Add the following line to /boot/config.txt:
 enable_uart=1
 
 # systemctl reboot
+
+*****
+
+Note: If the Wyse-60 has been working correctly while connected to the Pi but
+there is garbage on the screen after the Wyse-60 is power-cycled, type an
+alphanumeric character on the terminal keyboard (not <Enter>) and the Pi should
+immediately reset its end of the terminal connection to the correct, working
+settings.
