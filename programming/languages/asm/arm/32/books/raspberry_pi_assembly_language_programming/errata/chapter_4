@@ -1,0 +1,28 @@
+About the CPSR
+
+The SUBS (subtract and set flags) instruction uses an inverted meaning for the
+carry flag such that:
+
+If there was *no* borrow: CF <- 1
+
+If there was a borrow, CF <- 0
+
+However, the SBC (subtract with carry) instruction inverts the value of the
+carry flag before subtracting it.
+
+*****
+
+Branch on Condition
+
+Table 4-1 contains errors:
+
+LS should be C clear *or* Z set
+LE should be Z set *or* N and V differ
+
+*****
+
+Converting Integers to ASCII
+
+Listing 4-7:
+
+The comment on the line "SUBS R5, #1" should read "step R5 by -1"

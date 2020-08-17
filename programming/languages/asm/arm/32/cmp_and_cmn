@@ -18,3 +18,9 @@ number which *can* be expressed as a rotated or shifted 8-bit immediate) is
 used as an operand to CMN, which then computes the two's complement of the
 provided value (yielding the real desired value to be compared) and does the
 comparison against that.
+
+Mathematically, adding a small positive number and setting flags is equivalent
+to comparing to a small negative number since adding the small positive number
+will move the value to the right on the number line, and if the result is
+greater than zero, then the number to which the small negative is being
+compared must be greater.
