@@ -1,0 +1,32 @@
+This procedure configures a Raspberry Pi Zero to be used as an Ethernet over
+USB gadget, connected to a Macintosh computer's USB port either directly or
+through a USB hub.
+
+On the Raspberry Pi Zero:
+
+Add the following line to /boot/config.txt:
+dtoverlay=dwc2
+
+Add the following to the boot command line in /boot/cmdline.txt:
+modules-load=dwc2,g_ether
+
+Configure interface usb0 instead of eth0 in /etc/dhcpcd.conf.  For example:
+interface usb0
+static ip_address=192.168.2.2/24
+static routers=192.168.2.1
+static domain_name_servers=192.168.2.1
+static domain_search=solarcore.net
+
+Connect the Raspberry Pi Zero from its USB OTG port (instead of the power port)
+to a USB port (or hub) on the Mac.
+
+On the Mac:
+
+Once the Pi Zero is booted, a device "RNDIS/Ethernet Gadget" will appear in
+System Preferences -> Network
+
+In System Preferences -> Network, select this device and set "Configure IPv4"
+to "Off"
+
+In System Preferences -> Sharing -> Internet Sharing, select this device in
+the "To computers using" list.
