@@ -1,0 +1,4 @@
+The file "od.txt" was generated with the following commands:
+
+DEBUG=1 make -B
+objdump -d -s -t upper
