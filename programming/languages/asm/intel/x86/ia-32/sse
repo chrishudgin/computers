@@ -1,0 +1,5 @@
+Multi-byte values in the SSE registers are each stored in little-endian byte
+order.  Multiple indexed values in the SSE registers are also stored in
+little-endian order (lowest index first, i.e. to the left).  These statements
+can be verified by writing the contents of an SSE register to memory (as with
+MOVDQA or MOVAPS) and then examining the memory contents byte by byte.
