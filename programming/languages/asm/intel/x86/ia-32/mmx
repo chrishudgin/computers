@@ -1,0 +1,5 @@
+MMX instructions were originally designed to use the low-order 64 bits of each
+"st" register as an "mm" register, mm0 - mm7, for SIMD integer instructions,
+but the use of the MMX registers for MMX instructions is deprecated on CPUs
+with SSE2 registers since MMX instructions are permitted to use those
+registers, leaving the st registers free for scalar floating point operations.
