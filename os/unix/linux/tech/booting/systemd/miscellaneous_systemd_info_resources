@@ -1,0 +1,6 @@
+bootup(7) man page contains systemd target/unit flow chart from boot to multi-user to shutdown
+
+man -k systemd to list all systemd man pages
+
+systemd.unit(5) contains the global specifications for unit files
+systemd.[unit-type](5) contains the unit file specifications for a given type of unit file (target, service, mount, etc.)

@@ -1,0 +1,10 @@
+If transitioning from Disabled, start with Permissive and allow a soak time so that AVC errors can be addressed
+with policies.  Then switch to Enforcing.
+
+Applications that use or interact with the built-in Apache web server tend to have more problems working seamlessly
+with SELinux since Apache has SELinux restrictions imposed on it.  They also tend to require some developer education.
+
+Applications that do not interact with Apache or other SELinux-aware services tend not to have problems since they
+run in an unconfined SELinux context.
+
+Consider putting a statement into /etc/issue indicating that a server is running SELinux in Enforcing mode.
