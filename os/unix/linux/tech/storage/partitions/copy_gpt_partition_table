@@ -1,0 +1,4 @@
+yum install gdisk
+sgdisk --backup=table <Source disk> 
+sgdisk --load-backup=table <destination disk> 
+sgdisk -G  <dest disk>

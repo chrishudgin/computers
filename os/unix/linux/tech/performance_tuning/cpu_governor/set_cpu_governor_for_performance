@@ -1,0 +1,5 @@
+On RHEL 6:
+
+Edit /etc/sysconfig/cpuspeed to change "GOVERNOR=" to "GOVERNOR=performance"
+service cpuspeed start
+chkconfig cpuspeed on

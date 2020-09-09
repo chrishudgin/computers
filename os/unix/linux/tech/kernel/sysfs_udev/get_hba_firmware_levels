@@ -1,0 +1,1 @@
+systool -c scsi_host -v | grep fw_version
