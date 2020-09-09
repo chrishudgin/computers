@@ -1,0 +1,65 @@
+Some ZFS (aka NFSv4) ACL notes, as tested on a Solaris 10 ZFS filesystem.
+
+As far as I can tell through experimentation and reading:
+
+All rules are evaluated in order, starting at entry 0.  As soon as a rule is
+found that allows or denies a desired action, processing of the rules stops.
+Hence, a matching "allow" followed later by a matching "deny" would allow
+the action to occur.
+
+If there is no matching rule, then revert to POSIX behavior.  For example, if
+there's no delete_child bit set for anyone on a directory, then whether or not
+a user is allowed to delete a file or subdirectory within that directory
+depends on whether they have write access to the directory--standard Unix/POSIX
+behavior.
+
+Doing a chmod A- filename resets the ACLs to match the POSIX mode bits,
+including filling in any "missing" entries to the ACLs.  For example, if
+there's no ACL rule set (neither allow nor deny) for group@:execute, then chmod
+A- filename will modify the group@ ACLs so that execute:allow or execute:deny
+explicitly appears, as determined by the POSIX mode bits.
+
+Since "everyone@" really does mean everyone, if there's no rule set for a given
+ACL bit for a given user, owner@, or group@ (for example, if execute is nowhere
+else set to allow or deny) before the entry for everyone@ is reached, then the
+entry for everyone@ determines whether the action is allowed for everyone.
+
+Probably for reasons of POSIX compatibility, some bits are grouped together,
+even if they aren't all explicitly specified in a chmod statement.  For
+example, setting add_file:allow on a directory also sets write_data:allow in
+the same ACE, since on a POSIX system one can't add a file to a directory
+without writing to that directory.  Likewise, setting write_data:allow implies
+setting add_file:allow.  However, setting write_data:allow does NOT implicitly
+set add_subdirectory:allow.
+
+Another example of grouping is append_data:allow on a directory implying
+add_subdirectory:allow, but append_data:allow on a directory does NOT imply
+add_file:allow.
+
+The lesson from these previous two examples seems to be that "appending data"
+to a Unix directory means creating a subdirectory, while "writing data" to
+a directory means adding a file to it, removing a file from it, or removing
+a subdirectory from it, but NOT adding a subdirectory to it.
+
+Clearly the various ACL permission bits are not completely orthogonal to
+each other.  write:data:allow on a directory allows removing either a file
+or subdirectory, like delete_child:allow does, but write_data:allow also
+implies (and sets) add_file:allow.  Note that a permission like
+write_data:allow that seems to be a superset of delete_child:allow
+doesn't actually set delete_child.  (Maybe write_data on a dir isn't
+a true superset of delete_child after all?)
+
+Using old-fashioned POSIX permissions in chmod results in some ACL rules
+being set coarsely (broadly).  For example, chmod 755 . followed by
+chmod g+w . results in add_file/write_data/add_subdirectory/append_data
+being set to "allow" for group@, since all of those actions would be
+granted by a traditional chmod g+w on a directory.  Note, however, that
+delete_child isn't set explicitly by a chmod +w on a directory, even though
+the delete_child action is implicitly allowed because that's how POSIX
+write permissions on a directory work.  On the other hand, setting
+delete_child:deny on a directory and making it the first matching rule for
+a user will deny the user the ability to delete files in the directory,
+regardless of what other permissions the user might have on the directory
+in later ACL entries.  In this way, you could set up an ACL to allow a
+user to create files in a directory but not to delete anything in the
+directory, including the files the user just created!
