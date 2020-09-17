@@ -1,0 +1,3 @@
+Strip blank (empty) lines:
+
+| grep -v '^$'
