@@ -1,3 +1,4 @@
 Strip blank (empty) lines:
 
+| awk NF
 | grep -v '^$'
