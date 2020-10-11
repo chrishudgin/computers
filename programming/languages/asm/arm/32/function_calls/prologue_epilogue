@@ -1,0 +1,25 @@
+In calling function:
+
+Push extra parameters to stack if needed
+bl	myfunction
+
+Leaf function prologue:
+
+push	{fp}
+add	fp, sp, #0
+
+Leaf function epilogue:
+
+add	sp, fp, #0
+pop	{fp}
+bx	lr
+
+Non-leaf function prologue:
+
+push	{fp, lr}
+add	fp, sp, #4
+
+Non-leaf function epilogue:
+
+sub	sp, fp, #4
+pop	{fp, pc}

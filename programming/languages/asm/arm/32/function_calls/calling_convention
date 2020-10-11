@@ -1,7 +1,8 @@
 The first four integer or pointer arguments to a function are passed in
-registers r0-r3.  Additional arguments if needed are passed on the stack.
-Integer results are returned in register r0 (for a 32-bit value) or registers
-r0 and r1 (for a 64-bit value).
+registers r0-r3.  Additional arguments if needed are pushed on the stack in
+reverse order, so that the first argument to the function is at the top of the
+stack (lowest address).  Integer results are returned in register r0 (for a
+32-bit value) or registers r0 and r1 (for a 64-bit value).
 
 Double-word non-floating-point arguments are passed in register pairs r0/r1 and
 r2/r3, with the high-order portion (i.e. upper 32 bits) of the argument
