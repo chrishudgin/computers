@@ -1,0 +1,39 @@
+Switch endianness in a binary file:
+
+$ objcopy -I binary -O binary --reverse-bytes=<#> <inputfile> <outputfile>
+
+Example to convert between little-endian and big-endian 32-bit words from the
+file "myinputfile" and save the output to "myoutputfile":
+
+$ objcopy -I binary -O binary --reverse-bytes=4 myinputfile myoutputfile
+
+Alternatively, for machines with 16-bit words:
+
+$ dd conv=swab
+
+*****
+
+od can be used to switch the endianness of its input for formatted display to a
+terminal.
+
+Two key facts must be understood in order to make sense of od's byte ordering
+output:
+
+1. od assumes that input data are in machine native byte order unless told
+   otherwise with the --endian={big,little} option.
+2. od always displays words in what it believes to be the "natural" (big endian)
+   byte order given point 1 above.
+
+Thus, if input is in machine native byte order, no explicit conversion is
+required to display words in natural (big endian) byte order:
+
+$ od -t x4
+
+To switch the byte order of 32-bit words, specify the option --endian=little
+(that is, treat input as though it were in little endian byte order whether
+it is or not, and then display it in what od considers to be natural, big
+endian byte order):
+
+$ od -t x4 --endian=little
+
+In all od examples, for 16 or 64 bit words, use -t x2 or -t x8, respectively.
