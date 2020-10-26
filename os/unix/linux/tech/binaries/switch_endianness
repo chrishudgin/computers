@@ -16,8 +16,8 @@ $ dd conv=swab
 od can be used to switch the endianness of its input for formatted display to a
 terminal.
 
-Two key facts must be understood in order to make sense of od's byte ordering
-output:
+Two key facts must be understood in order to make sense of od's output byte
+ordering:
 
 1. od assumes that input data are in machine native byte order unless told
    otherwise with the --endian={big,little} option.
