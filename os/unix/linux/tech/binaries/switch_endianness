@@ -25,14 +25,19 @@ ordering:
    byte order given point 1 above.
 
 Thus, if input is in machine native byte order, no explicit conversion is
-required to display words in natural (big endian) byte order:
+required to display words in natural (big endian) byte order.
+
+Example for displaying 32-bit words in natural (big endian) byte order assuming
+machine native byte ordering of input:
 
 $ od -t x4
 
-To switch the byte order of 32-bit words, specify the option --endian=little
+To switch the byte order of words, specify the option --endian=little
 (that is, treat input as though it were in little endian byte order whether
 it is or not, and then display it in what od considers to be natural, big
-endian byte order):
+endian byte order).
+
+Example for switching the displayed byte order (endianness) for 32-bit words:
 
 $ od -t x4 --endian=little
 
