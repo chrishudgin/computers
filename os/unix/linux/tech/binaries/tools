@@ -176,3 +176,17 @@ $ setarch $(uname -m) -R ./program
 
 Disable ASLR for all programs:
 # echo 0 > /proc/sys/kernel/randomize_va_space 
+
+*****
+
+The primary purpose of objcopy is to modify and convert object files such as by
+adding or removing sections or changing section addresses, but objcopy can also
+be used to change the endianness of data in any binary file, not only object
+files:
+
+$ objcopy -I binary -O binary --reverse-bytes=<#> inputfile outputfile
+
+Example to convert between little-endian and big-endian 32-bit words from the
+file "inputfile" and save the output to "outputfile":
+
+$ objcopy -I binary -O binary --reverse-bytes=4 inputfile outputfile
