@@ -1,0 +1,12 @@
+By default, FreeBSD attempts to mount an NFS filesystem using protocol version
+3, then protocol version 2.  Writes to a Linux-exported NFS filesystem from
+FreeBSD can be very slow when NFS version 3 is being used.
+
+To force FreeBSD to attempt to use protocol version 4, add the mount option
+nfsv4.
+
+Confirm that a filesystem is mounted using NFSv4 by checking for the nfsv4acls
+mount option in the output of the "mount" command (run without flags or
+arguments).
+
+Reference thread:  https://lists.freebsd.org/pipermail/freebsd-stable/2016-April/084493.html
