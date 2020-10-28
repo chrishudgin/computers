@@ -1,7 +1,0 @@
-To use serial port A to connect to another computer:
-
-# cu -l /dev/cuau0
-
-Use ~. (or ~~. if connected to core via ssh) to disconnect the cu session.
-
-Reference:  https://www.freebsd.org/doc/handbook/term.html
