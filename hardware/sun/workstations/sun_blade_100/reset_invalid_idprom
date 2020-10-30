@@ -69,7 +69,7 @@ ok 8c fff41fe6 c!
 
 Calculate XOR-checksum for the values starting from fff41fd8, until fff41fe6
 
-Note: For helios using the hostid and Ethernet address shown above, the
+Note: For hyperion using the hostid and Ethernet address shown above, the
 checksum is 3b and does not need to be re-computed every time, just written
 into memory with the c! command below.
 
