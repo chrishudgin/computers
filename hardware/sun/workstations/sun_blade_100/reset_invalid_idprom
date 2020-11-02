@@ -91,3 +91,8 @@ ok 3b fff41fe7 c!
 
 ok reset-all
 ok banner
+
+Sun Blade 100 (UltraSPARC-IIe), No Keyboard
+Copyright 2005 Sun Microsystems, Inc.  All rights reserved.
+OpenBoot 4.17.1, 2048 MB memory installed, Serial #50869644.
+Ethernet address 0:3:ba:8:35:8c, Host ID: 8308358c.

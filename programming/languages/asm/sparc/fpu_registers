@@ -1,9 +1,16 @@
-There are thirty-two 32-bit floating point registers, %f0 through %f31, each
-capable of storing a single precision floating point number.  Double precision
-floating point numbers are stored in consecutive pairs of floating point
-registers, starting with an even-numbered register (e.g. %f0) containing the
-high-order 32 bits and the next odd-numbered register (e.g. %f1) containing the
-low-order 32 bits (because SPARC is big endian).
+For SPARC V8, there are thirty-two 32-bit floating point registers, %f0 through
+%f31, each capable of storing a single precision floating point number.  Double
+precision and quad precision floating point numbers are stored in consecutive
+sets of floating point registers, starting with a register number divisble by 2
+for double precision (%f0, %f2, ...) or a register number divisible by 4 for
+quad precision (%f0, %f4, ...)) containing the high-order word (32 bits) and
+the next registers in sequence (e.g. if %f0 contains the high-order word then
+%f1 for double precision, %f1, %f2, %f3 for quad precision) containing the
+%lower-order words because SPARC is big-endian.
+
+For SPARC V9, there are also 64-bit floating point registers %f32, %f34, ...
+%f62 which can be used for double precision values, or alternatively %f32 %f34,
+%f36 %f38, ... %f60 %f62 for quad precision values.
 
 GDB refers to even-odd pairs of floating point registers as "d" registers, as:
 
