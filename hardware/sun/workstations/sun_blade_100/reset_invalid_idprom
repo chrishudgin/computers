@@ -5,6 +5,8 @@ In this example, the desired Ethernet address is 00:03:ba:08:35:8c
    and the hostid is 8308358c
 
 Stop-A
+ok setenv output-device ttya
+ok setenv input-device ttya
 ok setenv auto-boot? false
 ok setenv diag-switch? false
 ok show-devs
