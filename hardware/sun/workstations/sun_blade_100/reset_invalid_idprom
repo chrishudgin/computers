@@ -4,9 +4,9 @@ https://github.com/MrSparc/idprom-repair/blob/master/README.md
 In this example, the desired Ethernet address is 00:03:ba:08:35:8c
    and the hostid is 8308358c
 
-Stop-A
-ok setenv output-device ttya
-ok setenv input-device ttya
+Stop-A or send break through serial connection
+ok setenv output-device ttya   (if using serial connection)
+ok setenv input-device ttya    (if using serial connection)
 ok setenv auto-boot? false
 ok setenv diag-switch? false
 ok show-devs
