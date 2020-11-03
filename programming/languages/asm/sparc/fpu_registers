@@ -6,21 +6,18 @@ for double precision (%f0, %f2, ..., %f30) or a register number divisible by 4
 for quad precision (%f0, %f4, ..., %f28) containing the high-order word (32
 bits) and the next registers in sequence (e.g. if %f0 contains the high-order
 word then %f1 for double precision or %f1, %f2, %f3 for quad precision)
-containing the lower-order words because SPARC is big-endian.
+containing the lower-order words.  This ordering is consistent with the
+big-endianness of SPARC.
 
 For SPARC V9, there are also sixteen 64-bit floating point registers %f32,
 %f34, ..., %f62 which can be used for double precision values, or alternatively
 as %f32:%f34, %f36:%f38, ..., %f60:%f62 for quad precision values.
 
-GDB refers to even-odd pairs of floating point registers as "d" registers, as:
+GDB provides pseudo-register names beginning with "d" and (for 64-bit
+executables) "q" as aliases for the corresponding "f" registers when used for
+double or quad precision floating point values, respectively.
+
+For example:
 
 %d0 is %f0:%f1
-%d2 is %f2:%f3
-...
-%d30 is %f30:%f31
-
-Note that all of the "d" pseudo composite floating point registers recognized
-by GDB are evenly numbered.
-
-GDB does not provide quad precision pseudo composite floating point registers
-(i.e. no "q" registers).
+%q0 is %f0:%f1:%f2:%f3
