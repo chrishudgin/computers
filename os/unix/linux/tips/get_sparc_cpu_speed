@@ -1,0 +1,7 @@
+Show CPU speed in Hz on SPARC hardware:
+
+$ cat /sys/devices/system/cpu/cpu0/clock_tick
+
+or in MHz:
+
+$ expr $(cat /sys/devices/system/cpu/cpu0/clock_tick) / 1000000
