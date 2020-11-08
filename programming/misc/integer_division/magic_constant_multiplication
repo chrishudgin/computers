@@ -1,0 +1,24 @@
+Since division is a computationally expensive operation, compilers may optimize
+a division by a constant known at compile time by replacing it with
+multiplication by a magic constant.  The magic constant is chosen such that it
+is equal to the two to the word size of the dividend (e.g. 2^32), divided by
+the known constant divisor, multiplied by a power of two scaling factor, plus
+1.  When such a magic constant is multiplied by the dividend, the high-order
+word of the result has a value equal to or slightly higher than the desired
+quotient scaled by the scaling factor.  A possbible add of the divisor to the
+high order word (to ensure the final result is not off by one) and a subsequent
+right shift of the high order word to eliminate the scaling factor (e.g.  right
+shift 3 bits if the scaling factor is 8) yields the desired quotient without
+any lengthy division operation being required.
+
+This works because multiplying by two to the word size of the dividend is
+equivalent to shifting the dividend entirely to a higher order word.  The
+desired division is "baked in" to the chosen magic constant by dividing 2^(word
+size, i.e. the left shift operation) by the divisor before performing the
+actual multiplication by the resulting constant.  The scaling factor is needed
+to ensure that no required bits are lost through truncation as a result of the
+implicit division by the divisor in the precomputed constant.
+
+The full algorithm for computing the magic constant is described in the paper
+"Division by Invariant Integers using Multiplication" by Granlund and
+Montgomery at https://gmplib.org/~tege/divcnst-pldi94.pdf.
