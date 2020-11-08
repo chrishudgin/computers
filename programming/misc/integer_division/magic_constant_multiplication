@@ -22,3 +22,7 @@ implicit division by the divisor in the precomputed constant.
 The full algorithm for computing the magic constant is described in the paper
 "Division by Invariant Integers using Multiplication" by Granlund and
 Montgomery at https://gmplib.org/~tege/divcnst-pldi94.pdf.
+
+References:
+
+https://stackoverflow.com/questions/5558492/divide-by-10-using-bit-shifts/19076173
