@@ -7,9 +7,10 @@ the known constant divisor, multiplied by a power of two scaling factor, plus
 word of the result has a value equal to or slightly higher than the desired
 quotient scaled by the scaling factor.  A possbible add of the divisor to the
 high order word (to ensure the final result is not off by one for negative
-results) and a subsequent right shift of the high order word to eliminate the
-scaling factor (e.g. right shift 3 bits if the scaling factor is 8) yields the
-desired quotient without any lengthy division operation being required.
+results), a subsequent right shift of the high order word to eliminate the
+scaling factor (e.g. right shift 3 bits if the scaling factor is 8), and
+finally adding the sign bit yields the desired quotient without any lengthy
+division operation being required.
 
 This works because multiplying by two to the word size of the dividend is
 equivalent to shifting the dividend left exactly and entirely to a higher order
