@@ -5,12 +5,12 @@ is equal to the two to the word size of the dividend (e.g. 2^32), divided by
 the known constant divisor, multiplied by a power of two scaling factor, plus
 1.  When such a magic constant is multiplied by the dividend, the high-order
 word of the result has a value equal to or slightly higher than the desired
-quotient scaled by the scaling factor.  A possbible add of the divisor to the
-high order word (to ensure the final result is not off by one for negative
-results), a subsequent right shift of the high order word to eliminate the
+quotient scaled by the scaling factor.  An add of the dividend to the high
+order word, a subsequent right shift of the high order word to eliminate the
 scaling factor (e.g. right shift 3 bits if the scaling factor is 8), and
-finally adding the sign bit yields the desired quotient without any lengthy
-division operation being required.
+finally adding 1 if the quotient is negative to correct for using arithmetic
+right shift as a substitute for dividing a negative number yields the desired
+quotient without any costly division operation being required.
 
 This works because multiplying by two to the word size of the dividend is
 equivalent to shifting the dividend left exactly and entirely to a higher order
