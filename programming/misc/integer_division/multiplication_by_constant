@@ -2,8 +2,8 @@ Since division is a computationally expensive operation, compilers may optimize
 a division by a constant known at compile time by replacing it with
 multiplication by a mathematically related precomputed constant.  The constant
 is chosen such that it is equal to the two to the word size of the dividend
-(e.g. 2^32), divided by the known constant divisor, multiplied by a power of
-two scaling factor, plus 1.  When a constant precomputed in this manner is
+(e.g. 2^32), divided by the desired divisor, multiplied by a power of two
+scaling factor, plus 1.  When a constant precomputed in this manner is
 multiplied by the dividend, the high-order word of the result has a value equal
 to or slightly higher than the desired quotient scaled by the scaling factor.
 An add of the dividend to the high order word, a subsequent right shift of the
