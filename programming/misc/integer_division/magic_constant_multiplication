@@ -8,16 +8,19 @@ word of the result has a value equal to or slightly higher than the desired
 quotient scaled by the scaling factor.  A possbible add of the divisor to the
 high order word (to ensure the final result is not off by one for negative
 results) and a subsequent right shift of the high order word to eliminate the
-scaling factor (e.g.  right shift 3 bits if the scaling factor is 8) yields the
+scaling factor (e.g. right shift 3 bits if the scaling factor is 8) yields the
 desired quotient without any lengthy division operation being required.
 
 This works because multiplying by two to the word size of the dividend is
-equivalent to shifting the dividend entirely to a higher order word.  The
-desired division is "baked in" to the chosen magic constant by dividing 2^(word
-size, i.e. the left shift operation) by the divisor before performing the
-actual multiplication by the resulting constant.  The scaling factor is needed
-to ensure that no required bits are lost through truncation as a result of the
-implicit division by the divisor in the precomputed constant.
+equivalent to shifting the dividend left exactly and entirely to a higher order
+word.  The desired division is "baked in" to the chosen magic constant by
+dividing the 2^(word size) factor by the divisor at compile time before the
+multiplication by the resulting constant is performed at run time.  Multiplying
+by the magic constant thus accomplishes both the left shift to the higher order
+word and the division by the intended divisor in a single runtime step.  The
+scaling factor is needed to ensure that no required bits are lost through
+truncation as a result of the implicit division by the divisor in the
+precomputed constant.
 
 The full algorithm for computing the magic constant is described in the paper
 "Division by Invariant Integers using Multiplication" by Granlund and
