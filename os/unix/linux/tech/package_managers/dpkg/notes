@@ -26,3 +26,11 @@ Show the file contents of a package:
 $ apt-file list <pkgname>
 
 apt-get transactions are logged in /var/log/apt/history.log
+
+Show packages that have upgrades available:
+
+$ apt list --upgradeable
+
+or for older versions of apt:
+
+# apt-get -u upgrade --assume-no

@@ -31,3 +31,6 @@ Montgomery at https://gmplib.org/~tege/divcnst-pldi94.pdf.
 References:
 
 https://stackoverflow.com/questions/5558492/divide-by-10-using-bit-shifts/19076173
+
+_Modern Assembly Language Programming with the ARM Processor_ by Larry Pyeatt,
+Section 7.3.3 "Division by a Constant"
