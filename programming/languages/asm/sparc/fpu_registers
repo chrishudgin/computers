@@ -20,4 +20,7 @@ double or quad precision floating point values, respectively.
 For example:
 
 %d0 is %f0:%f1
+%d2 is %f2:%f3
+
 %q0 is %f0:%f1:%f2:%f3
+%q4 is %f4:%f5:%f6:%f7
