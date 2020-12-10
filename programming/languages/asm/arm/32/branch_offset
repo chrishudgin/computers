@@ -33,7 +33,7 @@ directly into the pc register or loading the pc with an LDR instruction (which
 will fetch the target address from a literal pool using a pc-relative offset to
 reach the pool--recall that literal pools, like all data, can be inserted near
 the code that uses them if necessary to avoid exceeding the pc-relative offset
-lmimit when accessing their contents).
+limit when accessing their contents).
 
 Further information:
 
