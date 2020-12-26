@@ -51,3 +51,14 @@ and then set netfilter rules:
 # firewall-cmd --zone=public --permanent --add-port 32768/udp
 
 Reboot for the changes to take effect.
+
+*****
+
+In macOS 11 Big Sur, the base directory for automounts is /System/Volumes/Data.
+Directories (including nested directories) created by the automounter under the
+base directory also have symlinks created to them under the root (/) directory
+for convenience.  This means that, for example, an NFS share can be automounted
+at /Volumes/mydata if an automount map is created for the directory
+/System/Volumes/Data/../Data/Volumes/mydata.  The use of /../ in the path is
+necessary to prevent the automounter from denying permission to create a
+subdirectory under /System/Volumes/Data.
