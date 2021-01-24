@@ -1,4 +1,0 @@
-Unlike in 32-bit ARM programming, in AArch64 state the program counter register
-contains the address of the currently executing instruction.
-
-Reference: https://developer.arm.com/documentation/dui0801/a/Overview-of-AArch64-state/Program-Counter-in-AArch64-state
