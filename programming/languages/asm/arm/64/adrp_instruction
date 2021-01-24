@@ -1,0 +1,10 @@
+The ADRP instruction is used to set an address relative to the beginning of the
+current instruction's 4k page frame.  To compute the address, it zeroes the 12
+low bits of the program counter (yielding the starting address of the page
+frame) and adds a signed 21 bit immediate value multiplied by 4096, yielding a
+range of +/- 4 GB from the current page frame boundary with a resolution of 4k
+(one page).
+
+A precise address within the selected page frame can then be obtained with a
+subsequent ADR instruction, which can compute an address offset of +/- 1 MB
+using a signed 21-bit immediate value.
