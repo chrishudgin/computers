@@ -1,0 +1,19 @@
+In AArch64, the address in the stack pointer should always be aligned on a 16
+byte boundary.
+
+Whenever a memory reference is made using the stack pointer as a base/index
+pointer, the stack pointer MUST be aligned on a 16 byte boundary or an
+exception will occur.
+
+This does not mean that all references to memory through the stack pointer must
+be aligned on 16 byte boundaries, only that the stack pointer itself must be
+aligned on such a boundary.
+
+push and pop instructions have been removed from the instruction set.  Use
+ldr, ldp, str, and stp instead.
+
+Typically, a function will decrement the stack pointer (grow the stack) by a
+multiple of 16 bytes at function entry to ensure that the stack pointer remains
+aligned.  Memory references through the stack pointer can then be made at
+arbitrary byte boundaries.  The frame pointer register (x29) can also be used
+to access elements on the stack.

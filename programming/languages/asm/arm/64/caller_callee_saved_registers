@@ -1,0 +1,6 @@
+Caller-saved registers:
+
+x0-x18
+x30 (link register)
+
+The rest (x19-x29) are callee-saved.

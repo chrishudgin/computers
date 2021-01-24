@@ -1,0 +1,33 @@
+The first eight integer or pointer arguments to a function are passed in
+registers x0-x7.  Additional arguments if needed are pushed on the stack in
+reverse order.  Integer results are returned in register x0.
+
+Floating point arguments are passed in the floating point registers
+s0-31 (single precision), d0-d31 (double precision), or q0-q31 (quad
+precision).  Unlike in ARM32, each larger register (e.g. d0) contains only one
+register of a given smaller size (e.g. s0), not two or more.  Thus, d0 contains
+s0, d1 contains s1, q0 contains d0 and s0 (but not d1 or s1), etc.  Floating
+point results are returned in s0 (single precision), d0 (double precision), or
+q0 (quad precision).  Note that q0-q31 are sometimes referred to as v0-v31.
+
+If arguments to printf are mixed (e.g. a format string followed by a mix of
+integer and floating point arguments), the arguments will be passed in
+sequential registers of the appropriate type.  For example, if printf is called
+with an appropriate format string (whose address will be in x0) followed by a
+float, int, and double, the latter three arguments will be passed in registers
+d0 (after conversion from s0), w1 (since x0 which contains w0 was already used
+for the format string), and d1, respectively.
+
+If a structure is passed as a function argument, its elements are stored on the
+caller's stack and x0 is loaded with the address of the first element of the
+structure (which is not necessarily at the top of the caller's stack frame even
+if there are no other arguments passed on the stack).  Both integral and
+floating point elements of the structure are passed using this convention.
+
+Aggregates (structures and unions) as return values are a special case.  If the
+elements of the aggregate total 16 bytes or less, they are returned in
+registers x0 and (if required) x1.  Otherwise, the caller function allocates
+the memory for the aggregate in its own stack frame and passes a pointer to the
+aggregate in x8.  The callee function then writes the return value into the
+memory to which x8 points.  The callee is not required to pass the address of
+the returned aggregate back in register x8, although it may do so in x0.
