@@ -1,5 +1,7 @@
 Registers X0 through X30 are general purpose registers.
 
+Register X29 is the frame pointer if a frame pointer is used.
+
 Register X30 is used as a link register by the BL/BLR instructions and as the
 default jump target of the RET instruction.
 
