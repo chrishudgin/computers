@@ -1,0 +1,13 @@
+Registers X0 through X30 are general purpose registers.
+
+Register X30 is used as a link register by the BL/BLR instructions and as the
+default jump target of the RET instruction.
+
+The binary encoding of register 31 (0b11111) is used for either the stack
+pointer (SP) or zero register (XZR/WZR) depending on context.  In assembly
+language, it must be named SP or XZR/WZR, not X31.
+
+The program counter (PC) register cannot be used by name in assembly language
+instructions.  It is used implicitly in certain instructions such as
+PC-relative loads/stores and branches that compute addresses using offsets from
+the current value of the program counter.

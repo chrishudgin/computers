@@ -1,0 +1,5 @@
+In AArch64, unlike in 32-bit ARM programming, most instructions do not have a
+conditional execution field.
+
+Conditional instructions include branches (B.GE, B.CS, etc.) and compare/branch
+(CBZ/CBNZ).

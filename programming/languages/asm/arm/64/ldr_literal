@@ -1,0 +1,4 @@
+AArch64 introduces a variant of the LDR instruction that takes a 19-bit signed
+immediate (literal) value and multiplies it by 4 to compute the address from
+which to load, yielding a range of +/- 1 MB from the address of the current
+instruction (in the program counter) with a granularity of 4 bytes.

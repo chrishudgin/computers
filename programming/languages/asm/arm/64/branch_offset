@@ -1,0 +1,7 @@
+A conditional branch instruction (B.GT, B.CS, etc.) has an offset computed
+using a 19-bit signed immediate value times 4, yielding a range of +/- 1 MB
+from the current instruction with a granularity of 4 bytes.
+
+An unconditional branch instruction (B or BL) has an offset computed using a
+signed 26-bit signed immediate value times 4, yielding a range of +/- 128 MB
+with a granularity of 4 bytes.
