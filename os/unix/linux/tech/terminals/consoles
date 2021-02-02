@@ -51,8 +51,23 @@ https://www.kernel.org/doc/html/latest/admin-guide/devices.html
 
 *****
 
-To configure GRUB to use a serial console in RHEL 7, replace any existing
-GRUB_TERMINAL_INPUT or GRUB_TERMINAL_OUTPUT lines in /etc/default/grub with
+To configure GRUB to use a serial console:
+
+RHEL 6:
+
+Add the following lines to /boot/grub/grub.conf or
+/boot/efi/EFI/redhat/grub.conf, using the appropriate unit number and speed for
+the desired serial device (where --unit=0 is for ttyS0, etc.):
+
+serial --unit=0 --speed=115200 --word=8 --parity=no --stop=1
+terminal --timeout=15 serial console
+
+Comment out the line for splashimage
+
+RHEL 7:
+
+Replace any existing GRUB_TERMINAL_INPUT or GRUB_TERMINAL_OUTPUT lines in
+/etc/default/grub with
 
 GRUB_TERMINAL="serial" (if the only console is the serial port)
 or
@@ -87,8 +102,14 @@ Reboot for the changes to take effect.
 
 *****
 
-To configure the kernel to use a serial console, add the desired console=
-statements to the kernel boot command line.
+To configure the kernel to use a serial console:
+
+In RHEL 6:
+
+In /boot/grub/grub.conf or /boot/efi/EFI/redhat/grub.conf:
+
+Add the following parameters to the default kernel entry:
+console=tty0 console=ttyS0,115200n8
 
 In RHEL 7:
 
