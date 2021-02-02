@@ -1,0 +1,10 @@
+Upstart monitors the following events:
+
+startup (generated at system startup)
+
+and for individual jobs:
+
+starting
+started
+stopping
+stopped

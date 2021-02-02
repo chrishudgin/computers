@@ -1,0 +1,3 @@
+In RHEL 6, a serial console agetty process is started automatically by the job
+configured by /etc/init/serial.conf if the kernel is configured in grub.conf to
+use a serial console.
