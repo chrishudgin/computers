@@ -111,6 +111,10 @@ In /boot/grub/grub.conf or /boot/efi/EFI/redhat/grub.conf:
 Add the following parameters to the default kernel entry:
 console=tty0 console=ttyS0,115200n8
 
+In /etc/init/serial.conf:
+
+Set the desired terminal type (e.g. vt100) in the "exec agetty" line.
+
 In RHEL 7:
 
 Add console=ttyS0 to GRUB_CMDLINE_LINUX in /etc/default/grub, along with any
