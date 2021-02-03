@@ -1,0 +1,25 @@
+To start legacy System V init scripts and single-user or emergency boot modes,
+Upstart runs the following jobs using the job configuration files
+/etc/init/<jobname>.conf :
+
+rcS :
+   If the argument "emergency" was passed to the kernel command line,
+      run the rcS-emergency job
+   Run /etc/rc.d/sysinit, which sets hostname, configures devices,
+      checks and mounts filesystems, and sets SELinux contexts
+   Set the runlevel to the default value in /etc/inittab
+   Run the "rc" job
+
+rc :
+   Run the shell script /etc/rc.d/rc with the target runlevel as a parameter.
+      The "rc" script then runs the System V init scripts in
+         /etc/rc.d/rc<runlevel>.d
+
+rcS-emergency :
+   Source /etc/sysconfig/init, which contains variables affecting the behavior
+      of Upstart itself, then run the emergency shell sulogin or sushell.
+  
+rcS-sulogin :
+   Source /etc/sysconfig/init, which contains variables affecting the behavior
+      of Upstart itself, then run the emergency shell sulogin or sushell.
+   Run sushell upon entering single-user mode
