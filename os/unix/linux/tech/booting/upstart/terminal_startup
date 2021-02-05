@@ -1,0 +1,5 @@
+Virtual terminals (by default, tty1 through tty6) are started by the
+"start-ttys" job.
+
+Individual mingetty sessions are then monitored and restarted as necessary by a
+"tty" job for each virtual terminal.

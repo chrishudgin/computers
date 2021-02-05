@@ -1,0 +1,20 @@
+Documentation for Upstart in RHEL 6 can be found in the following man pages:
+
+Commands:
+
+init(8)
+telinit(8)
+initctl(8)
+
+File formats:
+
+init(5)
+
+Events:
+
+runlevel(7)
+startup(7)
+starting(7)
+started(7)
+stopping(7)
+stopped(7)
