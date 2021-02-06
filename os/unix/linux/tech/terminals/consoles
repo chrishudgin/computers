@@ -53,7 +53,7 @@ https://www.kernel.org/doc/html/latest/admin-guide/devices.html
 
 To configure GRUB to use a serial console:
 
-RHEL 6:
+RHEL 5 or RHEL 6:
 
 Add the following lines to /boot/grub/grub.conf or
 /boot/efi/EFI/redhat/grub.conf, using the appropriate unit number and speed for
@@ -107,7 +107,7 @@ Reboot for the changes to take effect.
 
 To configure the kernel to use a serial console:
 
-In RHEL 6:
+In RHEL 5 or RHEL 6:
 
 In /boot/grub/grub.conf or /boot/efi/EFI/redhat/grub.conf:
 

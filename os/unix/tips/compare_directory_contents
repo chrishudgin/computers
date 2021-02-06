@@ -1,0 +1,3 @@
+Recursively compare directory contents using GNU diff:
+
+$ diff -qrN /dir1/ /dir2/
