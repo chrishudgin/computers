@@ -15,8 +15,7 @@ Access the guest serial port remotely:
 In Linux, connect to the TCP port on the host using telnet as follows, where
 "myvboxhost" is the example hostname for the VirtualBox host:
 
-$ cat >> $HOME/.telnetrc
-myvboxhost :2023
+$ cat $HOME/.telnetrc
+myvboxhost
 	mode character
-<Ctrl-D>
 $ telnet myvboxhost 2023
