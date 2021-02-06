@@ -1,0 +1,22 @@
+Configure a guest serial port:
+
+In guest VM settings:
+Ports -> Port 1
+Enable Serial Port
+Port Number: COM1
+IRQ: 4
+I/O Port: 0x3F8
+Port Mode: TCP
+Uncheck "Connect to existing pipe/socket"
+Path/Address: <desired TCP port number to use on the host, such as 2023>
+
+Access the guest serial port remotely:
+
+In Linux, connect to the TCP port on the host using telnet as follows, where
+"myvboxhost" is the example hostname for the VirtualBox host:
+
+$ cat >> $HOME/.telnetrc
+myvboxhost :2023
+	mode character
+<Ctrl-D>
+$ telnet myvboxhost 2023

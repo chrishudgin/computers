@@ -64,6 +64,9 @@ terminal --timeout=15 serial console
 
 Comment out the line for splashimage
 
+Add the tty name (e.g. ttyS0) to /etc/securetty to allow root logins on it
+directly.
+
 RHEL 7:
 
 Replace any existing GRUB_TERMINAL_INPUT or GRUB_TERMINAL_OUTPUT lines in
