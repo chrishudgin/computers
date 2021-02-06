@@ -20,5 +20,3 @@ myvboxhost :2023
 	mode character
 <Ctrl-D>
 $ telnet myvboxhost 2023
-
-Test 3
