@@ -1,0 +1,4 @@
+Git config files are:
+
+<repodir>/.git/config
+$HOME/.gitconfig

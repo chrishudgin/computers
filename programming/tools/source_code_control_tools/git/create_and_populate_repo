@@ -4,5 +4,5 @@ os/vmware subdirectory (including relative path components):
 $ git init
 $ git add os/vmware
 $ git commit -m "Initial commit"
-$ git remote add origin https://github.com/chrishudgin/computers.git
+$ git remote add origin git@github.com:chrishudgin/computers.git
 $ git push -u origin master
