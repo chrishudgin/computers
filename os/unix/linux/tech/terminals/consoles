@@ -69,6 +69,13 @@ directly.
 
 RHEL 7:
 
+Add the tty name (e.g. ttyS1) to /etc/securetty to allow root logins on it
+directly. (Note: ttyS0 is in this file by default.)
+
+Enable the appropriate serial tty getty service, e.g.:
+# systemctl enable serial-getty@ttyS1.service
+
+RHEL 7 and 8:
 Replace any existing GRUB_TERMINAL_INPUT or GRUB_TERMINAL_OUTPUT lines in
 /etc/default/grub with
 
@@ -95,12 +102,6 @@ Then rebuild the grub.cfg:
 (BIOS server) # grub2-mkconfig -o /boot/grub2/grub.cfg
 (EFI server)  # grub2-mkconfig -o /boot/efi/EFI/redhat/grub.cfg
 
-Add the tty name (e.g. ttyS1) to /etc/securetty to allow root logins on it
-directly.
-
-Enable the appropriate serial tty getty service, e.g.:
-# systemctl enable serial-getty@ttyS1.service
-
 Reboot for the changes to take effect.
 
 *****
@@ -121,7 +122,7 @@ Set the desired terminal type (e.g. vt100) in the "exec agetty" line.
 In RHEL 7:
 
 Add console=ttyS0 to GRUB_CMDLINE_LINUX in /etc/default/grub, along with any
-other console= devices desired (e.g. console=tty0 console=ttyS0)
+other console= devices desired (e.g. console=tty0 console=ttyS0,115200)
 
 Then rebuild the grub.cfg:
 
