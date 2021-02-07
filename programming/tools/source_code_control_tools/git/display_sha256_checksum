@@ -1,0 +1,4 @@
+Display an ssh key's SHA256 checksum for comparison with the signature shown on
+GitHub's "SSH and GPG keys" settings page:
+
+$ ssh-keygen -l -E sha256 -f $HOME/.ssh/id_ed25519.pub
