@@ -1,3 +1,8 @@
+Upstart does not have "goal jobs" (like systemd targets) for which it must
+resolve dependencies in order to reach a goal or target.  Instead, it starts
+and stops jobs in response to events, which can include other jobs starting and
+stopping.
+
 Upstart monitors the following events:
 
 startup (generated at system startup)
@@ -8,3 +13,6 @@ starting
 started
 stopping
 stopped
+
+Upstart also triggers runlevel events which set the runlevel and run the
+appropriate jobs for that runlevel.

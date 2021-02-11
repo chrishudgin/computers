@@ -1,0 +1,8 @@
+The configuration files for Upstart are:
+
+/etc/init.conf
+/etc/init/*.conf
+
+Some jobs configured by these configuration files also source the file
+/etc/sysconfig/init which contains variables affecting the behavior of init
+and some of its jobs.

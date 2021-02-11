@@ -1,0 +1,7 @@
+Upstart uses inotify to monitor the files in /etc/init, so manual requests to
+init to reload its configuration are not normally necessary.  Even so, such a
+request can be sent with any of the following commands:
+
+# initctl reload-configuration (note that this does not start jobs)
+# [tel]init u (causes init to re-execute, useful when system libs are updated)
+# [tel]init q (for backward compatibility with System V init)

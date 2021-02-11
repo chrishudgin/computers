@@ -1,0 +1,10 @@
+Runlevel events (setting / changing runlevel) can be triggered by the telinit
+or shutdown commands, or by Upstart during boot.
+
+During boot, Upstart triggers a runlevel event through the rcS job configured
+by the file /etc/init/rcS.conf, which calls telinit with the target runlevel as
+an argument.  telinit then generates a runlevel event.
+
+When a runlevel event occurs, Upstart runs the rc job configured by
+/etc/init/rc.conf, which in turn runs /etc/rc.d/rc <runlevel> to run the
+/etc/rc.d/rc?.d scripts for the target runlevel.
