@@ -22,3 +22,29 @@ bytes or an integer multiple of a symbolic power of 1024 (K, M, G, etc.)--e.g.
 10M, 1024K, etc.
 
 The minimum size shown is 0 for empty files, 1 for any file of nonzero size.
+
+*****
+
+Displaying the full date, including the year, for all files:
+
+By default, ls with the "long" option (-l) shows the hour and minute instead of
+the year in the timestamp of a file if the timestamp is more than 6 months in
+the past (GNU ls), or more than 6 months in the past or future (BSD ls).  To
+ensure that the year portion of the timestamp is always shown, use the
+following options:
+
+GNU ls:
+$ ls --full-time
+or
+$ ls -l --time-style "<date_specifier>"
+   where <date_specifier> can be one of several ISO or locale-specific options
+   or a format specifier in the syntax used by the "date" command, e.g. "+%Y"
+
+BSD ls:
+$ ls -l -T
+or
+$ ls -l -D "<date_specifier>"
+   where <date_specifier> is in the format used by strftime(3), i.e. the format
+   used by the "date" command but without a leading "+" sign.
+
+Note: The -D option is not available in macOS.
