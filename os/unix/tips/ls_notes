@@ -29,9 +29,9 @@ Displaying the full date, including the year, for all files:
 
 By default, ls with the "long" option (-l) shows the hour and minute instead of
 the year in the timestamp of a file if the timestamp is more than 6 months in
-the past (GNU ls), or more than 6 months in the past or future (BSD ls).  To
-ensure that the year portion of the timestamp is always shown, use the
-following options:
+the past (GNU ls and Solaris ls), or more than 6 months in the past or future
+(BSD ls).  To ensure that the year portion of the timestamp is always shown,
+use the following options:
 
 GNU ls:
 $ ls --full-time
@@ -48,3 +48,9 @@ $ ls -l -D "<date_specifier>"
    used by the "date" command but without a leading "+" sign.
 
 Note: The -D option is not available in macOS.
+
+Solaris ls:
+$ ls -e
+or
+$ ls -E
+  The -E option includes the nanosecond precision timestamp and UTC hour offset
