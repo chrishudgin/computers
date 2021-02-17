@@ -1,4 +1,2 @@
 On the ODROID C2 ARM64 Ubuntu 16.04 MATE port:
 System call numbers are in /usr/include/asm-generic/unistd.h
-
-Test.
