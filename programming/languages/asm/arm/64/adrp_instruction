@@ -6,5 +6,11 @@ yielding a range of +/- 4 GB from the current page frame boundary with a
 resolution of 4k (one page).
 
 A precise address within the selected page frame can then be obtained with a
-subsequent ADR instruction, which can compute an address offset of +/- 1 MB
-using a signed 21-bit immediate value.
+subsequent ADD immediate or ADD register instruction, adding an offset in bytes
+to the address value in the register that was written by the preceding ADRP
+instruction.  ADD immediate can encode any offset between 0 and 4095 (bytes),
+allowing any byte address within a page to be computed.
+
+Alternatively, for PC-relative address offsets of +/- 1 MB, the ADR instruction
+with a 21-bit immediate value can be used instead of an ADRP/ADD instruction
+pair.
