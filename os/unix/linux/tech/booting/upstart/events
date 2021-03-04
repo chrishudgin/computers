@@ -1,7 +1,7 @@
 Upstart does not have "goal jobs" (like systemd targets) for which it must
 resolve dependencies in order to reach a goal or target.  Instead, it starts
-and stops jobs in response to events, which can include other jobs starting and
-stopping.
+and stops jobs in response to events; jobs can include directives for other
+jobs to start or stop.
 
 Upstart monitors the following events:
 
