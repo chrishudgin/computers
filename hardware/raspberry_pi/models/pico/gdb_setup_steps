@@ -12,6 +12,9 @@ GND (Pin 20)		SWD GND
 GPIO24 (Pin 18)		SWDIO
 GPIO25 (Pin 22)		SWCLK
 
+Add the user account to the gpio, i2c, and spi groups:
+# usermod -aG gpio,i2c,spi <username>
+
 Configure the serial port on the Raspberry Pi 400:
 $ sudo raspi-config
 and go to Interfacing Options → Serial and select "No" when asked "Would you
