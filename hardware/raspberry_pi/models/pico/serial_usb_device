@@ -1,0 +1,1 @@
+The serial device file on a Raspberry Pi for a USB connection is /dev/ttyACM0.
