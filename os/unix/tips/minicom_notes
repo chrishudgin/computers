@@ -1,4 +1,17 @@
-Set up minicom to connect to a serial port:
+Connect to a serial port:
+
+$ minicom [-o] -b <baud rate> -D <serial device file>
+ -o : do not perform initialization (useful for resuming an existing connection)
+
+Example:
+
+$ minicom -o -b 115200 -D /dev/ttyS0
+
+<Ctrl-A> X to exit minicom
+
+*****
+
+Set up minicom to connect to a serial port automatically:
 
 $ minicom -s
 Serial port setup
@@ -6,5 +19,3 @@ Serial port setup
    E - Bps/Par/Bits : C, V, L, W for 9600 N81
    <Enter>
 Exit
-
-<Ctrl-A> X to exit minicom
