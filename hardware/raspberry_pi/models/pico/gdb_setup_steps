@@ -1,0 +1,60 @@
+Connect GPIO pins from Raspberry Pi 400 to Raspberry Pi Pico as follows:
+
+Serial UART:
+Raspberry Pi 400		Raspberry Pi Pico
+GND (Pin 14)			GND (Pin 3)
+GPIO15 (UART_RX0, Pin 10)	GP0 (UART0_TX, Pin 1)
+GPIO14 (UART_TX0, Pin 8)	GP1 (UART0_RX, Pin 2)
+
+Debug pins:
+Raspberry Pi 400	Raspberry Pi Pico
+GND (Pin 20)		SWD GND
+GPIO24 (Pin 18)		SWDIO
+GPIO25 (Pin 22)		SWCLK
+
+Configure the serial port on the Raspberry Pi 400:
+$ sudo raspi-config
+and go to Interfacing Options → Serial and select "No" when asked "Would you
+like a login shell to be accessible over serial?" and "Yes" when asked "Would
+you like the serial port hardware to be enabled?"
+
+Install OpenOCD:
+# apt-get install automake autoconf build-essential texinfo libtool libftdi-dev libusb-1.0-0-dev
+$ cd ~/pico
+$ git clone https://github.com/raspberrypi/openocd.git --recursive --branch rp2040 --depth=1
+$ cd openocd
+$ ./bootstrap
+$ ./configure --enable-ftdi --enable-sysfsgpio --enable-bcm2835gpio
+$ make -j4
+$ sudo make install
+
+Generate Makefiles for debug builds:
+$ cd ~/pico/pico-examples/
+$ rm -rf build
+$ mkdir build
+$ cd build
+$ export PICO_SDK_PATH=../../pico-sdk
+$ cmake -DCMAKE_BUILD_TYPE=Debug ..
+$ cd hello_world/serial
+$ make -j4
+
+Install GDB for cross-platform debugging:
+# apt-get install gdb-multiarch
+
+Start OpenOCD and leave it running in a terminal window:
+$ cd ~/pico/openocd/tcl
+$ openocd -f interface/raspberrypi-swd.cfg -f target/rp2040.cfg
+
+Start an OpenOCD command session:
+$ telnet localhost 4444
+
+Connect to the serial port:
+$ minicom -b 115200 -o -D /dev/serial0   # serial0 should be a link to ttyS0
+
+$ cd ~/pico/pico-examples/build/hello_world/serial
+$ gdb-multiarch hello_serial.elf
+(gdb) target remote localhost:3333
+(gdb) load
+(gdb) monitor reset init
+(gdb) b main   (if a breakpoint is desired)
+(gdb) continue
