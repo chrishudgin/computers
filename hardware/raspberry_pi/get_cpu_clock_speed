@@ -1,0 +1,3 @@
+Get current operating speed of CPU in Hz:
+
+$ vcgencmd measure_clock arm
