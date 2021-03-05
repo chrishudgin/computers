@@ -45,7 +45,6 @@ Install GDB for cross-platform debugging:
 # apt-get install gdb-multiarch
 
 Start OpenOCD and leave it running in a terminal window:
-$ cd ~/pico/openocd/tcl
 $ openocd -f interface/raspberrypi-swd.cfg -f target/rp2040.cfg
 
 Start an OpenOCD command session:
