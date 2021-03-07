@@ -7,6 +7,8 @@ Upstart monitors the following events:
 
 startup (generated at system startup)
 
+device events (such as devices being added or removed)
+
 and for individual jobs:
 
 starting

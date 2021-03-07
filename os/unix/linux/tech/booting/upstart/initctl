@@ -1,0 +1,12 @@
+The symlinks to initctl in /sbin called start, stop, restart, reload, and
+status cause initctl to run in the corresponding command mode.
+
+The restart command argument to initctl will stop and start a named job, but
+only if the job is already running.  If the named job is not running, restart
+has no effect.
+
+The reload command argument to initctl sends the SIGHUP signal to the main
+process of the named job.
+
+The emit command argument to initctl can be used to emit an arbitrary event to
+Upstart, triggering all configured responses for that event to run.

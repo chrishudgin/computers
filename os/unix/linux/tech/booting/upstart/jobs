@@ -1,0 +1,55 @@
+A job can consist of a service (long running processes) or a task (which runs
+to completion and exits).
+
+Each job executes a separate executable file (with an "exec" stanza) or a
+script (with a "script ... end script" stanza) that is embedded in the job's
+configuration file.
+
+A job will start or stop upon an event specified in its "start on" or "stop on"
+stanza.  Additional conditions can be added with the "and" and "or" operators,
+which may be grouped by parentheses if necessary.
+
+Example:
+
+start on started foo or (started bar and stopped baz)
+
+If desired, a job may be started or stopped only on the condition that another
+job has begun to stop, or has stopped, normally or with a failed status, or
+with a given exit status or signal:
+
+Examples:
+
+stop on stopping foo RESULT=ok  (this job will stop if foo is stopping normally)
+stop on stopping foo RESULT=failed  (this job will stop if foo fails)
+stop on stopping foo EXIT_STATUS=1 (this job will stop if the exit code of the
+   main process of the foo job is 1)
+stop on stopping foo EXIT_SIGNAL=USR1 (this job will stop if the main process
+   of the foo job exits due to signal USR1; the signal name in the EXIT_SIGNAL
+   variable must not be preceded by "SIG")
+
+A job may have pre-start, post-start, pre-stop, and/or post-stop executables or
+scripts associated with it, as defined by the corresponding optional stanzas in
+the job's configuration file.
+
+The sequence of events and optional processes is as follows:
+
+starting (event)
+[start all other jobs with an "on starting <jobname>" dependency for this job]
+pre-start (process)
+post-start (process)
+started (event)
+[start all other jobs with an "on started <jobname>" dependency for this job]
+
+pre-stop (process)
+stopping (event)
+[start all other jobs with an "on stopping <jobname>" dependency for this job]
+[send SIGTERM and wait "kill timeout" seconds, with a default of 5 seconds]
+[send SIGKILL if job's process is still running]
+post-stop (process)
+stopped (event)
+[start all other jobs with an "on stopped <jobname>" dependency for this job]
+
+By default, Upstart will monitor only the main (first) process of a job started
+by an "exec" or "script" stanza and consider the job dead if that process
+exits.  To monitor a forked process or daemon process (forked twice) instead,
+use an "expect fork" or "expect daemon" stanza in the job configuration file.

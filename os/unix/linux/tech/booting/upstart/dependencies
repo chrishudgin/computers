@@ -1,0 +1,12 @@
+Dependencies that govern job start/stop order may be created as in these
+examples:
+
+For a service job that depends on foo running:
+
+start on started foo (this job will start only after foo is completely started)
+stop on stopping foo (this job will stop completely before foo begins to stop)
+
+For a service job on which foo depends:
+
+start on starting foo (this job will start completely before foo starts)
+stop on stopped foo (this job will begin stopping only after foo is stopped)

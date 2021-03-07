@@ -1,0 +1,13 @@
+Multiple instances of a job are supported through the "instance" stanza in job
+configuration files.  Instance stanzas expand variable names.  Thus, the name
+of an instance can be set on the command line when starting a job and will be
+passed to the instance stanza during job startup.
+
+Example:
+
+# grep TTYNAME /etc/init/myttys.conf
+instance $TTYNAME
+exec /bring/up/some/tty $TTYNAME
+# initctl start myttys TTYNAME=ttyS0  # starts the mytty job with instance ttyS0
+# initctl status myttys TTYNAME=ttyS0
+myttys (ttyS0) start/running, process 1367

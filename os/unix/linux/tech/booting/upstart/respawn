@@ -1,0 +1,13 @@
+If a service exits unexpectedly (without a "stop" command or the occurrence of
+an event that is configured to stop it) and is configured with a respawn
+stanza, Upstart will respawn it.  A task will not be respawned automatically
+after it exits unless it it has a respawn stanza AND exits with a nonzero exit
+status.
+
+If a service or task is configured to respawn, respawn limits may be set.  The
+default limits are 10 respawns within 5 seconds, after which the job is
+considered failed and unrecoverable.
+
+With a "normal exit" stanza, a custom list of allowable exit statuses and
+terminating signals for a job may be configured to prevent the job respawning
+when they occur.

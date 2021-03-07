@@ -1,0 +1,8 @@
+Job resource limits may be specified using the "limit" stanza:
+
+limit <type> <soft_limit_value|unlimited> <hard_limit_value|unlimited>
+
+Examples:
+
+limit nofile 200 300
+limit stack unlimited unlimited

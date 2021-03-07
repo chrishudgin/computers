@@ -1,0 +1,3 @@
+Both jobs and events can have environment variables set.  Variables can be set
+in jobs with an "env" stanza and then optionally exported to events associated
+with the job using an "export" stanza.
