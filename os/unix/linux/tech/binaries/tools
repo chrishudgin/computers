@@ -42,7 +42,7 @@ $ objdump -p <binary> | egrep 'RPATH|RUNPATH'
 
 readelf options
         -S  # show sections
-	-l  # show mappings of sections to segments
+	-l  # show mappings of sections to the segments that contain them
         -S -W  # allow wide output lines for 64-bit object files
         -s  # show symbol table
         -r  # show relocations
