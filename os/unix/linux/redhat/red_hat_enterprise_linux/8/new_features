@@ -41,14 +41,15 @@ to ensure that packages that depend on the newly installed stream version are
 
 PYTHON VERSIONING
 
-By default, a feature-limited python3 is available as /usr/bin/python3, which
-is actually the first in a chain of symlinks to a "platform" python3 executable
-intended for use by system tools like dnf but not general purpose applications.
+By default, a feature-limited python3 is available as
+/usr/libexec/platform-python, intended for use by system tools like dnf but not
+general purpose applications.
 
 The full python3 and/or python2 can be installed through their respective
 package aliases python3 and python2.
 
 If python2 is installed, it is available as /usr/bin/python2.
+If python3 is installed, it is available as /usr/bin/python3.
 
 There is no /usr/bin/python unless a symlink is created for it using the "alternatives" system:
 
