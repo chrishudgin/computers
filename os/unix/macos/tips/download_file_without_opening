@@ -1,0 +1,5 @@
+Download a file in Safari without Safari automatically opening it:
+
+Hold down the Option (Alt) key while selecting the file download link.
+
+This also prevents Safari from unpacking a .zip file when downloading it.
