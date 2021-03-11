@@ -9,3 +9,10 @@ $ as -o hello.o hello.s
 $ ld --dynamic-linker /lib/ld-linux.so.2 -o hello hello.o -lc
 
 More information about the dynamic linker is in the ld-linux.so(8) man page.
+
+*****
+
+Show the default platform-specific linker script for the version of ld
+installed on the system:
+
+$ ld --verbose

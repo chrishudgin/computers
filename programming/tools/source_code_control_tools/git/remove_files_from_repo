@@ -2,5 +2,8 @@ Example of remove a file to a git repository:
 
 $ git rm foodir/barfile  (this removes the file in the filesystem as well as
    updates git information)
+OR
+$ git rm --cached foodir/barfile  (this removes the file from the index of
+   tracked files, but not from the local filesystem directory)
 $ git commit -a -m "commit"
 $ git push -u origin master
