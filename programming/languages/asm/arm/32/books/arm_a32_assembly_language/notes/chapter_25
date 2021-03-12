@@ -19,7 +19,7 @@ value when entering Thumb state with a BX instruction because all Thumb
 instructions actually begin at even addresses (so the 1 in bit 0 is ignored
 when computing the actual target of the branch), but the fact that it is odd
 (bit 0 = 1) is precisely what indicates to the processor that it should enter
-Thumb state (CPSR bit 5 => 1) after taking the branch target of the BX
+Thumb state (CPSR bit 5 <- 1) after taking the branch target of the BX
 instruction.
 
 *****
