@@ -1,0 +1,6 @@
+Containers use the following features of the Linux kernel to achieve resource
+isolation:
+
+Namespaces (process, filesystem [including chroot], network, etc.)
+Cgroups for resource limits
+SELinux for security isolation

@@ -1,0 +1,9 @@
+The podman tool suite includes the following commands:
+
+podman to obtain, create, run, start, stop, and remove containers and pods
+skopeo to inspect and manage images
+buildah to create custom containers from images
+runc to run containers
+
+podman is the most general of the above tools and includes most features of
+skopeo, buildah, and runc, plus additional features.
