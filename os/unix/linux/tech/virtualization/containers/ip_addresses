@@ -1,0 +1,4 @@
+Root containers have their own NAT-ed IP addresses.  Rootless containers do
+not.  However, TCP/IP traffic can still be directed into a rootless container
+using port forwarding, as in the -p <hostport>:<containerport> option to
+"podman run".
