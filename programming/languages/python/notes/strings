@@ -1,0 +1,45 @@
+Python does not distinguish between strings enclosed in single quotes and
+strings enclosed in double quotes, except when an embedded quote character of
+the enclosing type needs to be escaped.  Strings enclosed in single quotes are
+therefore not subject to any less interpretation or expansion (i.e. the
+enclosing text is not more "protected") than they would be if double quotes
+were used.  This behavior differs from that of Unix shell quoting or C
+interpretation of literal characters vs. strings.
+
+*****
+
+The print() function will remove escapes and print the escaped characters or
+their special interpretations (like \n for newline) regardless of whether
+single or double quotes are used to encloe the string to be printed.
+
+To disable the interpretation of special characters by print(), a quoted string may be preceded by the "r" character, meaning "raw":
+
+>>> print('This is a \n string')
+This is a
+ string
+>>> print(r'This is a \n string')
+This is a \n string
+
+*****
+
+Since Python considers embedded newlines in code to be syntactically
+significant, multi-line strings must be triple-quoted.  Embedded newlines can
+still be escaped if desired, which removes them from the printed output.
+
+>>> print("This is
+  File "<stdin>", line 1
+    print("This is
+                 ^
+SyntaxError: EOL while scanning string literal
+
+>>> print("""This is
+a
+multi-line\
+ string.""")
+This is
+a
+multi-line string.
+
+*****
+
+Strings are an immutable type in Python.

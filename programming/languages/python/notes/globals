@@ -1,0 +1,2 @@
+The values of global variables cannot be changed from within a function without
+using a special "global" statement syntax.

@@ -1,0 +1,20 @@
+Function arguments beyond any consumed by formal (named) parameters may be
+expanded from list form with *var or expanded from dictionary form with **var,
+as in:
+
+def myfunc(a, b, *args, **keywords):
+    print(a, b)
+    print(args)
+    print(args[1])
+    print(keywords)
+    print(keywords["e"])
+    
+myfunc("first", "second", "third", "fourth", d="fifth", e="sixth")
+
+Output:
+
+first second
+('third', 'fourth')
+fourth
+{'d': 'fifth', 'e': 'sixth'}
+sixth

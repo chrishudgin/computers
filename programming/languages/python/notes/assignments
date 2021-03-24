@@ -1,0 +1,2 @@
+In an assignment statement, all expressions on the right hand side are
+evaluated before any variable assignments are made on the left hand side.
