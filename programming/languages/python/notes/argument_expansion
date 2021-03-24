@@ -1,6 +1,6 @@
 Function arguments beyond any consumed by formal (named) parameters may be
-expanded from list form with *var or expanded from dictionary form with **var,
-as in:
+consolidated into tuple form with *var or into dictionary form with **var using
+keywords arguments, as in:
 
 def myfunc(a, b, *args, **keywords):
     print(a, b)
