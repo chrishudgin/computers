@@ -1,0 +1,4 @@
+A del statement may be used to remove values from a variable (such as elements
+from a list by index) or, by supplying the name of a variable such as a list
+variable, to remove the variable's definition entirely, making a further
+reference to that variable invalid until or unless the variable is redefined.

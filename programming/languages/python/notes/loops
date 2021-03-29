@@ -1,2 +1,2 @@
 The "for" loop in Python is similar to the foreach loop in Perl or the for loop
-in the Unix shell, iterating over a given list.
+in the Unix Bourne shell, iterating over a given list.

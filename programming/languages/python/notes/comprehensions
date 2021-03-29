@@ -1,0 +1,3 @@
+Comprehensions for lists and sets can be thought of as element generators that
+use inline "for" loops and optionally also "if" conditionals to select elements
+from a given input.

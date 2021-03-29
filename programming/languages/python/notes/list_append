@@ -1,0 +1,14 @@
+The following statements all have the same effect of appending two items to
+a list, called "mylist" in this example:
+
+mylist.append(5)
+mylist.append(6)
+
+OR
+
+mylist.insert(len(mylist), 5)
+mylist.insert(len(mylist), 6)
+
+OR
+
+mylist.extend([5,6])  # note that extend takes an iterable as its argument

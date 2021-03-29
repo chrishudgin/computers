@@ -1,0 +1,19 @@
+Lists:
+
+Syntactically enclosed by square brackets []
+Mutable
+Typically contain elements of the same type (e.g. strings or nested lists)
+Accessed by iteration, applying the same operation to each list element, as in
+    for num in mynumlist:
+        print(num**2)
+
+
+Tuples:
+
+Syntactically enclosed by parentheses ()
+Immutable
+May contain elements of different types
+Accessed by unpacking, e.g. by assigning a sequence of variables to a tuple,
+   as in
+    mytuple = (1, 2, 3)
+    a, b, c = my3tuple

@@ -1,0 +1,12 @@
+The list.pop method takes an optional argument to specify the index at which
+the desired element should be removed.  Thus, pop is not limited to removing an
+item from one end of a list or the other but can remove an item from an
+arbitary position.
+
+>>> mylist = ['a', 'b', 'c']
+>>> mylist.pop(1)
+'b'
+>>> mylist.pop(0)
+'a'
+>>> mylist
+['c']
