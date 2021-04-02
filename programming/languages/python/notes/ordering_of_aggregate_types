@@ -1,2 +1,2 @@
-Lists and tuples are ordered.
+Lists and tuples are ordered--their elements are accessible by numeric index.
 Sets and dictionaries are unordered.

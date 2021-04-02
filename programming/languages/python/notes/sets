@@ -1,0 +1,2 @@
+Since sets cannot contain duplicate elements, the set() function can be used to
+remove duplicate elements from a list or tuple.

@@ -1,0 +1,13 @@
+The "is" operator determines whether two object references (such as variable
+names) refer to the same object, as opposed to different objects that may or
+may not happen to have the same values as each other.
+
+>>> mydict = {'a' : 1, 'b' : 2, 'c' : 3}
+>>> mydict2 = mydict
+>>> print(mydict is mydict2)   # Do they both refer to the same object?
+True                           # Yes
+>>> mydict2 = {'a' : 1, 'b' : 2, 'c' : 3}
+>>> print(mydict == mydict2)
+True                           # They have the same values...
+>>> print(mydict is mydict2)
+False                          # ... but they are not the same object

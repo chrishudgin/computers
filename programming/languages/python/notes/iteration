@@ -1,0 +1,11 @@
+Iterating over the elements of a dictionary can be done with a "for" loop
+applied to the dictionary with the resulting key values used as value =
+dict[key] to access the value for each key.  To access each key and its value
+together, use the dictionary's .items() method, which will return 2-tuples each
+containing a key and its value.
+
+Iterating over a set or over a sequence (list or tuple) can be done with a
+"for" loop applied to the set or sequence itself.  To access both the index and
+the corresponding value in a sequence together, use the enumerate() function
+with the sequence as its argument, which will return 2-tuples each containing
+an index and its value from the sequence, in sequential order.
