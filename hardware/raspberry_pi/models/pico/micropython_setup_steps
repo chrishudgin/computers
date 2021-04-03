@@ -1,0 +1,27 @@
+# apt-get install python3-pip
+# pip3 install adafruit-ampy
+
+To use MicroPython on the Pico:
+
+Download the latest prebuilt UF2 file for MicroPython from:
+https://www.raspberrypi.org/documentation/rp2040/getting-started/#getting-started-with-micropython
+
+Copy it to the Pico as with any other UF2 file.
+
+Use ampy to copy files to the Pico, e.g.:
+
+$ ampy -p /dev/ttyACM0 put main.py
+$ ampy -p /dev/ttyACM0 put foo.py
+$ ampy -p /dev/ttyACM0 put bar.py
+$ ampy -p /dev/ttyACM0 ls
+
+If there is a MicroPython program on the Pico in a file called main.py, the
+MicroPython interpreter will run it automatically when the Pico boots.
+
+Interact with the Pico through the USB serial connection using minicom.  The
+MicroPython interpreter installed on the Pico will provide REPL functionality:
+
+$ minicom -b 115200 -o -D /dev/ttyACM0
+Hit <Enter> to get a >>> prompt if no MicroPython program is running.
+If a MicroPython program is running, hit <Ctrl-C> to stop it and get a prompt.
+Use <Ctrl-A> <X> to exit Minicom.
