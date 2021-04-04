@@ -19,7 +19,9 @@ If there is a MicroPython program on the Pico in a file called main.py, the
 MicroPython interpreter will run it automatically when the Pico boots.
 
 Interact with the Pico through the USB serial connection using minicom.  The
-MicroPython interpreter installed on the Pico will provide REPL functionality:
+MicroPython interpreter installed on the Pico provides the same REPL (read,
+evaluate, print, loop) interactive functionality as a standard Python
+interpreter:
 
 $ minicom -b 115200 -o -D /dev/ttyACM0
 Hit <Enter> to get a >>> prompt if no MicroPython program is running.
