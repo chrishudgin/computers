@@ -1,14 +1,12 @@
 On the Raspberry Pi that will be used as the Pico development platform:
 
 # apt-get update
-# apt-get install code
+# apt-get install code  (running Visual Studio Code requires ARMv7 or higher)
 
 # apt-get install wget
 $ wget https://raw.githubusercontent.com/raspberrypi/pico-setup/master/pico_setup.sh
 $ chmod +x pico_setup.sh
 $ ./pico_setup.sh
+   On a Raspberry Pi Zero, the script will fail when it tries to run the
+   "code" commands near the end.  Run the subsequent UART setup steps manually.
 # systemctl reboot
-
-$ code --install-extension marus25.cortex-debug
-$ code --install-extension ms-vscode.cmake-tools
-$ code --install-extension ms-vscode.cpptools

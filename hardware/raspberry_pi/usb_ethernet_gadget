@@ -30,3 +30,12 @@ to "Off"
 
 In System Preferences -> Sharing -> Internet Sharing, select this device in
 the "To computers using" list.
+
+In order for DNS resolution to work properly on the USB gadget through the
+Mac's mDNS server, it may be necessary to bounce the mDNSResponder and mDNSResponderHelper services on the Mac:
+
+# launchctl list | grep -i mdns  (use the service names in the commands below)
+# launchctl stop com.apple.mDNSResponderHelper.reloaded
+# launchctl stop com.apple.mDNSResponder.reloaded
+# launchctl start com.apple.mDNSResponder.reloaded
+# launchctl start com.apple.mDNSResponderHelper.reloaded

@@ -10,7 +10,8 @@ Copy it to the Pico as with any other UF2 file.
 
 Use ampy to copy files to the Pico, e.g.:
 
-$ ampy -p /dev/ttyACM0 put main.py
+$ ampy -p /dev/ttyACM0 put baz.py main.py
+   (copies baz.py from the host to main.py on the Pico)
 $ ampy -p /dev/ttyACM0 put foo.py
 $ ampy -p /dev/ttyACM0 put bar.py
 $ ampy -p /dev/ttyACM0 ls
@@ -26,4 +27,5 @@ interpreter:
 $ minicom -b 115200 -o -D /dev/ttyACM0
 Hit <Enter> to get a >>> prompt if no MicroPython program is running.
 If a MicroPython program is running, hit <Ctrl-C> to stop it and get a prompt.
+From the prompt, hit <Ctrl-D> to perform a soft reboot and run main.py.
 Use <Ctrl-A> <X> to exit Minicom.

@@ -41,7 +41,9 @@ Start an OpenOCD command session:
 $ telnet localhost 4444
 
 Connect to the serial port:
-$ minicom -b 115200 -o -D /dev/serial0   # serial0 should be a link to ttyS0
+$ minicom -b 115200 -o -D /dev/serial0
+   (serial0 is the primary UART, which should work regardless of the Pi model;
+    serial0 should be a link to ttyS0 on the Pi 400 or ttyAMA0 on the Pi Zero)
 
 $ cd ~/pico/pico-examples/build/hello_world/serial
 $ gdb-multiarch hello_serial.elf
