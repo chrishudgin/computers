@@ -1,0 +1,4 @@
+Best practice is to import only the functions from a module that your program
+needs, as in:
+
+from mymodule import myfunc1, myfunc2

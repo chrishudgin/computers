@@ -8,6 +8,7 @@ def myfunc(a, b, *args, **keywords):
     print(args[1])
     print(keywords)
     print(keywords["e"])
+    print(repr(list(keywords.keys())[1]))
     
 myfunc("first", "second", "third", "fourth", d="fifth", e="sixth")
 
@@ -18,3 +19,17 @@ first second
 fourth
 {'d': 'fifth', 'e': 'sixth'}
 sixth
+'e'
+
+mydict = {'e': 'seventh', 'f': 'eighth'}
+myfunc("first", "second", "third", "fourth", **mydict)
+   # **mydict converts the dictionary mydict into keyword arguments
+
+Output:
+
+first second
+('third', 'fourth')
+fourth
+{'e': 'seventh', 'f': 'eighth'}
+seventh
+'f'

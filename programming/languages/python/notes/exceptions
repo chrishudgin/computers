@@ -1,0 +1,5 @@
+Exceptions that are not handled within a "try/except" statement (grouping) are
+re-raised so they can potentially be caught by an exception handler that was
+already defined in an enclosing outer try/except statement.  If there is no
+exception handler defined for an exception that occurs, program execution
+stops.

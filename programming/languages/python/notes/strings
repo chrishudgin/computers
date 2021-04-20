@@ -43,3 +43,10 @@ multi-line string.
 *****
 
 Strings are an immutable type in Python.
+
+*****
+
+The repr() and str() functions differ in how they process string arguments.
+repr() will wrap a string argument in an additional layer of quotes to
+"protect" the argument's string type even if it is subsequently processed by
+eval().  str() will return the argument string without modification.

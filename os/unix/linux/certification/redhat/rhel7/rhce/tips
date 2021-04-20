@@ -72,6 +72,7 @@ ports:
 # man -k _selinux | grep <some_service_like_ftpd>
 
 # yum install bash-completion
+
 Remember to use _netdev in /etc/fstab for network storage devices/filesystems
    (NFS, SMB, iSCSI)
 
@@ -266,7 +267,7 @@ A VirtualHost requires, at minimum, two sections in a configuration file:
 </VirtualHost>
 
 Other directives that may need to be added to the VirtualHost section are:
-  ServerAlias some www.hostname.com *.internal.hostname.com
+  ServerAlias www.hostname.com *.internal.hostname.com
   ErrorLog logs/some-errorlog
   CustomLog logs/some-accesslog combined
 
