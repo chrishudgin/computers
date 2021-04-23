@@ -1,0 +1,3 @@
+The global scope of a module and all of its classes is the module itself, not
+classes within the module or any modules that import it like the __main__
+module.
