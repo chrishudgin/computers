@@ -1,0 +1,2 @@
+From the Python 3.6.13 Tutorial, chapter 9 (Classes):
+"Assignments do not copy data--they just bind names to objects."
