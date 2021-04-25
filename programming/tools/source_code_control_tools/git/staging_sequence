@@ -1,12 +1,14 @@
 The sequence through which files are staged and saved in Git is:
 
-1. Directory tree managed by Git (i.e. the individual files).
+1. Working directory tree managed by Git.
 
-git add ->
+<- git restore <file>
+git add <file> ->
 
 2. The Git index for the directory tree, contained in a subdirectory
    "index" under the ".git" directory for the tree.
 
+<- git restore --staged <file>
 git commit ->
 
 3. The committed files under the ".git/objects" directory for the tree.

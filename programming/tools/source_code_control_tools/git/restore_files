@@ -1,0 +1,5 @@
+Unstage a changed file in the index (restore from commit to index):
+$ git restore --staged <file>
+
+Restore a file from the index to the working tree:
+$ git restore <file>
