@@ -1,3 +1,10 @@
 The global scope of a module and all of its classes is the module itself, not
 classes within the module or any modules that import it like the __main__
 module.
+
+Show all attributes of a module (data attributes and functions):
+dir(modulename)
+
+Get documentation for a module or attribute in man page format:
+help(modulename)
+help(modulename.attributename)

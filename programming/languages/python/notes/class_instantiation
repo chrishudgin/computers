@@ -1,0 +1,13 @@
+Class instantiation is done by calling the class name as though it were a
+function (possibly with arguments) and assigning the result to a variable.
+
+Example:
+
+class foo:
+    def __init__(self, steps, instring):
+        self.steps = steps
+        self.instring = instring
+
+myfoo = foo(4, 'abc')  # instantiate foo class as instance object myfoo
+print(myfoo.steps, repr(myfoo.instring))
+4 'abc'

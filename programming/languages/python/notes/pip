@@ -1,0 +1,2 @@
+On some systems such as RHEL 8, the pip utility may be installed as pip2 or
+pip3 for Python 2 or Python 3 packages, respectively.
