@@ -5,5 +5,3 @@ Show differences between files in the index and the last committed versions of
 those files:
 
 $ git diff --cached
-
-Test

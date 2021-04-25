@@ -1,4 +1,5 @@
-Example of remove a file to a git repository:
+Example of removing a file from a git repository after it has been added
+with "git add":
 
 $ git rm foodir/barfile  (this removes the file in the filesystem as well as
    updates git information)
