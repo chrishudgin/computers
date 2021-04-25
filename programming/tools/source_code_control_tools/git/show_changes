@@ -1,0 +1,7 @@
+Show differences between files in the tree and the Git index for that tree:
+$ git diff
+
+Show differences between files in the index and the last committed versions of
+those files:
+
+$ git diff --cached
