@@ -1,4 +1,4 @@
-The sequence through which files are staged and saved in Git is:
+The sequence through which files are staged, committed, or restored in Git is:
 
 1. Working directory tree managed by Git.
 
