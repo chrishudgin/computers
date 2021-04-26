@@ -10,3 +10,7 @@ Show differences in a given file between the second most recent commit (n-1)
 and the most recent one (n):
 
 $ git diff HEAD^ HEAD hello.c
+
+Show a file as it appeared in a given commit:
+
+$ git show HEAD^:./hello.c
