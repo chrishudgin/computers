@@ -6,7 +6,11 @@ The sequence through which files are staged, committed, or restored in Git is:
 git add <file> ->
 
 2. The Git index for the directory tree, contained in a subdirectory
-   "index" under the ".git" directory for the tree.
+   "index" under the ".git" directory for the tree.  The index normally
+   contains one version of each file in the Git tree, but multiple versions of
+   a file may be present during an uncommitted merge if there are conflicting
+   contents in that file in the different versions that prevent a merge from
+   completing.
 
 <- git restore --staged <file>
 git commit ->

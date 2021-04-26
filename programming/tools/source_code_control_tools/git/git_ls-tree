@@ -1,0 +1,8 @@
+The "git ls-tree <tree object SHA-1 signature>" command shows tree (Git managed
+directory) contents only relative to the current working directory unless the
+--full-tree option is given.  The --full-tree will cause git ls-tree to show
+files relative to the top level directory of the tree object specified (not
+necessarily the top level directory of the entire managed Git tree).
+
+The -r (recursive) option can also be supplied to show recursive directory
+contents for a tree object.

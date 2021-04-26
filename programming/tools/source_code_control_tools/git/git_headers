@@ -1,0 +1,3 @@
+The header that Git prepends to each file before compressing it and storing it
+in the .git/objects directory under its SHA-1 signature contains the file's
+length and type (blob, tree, commit, or tag).
