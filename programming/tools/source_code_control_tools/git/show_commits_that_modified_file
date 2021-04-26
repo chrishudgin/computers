@@ -1,0 +1,4 @@
+Show all the commits that modified a given file (hello.c in this example)
+in the current directory:
+
+$ git log hello.c

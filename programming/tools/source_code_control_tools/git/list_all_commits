@@ -1,0 +1,10 @@
+List all commits:
+
+$ git rev-list --all
+
+The output of the command above can be used in other git commands that can take
+multiple commits as arguments.  For example:
+
+$ git grep -i printf $(git rev-list --all)
+   # Shows printf occurrences in all managed files in current directory and
+   # below in all commits.
