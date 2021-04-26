@@ -1,0 +1,6 @@
+git fetch updates objects in the local repo from a remote repo but does not
+update the working directory or the index in the local repo or perform a merge.
+
+The inverse action is a git push, which updates objects in another repo from
+the local repo but does not update the remote repo's working directory or index
+or perform a merge there.
