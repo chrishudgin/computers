@@ -9,8 +9,8 @@ $ git diff --cached
 Show differences in a given file between the second most recent commit (n-1)
 and the most recent one (n):
 
-$ git diff HEAD^ HEAD hello.c
+$ git diff HEAD^ [HEAD] hello.c   # HEAD is assumed if not specified
 
 Show a file as it appeared in a given commit:
 
-$ git show HEAD^:./hello.c
+$ git show HEAD^:./hello.c  # show hello.c in previous (parent, n-1) commit
