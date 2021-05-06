@@ -121,6 +121,8 @@ enabled and started.  If authconfig-tui must be used, they should give you a
 keytab file to copy into place (/etc/krb5.keytab) for your client VMs,
 downloaded using (e.g.)
    wget -O /etc/krb5.keytab http://somewhere.example.com/my.keytab
+Additional Kerberos principals such as for NFS and Samba services, if needed,
+can be obtained from the Kerberos IPA server using ipa-getkeytab.
 
 According to Sander van Vugt's crash course notes, Kerberized login is likely
 to be set up already.  This can be verified by using ssh to log in as a
@@ -344,7 +346,7 @@ If a rich rule and basic rule both refer to the same service (like http),
 remove the one that isn't needed in order to ensure that the preferred rule is
 the one applied.
 
-Virtual machines on the exame are not likely to be multi-homed (multiple
+Virtual machines on the exam are not likely to be multi-homed (multiple
 network interfaces).  However, IP masquerading must still be enabled for port
 forwarding to work, even if traffic is being forwarded between hosts on the
 same subnet.
