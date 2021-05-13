@@ -64,12 +64,18 @@ control where possible.
 
 If necessary to determine proper SELinux contexts for targets like files or
 ports:
-# yum whatprovides sepolicy
-(The package is policycoreutils-devel)
-# yum install policycoreutils-devel
-# sepolicy manpage -a -p /usr/share/man/man8
+# yum provides '*/*httpd_selinux*'
+(The package is selinux-policy-devel)
+# yum install selinux-policy-devel
 # mandb
-# man -k _selinux | grep <some_service_like_ftpd>
+# man -k _selinux
+
+// # yum whatprovides sepolicy
+// (The package is policycoreutils-devel)
+// # yum install policycoreutils-devel
+// # sepolicy manpage -a -p /usr/share/man/man8
+// # mandb
+// # man -k _selinux | grep <some_service_like_ftpd>
 
 # yum install bash-completion
 
@@ -235,7 +241,8 @@ Set up a _default_:80 VirtualHost entry in /etc/httpd/conf.d/00-default.conf
    to a specific virtual host (including references to the system hostname if
    they are not caught by a more specific virtual host reference)
 
-The Apache manual is available at http://<hostname>/manual
+The Apache manual is available at http://<hostname>/manual and is installed
+with the httpd-manual package.
 
 Important links in the manual:
    VirtualHost directive:
@@ -277,6 +284,9 @@ If it is necessary to configure multiple TLS-protected virtual hosts, the
 configuration file for each should begin as a copy of
 /etc/httpd/conf.d/ssl.conf with all lines outside of
 <VirtualHost></VirtualHost> removed.
+
+Be prepared to use "genkey <FQDN>" to generate a TLS certificate and key for
+each TLS-protected VirtualHost.
 
 Do not use a passphrase for the TLS private key so that Apache can start
 without user interaction to decrypt it; on exam, the public/private keypair
@@ -346,10 +356,10 @@ If a rich rule and basic rule both refer to the same service (like http),
 remove the one that isn't needed in order to ensure that the preferred rule is
 the one applied.
 
-Virtual machines on the exam are not likely to be multi-homed (multiple
-network interfaces).  However, IP masquerading must still be enabled for port
-forwarding to work, even if traffic is being forwarded between hosts on the
-same subnet.
+Virtual machines on the exam are not likely to be multi-homed (multiple network
+interfaces on different subnets).  However, IP masquerading must still be
+enabled for port forwarding to work, even if traffic is being forwarded between
+hosts on the same subnet.
 
 #####
 
@@ -405,7 +415,9 @@ DNS with unbound:
 
 Make the following changes to /etc/unbound/unbound.conf:
 
-(Memorize these, as there is no simple reference available on the exam system)
+(Be aware of these variable names; examples of their values are provided
+in the standard /etc/unbound/unbound.conf file that comes with the unbound
+package)
 
 interface: 0.0.0.0
 access-control: 192.168.4.0/24 allow
@@ -500,6 +512,14 @@ IPv6
 
 Do not use nmtui for IPv6 on the exam; it will segfault and remove the existing
 connection configuration.  Use nmcli instead.
+
+General strategy for creating a new connection in nmcli:
+Check existing configuration--connections and devices.
+Run on console if changing the connection used by ssh sessions.
+# nmcli con add con-name <name> type ethernet ifname <NIC>
+# nmcli con mod <name> ipv4.addresses "<IPv4addr/prefixlength> <IPV4gateway>"
+# nmcli con mod <name> ipv4.method manual
+# nmcli con up <name>
 
 #####
 
