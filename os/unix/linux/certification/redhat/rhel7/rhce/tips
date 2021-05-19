@@ -177,6 +177,8 @@ teaming is recommended.
 Examples of nmcli syntax for teaming are in nmcli-examples(5)
 Examples of runner configurations in JSON syntax are in
    /usr/share/doc/teamd-1.9/example_ifcfgs
+If the "config <runner_json>" arguments are not given, the roundrobin runner
+   will be used.
 The IP address for a team interface must be added with nmcli before the
    method is set to manual.
 teamnl is the command to modify a team's configuration options other than those
@@ -452,7 +454,7 @@ Make the following changes to /etc/unbound/unbound.conf:
 
 (Be aware of these variable names; examples of their values are provided
 in the standard /etc/unbound/unbound.conf file that comes with the unbound
-package)
+package and they are documented in unbound.conf(5))
 
 interface: 0.0.0.0
 access-control: 192.168.4.0/24 allow
@@ -669,17 +671,20 @@ cifs (imagine Bill Gates saying it; it's the Samba filesystem type)
 multiuser,credentials=/root/mysmbcreds,sec=ntlmssp,_netdev
 
 MariaDB:
+mysql_secure_installation
 All user accounts should be created and referenced with the "@" syntax, e.g.:
    CREATE USER julia@'%' identified by 'redhat';
+GRANT
+SHOW GRANTS
 FLUSH PRIVILEGES;
-mysql_secure_installation
+database.table
 /usr/share/mysql/my-innodb-heavy-4G.cnf (example config options)
 
 SELinux:
-Restore!
+restorecon
 File contexts (semanage fcontext; restorecon -FRv)
 Non-standard ports (semanage port)
-Booleans
+Booleans (setsebool -P)
 
 Firewall:
 firewall-cmd --help | grep <somestring>
@@ -700,9 +705,14 @@ Always set method to manual after configuring a static IP address
    or the interface may hang when starting, causing boot to hang as well
 
 Network teaming:
+Skip config/JSON portion of nmcli command if roundrobin runner meets the stated
+   task requirements.
 nmcli-examples(5)
 
 /etc/auto.misc (contains syntax similar to that used for Samba automounts)
 
 bash scripting:
+$# and "$@"
+{100..120}
+&& ||
 /etc/sysconfig/network-scripts/network-functions
