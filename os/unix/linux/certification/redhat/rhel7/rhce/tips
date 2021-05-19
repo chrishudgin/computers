@@ -20,7 +20,8 @@ During exam:
 
 SERVICES (must be enabled and running)
 FIREWALL (must be enabled, running, configured for all necessary ports/services)
-SELINUX (must be enforcing, verified all with restorecon)
+SELINUX (must be enforcing, verified with restorecon, plus non-standard ports
+   and Booleans)
 PERSISTENCE/REBOOT (do checks before and after reboot)
 
 Remember how to break into a system using rd.break, remount, chroot, and
@@ -84,12 +85,35 @@ Remember to use _netdev in /etc/fstab for network storage devices/filesystems
 
 Remember to check for the use of any non-standard ports and use "semanage port" commands to configure SELinux to allow services to use them.
 
+Remember to set SELinux Booleans for any non-standard settings like anonymous
+writes or sharing user home directories over the network.
+
 One recommendation is to install and enable (systemctl enable) all necessary
 software and services at the start of the exam, as well as permanently opening
-firewall ports and setting persistent SELinux file contexts (semanage fcontext)
-and custom port contexts (semanage port).  Once these steps are done for all
-software as needed, you can focus on configuring the individual services like
-Apache, iSCSI, etc.
+firewall ports and setting persistent SELinux file contexts (semanage fcontext;
+restorecon -FRv) and custom port contexts (semanage port) and Booleans
+(setsebool -P).  Once these steps are done for all software as needed, you can
+focus on configuring the individual services like Apache, iSCSI, etc.
+
+Package groups and packages that may be required:
+
+Directory Client (only if clients still need to be joined to the IPA server)
+File and Storage Server (NFS, Samba, iSCSI servers) plus samba-client for
+   smbpasswd on Samba server
+Network File System Client (NFS, Samba, iSCSI clients)
+MariaDB Database Server
+MariaDB Database Client
+Web Server (Apache) plus php, php-mysql, mod_wsgi
+unbound (caching DNS forwarder)
+postfix (null mail client)
+policycoreutils-python (semanage)
+
+Optional but useful:
+bash-completion
+lsscsi
+elinks
+selinux-policy-devel (<service>_selinux man pages)
+setroubleshoot-server (sealert)
 
 #####
 
@@ -254,6 +278,9 @@ Important links in the manual:
 The -c option to htpasswd reinitializes (empties) the file before adding a
 user.  Only use the -c option the first time htpasswd is run.
 
+AuthGroupFile syntax example is:
+sales: linda lisa
+
 elinks cannot access http(s) content that requires authentication
 
 Use curl for non-interactive fetches.
@@ -279,6 +306,13 @@ Other directives that may need to be added to the VirtualHost section are:
   ServerAlias www.hostname.com *.internal.hostname.com
   ErrorLog logs/some-errorlog
   CustomLog logs/some-accesslog combined
+
+For TLS-protected virtual hosts, the following additional directives are
+required (assuming ssl.conf is left in place to set global TLS defaults):
+
+   SSLEngine on
+   SSLCertificateFile /etc/pki/tls/certs/mysecurewww.example.com.crt
+   SSLCertificateKeyFile /etc/pki/tls/private/mysecurewww.example.com.key
 
 If it is necessary to configure multiple TLS-protected virtual hosts, the
 configuration file for each should begin as a copy of
@@ -314,7 +348,7 @@ Apache logs are in /var/log/httpd
 Firewall:
 
 Many examples in man pages firewall-cmd(1) and firewalld.richlanguage(5).
-Also use firewall-cmd --help for complete syntax.
+Also use firewall-cmd --help | grep <somestring> for syntax synopsis.
 
 Know how to enable IP forwarding directly by creating a .conf file in
 /etc/sysctl.d with the line:
@@ -394,7 +428,8 @@ nfsnobody to write to the filesystem, simply do the following on the server:
 
 On RHEL 7.0, it should not be necessary to set the SELinux context of an NFS
 share to nfs_t in order to share it.  By default, the client will see its
-SELinux type as nfs_t, however.
+SELinux type as nfs_t.  However, it does not hurt to create a rule on the NFS
+server to set the context to nfs_t.
 
 If an NFS share needs to be used by services other than NFS, set its SELinux
 context to public_content_t or public_content_rw_t via the -o context mount
@@ -431,20 +466,21 @@ forward-zone:
 
 #####
 
-Email null client with postfix
+Postfix email null client
 
 # postconf -e 'inet_interfaces=loopback-only'
 # postconf -e 'mynetworks=127.0.0.0/8 [::1]/128'
    (this line is not in the /usr/share/doc document listed below)
 # postconf -e 'local_transport=error: local delivery disabled'
-   (this line is not in the /usr/share/doc document listed below)
 # postconf -e 'mydestination='
 # postconf -e 'myorigin=example.com'
 # postconf -e 'relayhost=[server1.example.com]'
 # systemctl reload postfix
 
+There are no SELinux settings or firewall settings needed.
+
 Example configuration:
-less /usr/share/doc/postfix-2.10.1/README_FILES/STANDARD_CONFIGURATION_README ("Postfix on a null client")
+less /usr/share/doc/postfix-2.10.1/README_FILES/STANDARD_CONFIGURATION_README ("Postfix on a null client" and other sections)
 
 Documentation for each setting in main.cf:
 # man 5 postconf
@@ -458,9 +494,10 @@ Show outgoing mail queue:
 
 Samba
 
-Users whose credentials will be used to mount or otherwise interact with a
-Samba share must exist in both the Samba user database (smbpasswd -a
-<username>) and the Linux user account list (useradd <username>).
+Users whose credentials will be used to mount, own, or otherwise interact with
+a Samba share must exist in both the Samba user database (smbpasswd -a
+<username>) and the Linux user account list (useradd <username>).  The same
+accounts must exist on both the Samba server and the Samba client.
 
 A "Samba-only user account" is one with no Linux password explicitly set (which
 is the default behavior of useradd), a shell of /sbin/nologin, and a Samba user
@@ -480,6 +517,11 @@ those users and group members can write to the share even if "read only" is set
 to yes.  If "writable = yes" is set, then ALL authenticated Samba users can
 write to the share.  Note, however, that in all cases, writes are only allowed
 if Linux permissions *also* allow write access.
+
+Access to a Samba share over the network can be restricted by host/domain or IP
+address/range using the "hosts allow" directive set per-share in
+/etc/samba/smb.conf.  The "hosts allow" directive syntax is specified in
+hosts_access(5).
 
 References:
 man smb.conf 
@@ -573,3 +615,94 @@ Syntax for internal shell commands:
 # help read
 # help test
 etc.
+
+Memory tips:
+
+SERVICES (must be enabled and running)
+FIREWALL (must be enabled, running, configured for all necessary ports/services)
+SELINUX (must be enforcing, verified with restorecon, plus non-standard ports)
+PERSISTENCE/REBOOT (do checks before and after reboot)
+
+*** DO NOT USE nmtui ***
+
+Configure essential network connectivity (IP, routing, DNS) and yum repo first.
+Install bash-completion package.
+Then configure storage, starting with iSCSI.
+
+Unbound:
+i (interface)
+a (access-control)
+d (domain-insecure, if no DNSSEC used)
+f (forward-zone)
+
+Postfix:
+/usr/share/doc/README_FILES/STANDARD_CONFIGURATION_README
+postconf(5)
+Put FQDN of relayhost in square brackets [myrelay.example.com] (skips MX
+   lookup)
+
+Apache:
+00-default.conf
+<VirtualHost>
+<Directory>
+SSLEngine on
+SSLCertificateFile
+SSLCertificateKeyFile
+Listen (add ports this way, one per line, in /etc/httpd/conf/httpd.conf)
+curl --insecure (connect to TLS web site that uses self-signed certificate)
+
+iSCSI:
+"Stay on target!" (remember to enable and start the "target" service for the
+iSCSI server)
+
+_netdev (for all network filesystem mounts including iSCSI and Samba)
+
+NFS:
+exports(5) (example syntax for /etc/exports)
+exportfs -r (reload /etc/exports configuration)
+nfs-secure (client)
+nfs-server (server)
+nfs-secure-server (server)
+
+Samba:
+cifs (imagine Bill Gates saying it; it's the Samba filesystem type)
+multiuser,credentials=/root/mysmbcreds,sec=ntlmssp,_netdev
+
+MariaDB:
+All user accounts should be created and referenced with the "@" syntax, e.g.:
+   CREATE USER julia@'%' identified by 'redhat';
+FLUSH PRIVILEGES;
+mysql_secure_installation
+/usr/share/mysql/my-innodb-heavy-4G.cnf (example config options)
+
+SELinux:
+Restore!
+File contexts (semanage fcontext; restorecon -FRv)
+Non-standard ports (semanage port)
+Booleans
+
+Firewall:
+firewall-cmd --help | grep <somestring>
+firewall-cmd(1)
+firewalld.richlanguage(5)
+
+Port forwarding:
+Port forwarding to another machine requires the intermediary machine's
+   interface to have IP masquerading turned on with firewall-cmd
+   (--add-masquerade or masquerade with a rich rule)
+IP masquerading requires IP forwarding to be enabled:
+   In /etc/sysctl.conf, set:
+   net.ipv4.ip_forward = 1
+   Then run sysctl -p
+
+IP address configuration:
+Always set method to manual after configuring a static IP address
+   or the interface may hang when starting, causing boot to hang as well
+
+Network teaming:
+nmcli-examples(5)
+
+/etc/auto.misc (contains syntax similar to that used for Samba automounts)
+
+bash scripting:
+/etc/sysconfig/network-scripts/network-functions
