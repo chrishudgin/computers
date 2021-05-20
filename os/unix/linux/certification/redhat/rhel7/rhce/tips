@@ -392,6 +392,10 @@ If a rich rule and basic rule both refer to the same service (like http),
 remove the one that isn't needed in order to ensure that the preferred rule is
 the one applied.
 
+If a rich rule can be applied to a service (like ssh) rather than an arbitrary
+port (like 22/tcp), consider doing it that way if the task specifies a service
+to be allowed or denied from a specific network.
+
 Virtual machines on the exam are not likely to be multi-homed (multiple network
 interfaces on different subnets).  However, IP masquerading must still be
 enabled for port forwarding to work, even if traffic is being forwarded between
@@ -628,6 +632,7 @@ PERSISTENCE/REBOOT (do checks before and after reboot)
 *** DO NOT USE nmtui ***
 
 Configure essential network connectivity (IP, routing, DNS) and yum repo first.
+Make sure repo filename ends in .repo
 Install bash-completion package.
 Then configure storage, starting with iSCSI.
 
