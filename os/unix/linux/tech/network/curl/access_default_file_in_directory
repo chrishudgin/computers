@@ -1,0 +1,18 @@
+To access the default file (e.g. index.html or index.php) in a directory using
+curl, a terminating / must be present in the URL.
+
+For example, to access the file mysubdir/index.html on server1 where mysubdir
+is directly under the DocumentRoot, use
+
+curl http://server1/mysubdir/
+OR
+curl http://server1/mysubdir/index.html
+NOT
+curl http://server1/mysubdir
+
+The latter form will work on some browsers (e.g. Firefox) which follow
+redirects automatically, but curl does not.
+
+Alternatively, use the -L option to curl to follow redirects:
+
+curl -L http://server1/mysubdir

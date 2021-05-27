@@ -109,6 +109,7 @@ postfix (null mail client)
 policycoreutils-python (semanage)
 
 Optional but useful:
+vim
 bash-completion
 lsscsi
 elinks
@@ -217,7 +218,7 @@ Sample configuration files:
 /usr/share/mysql/*.cnf  (note that this is not under /usr/share/doc)
 
 List all parameters for mysqld that can be set in the configuration files,
-   including parameters bind-address and skip-networking:
+   including parameters bind-address, port, and skip-networking:
 # /usr/libexec/mysqld --help --verbose
 
 Firewall:
@@ -633,7 +634,7 @@ PERSISTENCE/REBOOT (do checks before and after reboot)
 
 Configure essential network connectivity (IP, routing, DNS) and yum repo first.
 Make sure repo filename ends in .repo
-Install bash-completion package.
+Install bash-completion, vim, and packages for httpd_selinux*, semanage, sealert
 Then configure storage, starting with iSCSI.
 
 Unbound:
@@ -652,11 +653,14 @@ Apache:
 00-default.conf
 <VirtualHost>
 <Directory>
+ServerName
+DocumentRoot
 SSLEngine on
 SSLCertificateFile
 SSLCertificateKeyFile
 Listen (add ports this way, one per line, in /etc/httpd/conf/httpd.conf)
 curl --insecure (connect to TLS web site that uses self-signed certificate)
+curl -u <username> (connect to web site that is restricted by htpasswd user)
 
 iSCSI:
 "Stay on target!" (remember to enable and start the "target" service for the
@@ -673,7 +677,8 @@ nfs-secure-server (server)
 
 Samba:
 cifs (imagine Bill Gates saying it; it's the Samba filesystem type)
-multiuser,credentials=/root/mysmbcreds,sec=ntlmssp,_netdev
+The big four mount options:
+   multiuser,credentials=/root/mysmbcreds,sec=ntlmssp,_netdev
 
 MariaDB:
 mysql_secure_installation
