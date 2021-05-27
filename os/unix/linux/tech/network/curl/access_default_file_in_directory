@@ -11,7 +11,7 @@ NOT
 curl http://server1/mysubdir
 
 The latter form will work on some browsers (e.g. Firefox) which follow
-redirects automatically, but curl does not.
+redirects automatically, but curl does not do this.
 
 Alternatively, use the -L option to curl to follow redirects:
 
