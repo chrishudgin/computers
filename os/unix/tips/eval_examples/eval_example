@@ -1,12 +1,16 @@
-#!/bin/bash -x
+#!/bin/bash
 
 # eval can be used to construct variable names that are not generated until
 # run time
 
+read -p "Enter a variable name: " myvar
+eval "${myvar}=FOO"   # sets variable name read from input equal to value FOO
+eval echo "${myvar}=\$${myvar}"
+
 cmd1="echo hello"
 cmd2="echo goodbye"
 
-read num
+read -p "Enter a number, 1 or 2: " num
 echo
 
 # Our intent here is to run either $cmd1 or $cmd2 depending on whether the
@@ -17,7 +21,7 @@ echo
 # (which is 1 or 2), and tries to run "1" or "2" as a command
 # $cmd${num}
 # 
-$cmd${num}
+$cmd${num}  # Generates an error message since there are no commands "1" or "2"
 
 # With eval--run $cmd1 or $cmd2
 #
