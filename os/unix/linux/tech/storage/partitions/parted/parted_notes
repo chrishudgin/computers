@@ -1,0 +1,7 @@
+The starting location for the first partition on a disk should entered as
+"1MB", which is sector 2048.
+
+*****
+
+parted writes changes to a partition table immediately, unlike fdisk and gdisk
+which only write when told using the "w" command.
