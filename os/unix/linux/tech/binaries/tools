@@ -25,11 +25,17 @@ Other useful options to objdump are:
                                  # AT&T) syntax
    --disassembler-options=att    # (x86) used with -d to produce AT&T (not
                                  # Intel) syntax, the default on x86
-   --disassembler-options=no-aliases  # (MIPS) show canonical instruction forms
-                                        in disassembly, not pseudo-ops
-                                        Example:  show addiu or lui/ori
-                                                  rather than li
-   --disassembler-options=raw  # (PowerPC) equivalent to no-aliases for MIPS
+   --disassembler-options=reg-names-std   # (ARM) Use r-names for all registers
+                                          # except sp, lr, and pc
+   --disassembler-options=no-aliases  # (MIPS) (AArch64) show canonical
+                                      # instruction forms in disassembly, not
+                                      # pseudo-ops
+                                      # Examples:
+                                      #    (MIPS)  show addiu or lui/ori
+                                      #            rather than li
+                                      #    (AArch64)  show orr rather than mov
+                                      #               show subs rather than cmp
+   --disassembler-options=raw  # (PowerPC) equivalent to no-aliases
                                # added to recent versions of binutils, but
                                # was not available yet in version 2.25
 
