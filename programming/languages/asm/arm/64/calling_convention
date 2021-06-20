@@ -2,9 +2,10 @@ The first eight integer or pointer arguments to a function are passed in
 registers x0-x7.  Additional arguments if needed are pushed on the stack in
 reverse order.  Integer results are returned in register x0.
 
-Floating point arguments are passed in the floating point registers
-s0-31 (single precision), d0-d31 (double precision), or q0-q31 (quad
-precision).  Unlike in ARM32, each larger register (e.g. d0) contains only one
+The first eight floating point arguments are passed in the floating point
+registers s0-s7 (single precision), d0-d7 (double precision), or q0-q7 (quad
+precision).  Additional arguments if needed are pushed on the stack in reverse
+order.  Unlike in ARM32, each larger register (e.g. d0) contains only one
 register of a given smaller size (e.g. s0), not two or more.  Thus, d0 contains
 s0, d1 contains s1, q0 contains d0 and s0 (but not d1 or s1), etc.  Floating
 point results are returned in s0 (single precision), d0 (double precision), or
