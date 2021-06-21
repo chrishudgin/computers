@@ -1,17 +1,18 @@
 Since division is a computationally expensive operation, compilers may optimize
-a division by a constant known at compile time by replacing it with
-multiplication by a mathematically related precomputed constant.  The constant
-is chosen such that it is equal to the two to the word size of the dividend
-(e.g. 2^32), divided by the desired divisor, multiplied by a power of two
-scaling factor, plus 1.  When a constant precomputed in this manner is
-multiplied by the dividend, the high-order word of the result has a value equal
-to or slightly higher than the desired quotient scaled by the scaling factor.
-An add of the dividend to the high order word, a subsequent right shift
-of the high order word to eliminate the scaling factor (e.g. right shift 3 bits
-if the scaling factor is 8), and finally adding 1 if the quotient is negative
-to correct for using arithmetic right shift as a substitute for dividing a
-negative number yields the desired quotient without any costly runtime division
-operation being required.
+a division by a non-power-of-two constant known at compile time by replacing it
+with multiplication by a mathematically related precomputed constant.  The
+constant is chosen such that it is equal to two to the word size of the
+dividend (e.g.  2^32), divided by the desired divisor, multiplied by a power of
+two scaling factor, minus two to the word size of the dividend to prevent
+overflow during multiplication, plus 1.  When a constant precomputed in this
+manner is multiplied by the dividend, the high-order word of the result has an
+absolute value equal to or slightly less than that of the desired quotient
+scaled by the scaling factor.  An add of the dividend to the high order word, a
+subsequent right shift of the high order word to eliminate the scaling factor
+(e.g. right shift 3 bits if the scaling factor is 8), and finally adding 1 if
+the quotient is negative to correct for using arithmetic right shift as a
+substitute for dividing a negative number yields the desired quotient without
+any costly runtime division operation being required.
 
 This method works because multiplying by two to the word size of the dividend
 is equivalent to shifting the dividend left entirely, and exactly, into a
@@ -20,9 +21,10 @@ precomputed constant chosen by the compiler when it divides the 2^(word size)
 factor by the divisor before the multiplication by the resulting constant is
 performed at run time.  Multiplying by the precomputed constant thus
 accomplishes both the left shift to the higher order word and the division by
-the intended divisor in a single runtime step.  The scaling factor is needed to
-ensure that no required bits are lost through truncation as a result of the
-implicit division by the divisor in the precomputed constant.
+the intended divisor in a single runtime step.  The scaling factor, which is
+the power of two closest to but below the absolute value of the dividend, is
+needed to ensure that no required bits are lost through truncation as a result
+of the implicit division by the divisor in the precomputed constant.
 
 The full algorithm for computing the multiplicative constant is described in
 the paper "Division by Invariant Integers using Multiplication" by Granlund and
