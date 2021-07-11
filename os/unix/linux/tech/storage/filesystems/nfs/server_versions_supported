@@ -1,0 +1,18 @@
+The NFS versions supported by a particular running Linux kernel can be determined as in this example:
+
+$ cat /proc/fs/nfsd/versions
+-2 +3 +4 +4.1 +4.2
+
+This example output indicates that NFS version 2 is not supported while NFS
+versions 3 through 4.2 are supported.
+
+The versions supported by the NFS server daemon rpc.nfsd can further be
+configured in /etc/nfs.conf, as for example with the variables:
+
+#[nfsd]
+# vers2=n
+# vers3=y
+# vers4=y
+# vers4.0=y
+# vers4.1=y
+# vers4.2=y
