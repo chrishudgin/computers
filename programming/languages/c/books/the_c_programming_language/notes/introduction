@@ -19,5 +19,5 @@ allocation.
 constants that characterize the machine on which the program is run.”
 
 These constants with machine-specific values such as LONG_MAX and DBL_MAX are
-defined in limits.h and float.h.  The standard sets minimum values that these
-constants can have.
+defined in limits.h and float.h.  The standard sets minimum (most limiting)
+values that these constants can have.
