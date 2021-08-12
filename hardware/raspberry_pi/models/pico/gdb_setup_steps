@@ -29,7 +29,7 @@ $ cd build
 $ export PICO_SDK_PATH=../../pico-sdk
 $ cmake -DCMAKE_BUILD_TYPE=Debug ..
 OR to disable compiler optimizations:
-cmake -DCMAKE_BUILD_TYPE=Debug -DPICO_DEOPTIMIZED_DEBUG=1 ..
+$ cmake -DCMAKE_BUILD_TYPE=Debug -DPICO_DEOPTIMIZED_DEBUG=1 ..
 $ cd hello_world/serial
 $ make -j4
 
