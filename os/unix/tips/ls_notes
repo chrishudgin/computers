@@ -54,3 +54,56 @@ $ ls -e
 or
 $ ls -E
   The -E option includes the nanosecond precision timestamp and UTC hour offset
+
+*****
+
+Filename sort order:
+
+Filename sort order is controlled by locale settings as well as options passed
+to the ls command on the command line.  Traditional Unix ASCII sort order
+places the dot "." character ahead of alphanumeric characters, causing dotfiles
+by default to be listed before non-dotfiles.  In addition, ASCII sort order
+sorts capital letters ahead of lower case letters.
+
+Unicode sort orders can in some cases treat dotfile filenames as equivalent
+lexicographically to filenames starting with the same character as the one
+immediately following the leading dot.  This leads to filename sort orders such
+as the one found in the following example:
+
+$ locale
+LANG=en_US.UTF-8
+LANGUAGE=en_US.UTF-8
+LC_CTYPE="en_US.UTF-8"
+LC_NUMERIC="en_US.UTF-8"
+LC_TIME="en_US.UTF-8"
+LC_COLLATE="en_US.UTF-8"
+LC_MONETARY="en_US.UTF-8"
+LC_MESSAGES="en_US.UTF-8"
+LC_PAPER="en_US.UTF-8"
+LC_NAME="en_US.UTF-8"
+LC_ADDRESS="en_US.UTF-8"
+LC_TELEPHONE="en_US.UTF-8"
+LC_MEASUREMENT="en_US.UTF-8"
+LC_IDENTIFICATION="en_US.UTF-8"
+LC_ALL=en_US.UTF-8
+
+$ ls -A1
+bar
+.foo
+foo
+.Foo
+Foo
+.qux
+xyzzy
+
+To force traditional ASCII sort order in GNU ls, set the LC_ALL locale variable to an appropriate value, such as "C.UTF-8" or "C":
+
+$ LC_ALL=C.UTF-8 ls -A1
+
+.Foo
+.foo
+.qux
+Foo
+bar
+foo
+xyzzy
