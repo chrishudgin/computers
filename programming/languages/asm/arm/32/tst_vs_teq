@@ -1,7 +1,9 @@
 TST can be used to check whether or not any "set" bits (bits equal to 1) match
-up in two operands.  If the zero flag gets set, none of the "set" bits (if
-there are any) match.  TST performs an AND operation and sets flags.
+up in two operands.  If none of the "set" bits (if there are any) match, the
+zero flag gets set.  If any of the "set" bits match, the zero flag gets
+cleared.  TST performs an AND operation and sets flags.
 
 TEQ can be used to check whether or not all bits (0 or 1) match up in two
-operands.  If the zero flag gets set, then all of the bits match (i.e. the
-operands have identical values).  TEQ performs an EOR operation and sets flags. 
+operands.  If all of the bits match (i.e. the operands have identical values),
+then the zero flag gets set.  Otherwise, the zero flag is cleared.  TEQ
+performs an EOR operation and sets flags. 
