@@ -18,4 +18,5 @@ case ($9), micro USB to USB-A cable for power and networking ($5), GPIO header
 soldering required to attach the header to the board.  A minimal working
 configuration would require only the Raspberry Pi Zero board ($5), 16 GB
 microSD card ($6.50), and micro USB to USB-A cable ($5) and would cost less
-than $20.
+than $20... a remarkably low price for a general purpose networked RISC
+computer running a modern, full-featured Unix-like operating system.
