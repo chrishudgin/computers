@@ -5,11 +5,17 @@ brand (Compaq Presario) complete Pentium II PC system with 450 MHz processor,
 128 MB of RAM, 10 GB hard drive, and 17 inch monitor cost $2500 in 1998.  With
 512 MB of RAM and no monitor, the price would also have been around $2500.
 
-In 2015, a Raspberry Pi Zero with 16 GB microSD card, keyboard, mouse, case,
-power supply, microUSB to USB/Ethernet adapter, and Ethernet cable cost around
-$100.
+In 2015 when the Raspberry Pi Zero was introduced, the board together with a 16
+GB microSD card, keyboard, mouse, case, power supply, microUSB to USB/Ethernet
+adapter, and Ethernet cable cost around $100.  Adding a monitor would double
+the price, but the Raspberry Pi Zero like all Raspberry Pi computers can be run
+"headless" (no keyboard, mouse, or monitor).
 
-In 2020, when used in USB gadget mode the Raspberry Pi Zero ($5) with a 32 GB
-microSD card ($8), official case ($9), micro USB to USB-A cable for power and
-networking ($5), GPIO header ($0.95), and USB to TTL serial console cable ($10)
-cost less than $40.
+In 2021, when used in USB gadget mode and connected to a separate desktop
+computer, the Raspberry Pi Zero ($5) with a 32 GB microSD card ($8), official
+case ($9), micro USB to USB-A cable for power and networking ($5), GPIO header
+($0.95), and USB to TTL serial console cable ($10) cost less than $40, with
+soldering required to attach the header to the board.  A minimal working
+configuration would require only the Raspberry Pi Zero board ($5), 16 GB
+microSD card ($6.50), and micro USB to USB-A cable ($5) and would cost less
+than $20.
