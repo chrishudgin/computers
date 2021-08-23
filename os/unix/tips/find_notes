@@ -116,7 +116,14 @@ $ find . -mmin -15
 
 Searches by file type:
 
-find ... -type f : file
-find ... -type d : directory
-find ... -type l : symbolic link
-find ... -type b : block device file
+$ find ... -type f : file
+$ find ... -type d : directory
+$ find ... -type l : symbolic link
+$ find ... -type b : block device file
+
+*****
+
+grep for a string in any file that contains another search string, even if
+the path or filename contains whitespace:
+
+$ find . -name 'filename.pattern' -exec grep -ZHli 'text search pattern 1' {} \; | xargs -0 grep -Hni 'text search pattern 2'
