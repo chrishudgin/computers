@@ -1,0 +1,15 @@
+The Raspberry Pi Zero uses an ARM1176JZF-S processor with 16 KB of L1
+instruction cache and 16 KB of L1 data cache.  Each L1 cache is 4-way set
+associative with 32 byte cache lines (thus, four lines or 128 bytes per set).
+The L1 caches are virtually indexed and physically tagged.  The Raspberry Pi
+Zero has 512 MB of main memory, a 4 KB page size, and a 32-bit word size.
+
+The lower 12 bits of a virtual address are split into:
+
+5 lower bits (32): address of byte within cache line
+7 middle bits (128): index of cache set
+
+The upper 20 bits of the virtual address are translated into a physical address
+to produce a tag:
+
+20 upper bits (1,048,576): 512 byte physical memory block selector (tag)
