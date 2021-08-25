@@ -1,0 +1,18 @@
+gdb's "info registers" command does not pad register values with leading zeros
+when applicable.  To show all bytes in a flags register such as EFLAGS on x86
+or CPSR on ARM, use the gdb "print" command with the z format specifier.
+
+Example (x86):
+
+(gdb) i r eflags
+eflags         0x202               [ IF ]
+(gdb) p/z $eflags
+$1 = 0x00000202
+
+Example (ARM):
+
+(gdb) i r cpsr
+cpsr           0x8000010           134217744
+(gdb) p/z $cpsr
+$1 = 0x08000010
+   # Note the leading zero in the output of the above print command
