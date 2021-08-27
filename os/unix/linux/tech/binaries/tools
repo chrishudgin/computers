@@ -52,7 +52,8 @@ readelf options
         -S -W  # allow wide output lines for 64-bit object files
         -s  # show symbol table
         -r  # show relocations
-        -A  # show architecture-specific info, such as the ABI in use 
+        -A  # show architecture-specific info, such as the ABI in use,
+            # CPU architecture for which the binary was built,
             # and global pointer offsets to library functions on MIPS
         -x .section  # show hexdump of .section
 
