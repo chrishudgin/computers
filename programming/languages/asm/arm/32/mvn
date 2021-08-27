@@ -6,6 +6,6 @@ negation, i.e. a bit flip (not the arithmetic negation which would be the two's
 complement) of operand 2 before copying the value to the destination register
 specified by operand 1.
 
-To place a negative number into a register, use its two's complement
-minus 1 (which is just a bit flip) as operand2 to MVN.  For example, to place
-the value -10 into a register, use 9 as the argument to MVN.
+To place a negative number into a register, use its two's complement minus 1
+(which is just a bit flip) as operand2 to MVN.  For example, to place the value
+-10 into a register, use 9 as the argument to MVN.
