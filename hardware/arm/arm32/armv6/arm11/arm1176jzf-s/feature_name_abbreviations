@@ -6,7 +6,7 @@ ARM1176JZF-S feature name abbreviation notes:
 11: a member of the ARM11 series of processors implementing the ARMv6 ISA
 
 J: Jazelle extension (native execution of Java bytecode)
-Z: TrustZone security extension
+Z: TrustZone security extension (separation of secure and non-secure code)
 F: Hardware floating point unit: VFPv2 including floating point vector ops
    On the ARM1176JZF-S, floating point vector arithmetic operations are
       performed sequentially in hardware, NOT in parallel
@@ -19,7 +19,11 @@ ISA notes:
 
 ARMv6KZ architecture
    K: additional synchronization instructions for multiprocessing
-      including CLREX
+         including CLREX, LDREXB/H/D and STREXB/H/D to operate on memory
+            operands that are not word-sized, NOP with yield hint
+         Note that the LDREX and STREX instructions that operate on word-sized
+            memory operands are part of the base ARMv6 ISA and are therefore
+            also implemented in processors that conform to the ARMv6K extension
    Z: TrustZone security extension
 
 Thumb support:
