@@ -1,0 +1,30 @@
+Feature name abbrevation reference document:
+https://developer.arm.com/documentation/ka001804/latest
+
+ARM1176JZF-S feature name abbreviation notes:
+
+11: a member of the ARM11 series of processors implementing the ARMv6 ISA
+
+J: Jazelle extension (native execution of Java bytecode)
+Z: TrustZone security extension
+F: Hardware floating point unit: VFPv2 including floating point vector ops
+   On the ARM1176JZF-S, floating point vector arithmetic operations are
+      performed sequentially in hardware, NOT in parallel
+   IEEE 754 implementation but software support code is needed for some
+      calculations like those involving subnormal inputs
+S: Synthesizable (chip feature layout can be customized from functional
+      description)
+
+ISA notes:
+
+ARMv6KZ architecture
+   K: additional synchronization instructions for multiprocessing
+      including CLREX
+   Z: TrustZone security extension
+
+Thumb support:
+   T1 (Thumb-1) instructions are implemented
+   T2 (Thumb-2) instructions are NOT implemented
+
+NEON (Advanced SIMD) support:
+   Not implemented
