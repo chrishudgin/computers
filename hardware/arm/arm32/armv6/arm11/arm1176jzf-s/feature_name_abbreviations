@@ -3,7 +3,8 @@ https://developer.arm.com/documentation/ka001804/latest
 
 ARM1176JZF-S feature name abbreviation notes:
 
-11: a member of the ARM11 series of processors implementing the ARMv6 ISA
+11: a member of the ARM11 series of processors implementing the ARM11
+    microarchitecture and the ARMv6 ISA
 
 J: Jazelle extension (native execution of Java bytecode)
 Z: TrustZone security extension (separation of secure and non-secure code)
