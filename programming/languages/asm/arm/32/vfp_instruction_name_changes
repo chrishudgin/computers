@@ -1,10 +1,11 @@
 ARM32:
 
-The names of VFP instructions changed with the introduction of Unified Assembly
-Language (UAL).  For comparison, see chapter C4 of the ARM Architecture
-Reference Manual Issue I (document DDI 0100I) for the old syntax and section
-D8.2 of the ARM Architecture Refrence Manual ARMv7-A and ARMv7-R edition
-(document DDI 0406C.c) for the new syntax.
+The names of VFP instructions changed with the introduction of Unified
+Assembler Language (UAL).  For comparison, see chapter C4 of the ARM
+Architecture Reference Manual Issue I (document DDI 0100I) for the old syntax
+and section D8.2 of the ARM Architecture Reference Manual ARMv7-A and ARMv7-R
+edition (document DDI 0406C.c) for the new syntax.  Table D8-2 in the latter
+manual contains a mapping of the pre-UAL to UAL instruction mnemonics.
 
 As a consequence of this change, assembly programs written to use UAL may be
 assembled by a modern assembler on older (pre-ARMv7) architectures like ARMv6,
