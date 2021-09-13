@@ -1,10 +1,15 @@
-Feature name abbrevation reference document:
+Feature name abbrevation reference documents:
+
 https://developer.arm.com/documentation/ka001804/latest
+
+https://community.arm.com/developer/ip-products/processors/b/processors-ip-blog/posts/arm-fundamentals-introduction-to-understanding-arm-processors
 
 ARM1176JZF-S feature name abbreviation notes:
 
 11: a member of the ARM11 series of processors implementing the ARM11
     microarchitecture and the ARMv6 ISA
+7: Cache, MMU, with physical address tagging
+6: Tightly coupled SRAM interface (tightly coupled memory, TCM)
 
 J: Jazelle extension (native execution of Java bytecode)
 Z: TrustZone security extension (separation of secure and non-secure code)
