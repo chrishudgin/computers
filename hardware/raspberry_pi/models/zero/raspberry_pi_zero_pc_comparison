@@ -1,12 +1,16 @@
-The ARM1176JZF-S CPU, introduced in 2003 and running at a 700 MHz base
-frequency, as in the original Raspberry Pi Model B and the Raspberry Pi Zero,
-has a processing speed approximately equivalent to that of a 300 MHz Pentium II
-introduced in 1997.  At the maxmimum frequency of 1 GHz, the processing speed
-of the ARM1176JZF-S is approximately equivalent to that of the fastest Pentium
-II (450 MHz) that Intel produced, starting in 1998.  A name brand (Compaq
-Presario) complete Pentium II PC system with 450 MHz processor, 128 MB of RAM,
-10 GB hard drive, and 17 inch monitor cost $2500 in 1998.  With 512 MB of RAM
-and no monitor, the price would also have been around $2500.
+The ARM1176JZF-S CPU, running at a 700 MHz base frequency, as in the original
+Raspberry Pi Model B and the Raspberry Pi Zero, has a processing speed
+approximately equivalent to that of a 300 MHz Pentium II introduced in 1997.
+At the maxmimum CPU clock frequency of 1 GHz, the processing speed of the
+ARM1176JZF-S is approximately equivalent to that of the fastest Pentium II (450
+MHz) that Intel produced, starting in 1998.  Intel discontinued the Pentium II
+in 2003, the same year that ARM introduced the ARM1176JZF-S.
+
+A name brand (Compaq Presario) complete Pentium II PC system with 450 MHz
+processor, 128 MB of RAM, 10 GB hard drive, and 17 inch monitor cost $2500 in
+1998.  With 512 MB of RAM and no monitor, the price would also have been around
+$2500.  512 MB of RAM was the maxmimum amount that could be cached in the early
+versions (all Klamath and some Deschutes) of Pentium II processors.
 
 In 2015 when the Raspberry Pi Zero was introduced, the board together with a 16
 GB microSD card, keyboard, mouse, case, power supply, microUSB to USB/Ethernet
