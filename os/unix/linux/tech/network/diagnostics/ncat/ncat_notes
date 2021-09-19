@@ -18,3 +18,9 @@ ncat can be used on both ends of a connection to test end-to-end network
 A listening ncat process will serve data it reads from standard input
 
 ncat can forward an ssh connection through a proxy
+
+Example to test network speed between endpoints by sending 1 GB of zeroes:
+node1 (receiver):
+   $ nc -vvlp 12345 > /dev/null
+node2 (transmitter):
+   $ dd if=/dev/zero bs=1048576 count=1024 | nc -vv <node1_hostname> 12345
