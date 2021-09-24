@@ -18,13 +18,24 @@ Filter by exact command name (not regex) without using grep:
 
 *****
 
-Unlimited width (i.e. don't truncate output of each process to a single line):
+Unlimited line width (i.e. don't truncate output of each process to a single
+line):
 
 $ ps ww
 or
 $ ps -ww
 
 Two w options result in unlimited output width per process
+
+*****
+
+Custom column width (useful to avoid truncation of printed value when a field
+value length exceeds the standard width of a specified column):
+
+$ ps -o <field name>:<length in characters>
+
+Example:
+$ ps -o user:20,group:20,pid
 
 *****
 
