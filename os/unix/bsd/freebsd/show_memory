@@ -1,5 +1,5 @@
 Show total physical memory:
 
-$ sysctl hw.physmem
+$ sysctl hw.realmem
 
 top will show free memory.
