@@ -1,0 +1,37 @@
+Back up partition table information and zpool "zroot":
+
+# gpart list > /net/quasar/archive/backups/graviton/gpart_list
+# gpart show > /net/quasar/archive/backups/graviton/gpart_show
+# zfs snapshot -r zroot@20211112
+# zfs send -Rv zroot@20211112 > /net/quasar/archive/backups/graviton/zroot.20211112
+# zfs destroy -r zroot@20211112
+
+Restore to bare metal:
+
+Boot using FreeBSD installation media and select Live CD mode:
+# gpart destroy -F ada0
+# gpart create -s gpt ada0
+# gpart add -t freebsd-boot -s 512k -l gptboot0 ada0
+# gpart add -a 1m -t freebsd-swap -s 8g -l swap0 ada0
+# gpart add -a 1m -t freebsd-zfs -l zfs0 ada0
+# gpart bootcode -b /boot/pmbr -p /boot/gptzfsboot -i 1 ada0
+
+# ifconfig em0 10.0.1.16 netmask 255.0.0.0 broadcast 10.255.255.255 up
+# mkdir /tmp/a
+# mount 10.0.1.1:/archive /tmp/a
+# zpool create -f -R /tmp/mnt -m none zroot ada0p3
+# zfs receive -Fdv zroot < /tmp/a/backups/graviton/zroot.20211112
+# zpool set bootfs=zroot/ROOT/default zroot
+
+TODO
+
+Additional steps must now be taken to make the system bootable from the
+restored zroot zpool, but it is not clear what steps these are.
+
+# reboot
+
+FIXME
+
+At this point, the boot loader fails to locate critical files in /boot like
+/boot/loader and /boot/kernel/kernel even though they are present in the
+restored zpool and so the boot loader is unable to boot the operating system.

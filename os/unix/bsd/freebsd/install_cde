@@ -1,0 +1,18 @@
+Note: As of FreeBSD 13, CDE is available on the amd64 platform but not aarch64.
+
+# pkg install xorg cde
+
+Follow directions in "Message from cde-2.4.0" in pkg_install_messages, and
+also run the following command to enable dtlogin:
+
+# sysrc dtlogin_enable=yes
+
+Add the following line to a user's ~/.Xdefaults to cause dtterm to start each
+shell as a login shell:
+*loginShell: True
+
+Reboot the machine to ensure that dtlogin starts automatically at boot.
+
+Disable screen saver and screen lock in Style Manager -> Screen
+
+Disable beeps in Style Manager -> Beep

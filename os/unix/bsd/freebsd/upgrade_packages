@@ -1,0 +1,6 @@
+The "freebsd-update fetch / freebsd-update install" sequence does not upgrade
+packages that are not part of the base installation.
+
+To upgrade additional installed packages, run:
+# pkg update   # updates the package repo metadata on the local system
+# pkg upgrade  # upgrades packages

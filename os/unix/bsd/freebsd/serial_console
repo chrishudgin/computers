@@ -1,0 +1,4 @@
+Set up dual serial / video console with serial as primary running at default
+speed of 9600 bps:
+
+# echo "-Dh" >> /boot.config
