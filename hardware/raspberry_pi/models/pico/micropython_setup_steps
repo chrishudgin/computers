@@ -10,11 +10,11 @@ Copy it to the Pico as with any other UF2 file.
 
 Use ampy to copy files to the Pico, e.g.:
 
-$ ampy -p /dev/ttyACM0 put baz.py main.py
+$ ampy -p /dev/serial0 put baz.py main.py
    (copies baz.py from the host to main.py on the Pico)
-$ ampy -p /dev/ttyACM0 put foo.py
-$ ampy -p /dev/ttyACM0 put bar.py
-$ ampy -p /dev/ttyACM0 ls
+$ ampy -p /dev/serial0 put foo.py
+$ ampy -p /dev/serial0 put bar.py
+$ ampy -p /dev/serial0 ls
 
 If there is a MicroPython program on the Pico in a file called main.py, the
 MicroPython interpreter will run it automatically when the Pico boots.
@@ -24,7 +24,7 @@ MicroPython interpreter installed on the Pico provides the same REPL (read,
 evaluate, print, loop) interactive functionality as a standard Python
 interpreter:
 
-$ minicom -b 115200 -o -D /dev/ttyACM0
+$ minicom -b 115200 -o -D /dev/serial0
 Hit <Enter> to get a >>> prompt if no MicroPython program is running.
 If a MicroPython program is running, hit <Ctrl-C> to stop it and get a prompt.
 From the prompt, hit <Ctrl-D> to perform a soft reboot and run main.py.

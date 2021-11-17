@@ -14,3 +14,4 @@ you like the serial port hardware to be enabled?"
 
 Connect to the serial port:
 $ minicom -b 115200 -o -D /dev/serial0   # serial0 should be a link to ttyS0
+                                         # or to ttyAMA0
