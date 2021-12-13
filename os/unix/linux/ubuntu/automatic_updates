@@ -1,0 +1,6 @@
+Automatic daily software checks and updates are enabled in Ubuntu by default.
+To disable them in the GUI:
+
+Open the "Software & Updates" application
+Go to the Updates tab
+Automatically check for updates: Never
