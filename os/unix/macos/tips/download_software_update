@@ -1,0 +1,10 @@
+Software updates, including full macOS installers as well as other updates, can
+be downloaded from the command line using the softwareupdate utility.
+
+List full macOS installers that are available for download:
+
+# softwareupdate --list-full-installers
+
+Download (only) a full macOS installer to the /Applications folder:
+
+# softwareupdate --fetch-full-installer --full-installer-version <version>
