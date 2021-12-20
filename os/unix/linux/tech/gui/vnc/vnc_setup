@@ -6,6 +6,20 @@ $ vncserver -localhost no -geometry 1920x1200 :1  # set to desired screen size
 
 The login session that was used to start vncserver can now be closed.
 
+*****
+
+On RHEL:
+
+# yum install tigervnc-server
+# firewall-cmd --permanent --add-service vnc-server
+# firewall-cmd --reload
+
+$ vncserver -geometry 1920x1200 :1  # set to desired screen size
+
+The login session that was used to start vncserver can now be closed.
+
+*****
+
 Connect with VNC Viewer client.
 
 When finished with the graphical desktop login session:

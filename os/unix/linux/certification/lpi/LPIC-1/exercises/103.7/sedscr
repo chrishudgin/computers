@@ -1,1 +1,2 @@
-s/\(^ab\)/&e/
+sed -e 's/\(^ab\).*/&e/' <<< "abc"   # prints "abce"
+sed -e 's/\(^ab\).*/\1e/' <<< "abc"  # prints "abe"
