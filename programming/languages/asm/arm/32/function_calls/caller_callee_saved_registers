@@ -4,6 +4,6 @@ r0
 r1
 r2
 r3
-r13 (lr)
+r14 (lr)
 
 The rest are callee-saved.
