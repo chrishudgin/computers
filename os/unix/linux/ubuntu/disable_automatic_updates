@@ -1,8 +1,7 @@
 Automatic daily software checks and updates are enabled in Ubuntu by default.
 
 To disable them on the command line:
-# systemctl stop unattended-upgrades.service
-# systemctl disable unattended-upgrades.service
+# systemctl disable apt-daily.service apt-daily-upgrade.service apt-daily.timer apt-daily-upgrade.timer unattended-upgrades.service
 
 To disable them in the GUI:
 
