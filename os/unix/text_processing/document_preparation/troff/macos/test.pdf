@@ -1,0 +1,139 @@
+%PDF-1.3
+%‚„œ”
+2 0 obj
+<<
+/Length 86
+>>
+stream
+BT
+/TT2 1 Tf
+10 0 0 10 72 780 Tm
+0 g
+/GS1 gs
+0 Tc
+0 Tw
+[(This is test te)15(xt)]TJ
+ET
+endstream
+endobj
+3 0 obj
+<<
+/ProcSet [/PDF /Text ]
+/Font <<
+/TT2 4 0 R
+>>
+/ExtGState <<
+/GS1 5 0 R
+>>
+>>
+endobj
+5 0 obj
+<<
+/Type /ExtGState
+/SA false
+/SM 0.02
+/OP false
+/op false
+/OPM 1
+/BG2 /Default
+/UCR2 /Default
+/HT /Default
+/TR2 /Default
+>>
+endobj
+7 0 obj
+<<
+/Type /FontDescriptor
+/Ascent 750
+/CapHeight 662
+/Descent -250
+/Flags 34
+/FontBBox [-168 -218 1000 898]
+/FontName /Times-Roman
+/ItalicAngle 0
+/StemV 84
+/XHeight 450
+/StemH 84
+>>
+endobj
+4 0 obj
+<<
+/Type /Font
+/Subtype /TrueType
+/FirstChar 32
+/LastChar 120
+/Widths [250 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 611 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 444 0 0 500 278 0 0 0 0 0 0 
+0 0 0 389 278 0 0 0 500 ]
+/Encoding /WinAnsiEncoding
+/BaseFont /Times-Roman
+/FontDescriptor 7 0 R
+>>
+endobj
+1 0 obj
+<<
+/Type /Page
+/Parent 6 0 R
+/Resources 3 0 R
+/Contents 2 0 R
+>>
+endobj
+8 0 obj
+<<
+/S /D
+>>
+endobj
+9 0 obj
+<<
+/Nums [0 8 0 R ]
+>>
+endobj
+6 0 obj
+<<
+/Type /Pages
+/Kids [1 0 R]
+/Count 1
+/MediaBox [0 0 612 792]
+>>
+endobj
+10 0 obj
+<<
+/CreationDate (D:20220105185930-05'00')
+/ModDate (D:20220105185930-05'00')
+/Producer (PSNormalizer.framework)
+>>
+endobj
+11 0 obj
+<<
+/Type /Catalog
+/Pages 6 0 R
+/PageLabels 9 0 R
+>>
+endobj
+xref
+0 12
+0000000000 65535 f 
+0000000945 00000 n 
+0000000016 00000 n 
+0000000152 00000 n 
+0000000583 00000 n 
+0000000247 00000 n 
+0000001090 00000 n 
+0000000387 00000 n 
+0000001025 00000 n 
+0000001052 00000 n 
+0000001171 00000 n 
+0000001303 00000 n 
+trailer
+<<
+/Size 12
+/Root 11 0 R
+/Info 10 0 R
+/ID [<c5c9c06eba239c32fcc1b89c6b7e353d><c5c9c06eba239c32fcc1b89c6b7e353d>]
+>>
+startxref
+1371
+%%EOF
