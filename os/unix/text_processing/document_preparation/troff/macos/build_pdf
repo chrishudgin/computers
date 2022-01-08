@@ -1,1 +1,0 @@
-echo "This is test text" | troff | grops | pstopdf -o test.pdf
