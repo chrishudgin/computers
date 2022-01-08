@@ -1,0 +1,6 @@
+Two possible ways to replace two or more consecutive blank lines with a single
+blank line:
+
+# cat -s
+
+# awk '!NF {if (++n == 1) print; next}; {n=0;print}'
