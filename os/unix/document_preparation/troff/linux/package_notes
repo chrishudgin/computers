@@ -1,9 +1,0 @@
-On RHEL 7:
-
-troff and grops are provided by the groff-base package.
-gropdf is provided by the groff-perl package.
-
-On Raspberry Pi OS 11:
-
-troff and grops are provided by the groff-base package.
-gropdf is provided by the groff package.
