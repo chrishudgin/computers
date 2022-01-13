@@ -417,3 +417,135 @@ Commands inside ( ) run in a subshell.  An exit run from within the subshell
 The shell is useful not only as a complete programming language but also as
 a prototyping language, and as a "glue" language to utilize other programs
 written in any language.
+
+Appendix 2
+
+The following changes need to be made to hoc.ms for the output of GNU troff
+to match the document shown in this appendix:
+
+$ diff hoc.ms hoc.for_gnu_troff.ms
+
+0a1
+> .ds CH
+35,39c36,40
+< 	|	variable
+< 	|	( expr )
+< 	|	expr binop expr
+< 	|	unop expr
+< 	|	function ( arguments )
+---
+> 	\fC|\fP	variable
+> 	\fC|\fP	( expr )
+> 	\fC|\fP	expr binop expr
+> 	\fC|\fP	unop expr
+> 	\fC|\fP	function ( arguments )
+134,141c135,142
+< 	|	variable = expr
+< 	|	procedure ( arglist )
+< 	|	while ( expr ) stmt
+< 	|	if ( expr ) stmt
+< 	|	if ( expr ) stmt else stmt
+< 	|	{ stmtlist }
+< 	|	print expr-list
+< 	|	return optional-expr
+---
+> 	\fC|\fP	variable = expr
+> 	\fC|\fP	procedure ( arglist )
+> 	\fC|\fP	while ( expr ) stmt
+> 	\fC|\fP	if ( expr ) stmt
+> 	\fC|\fP	if ( expr ) stmt else stmt
+> 	\fC|\fP	{ stmtlist }
+> 	\fC|\fP	print expr-list
+> 	\fC|\fP	return optional-expr
+143,144c144,145
+< stmtlist:		\fR(nothing)\fI
+< 	|	stmlist stmt
+---
+> stmtlist:	\fR(nothing)\fI
+> 	\fC|\fP	stmlist stmt
+245c246
+< .IT $3
+---
+> \fI$3\fP
+264,275c265,276
+< .S $ "hoc
+< .S "func ack() {
+< .S "        if ($1 == 0) return $2+1
+< .S "        if ($2 == 0) return ack($1-1, 1)
+< .S "        return ack($1-1, ack($1, $2-1))
+< .S "}
+< .S "ack(3, 2)
+<         29
+< .S "ack(3, 3)
+<         61
+< .S "ack(3, 4)
+< hoc: stack too deep near line 8
+---
+> $\f(CI hoc
+> func ack() {
+>         if ($1 == 0) return $2+1
+>         if ($2 == 0) return ack($1-1, 1)
+>         return ack($1-1, ack($1, $2-1))
+> }
+> ack(3, 2)
+>         \fP29\fP
+> ack(3, 3)
+>         \fP61\fP
+> ack(3, 4)
+> \fPhoc: stack too deep near line 8
+290,297c291,298
+< .S $ hoc
+< .S "func stirl() {
+< .S "    return sqrt(2*$1*PI) * ($1/E)^$1*(1 + 1/(12*$1))
+< .S "}
+< .S "stirl(10)
+<         3628684.7
+< .S stirl(20)
+<         2.4328818e+18
+---
+> $\f(CI hoc
+> func stirl() {
+>     return sqrt(2*$1*PI) * ($1/E)^$1*(1 + 1/(12*$1))
+> }
+> stirl(10)
+>         \fP3628684.7\fP
+> stirl(20)
+>         \fP2.4328818e+18\fP
+304c305
+< .S "func fac() if ($1 <= 0) return 1 else return $1 * fac($1-1)
+---
+> \f(CIfunc fac() if ($1 <= 0) return 1 else return $1 * fac($1-1)
+310,313c311,314
+< .S "i = 9
+< .S "while ((i = i+1) <= 20) {
+< .S \ \ \ \ \ \ \ \ print\ i,\ "\ \ ",\ fac(i)/stirl(i),\ "\en"
+< .S "}
+---
+> \f(CIi = 9
+> while ((i = i+1) <= 20) {
+> \ \ \ \ \ \ \ \ print\ i,\ "\ \ ",\ fac(i)/stirl(i),\ "\en"
+> }
+
+Discussion:
+
+.ds CH
+   Redefines the "center header" macro to be empty so that page numbers do not
+   appear.
+
+The pipe symbol as rendered by the Bell Labs troff toolchain is the same in
+both regular and italic fonts, but it differs in the GNU troff toolchain.
+To force the pipe symbol to be rendered upright amidst italic text, bracket
+the pipe symbol with the troff font directives \fC and \fI, or alternatively,
+with \fC and \fP, (P meaning previous).
+
+The .S macro appears to be a custom macro for Bell Labs.  It is not part of the
+ms macro package as implemented in GNU troff or Solaris troff.  It allows part
+of a line to be rendered in an italicized version of the current font.  As an
+alternative to the .S macro, the font can be changed dynamically using inline
+troff directives \f(CI for Courier Italic and \f(CR for Courier Regular or \fP
+for previous font.
+
+Once these changes are made to hoc.ms, run the following command pipeline with
+GNU troff to generate a "camera ready" typeset file in PostScript format:
+
+$ cat hoc.for_gnu_troff.ms | tbl | eqn | troff -ms | grops > hoc.for_gnu_troff.ps
