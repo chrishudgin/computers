@@ -418,6 +418,16 @@ The shell is useful not only as a complete programming language but also as
 a prototyping language, and as a "glue" language to utilize other programs
 written in any language.
 
+9.4
+
+The hoc(1) man page source file, hoc.1, is not included in the files
+distributed online for the book.  However, the complete source for hoc.1 is
+printed in the book in Figure 9.1.  To generate a PostScript version of this
+man page that matches the document in Figure 9.2 (minus the "8th Edition"
+footer), run:
+
+$ man -t ./hoc.1 > hoc.1.ps
+
 Appendix 2
 
 The following changes need to be made to hoc.ms for the output of GNU troff

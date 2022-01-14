@@ -36,7 +36,7 @@ whereis:  Displays binary, source, and man page location for command; searches s
 
 man:  Displays full man page entry
 
-info or pinfo:  Display info page
+info or pinfo:  Display info page if available; otherwise, display man page
    Without any options, info or pinfo will open a list (info's "directory") of
       all installed info pages
    info pages are kept in /usr/share/info
