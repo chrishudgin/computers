@@ -64,17 +64,41 @@ Interfacing Options -> Serial -> Enable
 If using a hardware CRT terminal like a Wyse-60, use a speed of 9600 instead
 of 115200.
 
+For Raspberry Pi OS 64-bit, add the following line to /boot/config.txt:
+
+enable_uart=1
+
 # systemctl reboot
 
 *****
 
-CentOS software setup:
+CentOS and Rocky Linux software setup:
 
 Add the following line to /boot/config.txt:
 
 enable_uart=1
 
+# cp -p /boot/cmdline.txt /boot/cmdline.txt.orig
+# vim /boot/cmdline.txt
+# diff /boot/cmdline.txt.orig /boot/cmdline.txt
+1c1
+< console=ttyAMA0,115200 console=tty1 root=PARTUUID=3a0d4aa4-03 rootfstype=ext4 elevator=deadline rootwait
+---
+> console=tty1 console=ttyAMA0,115200 root=PARTUUID=3a0d4aa4-03 rootfstype=ext4 elevator=deadline rootwait
+
+This makes the serial console device (AMA0 or ttyS0) the primary console
+device.
+
 # systemctl reboot
+
+*****
+
+The serial console device may have one of several names:
+
+Raspberry Pi OS: /dev/serial0
+CentOS or Rocky Linux on Raspberry Pi 3 with Bluetooth enabled: /dev/ttyS0
+CentOS or Rocky Linux on Raspberry Pi models other than the Raspberry Pi 3,
+   or the Raspberry Pi 3 with Bluetooth disabled: /dev/ttyAMA0
 
 *****
 

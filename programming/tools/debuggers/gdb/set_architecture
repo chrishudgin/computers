@@ -1,0 +1,12 @@
+Running the "set architecture" command with no arguments from within gdb will
+show the list of architectures that the running instance of gdb recognizes.  It
+does not indicate which of the listed architectures are compatible with the
+host hardware.
+
+Example for gdb 10.1 on a Raspberry Pi 2 Model B host with an ARMv7 CPU running
+Raspberry Pi OS 11:
+
+(gdb) set architecture
+Requires an argument. Valid arguments are arm, armv2, armv2a, armv3, armv3m, armv4, armv4t, armv5, armv5t, armv5te, xscale, ep9312, iwmmxt, iwmmxt2, armv5tej, armv6, armv6kz, armv6t2, armv6k, armv7, armv6-m, armv6s-m, armv7e-m, armv8-a, armv8-r, armv8-m.base, armv8-m.main, armv8.1-m.main, arm_any, auto.
+(gdb) set architecture armv7
+The target architecture is set to "armv7".
