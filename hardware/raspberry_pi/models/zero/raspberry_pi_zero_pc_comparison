@@ -16,7 +16,8 @@ In 2015 when the Raspberry Pi Zero was introduced, the board together with a 16
 GB microSD card, keyboard, mouse, case, power supply, microUSB to USB/Ethernet
 adapter, and Ethernet cable cost around $100.  Adding a monitor would double
 the price, but the Raspberry Pi Zero like all Raspberry Pi computers can be run
-"headless" (no keyboard, mouse, or monitor).
+"headless" (no keyboard, mouse, or monitor).  Even with a monitor, the cost
+would have been less than 10% that of the aforementioned 1998 Pentium II PC.
 
 In 2021, when used in USB gadget mode and connected to a separate desktop
 computer, the Raspberry Pi Zero ($5) with a 32 GB microSD card ($8), official
