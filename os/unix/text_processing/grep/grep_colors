@@ -1,0 +1,12 @@
+GNU grep's color capability can cause the final character in an output line to
+be erased from the terminal display if the previous character on the line
+matched the search pattern and was therefore colorized.
+
+A workaround to prevent grep from clearing the terminal output to the end of
+the line is to set the following environment variable:
+
+export GREP_COLORS=ne
+
+The issue is explained in detail at:
+
+https://unix.stackexchange.com/questions/45190/grep-color-adds-ansi-code-esck-this-can-change-displayed-text
