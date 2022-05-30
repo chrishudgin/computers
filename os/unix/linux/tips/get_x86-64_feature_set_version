@@ -1,0 +1,14 @@
+The version of an x86-64 CPU's feature set (v2, v3, v4, etc.) can be determined
+with the following command installed with the glibc package:
+
+$ /lib64/ld-linux-x86-64.so.2 --help
+
+Example:
+
+$ /lib64/ld-linux-x86-64.so.2 --help | grep x86-64-v
+  x86-64-v4
+  x86-64-v3
+  x86-64-v2 (supported, searched)
+
+In this example, the CPU supports only the x86-64 v2 feature set fully.  The
+CPU may or may not partially support the v3 and v4 feature sets.
