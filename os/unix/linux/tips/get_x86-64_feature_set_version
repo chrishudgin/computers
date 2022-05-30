@@ -1,5 +1,8 @@
+Some x86-64 operating systems (such as RHEL 9) require CPU feature sets beyond
+the base level, such as v2.
+
 The version of an x86-64 CPU's feature set (v2, v3, v4, etc.) can be determined
-with the following command installed with the glibc package:
+with the following command installed with the glibc.x86_64 package:
 
 $ /lib64/ld-linux-x86-64.so.2 --help
 
