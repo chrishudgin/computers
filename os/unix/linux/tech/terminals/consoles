@@ -75,7 +75,7 @@ directly. (Note: ttyS0 is in this file by default.)
 Enable the appropriate serial tty getty service, e.g.:
 # systemctl enable serial-getty@ttyS1.service
 
-RHEL 7 and 8:
+RHEL 7, 8, and 9:
 Replace any existing GRUB_TERMINAL_INPUT or GRUB_TERMINAL_OUTPUT lines in
 /etc/default/grub with
 
@@ -119,7 +119,7 @@ In /etc/init/serial.conf:
 
 Set the desired terminal type (e.g. vt100) in the "exec agetty" line.
 
-In RHEL 7:
+In RHEL 7, 8, and 9:
 
 Add console=ttyS0 to GRUB_CMDLINE_LINUX in /etc/default/grub, along with any
 other console= devices desired (e.g. console=tty0 console=ttyS0,115200)
