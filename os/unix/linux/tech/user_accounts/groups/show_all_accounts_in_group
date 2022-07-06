@@ -1,7 +1,6 @@
 Show all user accounts that are members of a given group:
 
 (RHEL) # lid -g <groupname>
-(Debian) $ members <groupname>  (does not work for group "root")
+(Debian) $ libuser-lid <groupname>
 
-The lid command is part of the libuser package.
-The members command is part of the members package.
+In each case, the command is provided by the libuser package.
