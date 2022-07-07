@@ -7,3 +7,8 @@ To get the major and minor numbers given a block device name:
 
 # lsblk --noheadings -r -d -o MAJ:MIN /dev/sdb
 8:16
+
+or given any device name, including a device of character type (e.g. /dev/null):
+
+# udevadm info -n /dev/null | egrep 'MAJOR|MINOR' | grep -o '[0-9]*' | paste -s | tr '\t' ':'
+1:3
