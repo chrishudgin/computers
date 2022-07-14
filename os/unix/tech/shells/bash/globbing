@@ -1,5 +1,19 @@
 Shell globbing rules for expansion of pathnames are described in glob(7)
 
+Some shells, such as bash, may also recognize patterns, or lists of patterns
+separated by |, within parentheses if the parenthesized pattern or list is
+preceded immediately by a regex matching operator
+   ?, *, +, @, !
+Note that when preceding a parenthesized pattern or pattern list, ? and *
+behave as regular expression operators rather than as shell globbing operators.
+
+When using a general pattern in parentheses, include any glob characters * or ?
+within the parentheses for proper matching.
+
+To invert the selection of individual characters in a pathname pattern, use
+[!...] where ... are the characters NOT to be matched, as in:
+$ rm [!ab]*  # remove all files that do begin with dot (.), a, or b
+
 To invert a glob pattern (match all but the pattern):
 $ shopt -s extglob
 and then use !(pattern)
@@ -19,3 +33,8 @@ Example to remove all files except those beginning with c or d, including
 removing files beginning with a dot (.) unless they begin with .c or .d :
 $ shopt -s extglob
 $ rm !([cd]*) .[!.cd]*
+
+Example to remove all files except those beginning with dot (.) or ending in
+.c or .h:
+$ shopt -s extglob
+$ rm !(*.c|*.h)

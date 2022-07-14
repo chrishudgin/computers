@@ -1,8 +1,0 @@
-# split command used to generate xa* files was:
-# split --line-bytes=30 splitme
-
-This is a test of split.
-Second line.
-Third line.
-Fourth line.
-Fifth line.

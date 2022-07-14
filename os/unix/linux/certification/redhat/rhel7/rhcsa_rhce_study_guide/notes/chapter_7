@@ -1,3 +1,0 @@
-Self-test question 6:
-
-The command should be rpm -qlp, not rpm -ql.
