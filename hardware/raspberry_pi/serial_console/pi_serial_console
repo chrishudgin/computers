@@ -49,10 +49,16 @@ Ctrl-A k to quit
 
 *****
 
-Raspberry Pi software setup:
+Raspberry Pi OS software setup:
 
+On Raspberry Pi OS 32-bit:
 # raspi-config
 Interfacing Options -> Serial -> Enable
+
+On Raspberry Pi OS 64-bit:
+Add the following line to /boot/config.txt:
+enable_uart=1
+
 # cp -p /boot/cmdline.txt /boot/cmdline.txt.orig
 # vim /boot/cmdline.txt
 # diff /boot/cmdline.txt.orig /boot/cmdline.txt
@@ -63,10 +69,6 @@ Interfacing Options -> Serial -> Enable
 
 If using a hardware CRT terminal like a Wyse-60, use a speed of 9600 instead
 of 115200.
-
-For Raspberry Pi OS 64-bit, add the following line to /boot/config.txt:
-
-enable_uart=1
 
 # systemctl reboot
 
@@ -89,16 +91,20 @@ enable_uart=1
 This makes the serial console device (AMA0 or ttyS0) the primary console
 device.
 
-# systemctl reboot
-
-*****
-
 The serial console device may have one of several names:
 
 Raspberry Pi OS: /dev/serial0
 CentOS or Rocky Linux on Raspberry Pi 3 with Bluetooth enabled: /dev/ttyS0
 CentOS or Rocky Linux on Raspberry Pi models other than the Raspberry Pi 3,
    or the Raspberry Pi 3 with Bluetooth disabled: /dev/ttyAMA0
+
+To force the console device to be AMA0 on a Raspberry Pi 3, add the following
+lines to /boot/config.txt and then later mask the wpa_supplicant service:
+
+dtoverlay=disable-wifi
+dtoverlay=disable-bt
+
+# systemctl reboot
 
 *****
 
