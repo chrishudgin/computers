@@ -1,0 +1,8 @@
+Open multiple instances of a single application:
+
+$ open -n -a <app_name>
+
+This method may not be safe for applications that are not designed to have
+multiple instances of themselves running at the same time (for example, if they
+don't use locking to coordinate access between multiple instances to the same
+shared data files).
