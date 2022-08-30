@@ -5,6 +5,3 @@ Set count of lines to list:
 (gdb) set listsize <integer>
 Example:
 (gdb) set listsize 1000
-
-Disable pager:
-(gdb) set pagination off
