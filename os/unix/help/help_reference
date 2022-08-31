@@ -42,12 +42,17 @@ info or pinfo:  Display info page if available; otherwise, display man page
    info pages are kept in /usr/share/info
       If an info page for a topic does not exist, info displays the man page.
    Type 'h' for help within info
+   Type 'H' for a list of key bindings (single key commands)
+   Arrow keys move the cursor one character or line at a time
    <Space> : move forward one screen
    <DEL> : move backward one screen
    Type 'l' to return to the last node visited in the info page.
-   Tip:  [ and ] or "n" and "p" can be used to scroll between "nodes"
+   Hit <Enter> when the cursor is on an underlined node name to jump to that
+      node
+   [ and ] or "n" and "p" can be used to scroll between "nodes"
       (sections) in an info document even when the DEL (or Backspace) key is
       mapped to Ctrl-H (which brings up the "Help" pages for info)
+   q to quit info
 
 command --help : Shows syntax and brief usage notes for command
 
