@@ -1,0 +1,21 @@
+Match a string, such as multiple words, that may extend across a line boundary:
+
+$ cat mytext
+123
+abc
+def
+ghi
+rfhabc
+defqui
+ptty
+
+$ grep -Eowz "abc[[:space:]]*def" mytext | tr '\0' '\n'
+abc
+def
+
+When given ordinary newline-separated text input, this method requires the -o
+option (print only matching text, not entire lines with matching text) since
+with the -z option to grep needed to override the usual treatment of newlines,
+the null character (\0) is being used instead of newline (\n) as the input
+record separator and "lines" are thus not treated as recognized entities (or to
+put it another way, the entire input is treated as one "line").
