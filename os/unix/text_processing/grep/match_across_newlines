@@ -1,16 +1,29 @@
-Match a string, such as multiple words, that may extend across a line boundary:
+Match a string, such as multiple words, that may extend across a line or
+paragraph (multiple blank lines) boundary:
 
 $ cat mytext
 123
 abc
 def
-ghi
+abcdef
+abc def
+456
+xyz abc
+
+
+def ghi
 rfhabc
 defqui
-ptty
+lmn
 
 $ grep -Eowz "abc[[:space:]]*def" mytext | tr '\0' '\n'
 abc
+def
+abcdef
+abc def
+abc
+
+
 def
 
 When given ordinary newline-separated text input, this method requires the -o
