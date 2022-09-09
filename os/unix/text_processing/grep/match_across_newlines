@@ -16,10 +16,9 @@ rfhabc
 defqui
 lmn
 
-$ grep -Eowz "abc[[:space:]]*def" mytext | tr '\0' '\n'
+$ grep -Eowz "abc[[:space:]]+def" mytext | tr '\0' '\n'
 abc
 def
-abcdef
 abc def
 abc
 
