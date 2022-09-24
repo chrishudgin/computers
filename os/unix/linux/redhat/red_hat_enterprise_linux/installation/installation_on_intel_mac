@@ -26,11 +26,11 @@ After the installation is complete, boot to the installer thumb drive,
    select Troubleshooting, and boot to rescue mode.  Choose the option to
    mount the installed Linux filesystems at /mnt/sysroot.
 
-At the shell prompt:
-# chroot /mnt/sysroot
-
 Make sure all filesystems are mounted.
 
+At the shell prompt:
+# chroot /mnt/sysroot
+# umount /a
 # cd /boot/efi
 # tar -cvf /tmp/efi.tar .
 # rm -rf EFI
@@ -40,14 +40,19 @@ Create an entry for the new /boot/efi filesystem in /etc/fstab using the UUID
 idenfified by blkid:
 UUID=XXXX-XXXX /boot/efi vfat umask=0077,shortname=winnt 0 2
 
-Use gdisk to set the name of the /boot/efi partition to "EFI System Partition"
+Use gdisk to set the type of the /boot/efi partition to ef00 and its name to
+   "EFI System Partition"
 
 # chmod 755 /boot/efi
 # mount /boot/efi
 # cd /boot/efi
 # tar xvf /tmp/efi.tar
 # rm /tmp/efi.tar
+# cd
 # grub2-mkconfig -o /boot/efi/EFI/redhat/grub.cfg
+Ignore any warnings about not being able to find a GRUB device on the thumb
+drive.
+
 # exit
 # exit
 
