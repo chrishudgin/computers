@@ -3,28 +3,32 @@ Install RHEL 8 or 9 on an Intel Mac:
 An EFI system partition on an Intel Mac does not need to be formatted as HFS+.
 A normal VFAT-formatted EFI system partition will work.
 
-Insert RHEL installer thumb drive
-Hold down Option or Alt key while booting
-Select "EFI Boot" to boot to RHEL installer thumb drive
-Choose the menu option to install RHEL
+Insert RHEL installer thumb drive.
+Hold down Option or Alt key while booting.
+Select "EFI Boot" to boot to RHEL installer thumb drive.
+Choose the menu option to install RHEL.
 
-In the disk selection screen, select the desired installation disk
-Select Custom Storage Configuration
-At the bottom of the screen click on "Full disk summary and boot loader"
-   Select the button "Do not install boot loader", then Close
-   Ignore the warning thet the system may not be bootable
+In the disk selection screen, select the desired installation disk.
+Select Custom Storage Configuration.
+
+At the bottom of the screen click on "Full disk summary and boot loader".
+Select the button "Do not install boot loader", then Close.
+Ignore the warning thet the system may not be bootable.
+
 In a text console window, ensure that the target installation disk is
-   partitioned as GPT with no partitions.
+partitioned as GPT with no partitions.
+
 In the Manual Partitioning screen, create a 1 GB VFAT partition with a mount
-   point of /a.  After the installation is complete, it will be converted
-   manually to the EFI system partition.  Do not attempt to create a
-   /boot/efi filesystem in the installer.
+point of /a.  After the installation is complete, it will be converted
+manually to the EFI system partition.  Do not attempt to create a
+/boot/efi filesystem in the installer.
+
 After starting the installation, ignore the warning about the missing
-   mactel-boot package.
+mactel-boot package.
 
 After the installation is complete, boot to the installer thumb drive,
-   select Troubleshooting, and boot to rescue mode.  Choose the option to
-   mount the installed Linux filesystems at /mnt/sysroot.
+select Troubleshooting, and boot to rescue mode.  Choose the option to
+mount the installed Linux filesystems at /mnt/sysroot.
 
 Make sure all filesystems are mounted.
 
@@ -38,10 +42,11 @@ At the shell prompt:
 
 Create an entry for the new /boot/efi filesystem in /etc/fstab using the UUID
 idenfified by blkid:
+
 UUID=XXXX-XXXX /boot/efi vfat umask=0077,shortname=winnt 0 2
 
 Use gdisk to set the type of the /boot/efi partition to ef00 and its name to
-   "EFI System Partition"
+"EFI System Partition"
 
 # chmod 755 /boot/efi
 # mount /boot/efi
@@ -50,8 +55,8 @@ Use gdisk to set the type of the /boot/efi partition to ef00 and its name to
 # rm /tmp/efi.tar
 # cd
 # grub2-mkconfig -o /boot/efi/EFI/redhat/grub.cfg
-Ignore any warnings about not being able to find a GRUB device on the thumb
-drive.
+Ignore any warnings about not being able to find a GRUB drive for the
+thumb drive device.
 
 # exit
 # exit
