@@ -45,6 +45,8 @@ idenfified by blkid:
 
 UUID=XXXX-XXXX /boot/efi vfat umask=0077,shortname=winnt 0 2
 
+Remove the existing entry in /etc/fstab for the /a filesystem.
+
 Use gdisk to set the type of the /boot/efi partition to ef00 and its name to
 "EFI System Partition"
 
