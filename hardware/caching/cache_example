@@ -11,6 +11,31 @@ The lower 12 bits of a virtual address are split into:
 7 middle bits (128): index of L1 cache set
 
 The upper 20 bits of the virtual address are translated into a physical address
-to produce a tag:
+to produce a tag that corresponds to a 4K physical page.
 
-20 upper bits (1,048,576): 512 byte physical memory block selector (tag)
+The same virtual address in different contexts (e.g. different processes) could
+potentially map to different physical addresses.  In each context, the virtual
+address would map to the same L1 cache set but each cache entry would need to
+hold different data from memory.  The use of a physical tag with each cache
+entry ensures that only the data in the cache that is from the correct
+associated physical page will cause a cache hit.  Thus, a context switch does
+not require all cache entries used by the old context to be invalidated.
+
+Conversely, multiple virtual addresses can potentially map to the same physical
+address (e.g. with shared memory).  To ensure that there are not multiple L1
+cache entries for these virtual addresses that map to a single physical address
+(which would necessitate a cache coherency protocol within a single cache to
+keep them in sync), the number of bits used to index and address data in the
+cache (12 = 7 to select the cache index + 5 to select a byte in a cache line)
+is set to match the number of bits used to address data within a page (12 for a
+4K page).  Because the offset within a page must be the same for two virtual
+addresses that map to the same physical page, the 12 lower bits of the two
+virtual addresses must also be the same.  But these same 12 lower bits
+(specifically the upper 7 of those 12 bits) uniquely determine the cache index
+(cache set) that is used.  Thus, there will never be entries in two separate
+cache sets corresponding to the same data in the same physical page.
+Furthermore, within a cache set, the cache controller will never allow the same
+physical tag (corresponding to a physical page) to be used for more than one
+entry in the set at a time, so there is no risk of ambiguity within a cache set
+about which existing valid cache entry to use for a given physical page--there
+will always be at most just one.
