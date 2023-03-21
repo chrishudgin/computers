@@ -1,0 +1,35 @@
+1.1
+
+Ctrl-D flushes the input buffer--i.e. it sends the current line of input to
+the program reading the terminal (for example, the shell).  If the current
+line of input is empty, then the reading program gets EOF.  When the shell
+reads EOF, it exits.  Ctrl-D differs from <newline> because Ctrl-D does not
+send a newline character before it flushes the input buffer.
+
+mesg simply sets the "write" permission bit for the tty group on your tty
+   device file.  The "write" command is setgid tty.
+
+echo -n suppresses the trailing newline in some shells like bash, but not sh
+   or ksh.  For those shells, suppress a newline with:  echo "string\c"
+
+1.2
+
+sort -f  # fold upper and lower case when sorting
+sort -d  # dictionary order--only letters, digits, and blanks are considered
+sort -u  # print only one line from each set of duplicated lines
+sort -o filename   # save output in filename 
+sort +n  # skip n fields and start sorting at the n+1st field
+
+tail +n  # starts ouput at the nth line
+tail -r  # prints output lines in reverse order
+
+1.4
+
+& at the end of a pipeline applies to the whole pipeline (the whole pipeline
+   is started in the background).  However, the shell only prints the PID of
+   the last command in the pipeline.
+
+wait   # waits until all processes started with & have finished
+
+kill 0  # kills background processes (all processes in the process group
+        # except the initiating shell)
