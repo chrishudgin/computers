@@ -1,0 +1,22 @@
+This program can be used to test for filesystem uniformity as described in the
+footnote of section 2.2 of the book _The UNIX Programming Environment_ by Brian
+Kernighan and Rob Pike:
+
+"There's a good test of file system uniformity, due originally to Doug Mellroy,
+that the UNIX file system passes handily. Can the output of a FORTRAN program
+be used as input to the FORTRAN compiler? A remarkable number of systems have
+trouble with this test."
+
+To verify that a Unix or Unix-like system with a Fortran 77 compiler passes
+this test, run the following commands:
+
+$ rm -f fstest hello hello.f
+$ f77 -o fstest fstest.f
+$ ./fstest > hello.f
+$ f77 -o hello hello.f
+$ ./hello
+hello, world
+
+If the commands complete successfully and the "hello" program prints the
+expected string "hello, world", then the Unix filesystem passes the uniformity
+test.
