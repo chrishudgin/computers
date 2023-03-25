@@ -1,13 +1,14 @@
 #!/usr/bin/awk -f
 
-# Check for unbalanced start and end macros in an ms troff document
+# Check for unbalanced start and end macro commands in an ms troff document
 #
-# Nesting of macros (successive invocations of a macro "start" without an
-# intervening macro "end") is considered to be an error.
+# Nesting of macros of a given type (successive invocations of a macro "start"
+# without an intervening corresponding macro "end") is considered to be an
+# error.
 #
-# Extraneous macro "end" directives for a given type are considered an error.
+# Extraneous macro "end" commands for a given type are considered an error.
 #
-# The presence of more than one .AB or .TL macro in a document is considered
+# The presence of more than one .AB or .TL command in a document is considered
 # an error.
 
 BEGIN {
@@ -23,14 +24,14 @@ BEGIN {
 /^.AB/ {
 	ab++
 	if (ab > 1) {
-		print("Extraneous .AB found at line", NR)
+		print("Extraneous .AB command at line", NR)
 	}
 }
 
 /^.AE/ {
 	ae++
 	if (ae > ab) {
-		print("Extraneous .AE found at line", NR) 
+		print("Extraneous .AE command at line", NR) 
 		ae--
 	}
 }
@@ -38,14 +39,14 @@ BEGIN {
 /^.DS/ {
 	ds++
 	if (ds > 1) {
-		print("Extraneous .DS found at line", NR)
+		print("Extraneous .DS command at line", NR)
 	}
 }
 
 /^.DE/ {
 	de++
 	if (de > ds) {
-		print("Extraneous .DE found at line", NR) 
+		print("Extraneous .DE command at line", NR) 
 	} else if (ds > 0) {
 		ds--
 	}
@@ -55,14 +56,14 @@ BEGIN {
 /^.EQ/ {
 	eq++
 	if (eq > 1) {
-		print("Extraneous .EQ found at line", NR)
+		print("Extraneous .EQ command at line", NR)
 	}
 }
 
 /^.EN/ {
 	en++
 	if (en > eq) {
-		print("Extraneous .EN found at line", NR) 
+		print("Extraneous .EN command at line", NR) 
 	} else if (eq > 0) {
 		eq--
 	}
@@ -72,14 +73,14 @@ BEGIN {
 /^.FS/ {
 	fs++
 	if (fs  > 1) {
-		print("Extraneous .FS found at line", NR)
+		print("Extraneous .FS command at line", NR)
 	}
 }
 
 /^.FE/ {
 	fe++
 	if (fe > fs) {
-		print("Extraneous .FE found at line", NR) 
+		print("Extraneous .FE command at line", NR) 
 	} else if (fs > 0) {
 		fs--
 	}
@@ -89,21 +90,21 @@ BEGIN {
 /^.KF/ {
 	kf++
 	if ((kf + ks) > 1) {
-		print("Extraneous .KF found at line", NR)
+		print("Extraneous .KF command at line", NR)
 	}
 }
 
 /^.KS/ {
 	ks++
 	if ((kf + ks) > 1) {
-		print("Extraneous .KS found at line", NR)
+		print("Extraneous .KS command at line", NR)
 	}
 }
 
 /^.KE/ {
 	ke++
 	if (ke > (kf + ks)) {
-		print("Extraneous .KE found at line," NR)
+		print("Extraneous .KE command at line," NR)
 	} else if (kf > 0) {
 		kf--
 	} else if (ks > 0) {
@@ -115,14 +116,14 @@ BEGIN {
 /^.TS/ {
 	ts++
 	if (ts > 1) {
-		print("Extraneous .TS found at line", NR)
+		print("Extraneous .TS command at line", NR)
 	}
 }
 
 /^.TE/ {
 	te++
 	if (te > ts) {
-		print("Extraneous .TE found at line", NR) 
+		print("Extraneous .TE command at line", NR) 
 	} else if (ts > 0) {
 		ts--
 	}
@@ -132,32 +133,32 @@ BEGIN {
 /^.TL/ {
 	tl++
 	if (tl > 1) {
-		print("Extraneous .TL found at line", NR)
+		print("Extraneous .TL command at line", NR)
 	}
 }
 
 END {
 	if (ab > ae) {
-		print(ab - ae, ".AB directive(s) not terminated with .AE")
+		print(ab - ae, ".AB command(s) not terminated with .AE")
 	}
 
 	if (ds > de) {
-		print(ds - de, ".DS directive(s) not terminated with .DE")
+		print(ds - de, ".DS command(s) not terminated with .DE")
 	}
 
 	if (eq > en) {
-		print(eq - en, ".EQ directive(s) not terminated with .EN")
+		print(eq - en, ".EQ command(s) not terminated with .EN")
 	}
 
 	if (fs > fe) {
-		print(fs - fe, ".FS directive(s) not terminated with .FE")
+		print(fs - fe, ".FS command(s) not terminated with .FE")
 	}
 
 	if ((kf + ks) > ke) {
-		print(kf + ks - ke, ".KF or .KS directive(s) not terminated with .KE")
+		print(kf + ks - ke, ".KF or .KS command(s) not terminated with .KE")
 	}
 
 	if (ts > te) {
-		print(ts - te, ".TS directive(s) not terminated with .TE")
+		print(ts - te, ".TS command(s) not terminated with .TE")
 	}
 }
