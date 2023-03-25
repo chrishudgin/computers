@@ -1,0 +1,163 @@
+#!/usr/bin/awk -f
+
+# Check for unbalanced start and end macros in an ms troff document
+#
+# Nesting of macros (successive invocations of a macro "start" without an
+# intervening macro "end") is considered to be an error.
+#
+# Extraneous macro "end" directives for a given type are considered an error.
+#
+# The presence of more than one .AB or .TL macro in a document is considered
+# an error.
+
+BEGIN {
+	ab = ae = 0
+	ds = de = 0
+	eq = en = 0
+	fs = fe = 0
+	kf = ks = ke = 0
+	ts = te = 0
+	tl = 0
+}
+
+/^.AB/ {
+	ab++
+	if (ab > 1) {
+		print("Extraneous .AB found at line", NR)
+	}
+}
+
+/^.AE/ {
+	ae++
+	if (ae > ab) {
+		print("Extraneous .AE found at line", NR) 
+		ae--
+	}
+}
+
+/^.DS/ {
+	ds++
+	if (ds > 1) {
+		print("Extraneous .DS found at line", NR)
+	}
+}
+
+/^.DE/ {
+	de++
+	if (de > ds) {
+		print("Extraneous .DE found at line", NR) 
+	} else if (ds > 0) {
+		ds--
+	}
+	de--
+}
+
+/^.EQ/ {
+	eq++
+	if (eq > 1) {
+		print("Extraneous .EQ found at line", NR)
+	}
+}
+
+/^.EN/ {
+	en++
+	if (en > eq) {
+		print("Extraneous .EN found at line", NR) 
+	} else if (eq > 0) {
+		eq--
+	}
+	en--
+}
+
+/^.FS/ {
+	fs++
+	if (fs  > 1) {
+		print("Extraneous .FS found at line", NR)
+	}
+}
+
+/^.FE/ {
+	fe++
+	if (fe > fs) {
+		print("Extraneous .FE found at line", NR) 
+	} else if (fs > 0) {
+		fs--
+	}
+	fe--
+}
+
+/^.KF/ {
+	kf++
+	if ((kf + ks) > 1) {
+		print("Extraneous .KF found at line", NR)
+	}
+}
+
+/^.KS/ {
+	ks++
+	if ((kf + ks) > 1) {
+		print("Extraneous .KS found at line", NR)
+	}
+}
+
+/^.KE/ {
+	ke++
+	if (ke > (kf + ks)) {
+		print("Extraneous .KE found at line," NR)
+	} else if (kf > 0) {
+		kf--
+	} else if (ks > 0) {
+		ks--
+	}
+	ke--
+}
+
+/^.TS/ {
+	ts++
+	if (ts > 1) {
+		print("Extraneous .TS found at line", NR)
+	}
+}
+
+/^.TE/ {
+	te++
+	if (te > ts) {
+		print("Extraneous .TE found at line", NR) 
+	} else if (ts > 0) {
+		ts--
+	}
+	te--
+}
+
+/^.TL/ {
+	tl++
+	if (tl > 1) {
+		print("Extraneous .TL found at line", NR)
+	}
+}
+
+END {
+	if (ab > ae) {
+		print(ab - ae, ".AB directive(s) not terminated with .AE")
+	}
+
+	if (ds > de) {
+		print(ds - de, ".DS directive(s) not terminated with .DE")
+	}
+
+	if (eq > en) {
+		print(eq - en, ".EQ directive(s) not terminated with .EN")
+	}
+
+	if (fs > fe) {
+		print(fs - fe, ".FS directive(s) not terminated with .FE")
+	}
+
+	if ((kf + ks) > ke) {
+		print(kf + ks - ke, ".KF or .KS directive(s) not terminated with .KE")
+	}
+
+	if (ts > te) {
+		print(ts - te, ".TS directive(s) not terminated with .TE")
+	}
+}
