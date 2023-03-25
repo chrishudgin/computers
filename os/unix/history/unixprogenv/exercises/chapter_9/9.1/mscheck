@@ -12,27 +12,28 @@
 # an error.
 
 BEGIN {
-	ab = ae = 0
-	ds = de = 0
-	eq = en = 0
-	fs = fe = 0
-	kf = ks = ke = 0
-	ts = te = 0
+	ab = abtotal = 0
+	ds = 0
+	eq = 0
+	fs = 0
+	kf = ks = 0
+	ts = 0
 	tl = 0
 }
 
 /^.AB/ {
 	ab++
-	if (ab > 1) {
+	abtotal++
+	if ((ab > 1) || (abtotal > 1)) {
 		print("Extraneous .AB command at line", NR)
 	}
 }
 
 /^.AE/ {
-	ae++
-	if (ae > ab) {
+	if (ab < 1) {
 		print("Extraneous .AE command at line", NR) 
-		ae--
+	} else {
+		ab--
 	}
 }
 
@@ -44,13 +45,11 @@ BEGIN {
 }
 
 /^.DE/ {
-	de++
-	if (de > ds) {
+	if (ds < 1) {
 		print("Extraneous .DE command at line", NR) 
-	} else if (ds > 0) {
+	} else {
 		ds--
 	}
-	de--
 }
 
 /^.EQ/ {
@@ -61,30 +60,26 @@ BEGIN {
 }
 
 /^.EN/ {
-	en++
-	if (en > eq) {
+	if (eq < 1) {
 		print("Extraneous .EN command at line", NR) 
-	} else if (eq > 0) {
+	} else {
 		eq--
 	}
-	en--
 }
 
 /^.FS/ {
 	fs++
-	if (fs  > 1) {
+	if (fs > 1) {
 		print("Extraneous .FS command at line", NR)
 	}
 }
 
 /^.FE/ {
-	fe++
-	if (fe > fs) {
+	if (fs < 1) {
 		print("Extraneous .FE command at line", NR) 
-	} else if (fs > 0) {
+	} else {
 		fs--
 	}
-	fe--
 }
 
 /^.KF/ {
@@ -96,21 +91,19 @@ BEGIN {
 
 /^.KS/ {
 	ks++
-	if ((kf + ks) > 1) {
+	if (kf + ks > 1) {
 		print("Extraneous .KS command at line", NR)
 	}
 }
 
 /^.KE/ {
-	ke++
-	if (ke > (kf + ks)) {
+	if (kf + ks < 1) {
 		print("Extraneous .KE command at line," NR)
 	} else if (kf > 0) {
 		kf--
 	} else if (ks > 0) {
 		ks--
 	}
-	ke--
 }
 
 /^.TS/ {
@@ -121,13 +114,11 @@ BEGIN {
 }
 
 /^.TE/ {
-	te++
-	if (te > ts) {
+	if (ts < 1) {
 		print("Extraneous .TE command at line", NR) 
-	} else if (ts > 0) {
+	} else {
 		ts--
 	}
-	te--
 }
 
 /^.TL/ {
@@ -138,27 +129,35 @@ BEGIN {
 }
 
 END {
-	if (ab > ae) {
-		print(ab - ae, ".AB command(s) not terminated with .AE")
+	if (ab > 0) {
+		print(ab, "AB command(s) not terminated with .AE")
 	}
 
-	if (ds > de) {
-		print(ds - de, ".DS command(s) not terminated with .DE")
+	if (abtotal > 1) {
+		print(abtotal, ".AB commands in input is greater than 1")
 	}
 
-	if (eq > en) {
-		print(eq - en, ".EQ command(s) not terminated with .EN")
+	if (ds > 0) {
+		print(ds, ".DS command(s) not terminated with .DE")
 	}
 
-	if (fs > fe) {
-		print(fs - fe, ".FS command(s) not terminated with .FE")
+	if (eq > 0) {
+		print(eq, ".EQ command(s) not terminated with .EN")
 	}
 
-	if ((kf + ks) > ke) {
-		print(kf + ks - ke, ".KF or .KS command(s) not terminated with .KE")
+	if (fs > 0) {
+		print(fs, ".FS command(s) not terminated with .FE")
 	}
 
-	if (ts > te) {
-		print(ts - te, ".TS command(s) not terminated with .TE")
+	if ((kf + ks) > 0) {
+		print(kf + ks, ".KF or .KS command(s) not terminated with .KE")
+	}
+
+	if (ts > 0) {
+		print(ts, ".TS command(s) not terminated with .TE")
+	}
+
+	if (tl > 1) {
+		print(tl, ".TL commands in input is greater than 1")
 	}
 }
