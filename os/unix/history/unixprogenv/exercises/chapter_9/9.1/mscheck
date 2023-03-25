@@ -134,7 +134,7 @@ END {
 	}
 
 	if (abtotal > 1) {
-		print(abtotal, ".AB commands in input is greater than 1")
+		print(abtotal, ".AB commands in input (multiple abstract sections)")
 	}
 
 	if (ds > 0) {
@@ -158,6 +158,6 @@ END {
 	}
 
 	if (tl > 1) {
-		print(tl, ".TL commands in input is greater than 1")
+		print(tl, ".TL commands in input (multiple title sections)")
 	}
 }
