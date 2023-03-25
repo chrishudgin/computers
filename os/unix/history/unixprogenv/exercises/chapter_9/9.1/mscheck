@@ -2,9 +2,9 @@
 
 # Check for unbalanced start and end macro commands in an ms troff document
 #
-# Nesting of macros of a given type (successive invocations of a macro "start"
-# without an intervening corresponding macro "end") is considered to be an
-# error.
+# Nesting of macro commands for a given type (successive invocations of a macro
+# "start" command without an intervening corresponding macro "end" command) is
+# considered to be an error.
 #
 # Extraneous macro "end" commands for a given type are considered an error.
 #
