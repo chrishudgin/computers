@@ -1,0 +1,29 @@
+Per the authors' statement on page 290, the troff software with the ms macro
+package was used to typeset the book.  Many of the macros listed in Table 9.1
+were used to typeset paragraphs, displays, titles, footnotes, equations, and
+tables, and to select fonts (roman, italic, bold, etc.) for a specific typeface
+(Times Roman).  Font sizes could be changes to larger and smaller values with
+the \s troff commands as listed in Table 9.3.  The Courier typeface was
+selected using a custom .CW macro.
+
+Lines of text beginning with macro names, like the ms sample on page 292, were
+written in the troff source with a leading \& to prevent interpretation of the
+macro name.  Lines like the following on page 299, with a leading literal
+escape character (backslash):
+
+\e&.TL
+
+were entered into the troff source as:
+
+\ee&.TL
+
+Domain-specific input to the supplemental commands pic, tbl, and eqn were used
+to specify the details of pictures (digital line drawings), tables, and
+mathematical expressions, respectively.  These tools, in turn, generated input
+for the troff command in the following Unix command pipeline:
+
+cat docname | pic | tbl | eqn | troff -ms
+
+Output from this pipeline was then postprocessed with another tool to create a
+specification for a formatted document in a language that the Mergenthaler
+Linotron 202 phototypesetter could process to create page proofs.
