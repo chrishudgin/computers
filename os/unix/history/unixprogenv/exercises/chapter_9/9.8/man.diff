@@ -1,0 +1,42 @@
+1c1,13
+< cmd= sec= fil= opt= i= all=
+---
+> #
+> # /bin/man shell script from 7th Edition Unix, modified for Exercise 9.8
+> # in the book _The UNIX Programming Environment_ by Brian Kernighan and Rob
+> # Pike
+> #
+> # This modified version checks first for man pages in a user's own man
+> # directory, $HOME/man
+> #
+> # If the specified man page is found in $HOME/man, the script does NOT search 
+> # in the standard man page directory /usr/man
+> #
+> 
+> cmd= sec= fil= opt= i= all= foundlocal="yes"
+2a15
+> LOCALMANDIR=$HOME/man
+29c42
+< 		fil=`echo man$sec/$i.*`
+---
+> 		fil=`echo $LOCALMANDIR/man$sec/$i.*`
+35c48
+< 			echo $i not found 1>&2 ;;
+---
+> 			foundlocal="no" ;;
+38a52,64
+> 
+> 		if [ "$foundlocal" = "no" ]; then
+> 			fil=`echo man$sec/$i.*`
+> 			case $fil in
+> 			man7/eqnchar.7)
+> 				all="$all /usr/pub/eqnchar $fil" ;;
+> 
+> 			*\*)
+> 				echo $i not found 1>&2 ;;
+> 			*)
+> 				all="$all $fil" ;;
+> 			esac
+> 		fi
+44a71
+> 
