@@ -1,10 +1,14 @@
-# Modified /bin/man shell script from 7th Edition Unix
+#
+# /bin/man shell script from 7th Edition Unix, modified for Exercise 9.8
+# in the book _The UNIX Programming Environment_ by Brian Kernighan and Rob
+# Pike
 #
 # This modified version checks first for man pages in a user's own man
 # directory, $HOME/man
 #
 # If the specified man page is found in $HOME/man, the script does NOT search 
 # in the standard man page directory /usr/man
+#
 
 cmd= sec= fil= opt= i= all= foundlocal="yes"
 cmd=n sec=\?
