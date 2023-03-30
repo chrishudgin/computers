@@ -1,0 +1,85 @@
+# Modified /bin/man shell script from 7th Edition Unix
+#
+# This modified version checks first for man pages in a user's own man
+# directory, $HOME/man
+#
+# If the specified man page is found in $HOME/man, the script does NOT search 
+# in the standard man page directory /usr/man
+
+cmd= sec= fil= opt= i= all= foundlocal="yes"
+cmd=n sec=\?
+LOCALMANDIR=$HOME/man
+cd /usr/man
+for i
+do
+	case $i in
+
+	[1-8])
+		sec=$i ;;
+	-n)
+		cmd=n ;;
+	-t)
+		cmd=t ;;
+	-k)
+		cmd=k ;;
+	-e | -et | -te)
+		cmd=e ;;
+	-ek | -ke)
+		cmd=ek ;;
+	-ne | -en)
+		cmd=ne ;;
+
+	-w)
+		cmd=where ;;
+	-*)
+		opt="$opt $i" ;;
+
+	*)
+		fil=`echo $LOCALMANDIR/man$sec/$i.*`
+		case $fil in
+		man7/eqnchar.7)
+			all="$all /usr/pub/eqnchar $fil" ;;
+
+		*\*)
+			foundlocal="no" ;;
+		*)
+			all="$all $fil" ;;
+		esac
+
+		if [ "$foundlocal" = "no" ]; then
+			fil=`echo man$sec/$i.*`
+			case $fil in
+			man7/eqnchar.7)
+				all="$all /usr/pub/eqnchar $fil" ;;
+
+			*\*)
+				echo $i not found 1>&2 ;;
+			*)
+				all="$all $fil" ;;
+			esac
+		fi
+	esac
+done
+case $all in
+	"")
+		exit ;;
+esac
+
+case $cmd in
+
+n)
+	nroff $opt -man $all ;;
+ne)
+	neqn $all | nroff $opt -man ;;
+t)
+	troff $opt -man $all ;;
+k)
+	troff -t $opt -man $all | tc ;;
+e)
+	eqn $all | troff $opt -man ;;
+ek)
+	eqn $all | troff -t $opt -man | tc ;;
+
+where)
+	echo $all ;;
+esac
