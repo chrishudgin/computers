@@ -20,6 +20,9 @@ rendered in the previous font.  This macro syntax mirrors that of the .I and
 
 9.4
 
+The default action for the man command in Linux is to print (display) only
+the first man page found with the specified name, not all matching man pages.
+
 The hoc(1) man page source file, hoc.1, is not included in the files
 distributed online for the book.  However, the complete source for hoc.1 is
 printed in the book in Figure 9.1.  To generate a PostScript version of this
