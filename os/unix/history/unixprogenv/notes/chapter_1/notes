@@ -33,3 +33,387 @@ wait   # waits until all processes started with & have finished
 
 kill 0  # kills background processes (all processes in the process group
         # except the initiating shell)
+
+2.1
+
+od -c   # interpret bytes as characters
+
+3.1
+
+Group shell commands with ( )
+   This way, the output of the entire group of commands can be sent through
+   a single pipeline:  (cmda; cmdb) | cmdc
+   Or you can put a group of commands into the background:  (cmda; cmdb) &
+
+However, ( ) is not needed when putting a pipeline into the background since
+   the pipeline "counts" as a single command as far as & is concerned:
+   cmda | cmdb &
+
+Since the shell interprets redirection operators before running the programs
+   on a command line, this is legal: $ > junk echo Hello
+
+3.2
+
+One kind of quotes can protect another:  echo "Don't do that"
+Quotes can be used within a string, not just outside it.  Example:  abc'$'def 
+
+Table 3.1 lists all shell metacharacters and their meaning
+
+3.4
+
+$0 is the name of the shell script being executed
+
+3.6
+
+Positional parameter values *cannot* be directly assigned as in: 1=foo; echo $1
+
+A variable can be set in a subshell two ways:
+var=foo; export var  # var is set in both the current shell and the subshell
+var=foo cmdname    # Variables must be set before cmdname appears on the
+                   # command line
+
+3.7
+
+In a here document, if some part of the word used to set the document end
+delimiter is quoted with quotes or a backslash, then the entire here document
+is taken literally (no shell interpretation):
+
+grep "$*" <<'End'
+   # no shell interpretation
+End
+
+grep "$*" <<\End
+   # no shell interpretation
+End
+
+4.1
+
+grep -n   # shows line numbers (within files) that match pattern
+grep -c   # shows only a count of lines that match pattern
+grep -f filename  # take patterns from contents of filename; search in
+                  # parallel for all such patterns
+
+* matching in grep is "greedy," matching as many characters as it can
+   (zero or more)
+However, * applies to only a single character or match from a character class
+   e.g. grep [a-z]* will match any number of consecutive lower case characters,
+      including zero such characters
+To match one or more characters, use, e.g., [a-z][a-z]* or (egrep only) [a-z]+
+To match zero or one characters, use, e.g.  [a-z]?
+
+There is no grep regular expression that matches a newline character
+
+fgrep works only on literal strings, not full regular expressions
+
+egrep has the following enhancements compared to grep:
+   handles | as an "or" operator
+   characters can be grouped into a pattern with ( )
+      e.g. (xy)* which would match an empty string, xy, xyxy, xyxyxy, etc.
+      e.g. to(day|morrow)
+However, egrep does not recognize tagged regular expressions; grep does.
+   e.g. grep '\(abc\)def\1' # matches abcdefabc
+
+Table 4.1 contains a list of regular expressions that grep and egrep recognize.
+
+4.2
+
+uniq will not only discard duplicate lines from sorted input, it will also
+    discard multiple blank lines even if the input is not sorted
+uniq -d  # prints only duplicate lines
+uniq -u  # prints only unique lines
+uniq -c  # counts number of occurrences of each line
+         # (along with each line itself)
+
+comm requires two sorted input files and prints their lines in common and
+   lines that differ
+
+tr translates each character from one set to the corresponding character in
+   another set
+tr -s  # replaces multiple repeated characters with a single character
+tr -c  # complements (logical NOT) the set of characters given in the
+       # input string
+
+4.3
+
+sed uses the same command syntax as ed, but forward and reverse line references
+   are not possible in sed
+
+By default, sed prints each input line (including the unaltered ones) in
+   addition to the performing the explicitly specified commands given to it.
+
+A sed command, such as a substitute command, can be prefixed with a pattern
+   to match one or more lines (as in ed).  e.g. sed '/./s/^/	/'
+   where the pattern /./ matches every non-empty line.  But all lines will
+   still be printed, including the empty ones.
+
+sed 3q   # prints first three lines, then exits.  Equivalent to head -3.
+
+sed accepts multiple commands on a single command line, as long as the
+   individual sed commands are separated by newlines.  The entire set of
+   commands must be quoted so that the shell knows that the command input
+   consists of multiple lines.
+
+sed -f cmdfile  # reads sed commands (not the text input) from cmdfile
+                 # text input still comes from stdin or another set of files
+
+sed '/pattern/q'   # prints input up to and including the first line matching
+                   # pattern, then quits
+
+sed '/pattern/d'   # deletes each line that contains pattern, then prints
+                   # the rest (not the deleted lines)
+
+sed -n  # turns off printing except for commands that include the "p" command
+   e.g. sed -n '/pattern/p'   # equivalent to grep
+        sed -n '/pattern/!p'  # equivalent to grep -v
+        sed '/pattern/d'      # equivalent to grep -v
+
+sed can operate over a range of lines, e.g. sed '20,/^abc/d'
+   or sed '/abc/,/def/p'   # print EACH range of lines from one matching abc
+                           # to one matching def (could be multiple such ranges
+                           # in the input)
+
+To write some of the selected lines to a file:  sed -n '/pattern/w file1
+                                                        /pattern/!w file2'
+
+Shell patterns can be used in sed commands:  sed 's/fooval/'$FOO'/g'
+
+Table 4.2 contains a list of sed commands
+
+4.4
+
+awk pattern {action}
+    pattern {action}
+    ...
+
+awk -f cmdfile filenames ...
+awk -F:  # : is any single character to be used as the field separator
+         # default separator is any number of blanks and/or tabs
+         # leading separators are discarded, so lines can start with blanks
+         # or tabs without messing up the field variable assignments
+         # FS is the corresponding variable within awk; it can be reassigned
+
+Either pattern or action is optional.
+   No pattern specified => perform action on each line
+   No action specified => print matched lines
+
+For each line in its input, awk checks for all matching patterns and performs
+   the corresponding actions, then moves on to processing the next line.
+
+The input record separator character is called RS.  Defaults to newline, but
+   can be changed.
+
+Only field names begin with a $ (e.g. $NF); variables do not (e.g. i or NR)
+
+NR is the number of the current input record (by default, a line)
+
+$0 refers to the entire input line (all of its fields combined)
+
+printf works much like it does in C.
+
+Testing for equality uses ==
+Assignment is =
+
+length(x)   # built in function that returns length of string x
+substr(s,m[,n])  # returns substring of s beginning at position m and
+                 # continuing for n characters or (if n is omitted) till the end
+                 # character count in a string begins at 1
+index(s1,s2)  # position of string s2 in s1
+
+! is logical negation and precedes the expression to negate
+
+# is used for comments
+
+BEGIN and END are patterns with corresponding actions; each is optional
+
+variables are defined simply by being used.  They do not have to be declared.
+   Variables default to a value of 0 if used numerically or an empty string
+   if used as a string.
+
+Table 4.3 shows awk's built-in variables (FILENAME, FS ,NF, etc.)
+
+Table 4.4 shows awk's operators (=, ||, etc.)--mostly as they are in C
+
+|| and && are like the corresponding operators in C, not like the shell
+   command operators/separators
+
+~ is the match operator
+
+5.1
+
+case syntax is given
+
+case conditions can be joined with | meaning "or"
+
+set a b c
+
+will set $1 to a, $2 to b, $3 to c
+This is useful for setting the positional parameters to the fields of a
+command, such as the "date" command, for further processing.
+
+$- contains the list of options (args beginning with a dash) sent to the
+shell.
+
+for and while loops are like those in C, including break and continue
+next in a loop causes the next line to be read and pattern matching to be
+   started from the top of the list of patterns again
+
+exit causes awk to jump to the END pattern
+
+split(s, arr, sep)  # splits string s into elements of array arr, starting
+                    # with element 1
+getline()  # reads next line of input
+
+Table 4.5 shows awk's built-in functions, including mathematical functions
+
+awk provides associative arrays
+for (var in array)   # loops over the subscripts (not elements) of array
+                     # into var.  Ordering of subscripts is unpredictable.
+
+string concatenation is done as follows:
+   str1 = str1 str2 str3 ...   # concatenation is implied by adjacent strings
+
+5.2
+
+A common idiom for reporting a syntax error in a shell scripts is:
+
+case $# in
+0)	echo 'Usage: cmd arg' 1>&2; exit 1 ;;
+esac
+
+This way the error message output goes to stderr even if stdout is redirected.
+
+Note that ;; is optional in the final clause of a "case" statement.
+
+It's a good idea in some scripts to set PATH
+
+Quick conditional testing for one-liners:
+cmd && second cmd
+cmd || alternate cmd
+
+5.3
+
+for, while, and until loop syntax is shown
+
+The values of field variables in awk can be (re)assigned with (e.g.) $1 = "foo"
+
+: is a shell builtin that always evaluates to true, e.g.
+while :    # sic
+do
+	# blah blah
+done
+
+To set a default value for a variable:
+t=${1-60}   # if $1 is set, $t is set to the value of $1; otherwise, $t is
+            # set to 60
+
+Other forms:
+${var-thing}  # value of $var if defined; otherwise thing
+${var+thing}  # thing if $var is defined, otherwise nothing
+${var=thing}  # like the - syntax, but if $var is undefined, then var=thing
+
+5.4
+
+trap 'sequence of commands' signal numbers
+e.g.
+trap 'rm -f $tmpfile; exit 1' 1 2 15
+
+signal 0 is *any* shell exit
+
+trap does not run exit by default, so you must include it if you want an exit
+   instead of the shell continuing to execute where it left off after trap
+   handling is complete.
+
+trap sets trap handlers in the current shell and any child shells that are
+   subsequently started.
+
+test -t   tests if shell is attached to a terminal
+
+5.5
+
+shift moves shell arguments one place to the left, discarding $1
+This is useful when you want to process a fixed number of arguments as options
+or commands and then the rest of the arguments are assumed to be filenames.
+
+Do not use shift inside a "for" loop that is iterating over the positional
+parameters.  You could use while and case statements instead in this situation.
+
+eval is used to "evaluate" and run a string, treating it as a command line.
+This is useful if the string is something like "who | sort" which cannot
+be run strictly as-is in a script, because "who | sort" is not a valid arg0
+(i.e. there is no program called "who | sort").  eval will collect the input
+as though it were an ordinary command line and separate the arguments.
+
+5.6
+
+To treat a line of input as a single argument to the shell, do:
+
+IFS='
+'
+
+5.7
+
+The "read" shell built-in can have redirected I/O in later versions of Unix.
+Likewise, so can control flow operators:
+
+for i in a b c
+do
+	# blah blah
+done < /etc/passwd
+
+for i in a b c
+do
+	# blah blah
+done | awk '{print $1}'
+
+
+To loop over all arguments:
+
+for i     # an explicit "in list" is not required here
+do
+	# blah blah
+done
+
+
+The "break" shell command breaks out of the innermost loop.
+
+$* is a list of arguments to the shell, but the shell breaks them up into
+discrete fields separated by the IFS.  So, arguments of '1 2' 3 would be
+broken up into three separate fields, 1 2 and 3, despite the use of single
+quotes.
+
+"$*" will group all arguments into a single string.  '1 2' 3 would end up
+being interpreted by the shell as a string "1 2 3".
+
+To preserve exactly the arguments sent to the shell, without them being further
+grouped or broken apart, use "$@"  (note the use of double quotes)
+$@ (without quotes) is exactly the same as $*
+
+5.8
+
+To make sure that an argument that might begin with a dash (-) is not treated
+as an option to the shell, one thing you can do is prefix it with some text:
+set X`ls -l news`  # if permissions field begins with -, it's okay, as it
+                   # becomes X-rwx...
+
+In-line text strings can include newlines.  For example:
+echo "
+This output begins and ends with a blank line.
+"
+
+5.9
+
+diff -e oldfile newfile # creates a sequence of append/change/delete ed
+                        # commands to convert oldfile to newfile
+
+There is a useful example of code to process command line options in the
+source of the "get" script.
+
+Commands inside { } run in the current shell.
+Commands inside ( ) run in a subshell.  An exit run from within the subshell
+   will only exit that subshell, not the parent shell.
+
+5.10
+
+The shell is useful not only as a complete programming language but also as
+a prototyping language, and as a "glue" language to utilize other programs
+written in any language.
