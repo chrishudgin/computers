@@ -1,0 +1,29 @@
+$ date
+Mon Sep 26 12:39:56 EDT 1983
+
+This is the normal output of the "date" command.
+
+$ #date
+Mon Sep 26 12:40:21 EDT 1983
+
+The erase character is intercepted and interpreted by the kernel before it
+can be interpreted as a comment character by the shell.  Since nothing
+precedes the erase character on the command line, nothing is erased.  The
+shell then sees only the date command and runs it.
+
+$ \#date
+
+There is no output because the backslash (escape character) prevents the
+kernel from interpreting the following character, which is the shell comment
+character.  The shell then sees a command preceded by the comment character,
+so it interprets the command as a comment and does nothing.
+
+$ \\#date
+#date: not found
+
+The first backslash escapes the second one, causing the second one to be sent
+as a literal backslash to the shell.  The shell then sees a backslash followed
+by the comment character; since the comment character is escaped, it is not
+treated as the beginning of a comment and instead is left as-is on the command
+line.  The shell then tries to run the resulting command #date, which is not
+found.
