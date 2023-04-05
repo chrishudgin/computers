@@ -1,0 +1,15 @@
+$ mv junk junk1
+
+simply changes the name of an existing hard link (filename associated with an
+inode) from "junk" to "junk1".  It does not copy or move any file contents,
+create a new file (even temporarily), or change the inode number for the file.
+
+$ cp junk junk1
+$ rm junk
+
+first creates (via the cp command) an additional copy of the file "junk" called
+"junk1".  The new file has its own storage space, inode, and inode number in
+addition to its own name.  The storage space, inode, and inode number
+associated with the file "junk" are reclaimed by the rm command.  The net
+result is that there is a new file on the filesystem called "junk1" that has
+the same content that the (no longer existing) file "junk" did.
