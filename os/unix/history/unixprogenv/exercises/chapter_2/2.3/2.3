@@ -8,7 +8,7 @@ As a separate command requiring its own process, the pwd command must
 recursively backtrack from the current directory up to the root directory, one
 directory at a time, in order to build up the complete path to the current
 directory (in reverse).  At each step towards the root, the pwd command obtains
-the inode number of the directory at the level it is querying (by looking up
-the inode number for the "." directory), then looks at the directory one level
-up to obtain the name of the directory that corresponds to the inode number
-already obtained.
+the device and inode number of the directory at the level it is querying (by
+looking up the device and inode number for the "." directory), then looks at
+the directory one level up to obtain the name of the directory that corresponds
+to the device and inode number already obtained.
