@@ -1,0 +1,63 @@
+Setup:
+
+$ whoami
+abc
+$ cat > hello
+echo hello, world
+$ chmod 755 hello
+$ ls -l hello
+-rwxr-xr-x 1 abc abc 13 Apr  5 12:36 hello
+$ ./hello
+hello, world
+$ cat hello
+hello, world
+
+Testing simple chmod modes:
+
+$ chmod 0 hello
+$ ls -l hello
+---------- 1 abc abc 18 Apr  5 12:26 hello
+$ ./hello
+./hello: Permission denied
+$ cat hello
+hello: Permission denied
+
+$ chmod 1 hello
+$ ls -l hello
+---------x 1 abc abc 18 Apr  5 12:26 hello
+$ ./hello
+./hello: Permission denied
+$ cat hello
+hello: Permission denied
+
+$ chmod 100 hello
+$ ls -l hello
+---x------ 1 abc abc 18 Apr  5 12:26 hello
+$ ./hello
+./hello: Permission denied
+$ cat hello
+hello: Permission denied
+
+$ chmod 400 hello
+$ ls -l hello
+-r-------- 1 abc abc 18 Apr  5 12:26 hello
+$ ./hello
+./hello: Permission denied
+$ cat hello
+echo hello, world
+
+$ chmod 500 hello
+$ ls -l hello
+-r-x------ 1 abc abc 18 Apr  5 12:26 hello
+$ ./hello
+hello, world
+$ cat hello
+echo hello, world
+$ rm hello
+rm: remove write-protected regular file 'hello'? n
+$ ls -l hello
+-r-x------ 1 abc abc 13 Apr  5 12:36 hello
+$ rm hello
+rm: remove write-protected regular file 'hello'? y
+$ ls -l hello
+No such file or directory
