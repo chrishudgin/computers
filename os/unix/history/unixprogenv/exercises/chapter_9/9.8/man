@@ -1,7 +1,7 @@
 #
 # /bin/man shell script from 7th Edition Unix, modified for Exercise 9.8
-# in the book _The UNIX Programming Environment_ by Brian W. Kernighan and Rob
-# Pike
+# in the book _The UNIX Programming Environment_ by Brian W. Kernighan and
+# Rob Pike
 #
 # If the -y option is specified, this modified version of the man command
 # checks first for man pages in the user's own man directory, $HOME/man
