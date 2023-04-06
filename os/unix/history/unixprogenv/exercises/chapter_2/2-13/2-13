@@ -1,0 +1,5 @@
+To see how recently a currently logged in user has been active at their
+terminal, use the "who" command to see whether they are logged in and which
+terminal device they are using, then use the "ls -l" command check the
+timestamp for their terminal device file.  The timestamp will indicate the last
+time they wrote anything to their terminal, such as by running a command on it.

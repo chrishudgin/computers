@@ -1,0 +1,28 @@
+du -a recurses directories to locate files and report their sizes, but du's
+core function is to report file sizes, not other information about files.  It
+does not (by itself) have the abiltity to execute an additional command line
+for each file found, nor can it (by itself) limit the scope of files selected
+recursively except by specifying the starting directory for recursion and the
+filename pattern(s) to match.
+
+find recurses directories to locate files as well, but it has the following
+advantages over du for recursive file listings:
+
+1. find can report more information about the files found using an ls-like
+format without an additional Unix command having to be invoked.
+
+2. find can spawn an arbitrary Unix command to perform an operation on those
+files.
+
+3. find can limit the scope of file search results by a wide number of
+criteria, such as modification time, user ID, inode number, and more, not just
+filename patterns.
+
+On a Debian Linux system runing Linux kernel 6.1, "find . -name 'filename' -ls"
+runs about twice as fast as a corresponding recursive du command piped to grep:
+"du -a | grep 'filename'"
+
+Building a new tool is appropriate when that tool needs to have significantly
+more functionality (e.g. find) than another tool's side effect (du -a).  The
+old tool with the side effect may still be faster or more convenient for the
+special case in which the functions of both tools overlap.

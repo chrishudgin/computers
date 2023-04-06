@@ -1,0 +1,53 @@
+$ ls junk
+
+If there is a file called junk in the current directory, the ls command will
+show its name.  If there is a subdirectory called junk in the current
+directory, the ls command will list the names of its files and subdirectories,
+if the user has permission to view the contents of the directory "junk".
+
+$ ls /
+
+This lists the names of the files and directories that are in the root
+directory (but does not recurse into subdirectories).
+
+$ ls
+
+This lists the names of the files and directories in the current directory.
+
+$ ls *
+
+This lists the names of the files and directories in the current directory,
+except those whose names begin with a dot (.) character.
+
+$ ls '*'
+
+This lists the name of a file or directory called * (if there is one) in the
+current directory.
+
+$ echo junk
+
+This prints the word "junk" (without quotes) to the screen.
+
+$ echo /
+
+This prints the character "/" (without quotes) to the screen.
+
+$ echo
+
+This prints a blank line to the screen.
+
+$ echo *
+
+The shell interprets the character * as a wildcard, matching in the current
+directory all files and subdirectories (if any) whose names do not begin with a
+dot (.) character.  The resulting list is passed to the echo command, which
+prints the list of matched file and directory names to the screen.  If there
+are no files or subdirectories that match the wildcard, then a literal '*'
+character is passed to the echo command, which prints that character on the
+screen.
+
+$ echo '*'
+
+The single quotes prevent the shell from interpreting the '*' character as a
+wildcard.  Instead, the '*' character is passed on intact to the echo command,
+which prints it to the screen.

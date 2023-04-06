@@ -1,0 +1,11 @@
+The backslash (escape character) will prevent the @ character from being
+interpreted as a line kill, so a new shell prompt with empty command line will
+not appear immediately.  However, when <Return> is pressed, the shell will look
+for a command called "date@" in the current path and will not find it:
+
+$ date\@
+date@: command not found
+
+On modern Unix-like operating systems, the line kill character is typically
+Ctrl-U, which will still operate normally as a line kill even if the previous
+character is a backslash (escape character).

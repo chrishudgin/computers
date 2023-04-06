@@ -1,0 +1,23 @@
+Since Unix is a multi-user operating system, multiple users could be logged in
+at once, each with their own terminal device.  Since the /dev directory is
+shared by all users, /dev/tty cannot link to a single user's login terminal or
+the /dev/tty device would not be available for use by other users.
+
+In V7 Unix, the user's login terminal device has the following ownership and
+permissions:
+
+/dev/console  rw--w--w-   you:bin
+
+while the /dev/tty device has the following:
+
+/dev/tty      rw-rw-rw-   root:other
+
+Changing the permissions of /dev/tty to rw--w--w- would mean removing group
+read permission for the "other" group, which would probably have no discernable
+effect, as well as removing read permission for users other than root.
+
+Removing read permission for users other than root would mean that non-root
+users would no longer be able to read from their terminal device using the
+convenient device name /dev/tty; they would have to determine and then use the
+name of their login terminal device instead.  This would break utilities such
+as crypt which are written to take all or some of their input from /dev/tty.

@@ -1,0 +1,163 @@
+#!/usr/bin/awk -f
+
+# Check for unbalanced start and end macro commands in an ms troff document
+#
+# Nesting of macro commands for a given type (successive invocations of a macro
+# "start" command without an intervening corresponding macro "end" command) is
+# considered to be an error.
+#
+# Extraneous macro "end" commands for a given type are considered an error.
+#
+# The presence of more than one .AB or .TL command in a document is considered
+# an error.
+
+BEGIN {
+	ab = abtotal = 0
+	ds = 0
+	eq = 0
+	fs = 0
+	kf = ks = 0
+	ts = 0
+	tl = 0
+}
+
+/^.AB/ {
+	ab++
+	abtotal++
+	if ((ab > 1) || (abtotal > 1)) {
+		print("Extraneous .AB command at line", NR)
+	}
+}
+
+/^.AE/ {
+	if (ab < 1) {
+		print("Extraneous .AE command at line", NR) 
+	} else {
+		ab--
+	}
+}
+
+/^.DS/ {
+	ds++
+	if (ds > 1) {
+		print("Extraneous .DS command at line", NR)
+	}
+}
+
+/^.DE/ {
+	if (ds < 1) {
+		print("Extraneous .DE command at line", NR) 
+	} else {
+		ds--
+	}
+}
+
+/^.EQ/ {
+	eq++
+	if (eq > 1) {
+		print("Extraneous .EQ command at line", NR)
+	}
+}
+
+/^.EN/ {
+	if (eq < 1) {
+		print("Extraneous .EN command at line", NR) 
+	} else {
+		eq--
+	}
+}
+
+/^.FS/ {
+	fs++
+	if (fs > 1) {
+		print("Extraneous .FS command at line", NR)
+	}
+}
+
+/^.FE/ {
+	if (fs < 1) {
+		print("Extraneous .FE command at line", NR) 
+	} else {
+		fs--
+	}
+}
+
+/^.KF/ {
+	kf++
+	if ((kf + ks) > 1) {
+		print("Extraneous .KF command at line", NR)
+	}
+}
+
+/^.KS/ {
+	ks++
+	if (kf + ks > 1) {
+		print("Extraneous .KS command at line", NR)
+	}
+}
+
+/^.KE/ {
+	if (kf + ks < 1) {
+		print("Extraneous .KE command at line," NR)
+	} else if (kf > 0) {
+		kf--
+	} else if (ks > 0) {
+		ks--
+	}
+}
+
+/^.TS/ {
+	ts++
+	if (ts > 1) {
+		print("Extraneous .TS command at line", NR)
+	}
+}
+
+/^.TE/ {
+	if (ts < 1) {
+		print("Extraneous .TE command at line", NR) 
+	} else {
+		ts--
+	}
+}
+
+/^.TL/ {
+	tl++
+	if (tl > 1) {
+		print("Extraneous .TL command at line", NR)
+	}
+}
+
+END {
+	if (ab > 0) {
+		print(ab, "AB command(s) not terminated with .AE")
+	}
+
+	if (abtotal > 1) {
+		print(abtotal, ".AB commands in input (multiple abstract sections)")
+	}
+
+	if (ds > 0) {
+		print(ds, ".DS command(s) not terminated with .DE")
+	}
+
+	if (eq > 0) {
+		print(eq, ".EQ command(s) not terminated with .EN")
+	}
+
+	if (fs > 0) {
+		print(fs, ".FS command(s) not terminated with .FE")
+	}
+
+	if ((kf + ks) > 0) {
+		print(kf + ks, ".KF or .KS command(s) not terminated with .KE")
+	}
+
+	if (ts > 0) {
+		print(ts, ".TS command(s) not terminated with .TE")
+	}
+
+	if (tl > 1) {
+		print(tl, ".TL commands in input (multiple title sections)")
+	}
+}

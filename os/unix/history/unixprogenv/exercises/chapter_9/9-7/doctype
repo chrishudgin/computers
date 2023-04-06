@@ -1,0 +1,28 @@
+#!/usr/bin/awk -f
+
+# doctype, revised:  synthesize proper command line for troff, faster
+
+# Replaces invocation of shell, echo (if not a builtin), egrep, and sort with
+# a single awk script
+
+BEGIN {
+	printf "cat "
+	for (i = 1; i < ARGC; i++) printf "%s ", ARGV[i]
+	printf "| "
+}
+/^\.PP/	{ ms++ }
+/^\.EQ/	{ eqn++ }
+/^\.TS/	{ tbl++ }
+/^\.PS/	{ pic++ }
+/^\.IS/	{ ideal++ }
+/^\.\[/	{ refer++ }
+END {
+	if (refer > 0) printf "refer | "
+	if (pic > 0)   printf "pic | "
+	if (ideal > 0) printf "ideal | "
+	if (tbl > 0)   printf "tbl | "
+	if (eqn > 0)   printf "eqn | "
+	printf "troff "
+	if (ms > 0) printf "-ms"
+	printf "\n"
+}
