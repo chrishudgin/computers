@@ -1,7 +1,0 @@
-The write(1) command checks to see if the specified user is currently logged in
-by reading the list of logged in users and their terminal devices from
-/etc/utmp.  If the specified user is logged in, write(1) will attempt to write
-to the user's login terminal; this should succeed as long as write permissions
-for the writing user's group or for "other" users are enabled on the
-destination login terminal.  These write permissions can be toggled on or off
-for a user's terminal device using "mesg y" or "mesg n", respectively.
