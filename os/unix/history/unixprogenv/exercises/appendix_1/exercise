@@ -1,13 +1,16 @@
 On Debian Linux, the package bsdgames contains the quiz(6) program as well as
-the file /usr/share/games/bsdgames/quiz/ed which has the quiz questions and
-answers for the ed editor quiz.
+the text file /usr/share/games/bsdgames/quiz/ed which has the 53 quiz questions
+and answers for the ed editor quiz.  The question and answer file is the same
+as it was on Version 7 Unix.
 
 To run quiz(6) on the ed quiz questions, use the following command:
 
 $ /usr/games/quiz function ed-command
 
-The following notes apply to the quiz answers as they are written in the
-quiz question and answer file for ed:
+Some of the questions require a fairly complex ed command string for a correct
+answer.
+
+The following notes apply to the quiz data file format:
 
 - Each question begins on a separate line, following by a colon and the
 corresponding answer.
@@ -16,8 +19,8 @@ corresponding answer.
 
 - Square brackets [] contain a list of acceptable alternative strings in an
   answer.  For example, [ab|cd|ef] means that any of the strings ab, cd, or ef
-is acceptable at the position in the answer where the bracketed list of options
-appears; exactly one of the alternatives must be entered by the user for the
-answer to be considered correct.
+is acceptable at the position in the answer string where the bracketed list of
+options appears; exactly one of the alternatives must be entered by the user
+for the answer to be considered correct.
 
 - Curly braces {} contain strings that are optional in an answer.
