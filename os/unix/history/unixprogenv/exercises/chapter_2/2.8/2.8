@@ -7,6 +7,9 @@ since recursive copying could result in potentially large amounts of data and
 files being copied, none of which would be immediately visible from a casual
 listing of files in the directory.
 
+If cp is given a directory as a "destination" argument, it will copy all
+non-directory items in the "source" argument list to the destination directory.
+
 Unix operating systems have chosen to implement a recursive (-r) option to the
 cp command to descend directories.  This seems logical since the basic
 operation is the same (copy files) and therefore should be associated with the
