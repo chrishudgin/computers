@@ -1,0 +1,7 @@
+On Debian Linux, the package bsdgames contains the "quiz(6)" program as
+well as the file /usr/share/games/bsdgames/quiz/ed which has the quiz
+questions and answers for the ed editor quiz.
+
+To run quiz(6) on the ed quiz questions, use the following command:
+
+$ /usr/games/quiz function ed-command
