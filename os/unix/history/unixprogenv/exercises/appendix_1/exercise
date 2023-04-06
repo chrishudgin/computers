@@ -6,14 +6,18 @@ To run quiz(6) on the ed quiz questions, use the following command:
 
 $ /usr/games/quiz function ed-command
 
-In the quiz answers:
+The following notes apply to the quiz answers as they are written in the
+quiz question and answer file for ed:
+
+- Each question begins on a separate line, following by a colon and the
+corresponding answer.
 
 - The backslash \ is a line continuation character.
 
 - Square brackets [] contain a list of acceptable alternative strings in an
   answer.  For example, [ab|cd|ef] means that any of the strings ab, cd, or ef
 is acceptable at the position in the answer where the bracketed list of options
-appears; exactly one of the alternatives must be entered for the answer to be
-correct.
+appears; exactly one of the alternatives must be entered by the user for the
+answer to be considered correct.
 
 - Curly braces {} contain strings that are optional in an answer.
