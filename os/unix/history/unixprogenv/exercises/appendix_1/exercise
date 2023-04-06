@@ -1,7 +1,7 @@
 On Debian Linux, the package bsdgames contains the quiz(6) program as well as
 the text file /usr/share/games/bsdgames/quiz/ed which has the 53 quiz questions
-and answers for the ed editor quiz.  The question and answer file is the same
-as it was on Version 7 Unix.
+and answers for the ed editor quiz.  On Version 7 Unix, the Q&A file for ed is
+/usr/games/quiz.k/ed but has exactly the same content.
 
 To run quiz(6) on the ed quiz questions, use the following command:
 
