@@ -1,0 +1,24 @@
+# replace:  replace str1 in files with str2, in place
+#
+# Modified to work regardless of the characters in the substitution strings
+#
+# Requires the use of a modern shell that understands $( ) command substitution
+# syntax.
+
+PATH=/bin:/usr/bin
+
+case $# in
+0|1|2)	echo 'Usage: replace str1 str2 files' 1>&2; exit 1
+esac
+
+left="$1"; right="$2"; shift; shift
+
+# Construct new strings in which we replace every \ with \\ and @ with \@
+# in order to protect them from evaluation by sed below
+left=$(echo "$1" | sed -e 's/\\/\\\\/g' -e 's/@/\\@/g')
+right=$(echo "$2" | sed -e 's/\\/\\\\/g' -e 's/@/\\@/g')
+
+for i
+do
+	overwrite $i sed "s@$left@$right@g" $i
+done
