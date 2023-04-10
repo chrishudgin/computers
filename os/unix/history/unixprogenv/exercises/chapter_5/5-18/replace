@@ -5,7 +5,7 @@
 PATH=/bin:/usr/bin
 
 case "$1" in
-	-v)	vflag="p"; shift ;;
+	-v)	vflag="w /dev/tty"; shift ;;
 	*)	vflag="" ;;
 esac
 
@@ -17,6 +17,5 @@ left="$1"; right="$2"; shift; shift
 
 for i
 do
-	sed -n "s/$left/$right/g$vflag" $i > /dev/tty
-	overwrite $i sed "s@$left@$right@g" $i
+	overwrite $i sed "s@$left@$right@g$vflag" $i
 done

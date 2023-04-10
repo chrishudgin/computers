@@ -3,7 +3,7 @@
 > # modified to add -v flag to print all changed lines on /dev/tty
 4a7,11
 > case "$1" in
-> 	-v)	vflag="p"; shift ;;
+> 	-v)	vflag="w /dev/tty"; shift ;;
 > 	*)	vflag="" ;;
 > esac
 > 
@@ -11,5 +11,7 @@
 < 0|1|2)	echo 'Usage: replace str1 str2 files' 1>&2; exit 1
 ---
 > 0|1|2)	echo 'Usage: replace [-v] str1 str2 files' 1>&2; exit 1
-12a20
-> 	sed -n "s/$left/$right/g$vflag" $i > /dev/tty
+13c20
+< 	overwrite $i sed "s@$left@$right@g" $i
+---
+> 	overwrite $i sed "s@$left@$right@g$vflag" $i
