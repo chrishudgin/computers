@@ -1,0 +1,22 @@
+# replace:  replace str1 in files with str2, in place
+#
+# modified to add -v flag to print all changed lines on /dev/tty
+
+PATH=/bin:/usr/bin
+
+case "$1" in
+	-v)	vflag="p"; shift ;;
+	*)	vflag="" ;;
+esac
+
+case $# in
+0|1|2)	echo 'Usage: replace [-v] str1 str2 files' 1>&2; exit 1
+esac
+
+left="$1"; right="$2"; shift; shift
+
+for i
+do
+	sed -n "s/$left/$right/g$vflag" $i > /dev/tty
+	overwrite $i sed "s@$left@$right@g" $i
+done
