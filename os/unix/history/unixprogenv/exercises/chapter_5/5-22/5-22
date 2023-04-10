@@ -1,0 +1,24 @@
+Using eval to run the command or command pipeline in overwrite will cause shell
+metacharacters to be evaluated prior to command execution, with the standard
+shell variable value substitution rules being applied.
+
+Example:
+
+$ WHO=\$FOO
+$ FOO=who
+
+Original version:
+$ overwrite file1 "$WHO"
+
+The shell replaces $WHO with $FOO before overwrite runs.
+When overwrite runs the command $FOO, the metacharacter $ is not treated
+as special and the command $FOO, taken literally, is not found, so overwrite
+detects an error in the command execution and does not overwrite file1.
+
+Version with eval (eval "$@"):
+$ overwrite file1 "$WHO"
+
+The shell replaces $WHO with $FOO before overwrite runs.
+When overwrite runs the command "eval $FOO", $FOO is evaluated and replaced
+with its value "who", which is then run successfully.  Since the command
+executed successfully, file1 is overwritten.

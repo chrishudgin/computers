@@ -1,0 +1,4 @@
+15c15
+< if PATH=$opath "$@" >$new		# collect input
+---
+> if PATH=$opath eval "$@" >$new		# collect input
