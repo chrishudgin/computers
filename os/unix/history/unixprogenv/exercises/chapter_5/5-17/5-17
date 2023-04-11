@@ -1,0 +1,11 @@
+With signal 0 (any shell exit) added to the list of trapped signals, if an
+interrupt (signal 2) is received, the trap handler will execute its programmed
+commands (removing files and running exit) due to the interrupt, then run the
+same trap handler code again due to the shell exit (signal 0).  Consequently,
+an interrupt signal will cause a superfluous second run of the file removal
+command.
+
+Moreover, the trap handler to remove files and exit with a status of 1 will run
+every time the script runs to normal completion, not just when the script is
+interrupted or aborted.  An exit status of 1 is undesirable for a normal shell
+exit since by convention it denotes an error condition.
