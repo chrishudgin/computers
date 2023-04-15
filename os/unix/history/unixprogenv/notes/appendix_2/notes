@@ -117,6 +117,8 @@ Discussion:
    Redefines the "center header" macro to be empty so that page numbers do not
    appear.
 
+.LP is needed after .AB to left-justify the paragraph in the abstract.
+
 The pipe symbol as rendered by the Bell Labs troff toolchain is the same in
 both regular and italic fonts, but it differs in the GNU troff toolchain.
 To force the pipe symbol to be rendered upright amidst italic text, bracket
