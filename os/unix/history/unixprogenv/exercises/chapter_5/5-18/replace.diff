@@ -1,6 +1,6 @@
-1a2,3
-> #
-> # modified to add -v flag to print all changed lines on /dev/tty
+2a3,4
+> # Modified to add -v flag to print all changed lines on /dev/tty
+> 
 4a7,11
 > case "$1" in
 > 	-v)	vflag="w /dev/tty"; shift ;;

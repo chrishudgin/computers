@@ -1,6 +1,6 @@
 # replace:  replace str1 in files with str2, in place
-#
-# modified to add -v flag to print all changed lines on /dev/tty
+
+# Modified to add -v flag to print all changed lines on /dev/tty
 
 PATH=/bin:/usr/bin
 
