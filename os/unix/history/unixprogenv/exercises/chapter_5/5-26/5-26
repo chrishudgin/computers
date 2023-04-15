@@ -1,0 +1,12 @@
+A .profile for 7th Edition UNIX could include commands like the following to
+set a user's TERM variable and set tabs appropriately for it:
+
+echo -n "TERM? "
+read TERM
+tabs $TERM
+
+Modern versions of Unix-like operating systems have a "tabs" command that
+requires a different syntax, as in the following example to set a tab stop
+every 8 characters for a terminal of type $TERM:
+
+tabs -8 -T $TERM
