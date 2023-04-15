@@ -4,6 +4,6 @@
 10a13,17
 > # Construct new strings in which we replace every \ with \\ and @ with \@
 > # in order to protect them from evaluation by sed below
-> left=`echo "$left" | sed -e 's/\\\/\\\\\\\\/g' -e 's/\@/\\\@/g'`
-> right=`echo "$right" | sed -e 's/\\\/\\\\\\\\/g' -e 's/\@/\\\@/g'`
+> left=`/bin/echo "$left" | sed -e 's/\\\/\\\\\\\\/g' -e 's/\@/\\\@/g'`
+> right=`/bin/echo "$right" | sed -e 's/\\\/\\\\\\\\/g' -e 's/\@/\\\@/g'`
 > 
