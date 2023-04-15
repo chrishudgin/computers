@@ -1,6 +1,6 @@
 # replace:  replace str1 in files with str2, in place
 
-# Modified to work regardless of the characters in the strings.
+# Modified to work regardless of the characters in the substitution strings.
 
 PATH=/bin:/usr/bin
 

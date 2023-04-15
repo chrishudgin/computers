@@ -1,0 +1,9 @@
+2a3,4
+> # Modified to work regardless of the characters in the substitution strings.
+> 
+10a13,17
+> # Construct new strings in which we replace every \ with \\ and @ with \@
+> # in order to protect them from evaluation by sed below
+> left=`echo "$left" | sed -e 's/\\\/\\\\\\\\/g' -e 's/\@/\\\@/g'`
+> right=`echo "$right" | sed -e 's/\\\/\\\\\\\\/g' -e 's/\@/\\\@/g'`
+> 
