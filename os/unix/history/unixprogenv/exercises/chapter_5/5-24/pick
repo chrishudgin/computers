@@ -1,0 +1,22 @@
+# pick:  select arguments
+
+PATH=/bin:/usr/bin
+
+case $# in
+0)	while read moreargs
+	do
+		args="$args $moreargs"
+	done	
+	;;
+*)	args=$* ;;
+esac
+
+for i in $args		# for each argument
+do
+	/bin/echo -n "$i? " >/dev/tty
+	read response
+	case $response in
+	y*)	/bin/echo $i ;;
+	q*)	break
+	esac
+done </dev/tty

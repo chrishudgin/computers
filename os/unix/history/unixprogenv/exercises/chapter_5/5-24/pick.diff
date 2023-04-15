@@ -1,0 +1,21 @@
+5c5,14
+< for i				# for each argument
+---
+> case $# in
+> 0)	while read moreargs
+> 	do
+> 		args="$args $moreargs"
+> 	done	
+> 	;;
+> *)	args=$* ;;
+> esac
+> 
+> for i in $args		# for each argument
+7c16
+< 	echo -n "$i? " >/dev/tty
+---
+> 	/bin/echo -n "$i? " >/dev/tty
+10c19
+< 	y*)	echo $i ;;
+---
+> 	y*)	/bin/echo $i ;;
