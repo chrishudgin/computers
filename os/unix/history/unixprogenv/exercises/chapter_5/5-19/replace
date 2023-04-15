@@ -2,7 +2,7 @@
 
 # Modified to work regardless of the characters in the substitution strings.
 
-PATH=:/bin:/usr/bin
+PATH=/bin:/usr/bin
 
 case $# in
 0|1|2)	echo 'Usage: replace str1 str2 files' 1>&2; exit 1
