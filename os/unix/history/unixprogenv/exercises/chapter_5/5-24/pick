@@ -1,5 +1,8 @@
 # pick:  select arguments
 
+# Modified to read arguments from standard input if none are supplied on the
+# command line.  It handles blanks properly, and a "q" response works.
+
 PATH=/bin:/usr/bin
 
 case $# in

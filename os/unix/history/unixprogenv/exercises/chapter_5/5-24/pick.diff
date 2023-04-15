@@ -1,4 +1,8 @@
-5c5,14
+2a3,5
+> # Modified to read arguments from standard input if none are supplied on the
+> # command line.  It handles blanks properly, and a "q" response works.
+> 
+5c8,17
 < for i				# for each argument
 ---
 > case $# in
@@ -11,11 +15,11 @@
 > esac
 > 
 > for i in $args		# for each argument
-7c16
+7c19
 < 	echo -n "$i? " >/dev/tty
 ---
 > 	/bin/echo -n "$i? " >/dev/tty
-10c19
+10c22
 < 	y*)	echo $i ;;
 ---
 > 	y*)	/bin/echo $i ;;
