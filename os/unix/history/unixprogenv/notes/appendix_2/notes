@@ -1,11 +1,14 @@
 The following changes need to be made to hoc.ms for the output of GNU troff
-to match the document shown in this appendix:
+to match the document shown in this appendix, other than minor differences
+in default line lengths, page margins, and indentation widths:
 
 $ diff hoc.ms hoc.for_gnu_troff.ms
 
 0a1
 > .ds CH
-35,39c36,40
+9a11
+> .LP
+35,39c37,41
 < 	|	variable
 < 	|	( expr )
 < 	|	expr binop expr
@@ -17,7 +20,7 @@ $ diff hoc.ms hoc.for_gnu_troff.ms
 > 	\fC|\fP	expr binop expr
 > 	\fC|\fP	unop expr
 > 	\fC|\fP	function ( arguments )
-134,141c135,142
+134,141c136,143
 < 	|	variable = expr
 < 	|	procedure ( arglist )
 < 	|	while ( expr ) stmt
@@ -35,17 +38,21 @@ $ diff hoc.ms hoc.for_gnu_troff.ms
 > 	\fC|\fP	{ stmtlist }
 > 	\fC|\fP	print expr-list
 > 	\fC|\fP	return optional-expr
-143,144c144,145
+143,144c145,146
 < stmtlist:		\fR(nothing)\fI
 < 	|	stmlist stmt
 ---
 > stmtlist:	\fR(nothing)\fI
 > 	\fC|\fP	stmlist stmt
-245c246
+155c157
+< .IT if
+---
+> .I if
+245c247
 < .IT $3
 ---
 > \fI$3\fP
-264,275c265,276
+264,275c266,277
 < .S $ "hoc
 < .S "func ack() {
 < .S "        if ($1 == 0) return $2+1
@@ -71,7 +78,7 @@ $ diff hoc.ms hoc.for_gnu_troff.ms
 >         \fP61\fP
 > ack(3, 4)
 > \fPhoc: stack too deep near line 8
-290,297c291,298
+290,297c292,299
 < .S $ hoc
 < .S "func stirl() {
 < .S "    return sqrt(2*$1*PI) * ($1/E)^$1*(1 + 1/(12*$1))
@@ -89,11 +96,11 @@ $ diff hoc.ms hoc.for_gnu_troff.ms
 >         \fP3628684.7\fP
 > stirl(20)
 >         \fP2.4328818e+18\fP
-304c305
+304c306
 < .S "func fac() if ($1 <= 0) return 1 else return $1 * fac($1-1)
 ---
 > \f(CIfunc fac() if ($1 <= 0) return 1 else return $1 * fac($1-1)
-310,313c311,314
+310,313c312,315
 < .S "i = 9
 < .S "while ((i = i+1) <= 20) {
 < .S \ \ \ \ \ \ \ \ print\ i,\ "\ \ ",\ fac(i)/stirl(i),\ "\en"
