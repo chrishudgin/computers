@@ -1,0 +1,5 @@
+Performing a read from /dev/tty without calling a subshell can be done as
+follows:
+
+exec < /dev/tty
+read ...
