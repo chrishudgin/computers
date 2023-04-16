@@ -1,6 +1,7 @@
 The following changes need to be made to hoc.ms for the output of GNU troff
 to match the document shown in this appendix, other than minor differences
-in default line lengths, page margins, spacing, and indentation widths:
+in default line lengths, page margins, spacing, and indentation widths for
+the ms macro package:
 
 $ diff hoc.ms hoc.for_gnu_troff.ms
 
