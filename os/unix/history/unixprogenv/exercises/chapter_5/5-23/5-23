@@ -1,0 +1,3 @@
+Changing an "echo" statement to run ps one additional time (piped to sed to
+print only the header line) does not significantly complicate the program,
+although it does add slightly to the run time and number of processes to spawn.
