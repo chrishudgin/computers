@@ -1,0 +1,15 @@
+As it is now written, the "replace" script cannot safely change a variable "i"
+to "index" everywhere in a program unless the letter "i" does not appear
+anywhere except as the variable of that name (a scenario that is highly
+unlikely).  Any instance of the letter "i" in the program source file would be
+changed to "index", whether or not that instance was, in fact, being used to
+denote the variable called "i".  Thus, comments, literal strings, other
+variable names that contained "i" in them, and keywords would all be affected
+by the replacement of "i" with "index".
+
+Distinguishing a variable in a program from another identical string of
+characters that is not a variable requires the ability to establish the context
+of a string--specifically, whether it is being used as a variable or not at a
+point it appears in a program source file.  Separating variables from other
+text is the job of lexers and parsers, programs that are far more complex than
+the simple "replace" script.
