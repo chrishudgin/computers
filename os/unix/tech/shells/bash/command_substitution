@@ -1,11 +1,26 @@
+Escape sequences:
+
 Bash treats some escape sequences differently depending on whether command
-substitution is done using the old style with backticks `some command` or the
-new style with a dollar sign and parentheses $(some command).
+substitution is done using the old style with backticks, e.g. `some command`,
+or the new style with a dollar sign and parentheses, e.g. $(some command).
 
-Within backticks ``, \$, \`, and \\ are treated as escape sequences
+Examples:
 
-Within $(), the backslash \ character is treated literally even when followed
-by $, `, or \
+$ echo `echo "\\\\\\\\\\\"`  # 4n-1 backslashes needed per literal \
+\\\
+
+$ echo $(echo "\\\\\\")      # 2 backslashes needed per literal \
+\\\
+
+$ echo `echo \\\`\\\``       # 3 backslashes needed per literal `
+``
+
+$ echo $(echo \`\`)          # 1 backslash needed per literal `
+``
+
+*****
+
+Nesting:
 
 Within backticks ``, commands can be nested arbitrarily deep (as they can with
 the newer $() command substitution syntax), but after the first level of
