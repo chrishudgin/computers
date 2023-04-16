@@ -27,4 +27,5 @@ the newer $() command substitution syntax), but after the first level of
 nesting (with n=1 backslash preceding each nested backtick), each subsequent
 level of nesting requires 2n+1 consecutive backslashes to escape each of that
 level's backticks.  So 1, 3, 7, 15, etc. backslashes per nested backtick are
-required, quickly causing the code to become hard to read and maintain.
+required for consecutive levels of nesting, quickly causing the code to become
+hard to read and maintain.
