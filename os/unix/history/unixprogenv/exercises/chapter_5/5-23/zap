@@ -9,5 +9,5 @@ case $1 in
 -*)	SIG=$1; shift
 esac
 
-ps -ag | sed 1q
+ps -ag | sed -n 1p
 kill $SIG `pick \`ps -ag | egrep "$*"\` | awk '{print $1}'`

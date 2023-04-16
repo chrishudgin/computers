@@ -1,4 +1,4 @@
 12c12
 < echo '   PID TTY   TIME CMD'
 ---
-> ps -ag | sed 1q
+> ps -ag | sed -n 1p
