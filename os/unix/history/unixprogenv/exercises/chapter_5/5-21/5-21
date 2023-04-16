@@ -1,0 +1,5 @@
+On a modern Unix-like system with potentially hundreds or thousands of commands
+in /usr/bin, and no standard Unix utility already called "replace", placing a
+short but useful script like "replace" there could be appropriate.  However,
+the "-i" (edit a file in place) option now found in the standard "sed" command
+makes the "replace" command redundant.
