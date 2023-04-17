@@ -1,0 +1,20 @@
+$ cat x y >y
+
+The shell detects that an output file is also an input file, writes an error
+message ("input file is output file"), and stops processing the command line
+input before overwriting the output file or running the command.
+
+Without such error checking by the shell, this command might cause the shell to
+create (if necessary) and empty the file y before running the cat command.  cat
+would then copy the contents of x and y into y, but since y would now be empty,
+y would receive only the contents of x.
+
+$ cat x >>x
+
+Again, the shell will detect that an output file is also an input file and will
+write an error message and stop processing the command line before overwriting
+the output file or running the command.
+
+Without such error checking by the shell, this command might cause the shell to
+append the contents of file x to itself, duplicating the existing content in
+the file.
