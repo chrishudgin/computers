@@ -1,0 +1,21 @@
+.* as a filename pattern will match any file or directory beginning with a dot
+(.), regardless of the characters (if any) that follow the dot and regardless
+of whether the pattern matches a filename or a directory name.
+
+The current directory always contains an entry called "." for itself and an
+entry called ".." for the current directory's parent directory.
+
+ls without any options will list the names of files and directories that match
+the given pattern.
+
+Thus, "ls .*" will output a listing of names of files and directories as
+follows:
+
+Any files in the current directory whose names begin with a dot, such as a file named .profile
+
+The contents of the current directory .
+
+The contents of the parent directory ..
+
+The contents of any subdirectory of the current directory whose name begins
+with a dot, such as .configdir
