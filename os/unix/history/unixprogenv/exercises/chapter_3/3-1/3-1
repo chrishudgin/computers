@@ -1,0 +1,32 @@
+All three commands listed will have the same user-visible effect: displaying a
+formatted version of the contents of "file" on the terminal.
+
+The differences are as follows:
+
+$ cat file | pr
+
+causes the shell to create two processes and requests the kernel to connect
+them with a pipe, so that the standard output of the "cat" process is sent to
+the standard input of the "pr" process to format the contents of "file".  In
+this command, the "cat" process is responsible for opening the file called
+"file" and then sending the contents of "file" to standard output.  Since the
+shell requests the pipe to be opened and the kernel opens it, neither the "cat"
+process nor the "pr" process need be aware of the pipe's presence.
+
+$ pr <file
+
+causes the shell to create a single process (pr).  The shell also arranges that
+the standard input for the "pr" process comes from the contents of "file"; it
+is not necessary for the "pr" command to open (or even be capable of opening)
+any file arguments on its own.  Since a pipe is not needed and only a single
+process is spawned ("cat" is not necessary here), this method is more efficient
+than the first.
+
+$ pr file
+
+relies on the ability of the pr command to recognize a filename argument on its
+command line and then open it for processing (formatting).  The file may, and
+typically would, be opened on a file descriptor other than the one for standard
+input (0).  Only a single process is needed, but the command that is run must
+do its own file handling rather than leaving it to the shell.  As in the second
+command above, there is no need for a separate "cat" command.
