@@ -1,0 +1,12 @@
+To tell grep to search for a pattern beginning with a '-', use the -e option to
+grep followed by the search pattern.
+
+For example:
+
+grep -e -abc somefile
+
+Quoting an argument beginning with a dash is not sufficient to pass grep a
+search pattern beginning with a dash because the shell will remove the quotes
+around the argument before passing it to grep.  grep will then see the argument
+beginning with a dash (without surrounding quotes) and will attempt to process
+it as a set of options instead of as a search pattern.
