@@ -1,0 +1,33 @@
+Unless otherwise stated, each of the listed grep commands will search its input
+for lines of text matching the given pattern and print all lines that do.  The
+descriptions of matching lines of text are as follows:
+
+grep \$ : grep is passed the search pattern $, which matches any line of text
+   since $ as a regular expression matches the end of any line of text
+
+grep \\$ : grep is passed \$, matching any line of text containing the $
+   character
+
+grep \\\$ : grep is passed \$, matching any line of text containing the $
+   character
+
+grep '\$' : grep is passed \$, matching any line of text containing the $
+   character
+
+grep '\'$' : The quoted string that starts after the $ is incomplete (not
+   closed by a single quote), so the shell will not run grep until the string
+   is closed.
+
+grep \\ : the shell interprets \\ as \, and grep considers a backslash
+   without a character after it as meaningless; no text will match
+
+grep \\\\ : the shell interprets \\\\ as \\ and grep interprets \\ as a
+   literal backslash; any line of text with a backslash will match
+
+grep "\$" : the shell interprets the string in double quotes \$ as $;
+   grep is passed $, which matches any line of text
+
+grep '"$' : grep is passed "$, which matches the " character at the end of
+   a line of text
+
+grep "$" : grep is passed $, which matches any line of text
