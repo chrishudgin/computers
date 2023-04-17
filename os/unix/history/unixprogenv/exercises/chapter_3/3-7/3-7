@@ -6,8 +6,10 @@ input before overwriting the output file or running the command.
 
 Without such error checking by the shell, this command might cause the shell to
 create (if necessary) and empty the file y before running the cat command.  cat
-would then copy the contents of x and y into y, but since y would now be empty,
-y would receive only the contents of x.
+might then copy the contents of x and y into y, but since y would now be empty,
+y would receive only the contents of x.  Alternatively, the command might
+cause an infinite loop as each read from y would find more content that had
+just been written to y, causing y to grow without bound.
 
 $ cat x >>x
 
@@ -17,4 +19,6 @@ the output file or running the command.
 
 Without such error checking by the shell, this command might cause the shell to
 append the contents of file x to itself, duplicating the existing content in
-the file.
+the file.  Alternatively, the command might cause an infinite loop as each read
+from x would find that more content from x would find more content that had
+just been written to x, causing x to grow without bound.
