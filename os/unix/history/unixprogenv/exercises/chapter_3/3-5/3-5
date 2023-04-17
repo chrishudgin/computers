@@ -1,0 +1,3 @@
+The command "echo */*" does not produce all names in all directories because
+* does not match names beginning with a dot.  The command will display matching
+names in alphabetical order.
