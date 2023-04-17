@@ -8,6 +8,7 @@ Hoc - An Interactive Language For Floating Point Arithmetic
 Brian Kernighan
 Rob Pike
 .AB
+.LP
 .I Hoc
 is a simple programmable interpreter
 for floating point expressions.

@@ -1,18 +1,18 @@
 %!PS-Adobe-3.0
-%%Creator: groff version 1.19.2
-%%CreationDate: Fri Jan 14 17:36:09 2022
+%%Creator: groff version 1.22.4
+%%CreationDate: Sat Mar 25 16:55:19 2023
 %%DocumentNeededResources: font Times-Roman
-%%DocumentSuppliedResources: procset grops 1.19 2
+%%DocumentSuppliedResources: procset grops 1.22 4
 %%Pages: 1
 %%PageOrder: Ascend
-%%DocumentMedia: Default 612 792 0 () ()
+%%DocumentMedia: Default 595 842 0 () ()
 %%Orientation: Portrait
 %%EndComments
 %%BeginDefaults
 %%PageMedia: Default
 %%EndDefaults
 %%BeginProlog
-%%BeginResource: procset grops 1.19 2
+%%BeginResource: procset grops 1.22 4
 %!PS-Adobe-3.0 Resource-ProcSet
 /setpacking where{
 pop
@@ -70,6 +70,7 @@ exch pop add exch pop
 /level0 save def
 1 setlinecap
 1 setlinejoin
+DEFS/BPhook known{DEFS begin BPhook end}if
 72 RES div dup scale
 LS{
 90 rotate
@@ -135,7 +136,10 @@ pop
 findfont
 dup maxlength 1 index/FontName known not{1 add}if dict begin
 {
-1 index/FID ne{def}{pop pop}ifelse
+1 index/FID ne
+2 index/UniqueID ne
+and
+{def}{pop pop}ifelse
 }forall
 /Encoding exch def
 dup/FontName exch def
@@ -173,8 +177,10 @@ newpath
 userdict begin
 /showpage{}def
 /setpagedevice{}def
+mark
 }bind def
 /PEND{
+cleartomark
 countdictstack CNT sub{end}repeat
 level1 restore
 }bind def
@@ -187,15 +193,15 @@ setpacking
 %%EndProlog
 %%BeginSetup
 %%BeginFeature: *PageSize Default
-<< /PageSize [ 612 792 ] /ImagingBBox null >> setpagedevice
+<< /PageSize [ 595 842 ] /ImagingBBox null >> setpagedevice
 %%EndFeature
 %%IncludeResource: font Times-Roman
 grops begin/DEFS 1 dict def DEFS begin/u{.001 mul}bind def end/RES 72
-def/PL 792 def/LS false def/ENC0[/asciicircum/asciitilde/Scaron/Zcaron
-/scaron/zcaron/Ydieresis/trademark/quotesingle/Euro/.notdef/.notdef
+def/PL 841.89 def/LS false def/ENC0[/asciicircum/asciitilde/Scaron
+/Zcaron/scaron/zcaron/Ydieresis/trademark/quotesingle/Euro/.notdef
 /.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef
 /.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef
-/.notdef/.notdef/space/exclam/quotedbl/numbersign/dollar/percent
+/.notdef/.notdef/.notdef/space/exclam/quotedbl/numbersign/dollar/percent
 /ampersand/quoteright/parenleft/parenright/asterisk/plus/comma/hyphen
 /period/slash/zero/one/two/three/four/five/six/seven/eight/nine/colon
 /semicolon/less/equal/greater/question/at/A/B/C/D/E/F/G/H/I/J/K/L/M/N/O
@@ -227,9 +233,11 @@ BP
 /F0 10/Times-Roman@0 SF
 (This is a demonstration of the use of small caps in)72 84 Q/F1 8
 /Times-Roman@0 SF(UNIX)2.5 E/F2 4/Times-Roman@0 SF(TM)-4 I F0
-(typesetting.)2.5 4 M(This is a demonstration of a footnote in)72 108 Q
-F1(UNIX)2.5 E F0 2.5<8774>C(ypesetting.)-2.5 E .32 LW 144 710 72 710 DL
-F1(UNIX is a T)72 720 Q(rademark of Bell Laboratories)-.28 E 0 Cg EP
+(typesetting.)2.5 4 M(This is a demonstration of the w)72 108 Q
+(ord UNIX in re)-.1 E(gular font.)-.15 E
+(This is a demonstration of a footnote in)72 132 Q F1(UNIX)2.5 E F0 2.5
+<8774>C(ypesetting.)-2.5 E .32 LW 144 710 72 710 DL F1(UNIX is a T)72
+720 Q(rademark of Bell Laboratories)-.28 E 0 Cg EP
 %%Trailer
 end
 %%EOF

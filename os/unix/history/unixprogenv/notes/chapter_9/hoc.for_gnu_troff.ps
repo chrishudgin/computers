@@ -1,24 +1,24 @@
 %!PS-Adobe-3.0
-%%Creator: groff version 1.19.2
-%%CreationDate: Sat Jan 15 00:02:14 2022
+%%Creator: groff version 1.22.4
+%%CreationDate: Sat Apr 15 01:06:26 2023
 %%DocumentNeededResources: font Times-Bold
 %%+ font Times-Italic
 %%+ font Times-Roman
 %%+ font Courier
 %%+ font Symbol
 %%+ font Courier-Oblique
-%%DocumentSuppliedResources: procset grops 1.19 2
+%%DocumentSuppliedResources: procset grops 1.22 4
 %%+ font Symbol-Slanted
 %%Pages: 5
 %%PageOrder: Ascend
-%%DocumentMedia: Default 612 792 0 () ()
+%%DocumentMedia: Default 595 842 0 () ()
 %%Orientation: Portrait
 %%EndComments
 %%BeginDefaults
 %%PageMedia: Default
 %%EndDefaults
 %%BeginProlog
-%%BeginResource: procset grops 1.19 2
+%%BeginResource: procset grops 1.22 4
 %!PS-Adobe-3.0 Resource-ProcSet
 /setpacking where{
 pop
@@ -76,6 +76,7 @@ exch pop add exch pop
 /level0 save def
 1 setlinecap
 1 setlinejoin
+DEFS/BPhook known{DEFS begin BPhook end}if
 72 RES div dup scale
 LS{
 90 rotate
@@ -141,7 +142,10 @@ pop
 findfont
 dup maxlength 1 index/FontName known not{1 add}if dict begin
 {
-1 index/FID ne{def}{pop pop}ifelse
+1 index/FID ne
+2 index/UniqueID ne
+and
+{def}{pop pop}ifelse
 }forall
 /Encoding exch def
 dup/FontName exch def
@@ -179,8 +183,10 @@ newpath
 userdict begin
 /showpage{}def
 /setpagedevice{}def
+mark
 }bind def
 /PEND{
+cleartomark
 countdictstack CNT sub{end}repeat
 level1 restore
 }bind def
@@ -193,7 +199,7 @@ setpacking
 %%EndProlog
 %%BeginSetup
 %%BeginFeature: *PageSize Default
-<< /PageSize [ 612 792 ] /ImagingBBox null >> setpagedevice
+<< /PageSize [ 595 842 ] /ImagingBBox null >> setpagedevice
 %%EndFeature
 %%IncludeResource: font Symbol
 %%IncludeResource: font Times-Bold
@@ -204,6 +210,7 @@ setpacking
 %%BeginResource: font Symbol-Slanted
 %!PS-Adobe-3.0 Resource-Font
 %%DocumentNeededResources: font Symbol
+%%EndComments
 /MakeTransformedFont{
 findfont dup maxlength dict begin
 {
@@ -232,11 +239,11 @@ definefont pop
 MakeTransformedFont
 %%EndResource
 grops begin/DEFS 1 dict def DEFS begin/u{.001 mul}bind def end/RES 72
-def/PL 792 def/LS false def/ENC0[/asciicircum/asciitilde/Scaron/Zcaron
-/scaron/zcaron/Ydieresis/trademark/quotesingle/Euro/.notdef/.notdef
+def/PL 841.89 def/LS false def/ENC0[/asciicircum/asciitilde/Scaron
+/Zcaron/scaron/zcaron/Ydieresis/trademark/quotesingle/Euro/.notdef
 /.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef
 /.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef
-/.notdef/.notdef/space/exclam/quotedbl/numbersign/dollar/percent
+/.notdef/.notdef/.notdef/space/exclam/quotedbl/numbersign/dollar/percent
 /ampersand/quoteright/parenleft/parenright/asterisk/plus/comma/hyphen
 /period/slash/zero/one/two/three/four/five/six/seven/eight/nine/colon
 /semicolon/less/equal/greater/question/at/A/B/C/D/E/F/G/H/I/J/K/L/M/N/O
@@ -270,13 +277,13 @@ BP
 /F0 12/Times-Bold@0 SF(Hoc - An Interacti)130.74 123 Q .24 -.12(ve L)
 -.12 H(anguage F).12 E(or Floating P)-.3 E(oint Arithmetic)-.24 E/F1 10
 /Times-Italic@0 SF(Brian K)254.145 159 Q(ernighan)-.35 E(Rob Pik)269.86
-171 Q(e)-.1 E(ABSTRA)264.535 207 Q(CT)-.3 E(Hoc)133 231 Q/F2 10
-/Times-Roman@0 SF .572
-(is a simple programmable interpreter for \215oating point e)3.072 F
-3.071(xpressions. It)-.15 F .571(has C-)3.071 F .903
-(style control \215o)108 243 R 2.203 -.65(w, f)-.25 H .903
-(unction de\214nition and the usual numerical b).65 F .904
-(uilt-in functions such as)-.2 F(cosine and log)108 255 Q(arithm.)-.05 E
+171 Q(e)-.1 E(ABSTRA)264.535 207 Q(CT)-.3 E(Hoc)108 231 Q/F2 10
+/Times-Roman@0 SF 1.081
+(is a simple programmable interpreter for \215oating point e)3.581 F
+3.581(xpressions. It)-.15 F 1.08(has C-style)3.58 F .348(control \215o)
+108 243 R 1.648 -.65(w, f)-.25 H .348
+(unction de\214nition and the usual numerical b).65 F .349
+(uilt-in functions such as cosine)-.2 F(and log)108 255 Q(arithm.)-.05 E
 /F3 10/Times-Bold@0 SF 2.5(1. Expr)72 291 R(essions)-.18 E F1(Hoc)97
 306.6 Q F2 .212(is an e)2.712 F .212(xpression language, much lik)-.15 F
 2.711(eC)-.1 G 2.711(:a)-2.711 G .211(lthough there are se)-2.711 F -.15
@@ -295,10 +302,10 @@ BP
 (guments \))-.37 E F2 .116(Numbers are \215oating point.)72 438.6 R .116
 (The input format is that recognized by)5.116 F F1(scanf)2.956 E F2 .117
 (\(3\): digits, decimal point, digits,)1.96 F F1(e)2.807 E F2(or)72
-450.6 Q F1(E)4.19 E F2 3.68(,s).73 G 1.18(igned e)-3.68 F 3.68
-(xponent. At)-.15 F 1.18(least one digit or a decimal point must be pre\
-sent; the other components are)3.68 F(optional.)72 462.6 Q -1.11(Va)97
-478.2 S .421(riable names are formed from a letter follo)1.11 F .421
+450.6 Q F1(E)3.295 E F2 2.785(,s).73 G .285(igned e)-2.785 F 2.785
+(xponent. At)-.15 F .285(least one digit or a decimal point must be pre\
+sent; the other components are op-)2.785 F(tional.)72 462.6 Q -1.11(Va)
+97 478.2 S .421(riable names are formed from a letter follo)1.11 F .421
 (wed by a string of letters and numbers.)-.25 F F1(binop)5.692 E F2 .422
 (refers to)3.112 F .045
 (binary operators such as addition or logical comparison;)72 490.2 R F1
@@ -325,11 +332,11 @@ G(luated\)).25 E F4(||)169.358 636.2 Q F2(logical OR \(both operands al)
 652.7 DL .517(Functions, as described later)97 669.8 R 3.017(,m)-.4 G
 .517(ay be de\214ned by the user)-3.017 F 5.517(.F)-.55 G .517
 (unction ar)-5.517 F .517(guments are e)-.18 F .518(xpressions sepa-)
--.15 F 1.736(rated by commas.)72 681.8 R 1.735
-(There are also a number of b)6.736 F 1.735
-(uilt-in functions, all of which tak)-.2 F 4.235(eas)-.1 G 1.735
-(ingle ar)-4.235 F(gument,)-.18 E(described in T)72 693.8 Q(able 2.)-.8
-E 0 Cg EP
+-.15 F .791(rated by commas.)72 681.8 R .791
+(There are also a number of b)5.791 F .79
+(uilt-in functions, all of which tak)-.2 F 3.29(eas)-.1 G .79(ingle ar)
+-3.29 F .79(gument, de-)-.18 F(scribed in T)72 693.8 Q(able 2.)-.8 E 0
+Cg EP
 %%Page: 2 2
 %%BeginPageSetup
 BP
@@ -349,58 +356,57 @@ E F1(of)2.68 E F3(x)3.27 E F2(log10\(x\))176.265 176 Q F1(log)15 E/F5 7
 /Times-Roman@0 SF(10)2.53 I F1(\().5 -2.53 M F3(x).77 E F1(\), log).53 E
 (arithm base 10 of)-.05 E F3(x)3.27 E F2(sin\(x\))176.265 188 Q F1
 (sin\()27 E F3(x).77 E F1(\), sine of).53 E F3(x)3.27 E F2(sqrt\(x\))
-176.265 201.812 Q/F6 10/Symbol SF 4.22 -5.49(\326` `)21 1.282 P F3(x)
-6.01 -1.282 M F1(,).53 E F3(x)3.27 E/F7 4.9/Times-Roman@0 SF(1)1.37 -7 M
-(2)-2.45 5.32 M .28 LW 264.525 195.792 262.075 195.792 DL .4 LW 404.735
-206.312 171.265 206.312 DL 404.735 76.5 404.735 206.312 DL 171.265 76.5
-171.265 206.312 DL F1 .453(Logical e)97 223.412 R .453(xpressions ha)
--.15 F .753 -.15(ve v)-.2 H .453(alue 1.0 \(true\) and 0.0 \(f)-.1 F
-2.953(alse\). As)-.1 F .453(in C, an)2.953 F 2.954(yn)-.15 G .454
-(on-zero v)-2.954 F .454(alue is tak)-.25 F .454(en to be)-.1 F 2.5
-(true. As)72 235.412 R(is al)2.5 E -.1(wa)-.1 G(ys the case with \215oa\
-ting point numbers, equality comparisons are inherently suspect.).1 E F3
-(Hoc)97 251.012 Q F1(also has a fe)2.5 E 2.5(wb)-.25 G
-(uilt-in constants, sho)-2.7 E(wn in T)-.25 E(able 3.)-.8 E 446.88
-261.512 129.12 261.512 DL F0 -.92(Ta)231.785 271.012 S(ble 3:).92 E F1
-(Built-in Constants)5 E F2(DEG)134.12 289.012 Q F1 12.5
-(57.29577951308232087680 180)27 F(/).09 E/F8 10/Symbol-Slanted SF(p).01
-E F1 2.5(,d)1.6 G -.15(eg)-2.5 G(rees per radian).15 E F2(E)134.12
-301.012 Q F1(2.71828182845904523536)44 E F3(e)15.19 E F1 2.5(,b).18 G
-(ase of natural log)-2.5 E(arithms)-.05 E F2(GAMMA)134.12 313.012 Q F1
-(0.57721566490153286060)20 E F8(g)14.58 E F1 2.5(,E)2.52 G(uler)-2.5 E
-(-Mascheroni constant)-.2 E F2(PHI)134.12 326.02 Q F1 12.5
-(1.61803398874989484820 \()32 F F6 -5.49<d660>.062 K F1(5)5.98 -.062 M
-F6(+)2.2 E F1 -2.41(1\) / 2,)2.2 F(the golden ratio)2.5 E F2(PI)134.12
-338.02 Q F1(3.14159265358979323846)38 E F8(p)14.92 E F1 2.5(,c)1.6 G
-(ircular transcendental number)-2.5 E 446.88 342.52 129.12 342.52 DL
-446.88 261.512 446.88 342.52 DL 129.12 261.512 129.12 342.52 DL F0 2.5
-(2. Statements)72 368.02 R(and Contr)2.5 E(ol Flo)-.18 E(w)-.1 E F3(Hoc)
-97 383.62 Q F1(statements ha)2.5 E .3 -.15(ve t)-.2 H(he follo).15 E
-(wing grammar:)-.25 E F3 27.5(stmt: e)108 401.62 R(xpr)-.2 E F2(|)133
-413.62 Q F3(variable = e)19 E(xpr)-.2 E F2(|)133 425.62 Q F3(pr)19 E
-(ocedur)-.45 E 2.5(e\(a)-.37 G -.37(rg)-2.5 G(list \)).37 E F2(|)133
-437.62 Q F3(while \( e)19 E(xpr \) stmt)-.2 E F2(|)133 449.62 Q F3
-(if \( e)19 E(xpr \) stmt)-.2 E F2(|)133 461.62 Q F3(if \( e)19 E
-(xpr \) stmt else stmt)-.2 E F2(|)133 473.62 Q F3 2.5({s)19 G(tmtlist })
--2.5 E F2(|)133 485.62 Q F3(print e)19 E(xpr)-.2 E(-list)-.2 E F2(|)133
-497.62 Q F3 -.37(re)19 G(turn optional-e).37 E(xpr)-.2 E(stmtlist:)108
-521.62 Q F1(\(nothing\))17.77 E F2(|)133 533.62 Q F3(stmlist stmt)19 E
-F1 .475(An assignment is parsed by def)72 551.62 R .475
-(ault as a statement rather than an e)-.1 F .475
-(xpression, so assignments typed interac-)-.15 F(ti)72 563.62 Q -.15(ve)
--.25 G(ly do not print their v).15 E(alue.)-.25 E 1.628
-(Note that semicolons are not special to)97 579.22 R F3(hoc)4.439 E F1
+176.265 201.88 Q/F6 10/Symbol SF 4.22 -5.49(\326` `)21 1.282 P F3(x)6.01
+-1.282 M F1(,).53 E F3(x)3.27 E/F7 5/Times-Roman@0 SF(1)1.37 -7 M(2)-2.5
+5.32 M .28 LW 264.575 195.86 262.075 195.86 DL .4 LW 404.735 206.38
+171.265 206.38 DL 404.735 76.5 404.735 206.38 DL 171.265 76.5 171.265
+206.38 DL F1 .453(Logical e)97 223.48 R .453(xpressions ha)-.15 F .753
+-.15(ve v)-.2 H .453(alue 1.0 \(true\) and 0.0 \(f)-.1 F 2.953
+(alse\). As)-.1 F .453(in C, an)2.953 F 2.954(yn)-.15 G .454(on-zero v)
+-2.954 F .454(alue is tak)-.25 F .454(en to be)-.1 F 2.5(true. As)72
+235.48 R(is al)2.5 E -.1(wa)-.1 G(ys the case with \215oating point num\
+bers, equality comparisons are inherently suspect.).1 E F3(Hoc)97 251.08
+Q F1(also has a fe)2.5 E 2.5(wb)-.25 G(uilt-in constants, sho)-2.7 E
+(wn in T)-.25 E(able 3.)-.8 E 446.885 261.58 129.115 261.58 DL F0 -.92
+(Ta)231.785 271.08 S(ble 3:).92 E F1(Built-in Constants)5 E F2(DEG)
+134.115 289.08 Q F1 12.5(57.29577951308232087680 180)27 F(/).09 E/F8 10
+/Symbol-Slanted SF(p).01 E F1 2.5(,d)1.61 G -.15(eg)-2.5 G
+(rees per radian).15 E F2(E)134.115 301.08 Q F1(2.71828182845904523536)
+44 E F3(e)15.19 E F1 2.5(,b).18 G(ase of natural log)-2.5 E(arithms)-.05
+E F2(GAMMA)134.115 313.08 Q F1(0.57721566490153286060)20 E F8(g)14.58 E
+F1 2.5(,E)2.52 G(uler)-2.5 E(-Mascheroni constant)-.2 E F2(PHI)134.115
+326.088 Q F1 12.5(1.61803398874989484820 \()32 F F6 -5.49<d660>.062 K F1
+(5)5.98 -.062 M F6(+)2.2 E F1 -2.41(1\) / 2,)2.2 F(the golden ratio)2.5
+E F2(PI)134.115 338.088 Q F1(3.14159265358979323846)38 E F8(p)14.92 E F1
+2.5(,c)1.61 G(ircular transcendental number)-2.5 E 446.885 342.588
+129.115 342.588 DL 446.885 261.58 446.885 342.588 DL 129.115 261.58
+129.115 342.588 DL F0 2.5(2. Statements)72 368.088 R(and Contr)2.5 E
+(ol Flo)-.18 E(w)-.1 E F3(Hoc)97 383.688 Q F1(statements ha)2.5 E .3
+-.15(ve t)-.2 H(he follo).15 E(wing grammar:)-.25 E F3 27.5(stmt: e)108
+401.688 R(xpr)-.2 E F2(|)133 413.688 Q F3(variable = e)19 E(xpr)-.2 E F2
+(|)133 425.688 Q F3(pr)19 E(ocedur)-.45 E 2.5(e\(a)-.37 G -.37(rg)-2.5 G
+(list \)).37 E F2(|)133 437.688 Q F3(while \( e)19 E(xpr \) stmt)-.2 E
+F2(|)133 449.688 Q F3(if \( e)19 E(xpr \) stmt)-.2 E F2(|)133 461.688 Q
+F3(if \( e)19 E(xpr \) stmt else stmt)-.2 E F2(|)133 473.688 Q F3 2.5
+({s)19 G(tmtlist })-2.5 E F2(|)133 485.688 Q F3(print e)19 E(xpr)-.2 E
+(-list)-.2 E F2(|)133 497.688 Q F3 -.37(re)19 G(turn optional-e).37 E
+(xpr)-.2 E(stmtlist:)108 521.688 Q F1(\(nothing\))17.77 E F2(|)133
+533.688 Q F3(stmlist stmt)19 E F1 .475(An assignment is parsed by def)72
+551.688 R .475(ault as a statement rather than an e)-.1 F .475
+(xpression, so assignments typed interac-)-.15 F(ti)72 563.688 Q -.15
+(ve)-.25 G(ly do not print their v).15 E(alue.)-.25 E 1.628
+(Note that semicolons are not special to)97 579.288 R F3(hoc)4.439 E F1
 4.129(:s).31 G 1.629(tatements are terminated by ne)-4.129 F 4.129
-(wlines. This)-.25 F(causes)4.129 E(some peculiar beha)72 591.22 Q(vior)
--.2 E 5(.T)-.55 G(he follo)-5 E(wing are le)-.25 E -.05(ga)-.15 G(l).05
-E F3(if)2.5 E F1(statements:)2.5 E F2
-(if \(x < 0\) print\(y\) else print\(z\))108 609.22 Q(if \(x < 0\) {)108
-633.22 Q(print\(y\))133 645.22 Q 6(}e)108 657.22 S(lse {)-6 E
-(print\(z\))133 669.22 Q(})108 681.22 Q F1 .12(In the second e)72 699.22
-R .12(xample, the braces are mandatory: the ne)-.15 F .12
+(wlines. This)-.25 F(causes)4.129 E(some peculiar beha)72 591.288 Q
+(vior)-.2 E 5(.T)-.55 G(he follo)-5 E(wing are le)-.25 E -.05(ga)-.15 G
+(l).05 E F3(if)2.5 E F1(statements:)2.5 E F2
+(if \(x < 0\) print\(y\) else print\(z\))108 609.288 Q(if \(x < 0\) {)
+108 633.288 Q(print\(y\))133 645.288 Q 6(}e)108 657.288 S(lse {)-6 E
+(print\(z\))133 669.288 Q(})108 681.288 Q F1 .12(In the second e)72
+699.288 R .12(xample, the braces are mandatory: the ne)-.15 F .12
 (wline after the)-.25 F F3(if)2.62 E F1 -.1(wo)2.62 G .12
 (uld terminate the statement and).1 F
-(produce a syntax error were the brace omitted.)72 711.22 Q 0 Cg EP
+(produce a syntax error were the brace omitted.)72 711.288 Q 0 Cg EP
 %%Page: 3 3
 %%BeginPageSetup
 BP
@@ -498,13 +504,13 @@ BP
 %%EndPageSetup
 /F0 10/Times-Bold@0 SF 2.5(5. Examples)72 84 R/F1 10/Times-Roman@0 SF
 (Stirling')97 99.6 Q 2.5(sf)-.55 G(ormula:)-2.5 E/F2 10/Times-Italic@0
-SF(n)235.19 122.86 Q F1(!).24 E/F3 10/Symbol SF(~)2.8 E 5.49 -5.49
-(\326` `)2.8 .142 P(``)5.49 E F1(2)-11.52 -.142 M F2(n).36 E/F4 10
-/Symbol-Slanted SF(p).16 E F1(\()1.6 E F2(n).36 E F1(/).24 E F2(e).19 E
+SF(n)235.185 122.86 Q F1(!).24 E/F3 10/Symbol SF(~)2.8 E 5.5 -5.49
+(\326` `)2.8 .137 P(``)5.49 E F1(2)-11.53 -.137 M F2(n).36 E/F4 10
+/Symbol-Slanted SF(p).16 E F1(\()1.61 E F2(n).36 E F1(/).24 E F2(e).19 E
 F1(\)).18 E/F5 7/Times-Italic@0 SF(n).252 -4.2 M F1(\(1).668 4.2 M F3(+)
-2.2 E F1(1)8.7 -7 M(12)-10.3 14 M F2(n).36 E .4 LW 336.64 120.26 321.04
-120.26 DL F1(\))337.84 122.86 Q/F6 10/Courier@0 SF($)108 150.45 Q/F7 10
-/Courier-Oblique@0 SF(hoc)6 E(func stirl\(\) {)108 162.45 Q
+2.2 E F1(1)8.7 -7 M(12)-10.3 14 M F2(n).36 E .4 LW 336.645 120.26
+321.045 120.26 DL F1(\))337.845 122.86 Q/F6 10/Courier@0 SF($)108 150.45
+Q/F7 10/Courier-Oblique@0 SF(hoc)6 E(func stirl\(\) {)108 162.45 Q
 (return sqrt\(2*$1*PI\) * \($1/E\)^$1*\(1 + 1/\(12*$1\)\))132 174.45 Q
 (})108 186.45 Q(stirl\(10\))108 198.45 Q F6(3628684.7)156 210.45 Q F7
 (stirl\(20\))108 222.45 Q F6(2.4328818e+18)156 234.45 Q F1 -.15(Fa)97
