@@ -1,0 +1,2 @@
+You cannot get a / into a filename unless the name field for the file's
+directory entry has been corrupted.
