@@ -1,6 +1,7 @@
 Unless otherwise stated, each of the listed grep commands will search its input
 for lines of text matching the given pattern and print all lines that do.  The
-descriptions of matching lines of text are as follows:
+descriptions of the text matching in each case (where applicable) are as
+follows:
 
 grep \$ : grep is passed the search pattern $, which matches any line of text
    since $ as a regular expression matches the end of any line of text
