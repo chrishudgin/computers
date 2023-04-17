@@ -1,0 +1,18 @@
+On 7th Edition UNIX, the following command will identify how many commands in
+/bin and /usr/bin are actually shell files:
+
+$ file /bin/* /usr/bin/* | grep "commands text" | wc -l
+12
+
+(Note that 7th Edition UNIX has a /bin directory but not /usr/bin)
+
+On other Unix-like operating systems, the search pattern passed to grep would
+need to be modified to match the string output by the "file" command when
+encountering a shell script or other text file (such as "ASCII text").
+
+While the average size of a binary executable is substantially larger than that
+of a typical shell script and most guesses of file type based on file size
+would correctly distinguish the two, guesses based on file length should not be
+considered reliable since some binary executables are very small (especially on
+early Unix versions for PDP-11 hardware), and shell scripts are occasionally
+quite large.
