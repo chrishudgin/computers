@@ -1,0 +1,9 @@
+rm can't warn you that you are about to delete all your files if you run
+
+$ rm *
+
+because the shell expands * into a list of file and directory names before
+passing that list to the rm command.  Hence, rm never sees the * argument and
+therefore does not know you are passing it the complete list of files and
+directories (other than those whose names start with a dot) in your current
+directory.
