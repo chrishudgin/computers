@@ -1,0 +1,19 @@
+$ echo `echo `date``
+date
+
+There are two backtick-quoted strings in the command line above:
+`echo `
+and
+``
+
+`echo ` produces a blank, which when run as a command through command
+substitution does nothing and produces nothing.
+
+The empty string `` when processed as a command though command substitution
+also does nothing and produces nothing.
+
+After command substitution, the resulting command line is:
+
+$ echo date
+
+which simply prints the string "date".
