@@ -1,0 +1,14 @@
+$ `date`
+Mon: not found
+
+The command "date" is run; then, its output is run as a command by the shell
+through command substitution.
+
+The "date" command produces output like the following:
+
+$ date
+Mon Oct  3 02:45:21 EDT 1988
+
+When this output is then run as a command, Unix searches for but does not find
+a command called "Mon" (or "Tue", etc.).  This produces an error message like
+the one shown above.
