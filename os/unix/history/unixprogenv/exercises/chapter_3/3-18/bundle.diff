@@ -1,0 +1,4 @@
+6c6
+< 	echo "echo $i 1>&2"
+---
+> 	echo "echo `ls -l $i` 1>&2"
