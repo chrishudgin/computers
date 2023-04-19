@@ -1,0 +1,11 @@
+The command:
+
+$ grep -l pattern filename
+
+will produce a list of matching files.
+
+Examples of commands that could make use of such a filename list might include:
+
+$ ls -l `grep -l pattern filenames`
+$ du `grep -l pattern filenames`
+$ rm `grep -l pattern filenames`
