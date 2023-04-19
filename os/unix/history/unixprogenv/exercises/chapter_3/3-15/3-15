@@ -1,0 +1,7 @@
+Placing the "pick" command in the shell file would make the "diff" loop less
+generally applicable and would force the script to be interactive as the user
+would have to select files one by one for comparison.  A better solution would
+be to make the filename arguments to the shell file with the diff loop fully
+general (as with "for i in $*"), allowing the user to pipe a list of filenames
+to the diff script and then further pipe the results of the diff script to pr
+and/or lpr if desired.
