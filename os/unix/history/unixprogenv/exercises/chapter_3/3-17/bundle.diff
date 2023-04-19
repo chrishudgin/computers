@@ -1,0 +1,24 @@
+2a3,7
+> # Modified to recurse through subdirectories
+> #
+> # Minor bug: The "unbundle" header string is (harmlessly) repeated in the
+> # output each time bundle is called recursively.
+> 
+6,9c11,22
+< 	echo "echo $i 1>&2"
+< 	echo "cat >$i <<'End of $i'"
+< 	cat $i
+< 	echo "End of $i"
+---
+> 	if test -d $i
+> 	then
+> 		for j in `ls -a $i | grep -v "^\.$" | grep -v "^\.\.$"`
+> 		do
+> 			$0 $i/$j
+> 		done
+> 	else
+> 		echo "echo $i 1>&2"
+> 		echo "cat >$i <<'End of $i'"
+> 		cat $i
+> 		echo "End of $i"
+> 	fi
