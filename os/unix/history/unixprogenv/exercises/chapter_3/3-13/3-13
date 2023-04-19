@@ -1,0 +1,6 @@
+For security reasons, it is no longer recommended to include the current
+directory in PATH.  However, if the user understands the risks, then placing
+the current directory at the beginning of PATH is usually what is desired since
+it will allow the user to run custom or private versions of commands
+preferentially instead of commands in the standard PATH search directories that
+have the same names.
