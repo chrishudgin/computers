@@ -1,0 +1,13 @@
+The original version of 411 separates the code ("grep $*") from the data (a
+file called /usr/you/lib/phone-book).  This is generally considered to be good
+practice except when code and data must be packaged together, such as in a
+self-extracting file (as with a shell script wrapper for a here document).
+
+The here-document version of 411 could be slightly easier to maintain for
+casual use since it doesn't require the user to look up a second file where the
+data is stored.  However, the phone book file could be useful for other
+programs besides 411, and those other programs would be easier to maintain with
+the code for 411 separated from the data that those programs wish to use or
+modify since there would be no special case required for processing the first
+and last lines of the file (the "grep" command and the end-of-file marker,
+respectively).
