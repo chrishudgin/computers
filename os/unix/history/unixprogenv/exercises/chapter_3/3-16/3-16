@@ -1,0 +1,7 @@
+Since the entire pipeline (including the "for" loop) is placed in the
+background, it cannot take input from the terminal and any "read" command will
+be suspended.  The shell will return to a normal shell prompt, print the first
+"pick" prompt, and wait for another command to be entered.  If the user
+responds to the "pick" prompt with "y" or "n", the shell will interpret the
+response as a request to run a command named "y" or "n" and the request will
+fail unless there happens to be a program with one of those names in the PATH.
