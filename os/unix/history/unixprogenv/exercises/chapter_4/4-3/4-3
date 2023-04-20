@@ -1,0 +1,32 @@
+Shortcomings of this simple spelling checker include:
+
+Improperly capitalized words will not appear in the output.  This could be
+addressed by adding a special case to check for words in the input with capital
+letters, eliminating words that have only an initial capital and start a
+sentence (which would be assumed to be valid), and then doing an exact
+case-sensitive match in /usr/dict/words.
+
+Nonsensical single letters following a punctuation mark, such as in
+
+	file't
+	act,y
+
+will not appear in the output even though they should.  This happens because
+the spelling checker replaces punctuation with newlines and /usr/dict/words
+considers any single letter to be a valid word.  The advantage of this approach
+is that valid possessives like
+
+	file's
+
+(as in "the file's permissions") will not produce output unnecessarily.  Fixing
+the above limitation could be handled by adding more special case checks like
+for an apostrophe followed immediately by a letter other than "s", or for
+single letters that are not themselves valid words.
+
+Plurals (such as "birds") are not handled properly because they do not appear
+in /usr/dict/words.  Fixing this limitation without altering /usr/dict/words
+would be challenging, because different words have different plural forms, and
+only nouns can be plural.  The file /usr/dict/words has no provision for
+identifying a part of speech for each word found in it, but a more
+sophisticated dictionary could, allowing for automated (though still imperfect)
+checks of plural noun forms.
