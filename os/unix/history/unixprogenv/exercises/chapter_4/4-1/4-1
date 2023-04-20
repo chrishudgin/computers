@@ -1,0 +1,19 @@
+Searching for palindromes with grep could be done as follows, with each pattern
+matching a different word length:
+
+Three letter words:
+$ grep '\(.\).\1'
+
+Four letter words:
+$ grep '^\(.\)\(.\)\2\1$'
+
+Five letter words:
+$ grep '^\(.\)\(.\).\2\1$'
+
+Six letter words:
+$ grep '^\(.\)\(.\)\(.\)\3\2\1$'
+
+Seven letter words:
+$ grep '^\(.\)\(.\)\(.\).\3\2\1$'
+
+Etc.
