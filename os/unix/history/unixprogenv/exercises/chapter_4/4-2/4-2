@@ -1,0 +1,25 @@
+If a regular expression could match newlines (and hence multiple lines), then
+it would be more efficient (and less confusing for the user) for grep to
+advance past any multi-line match before scanning another input line.
+Otherwise, the potential would exist for a given line to appear multiple times
+for a single pattern match.
+
+For example, with regular expressions able to match newlines (e.g. with \n)
+but *without* multi-line advance after each multi-line match:
+
+$ cat inputfile
+abc
+def
+ghi
+jkl
+
+$ grep '...\n...\n' inputfile
+abc
+def
+def
+ghi
+ghi
+jkl
+
+Two lines at a time would be matched, and the second line thus matched each
+time would be matched again as the first line in the following scan.
