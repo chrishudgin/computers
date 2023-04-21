@@ -1,0 +1,12 @@
+# Simple spell checker
+
+trap 'rm -f spellcheck.$$' 1 2 15
+
+tr A-Z a-z < $1 |
+tr -sc a-z '\012' |
+sort |
+uniq > /tmp/spellcheck.$$
+
+comm -23 /tmp/spellcheck.$$ /usr/share/dict/words
+
+rm -f /tmp/spellcheck.$$
