@@ -1,0 +1,18 @@
+The word counting pipeline is slower (about three times as long to run) but
+shorter (4 lines versus 26) and easier to maintain than wordcount.py, as long
+as the existing Unix shell commands provide the functionality needed when piped
+together.
+
+Converting wordcount.py to a spell checker would require the following
+modifications:
+
+- Read the input words into a list rather than a Python dictionary data
+   structure since word counts are no longer needed
+
+- Open a file with a list of known words (a "dictionary" in the conventional
+   sense of the word) and read it into its own list
+
+- For each word in input list, convert it to lower case and search word
+   dictionary for it; if not found, print it
+
+- Close dictionary of known words
