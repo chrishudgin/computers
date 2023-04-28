@@ -15,3 +15,5 @@ modifications:
 
 - For each word in input list, search word dictionary for it; if not found,
    print it
+
+These modifications are present in spellcheck.py.
