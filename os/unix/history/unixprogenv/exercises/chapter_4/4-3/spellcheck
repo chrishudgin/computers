@@ -5,7 +5,7 @@ TMPFILE=/tmp/spellcheck.$$
 trap "rm -f $TMPFILE" 1 2 15
 
 tr A-Z a-z < $1 |
-tr -sc a-z '\012' |
+tr -sc A-Za-z '\012' |
 sort |
 uniq > $TMPFILE
 
