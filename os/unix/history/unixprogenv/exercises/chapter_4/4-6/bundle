@@ -1,0 +1,14 @@
+# bundle:  group files into distribution package
+
+# Modified to be robust so that if the here-document delimiter in the bundle
+# script happens to appear in a file to be bundled, it will not interfere with
+# (i.e. prematurely end) the extraction of that file from the bundle.
+
+echo '# To unbundle, sh this file'
+for i
+do
+	echo "echo $i 1>&2"
+	echo "sed 's/BUNDLE End of $i/End of $i/' >$i <<'End of $i'"
+	sed -e s"/\(End of $i\)/BUNDLE \1/" $i
+	echo "End of $i"
+done
