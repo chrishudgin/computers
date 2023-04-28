@@ -6,13 +6,12 @@ together.
 Converting wordcount.py to a spell checker would require the following
 modifications:
 
-- Read the input words into a list rather than a Python dictionary data
-   structure since word counts are no longer needed
+- Read the input words, convert them to lower case, and add them to a list
+   rather than a Python dictionary data structure since word counts are no
+   longer needed
 
 - Open a file with a list of known words (a "dictionary" in the conventional
-   sense of the word) and read it into its own list
+   sense of the word), read it into its own list, then close the file
 
-- For each word in input list, convert it to lower case and search word
-   dictionary for it; if not found, print it
-
-- Close dictionary of known words
+- For each word in input list, search word dictionary for it; if not found,
+   print it
