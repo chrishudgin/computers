@@ -1,0 +1,8 @@
+The shortest awk program that copies its input to its output is just two
+characters:
+
+//
+
+This program specifies an empty (and therefore generic) pattern that matches
+all input and relies on the default awk action of "print" to generate its
+output.

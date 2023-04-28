@@ -1,0 +1,11 @@
+#!/usr/bin/awk -f
+
+# awk requires, at a minimum, a pattern (with default action "print") or an
+# action (executed for all input lines).
+#
+# This awk script explicitly prints the script's input for a non-specified
+# pattern (so that the implicit pattern matches all input lines).
+
+{
+	print
+}
