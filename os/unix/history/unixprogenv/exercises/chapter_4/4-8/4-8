@@ -5,3 +5,6 @@ documents in memory.  Using expr or shell arithmetic $(( )) to do the
 arithmetic instead of awk does not affect the running time.  About half the
 running time is taken up by pr, the rest mostly due to process spawning and
 pipelining rather than the arithmetic division operation.
+
+The fastest of these implementations is the original that uses wc piped to awk
+instead of the pr command.
