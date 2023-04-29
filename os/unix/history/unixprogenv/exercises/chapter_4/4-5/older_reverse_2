@@ -1,2 +1,0 @@
-# older_reverse f:  list files older than f in reverse order
-ls -t | sed -n '/^'$1'$/,$p' | sed '1d'
