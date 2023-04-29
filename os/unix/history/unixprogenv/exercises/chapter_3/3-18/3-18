@@ -1,0 +1,17 @@
+The bundle script does not work well for bundling binary files since it
+implicitly assumes the character before the "End of file" here document
+delimiter that it inserts at the end of the bundled file content is a newline
+(so that the here document delimiter string can start on a new line).
+
+The ar(1) program can archive binary or text files equally well since it treats
+all files as binary.  ar also records and sets a file's timestamp, UID/GID, and
+file permissions; bundle does not.
+
+The bundle script is a text file and can be run without modification on any
+Unix platform; ar is a binary executable that must be recompiled (and possible
+modified for porting before recompilation) before being able to run on other
+Unix platforms.
+
+ar(1) allows files to be added to, removed from, and replaced in an archive
+after the initial archive is created; bundle does not have these capabilities
+(bundles can only be extracted or copied intact after they are made).
