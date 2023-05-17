@@ -1,0 +1,9 @@
+Run ed from a script:
+
+ed [-] < scriptfile textfile
+
+where:
+
+- : optional argument to prevent printing character counts for e, r, w commands
+scriptfile is the file containing the ed commands to run
+textfile is the text file to be edited according to the commands in scriptfile
