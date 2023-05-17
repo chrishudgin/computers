@@ -1,0 +1,13 @@
+There is no way to add a line containing only a period in input mode since a
+line containing only a period has the special meaning of terminating input, and
+the line with the period is thus discarded.  Use the following procedure
+instead.
+
+Add a line containing only a period followed by a newline character:
+
+a
+x
+.
+s/x/./
+
+(or choose any other character besides 'x' to be added and then replaced by '.')
