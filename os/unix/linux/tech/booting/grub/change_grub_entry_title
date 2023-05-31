@@ -1,0 +1,5 @@
+GRUB entry titles are contained in /boot/loader/entries/*.conf
+
+These text files contain the GRUB menu entry titles and can be edited to change
+them (for example, if the RHEL version in the newest GRUB menu entry is not
+properly updated during OS patching).
