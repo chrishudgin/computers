@@ -1,0 +1,2 @@
+Searches using regular expressions begin at the line immediately following the
+current line, not at the current line.
