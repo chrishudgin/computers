@@ -1,2 +1,4 @@
 Searches using regular expressions begin at the line immediately following the
 current line, not at the current line.
+
+Searches wrap around the end (or beginning) of the file.
