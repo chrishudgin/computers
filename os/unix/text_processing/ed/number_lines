@@ -1,0 +1,15 @@
+Show line numbers and corresponding lines:
+
+In classic ed (e.g. from Version 7 UNIX) and modern ed:
+
+g/^/.=p
+
+This command shows each line number followed by a newline and then the text of
+that line.
+
+In modern ed only:
+
+%n
+
+This command shows the line number and the line text separated by a tab rather
+than by a newline.
