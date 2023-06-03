@@ -1,0 +1,19 @@
+Measure network bandwidth between two points with iperf3:
+
+Designate one end of the connection as the server and the other as the client.
+
+On the server side:
+
+$ iperf3 -s [-p <tcp_portnum>]
+
+The server process will listen for connections on TCP port 5201 by default.
+
+On the client side:
+
+$ iperf3 -c <server_hostname_or_address>
+
+With default settings, the connection bitrate will be reported by both
+processes at one second intervals for ten intervals.  Both settings are
+adjustable with command line parameters for the client side process.
+
+Terminate the server side process when testing is complete.
