@@ -2,8 +2,8 @@ There are at least two ways to grep for literal tab characters in a regular
 expression:
 
 Use the terminal's "lnext" character (as shown by stty -a), typically ^V (i.e.
-Ctrl-V), to indicate that the next character will be treated literally rather
-than interpreted, and then type the tab key:
+Ctrl-V) for "verbatim", to indicate that the next character will be treated
+literally rather than interpreted, and then type the tab key:
 
 $ grep '<Ctrl-V><tab>'  # where <Ctrl-V> and <tab> are keystrokes, not text
 
