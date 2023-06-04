@@ -1,5 +1,5 @@
 To enter a literal character, such as tab, into a shell command line, precede
 the character by the terminal's lnext character (as shown by stty -a), which is
-typically ^V (Ctrl-V):
+typically ^V (Ctrl-V) for "verbatim":
 
 $ grep '<Ctrl-V><tab>'  # where <Ctrl-V> and <tab> are keystrokes, not text
