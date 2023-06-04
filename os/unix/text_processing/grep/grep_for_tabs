@@ -1,4 +1,4 @@
-There are at least two ways to grep for literal tab characters in a regular
+There are at least four ways to grep for literal tab characters in a regular
 expression:
 
 Use the terminal's "lnext" character (as shown by stty -a), typically ^V (i.e.
@@ -7,8 +7,17 @@ literally rather than interpreted, and then type the tab key:
 
 $ grep '<Ctrl-V><tab>'  # where <Ctrl-V> and <tab> are keystrokes, not text
 
-Alternatively, on systems with a version of grep (such as GNU grep) that
-supports Perl regular expression syntax, use the character sequence \t to
-indicate a tab:
+On systems with a version of grep (such as GNU grep) that supports Perl regular
+expression syntax, use the character sequence \t to indicate a tab:
 
 $ grep -P '\t'
+
+Use the shell's printf function (if it has one) to print a tab character:
+
+$ grep "$(printf '\t')"
+
+In bash, use the ANSI-C quoting feature:
+
+$ grep $'\t' foo.txt
+
+Reference: https://askubuntu.com/questions/53071/how-to-grep-for-tabs-without-using-literal-tabs-and-why-does-t-not-work/53096#53096
