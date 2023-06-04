@@ -11,5 +11,5 @@ In modern ed only:
 
 %n
 
-This command shows the line number and the line text separated by a tab rather
-than by a newline.
+This command shows the line number and the corresponding line text separated by
+a tab rather than by a newline.
