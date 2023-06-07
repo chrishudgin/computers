@@ -1,0 +1,26 @@
+These are the differences between GNU ed's behavior in traditional mode (-G or
+--traditional) and default mode:
+
+In traditional mode, newline (a '\n' character) as the command to run in a
+global command ("g" or "v") is the equivalent to a ".+1p" command, as it is in
+a non-global context.  In default mode, newline (a '\n' character) as the
+command to run in a global command ("g" or "v") is the equivalent of a ".p"
+command.
+
+In traditional mode, if there is no current filename, the "f" command with no
+parameters will return a null filename and not generate an error.  In default
+mode, if there is no current filename, the "f" command with no parameters will
+not return a value but will generate an error.
+
+In traditional mode, there is no default destination address for the m and t
+commands; leaving off the destination address does not move or copy lines but
+does generate an error.  In default mode, the default address for the "m" and
+"t" commands is . (dot), meaning moved/copied lines will be placed immediately
+after the line . (dot).
+
+In traditional mode, the "l" command does not print a "$" character to denote
+the end of a line.  In default mode, it does.
+
+In traditional mode, !! will generate an error if the previous ! was run
+without a shell command following it.  In default mode, !! following a ! with
+no shell command to run will run a null command and not generate an error.
