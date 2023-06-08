@@ -1,6 +1,0 @@
-Searching by a regular expression that is not part of a substitute command will
-find the next matching line starting on the line following the current line
-(not on the current line).
-
-However, a substitute command will start its regular expression search on the
-current line.
