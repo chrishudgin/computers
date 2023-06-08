@@ -5,9 +5,9 @@ running <command> iteratively on each line selected by the regular expression
 In contrast, commands line "t" (copy) and "m" (move) operate on a range of
 lines as a block, not iteratively on one line at a time.
 
-A "command" executed in a global context can include an address range, just as
-a command outside of a global context can.  Thus, the following syntax is
-valid:
+A "command" executed in a global context can include an address range (and even
+regular expressions that evaluate to addresses), just as a command outside of a
+global context can.  Thus, the following syntax is valid:
 
 g/<RE>/[<addr1>[,<addr2>]]<command>
 
