@@ -1,10 +1,16 @@
-Searches using regular expressions begin at the line immediately following the
-current line . (dot), not at the current line.
+Searches outside the context of a "global" ("g" or "v") command that use
+regular expressions begin at the line immediately following the current line .
+(dot), not at the current line.
+
+Thus,
+1
+/test/
+searches for "test" starting at the second line of the buffer.
 
 Searches wrap around the end (or beginning) of the file.
 
-To search for a regular expression starting from (and including) the first line
-in the buffer, use:
+To search for the first regular expression match in the buffer starting from
+(and including) the first line, use:
 
 0;/<RE>/
 
