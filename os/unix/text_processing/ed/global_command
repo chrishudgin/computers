@@ -9,11 +9,11 @@ A "command" executed in a global context can include an address range (and even
 regular expressions that evaluate to addresses), just as a command outside of a
 global context can.  Thus, the following syntax is valid:
 
-g/<RE>/[<addr1>[,<addr2>]]<command>
+[<addr1>[,<addr2]]g/<RE>/[<addr3>[,<addr4>]]<command>
 
 Example:
 
 g/^foo/+,/^bar/-p
 
-prints all lines strictly between those that begin with foo and those that
-begin with bar.
+prints all lines in the buffer that are strictly between those that begin with
+"foo" and those that begin with the subsequent "bar".
