@@ -1,4 +1,19 @@
 Searches using regular expressions begin at the line immediately following the
-current line, not at the current line.
+current line . (dot), not at the current line.
 
 Searches wrap around the end (or beginning) of the file.
+
+To search for a regular expression starting from (and including) the first line
+in the buffer, use:
+
+0;/<RE>/
+
+where <RE> is the regular expression to search for.
+
+The following do NOT work:
+
+0,/<RE>/    (dot is not changed by the comma separator, so the search for <RE>
+             starts at .+1, not 0)
+
+1;/<RE>/    (the search for <RE> begins at .+1, after the semicolon separator
+             sets dot to 1--hence the search begins at line 2, not line 1)

@@ -1,0 +1,24 @@
+In the version of ed in Version 7 UNIX, the numeric value of . (dot) is
+decremented by one after performing a null (empty) insert "i" or change "c"
+operation.  In modern versions of ed, the numeric value of . (dot) is unchanged
+if a null line is inserted or an existing line is replaced via the "c" command
+by an empty (null) line.
+
+As a consequence of the Version 7 UNIX ed behavior, the following command
+sequences set the value of . (dot) to the invalid line number of 0:
+
+Inserting no line before line 1:
+
+1i
+.
+.=
+0
+
+Changing line 1 in such a way as to delete it:
+1c
+.
+.=
+0
+
+In modern versions of ed, these command sequences result in the value of .
+(dot) being set to 1, not 0.
