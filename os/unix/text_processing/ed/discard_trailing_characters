@@ -1,6 +1,6 @@
-Early versions of ed would ignore any characters following the last newline
-character when opening a file.  That is, ed would not read those trailing
-characters into the buffer.
+Early versions of ed, such as the version found in Version 7 UNIX, would ignore
+any characters following the last newline character when opening a file.  That
+is, ed would not read those trailing characters into the buffer.
 
 Modern version of ed will automatically append a newline to such trailing text
 and print a diagnostic message, "newline appended".
