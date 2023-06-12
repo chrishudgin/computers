@@ -1,0 +1,4 @@
+Remove all duplicate lines from input without sorting.  Duplicate lines are
+removed even if they are not adjacent, and the order of the lines is not
+changed.
+$ awk '! seen[$0]++'

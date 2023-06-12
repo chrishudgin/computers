@@ -1,0 +1,3 @@
+Case-insensitive matching of a field (GECOS) using a regex and printing the
+   entire line (default action) that contains the match:
+$ awk -F: 'tolower($5) ~ /hudgin/' /etc/passwd

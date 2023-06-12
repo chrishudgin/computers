@@ -1,0 +1,3 @@
+Pass a shell variable to an awk script:
+$ MYDIR=/mynfs1
+$ awk -v dir="${MYDIR}" '{ print dir }'
