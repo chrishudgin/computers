@@ -1,0 +1,24 @@
+There are at least three ways to separate a string into its constituent
+characters in AWK, for example to load into an array.
+
+The examples below use the current line ($0) as the string to convert.
+
+1.) The most portable way is to use the built-in substr function, as in:
+
+for (i = 1; i <= length($0); i++) {
+    a[i] = substr($0,i,1)
+}
+
+2.) A less portable way is to set FS to the null string "", then loop through
+the resulting single character fields.
+
+FS=""
+for (i = 1; i <= NF; i++)
+    a[i] = $i
+
+3.) A third way, also not fully portable, is to use the built-in split function
+with a null string as the separator:
+
+n = split($0,a,"")
+
+which creates the array of characters a[1]..a[n] from $0
