@@ -1,0 +1,17 @@
+The man page synopses of the "D" command's operation are sometimes incomplete
+or confusing, failing to distinguish between starting a new cycle of commands
+with the existing pattern space versus reading a new line of input and then
+starting a new cycle, and not clearly explaining the circumstances under which
+the "D" command operates as the "d" command does.
+
+The GNU sed v4.8 documentation contains an accurate and complete description of
+the "D" command's operation.
+
+From https://www.gnu.org/software/sed/manual/sed.html#Other-Commands :
+
+"D
+
+If pattern space contains no newline, start a normal new cycle as if the d
+command was issued. Otherwise, delete text in the pattern space up to the first
+newline, and restart cycle with the resultant pattern space, without reading a
+new line of input."
