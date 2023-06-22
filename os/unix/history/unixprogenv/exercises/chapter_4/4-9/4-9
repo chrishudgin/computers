@@ -1,0 +1,33 @@
+The original wordfreq AWK script when piped to "sort +1 -nr" requires only one
+sort and no filtering for uniqueness because the awk script already produces
+two fields, the unique words and their counts.  The output can therefore be
+sorted by count as is on the second column, adding just one command to the
+pipeline.  Further commands to filter or format the output can then be added to
+the pipeline as desired (such as to filter out nonwords).
+
+The pipeline in Section 4.2 limits output to the top ten most frequent words
+and formats them in 5 columns, which might not be ideal for further processing
+or filtering.  However, removing the "tail" and "5" command from the pipeline
+causes the script to produce output similar to that of the original wordfreq
+AWK script, with a few minor differences:  the sort order of the counts is
+reversed so that the most common words are printed last, the column order of
+the words and counts is reversed (with counts coming before words), and
+nonwords are removed by removing all nonalphabetic characters.  No AWK
+programming is required.
+
+The pipeline that starts with a sed script suffers from the same problem that
+the original wordfreq script does--it does not filter out nonwords like
+punctuation symbols and troff commands.  However, it does lend itself to
+further filtering.  Like the pipeline in Section 4.2, it prints counts in the
+first column and words in the second and no AWK programming is required.
+
+In each case, column order can easily be reversed if desired by appending a
+simple AWK script to the pipeline, as in:
+
+| awk '{printf("%s %s\n", $2, $1)}'
+
+Performance for the wordfreq pipeline from Section 4.2 (with the "tail" and "5"
+commands removed) and for the sed pipeline are essentially identical.  The
+original wordfreq awk script piped to "sort +1 -nr" is somewhat faster due to
+the reduced system overhead of spawning additional processes and piping data
+between them.
