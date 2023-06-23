@@ -1,0 +1,14 @@
+The branch commands "b" and "t" are typically used with an "N" or "n" command
+between the label and the branch command to prevent the branch from causing an
+infinite loop.  This works because the "N" or "n" command will end the sed
+script when there are no more lines to read.
+
+Alternatively, a context address (regular expression used as an address) can be
+used as the address on which a series of commands ending in a branch operates
+so that eventually (after reading with "N" and editing) the context address
+will not match any line in the pattern space and the command series that
+includes the branch will no longer be executed.
+
+Examples of the use of the branch commands in sed can be found at:
+
+https://www.gnu.org/software/sed/manual/html_node/Branching-and-flow-control.html
