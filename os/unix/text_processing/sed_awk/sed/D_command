@@ -4,14 +4,11 @@ with the existing pattern space versus reading a new line of input and then
 starting a new cycle, and not clearly explaining the circumstances under which
 the "D" command operates as the "d" command does.
 
-The GNU sed v4.8 documentation contains an accurate and complete description of
-the "D" command's operation.
+Here is an accurate and complete description of how the "D" command works:
 
-From https://www.gnu.org/software/sed/manual/sed.html#Other-Commands :
-
-"D
-
-If pattern space contains no newline, start a normal new cycle as if the d
-command was issued. Otherwise, delete text in the pattern space up to the first
-newline, and restart cycle with the resultant pattern space, without reading a
-new line of input."
+Delete up through the first newline in the pattern space.  If the only newline
+was the terminal newline, proceed as if the "d" command had been issued
+(replace the pattern space with the next line and start the sequence of
+commands again on that new pattern space).  Otherwise, restart the current
+command sequence without reading the next line into the pattern space at this
+time.
