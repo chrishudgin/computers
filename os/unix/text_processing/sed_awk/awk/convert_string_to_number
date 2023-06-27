@@ -1,5 +1,5 @@
 Convert a string variable ("myvar" in this example) to a number by adding 0 to
 it:
 
-myvar = "5"
-myvar += 0
+myvar = "5"   # value of expression is string
+myvar + 0     # value of expression is numeric
