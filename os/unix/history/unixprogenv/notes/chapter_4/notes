@@ -87,7 +87,8 @@ sed can operate over a range of lines, e.g. sed '20,/^abc/d'
 To write some of the selected lines to a file:  sed -n '/pattern/w file1
                                                         /pattern/!w file2'
 
-Shell patterns can be used in sed commands:  sed 's/fooval/'$FOO'/g'
+The shell can be used to insert variable values into sed commands:
+   sed 's/fooval/'$FOO'/g'
 
 Table 4.2 contains a list of sed commands
 
@@ -118,7 +119,7 @@ Only field names begin with a $ (e.g. $NF); variables do not (e.g. i or NR)
 
 NR is the number of the current input record (by default, a line)
 
-$0 refers to the entire input line (all of its fields combined)
+$0 refers to the entire input line without modifications
 
 printf works much like it does in C.
 
@@ -137,7 +138,7 @@ index(s1,s2)  # position of string s2 in s1
 
 BEGIN and END are patterns with corresponding actions; each is optional
 
-variables are defined simply by being used.  They do not have to be declared.
+Variables are defined simply by being used.  They do not have to be declared.
    Variables default to a value of 0 if used numerically or an empty string
    if used as a string.
 

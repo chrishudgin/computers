@@ -1,0 +1,2 @@
+The default value of the variable FS is the space character, but when so set it
+allows any combination of spaces and tabs to separate fields.
