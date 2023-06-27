@@ -1,0 +1,5 @@
+Convert a number variable ("myvar" in this example) to a string by
+concatenating a null string to it:
+
+myvar = 5
+myvar = myvar ""

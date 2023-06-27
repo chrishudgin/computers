@@ -1,0 +1,6 @@
+The output of the print and printf commands can be redirected to a file or, on
+Unix, to a pipe, as in these examples:
+
+print("hello, world") > "output1"  # sends string to file "output1"
+print("hello again, world") >> "output2"  # appends string to file "output2"
+print("abc") | "tr 'abc' 'def'"  # sends output to Unix "tr" command
