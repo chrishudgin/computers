@@ -1,0 +1,7 @@
+Calling a function without arguments is equivalent to calling the function with
+the argument $0 (the current input record or line).
+
+The following two expressions, for example, are therefore equivalent:
+
+length
+length($0)
