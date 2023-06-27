@@ -1,6 +1,10 @@
 AWK will in most cases transparently convert a variable to a string or numeric
-type whenever necessary, depending on context.  Use of a certain type (string
-or numeric) can also be forced if needed:
+type whenever necessary, depending on context.  For example:
+
+print(length(4+5))    # adds 4 and 5, converts 9 to "9" for length(), prints 1
+print(length(9+1))    # adds 9 and 1, converts 10 to "10" for length(), prints 2
+
+Use of a certain type (string or numeric) can also be forced if needed:
 
 myvar + 0   # forces resulting value to be numeric
 myvar ""    # forces resulting value to be string
