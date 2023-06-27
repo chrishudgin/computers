@@ -1,0 +1,6 @@
+A concatenation of strings is a string and can therefore be used as a function
+argument wherever a string is expected.
+
+Example:
+
+length($1 $2 $3)

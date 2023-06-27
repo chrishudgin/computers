@@ -1,0 +1,7 @@
+Unlike with the shell's positional variables which cannot be reassigned
+arbitrary new values, AWK's field variables can be:
+
+$1 = foo
+$2 = bar
+
+etc.

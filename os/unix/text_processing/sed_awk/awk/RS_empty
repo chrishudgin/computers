@@ -1,0 +1,3 @@
+The default value of RS is the newline character, '\n', but it can be changed.
+If RS is changed to an empty string (null value), then records must be
+separated by one or more blank lines.
