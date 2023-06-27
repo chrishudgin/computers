@@ -1,0 +1,8 @@
+AWK pattern ranges cannot consist of raw line numbers as they can in ed and sed
+scripts.
+
+To select a range of lines for an action, provided that the record separator RS
+is set to the default value of newline ('\n'), use the NR variable as in this
+example:
+
+NR == 2, NR == 5 { print }   # prints input records (lines) 2 through 5
