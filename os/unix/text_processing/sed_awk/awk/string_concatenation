@@ -1,3 +1,6 @@
+String concatenation can include numeric expressions, which will be converted
+into strings for the purpose of concatenation.
+
 A concatenation of strings is a string and can therefore be used as a function
 argument wherever a string is expected.
 
