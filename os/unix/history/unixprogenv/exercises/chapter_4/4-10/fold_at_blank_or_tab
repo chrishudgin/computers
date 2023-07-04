@@ -1,0 +1,76 @@
+# fold:  fold long lines
+#
+# Modified to split long lines at spaces or tabs when possible.
+# If a long line contains no spaces or tabs, the line will be split at N
+# characters (default 80) within a word, without hyphenation.
+
+sed 's/	/        /g' $* |	# convert tabs to 8 spaces
+awk '
+BEGIN {
+    N = 80      # folds at column 80
+    for (i = 1; i <= N; i++)     # make a string of blanks
+        blanks = blanks " "
+}
+{   if ((n = length($0)) <= N) {
+        print
+        next
+    }
+
+    # Generate an array of characters from $0 to facilitate preserving
+    # multi-space segments when splitting; we cannot use the split()
+    # function because it discards all whitespace between fields
+
+    for (i = 1; i <= n; i++) {
+        a[i] = substr($0,i,1)
+    }
+
+    # loop to find split points and print line segments until the remainder
+    # to print is less than or equal to N characters
+
+    printed = 0
+    firstseg = 1
+    while (n > N) {
+        # find the next split point
+        splitpt = 0
+        for (i = 1; i <= N; i++) {
+            if (a[printed+i] == " ") {
+                splitpt = i
+            }
+        }
+        # if we did not find a space in N chars, print N chars
+        if (splitpt == 0) {
+            printf("%s\\\n", substr($0,printed+1,N))
+            printed += N
+            n -= N
+        }
+        # otherwise, print up through the split point and pad with spaces
+        else {
+            for (k = 1; k <= N - splitpt; k++) {
+                if (firstseg == 1) {
+                    # skip up to k spaces when printing the next segment
+                    # to account for padding we added on this segment
+                    if ( ((k + splitpt) <= length($0)) && (a[k + splitpt] == " ") ) {
+                        printed++
+                        n--
+                    }
+                }
+                else {
+                    printf(" ")  # left padding for middle segments
+                }
+            }
+            # print line segment
+            printf("%s", substr($0,printed+1,splitpt))
+            if (firstseg == 1) {
+                for (rpad = 1; rpad < k; rpad++) {
+                    printf(" ")
+                }
+            }
+            printf("\\\n")
+            printed += splitpt
+            n -= splitpt
+            firstseg = 0
+        }
+    }
+
+    printf("%s%s\n", substr(blanks,1,N-n), substr($0,printed+1))
+} '

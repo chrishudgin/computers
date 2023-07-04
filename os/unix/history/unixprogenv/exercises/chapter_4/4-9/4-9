@@ -7,7 +7,7 @@ the pipeline as desired (such as to filter out nonwords).
 
 The pipeline in Section 4.2 limits output to the top ten most frequent words
 and formats them in 5 columns, which might not be ideal for further processing
-or filtering.  However, removing the "tail" and "5" command from the pipeline
+or filtering.  However, removing the tail and "5" command from the pipeline
 causes the script to produce output similar to that of the original wordfreq
 AWK script, with a few minor differences:  the sort order of the counts is
 reversed so that the most common words are printed last, the column order of
@@ -26,8 +26,4 @@ simple AWK script to the pipeline, as in:
 
 | awk '{printf("%s %s\n", $2, $1)}'
 
-Performance for the wordfreq pipeline from Section 4.2 (with the "tail" and "5"
-commands removed) and for the sed pipeline are essentially identical.  The
-original wordfreq awk script piped to "sort +1 -nr" is somewhat faster due to
-the reduced system overhead of spawning additional processes and piping data
-between them.
+

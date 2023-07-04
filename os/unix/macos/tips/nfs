@@ -4,6 +4,9 @@ To allow mounting below the directory of the share, use the -alldirs option
 to the mount in /etc/exports, as in:
 /Volumes/apollo\ Users/chudgin  -rw -maproot=root -alldirs
 
+To allow nfsd to read an external drive for sharing, give Full Disk Access
+permission to /sbin/nfsd in Privacy & Security Settings in macOS.
+
 As of macOS 10.13 High Sierra, files on a filesystem with "Ignore ownership on
 this volume" set and mounted by an NFS client from a macOS server will appear
 to be owned by whichever user is logged in on the client, except that root on
