@@ -16,6 +16,8 @@ BEGIN {
         next
     }
 
+    linelen = n
+
     # Generate an array of characters from $0 to facilitate preserving
     # multi-space segments when splitting; we cannot use the split()
     # function because it discards all whitespace between fields
@@ -49,7 +51,7 @@ BEGIN {
                 if (firstseg == 1) {
                     # skip up to k spaces when printing the next segment
                     # to account for padding we added on this segment
-                    if ( ((k + splitpt) <= length($0)) && (a[k + splitpt] == " ") ) {
+                    if ( ((k + splitpt) <= linelen) && (a[k + splitpt] == " ") ) {
                         printed++
                         n--
                     }
