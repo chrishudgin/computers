@@ -37,11 +37,11 @@ BEGIN {
                 splitpt = i
             }
         }
-        # if we did not find a space in N chars, print N chars
+        # if we did not find a space in N chars, print N-1 chars and a dash
         if (splitpt == 0) {
-            printf("%s\\\n", substr($0,printed+1,N))
-            printed += N
-            n -= N
+            printf("%s-\\\n", substr($0,printed+1,N-1))
+            printed += (N-1)
+            n -= (N-1)
         }
         # otherwise, print up through the split point and pad with spaces
         else {
@@ -71,6 +71,5 @@ BEGIN {
             firstseg = 0
         }
     }
-
     printf("%s%s\n", substr(blanks,1,N-n), substr($0,printed+1))
 } '
