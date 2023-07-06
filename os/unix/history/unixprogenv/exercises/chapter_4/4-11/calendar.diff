@@ -1,0 +1,103 @@
+2c2,7
+< awk <$HOME/calendar '
+---
+> #
+> # Modified to show entries for Friday through Monday if today is Friday.
+> # Modified to handle leap years.
+> # Modified to handle holidays in $HOME/holidays
+> 
+> awk '
+5a11
+>     y = "Sun Mon Tue Wed Thu Fri Sat Sun"
+6a13,21
+>     split(y, daysofweek)
+>     split("'"`date`"'", date)
+> 
+>     # Check for leap year
+>     year = date[6]
+>     if ( ((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0) ) {
+>         data[4] = 29   # February has 29 days in a leap year
+>     }
+> 
+11,16c26,35
+<     split("'"`date`"'", date)
+<     mon1 = date[2]; day1 = date[3]
+<     mon2 = mon1; day2 = day1 + 1
+<     if (day1 >= days[mon1]) {
+<         day2 = 1
+<         mon2 = nextmon[mon1]
+---
+> 
+>     dow[1] = date[1]; mon[1] = date[2]; day[1] = date[3]
+> }
+> 
+> {
+>     if (FILENAME ~ /holidays$/) {
+>         hcount++
+>         holidayline[hcount] = $0
+>         holidaymon[hcount] = $1
+>         holidayday[hcount] = $2
+17a37,42
+>     else {
+>         ccount++
+>         calendarline[ccount] = $0
+>         calendarmon[ccount] = $1
+>         calendarday[ccount] = $2
+>     }
+19,20c44,96
+< $1 == mon1 && $2 == day1 || $1 == mon2 && $2 == day2
+< ' | mail $NAME
+---
+> 
+> END {
+>     # Determine how many days after today we need to check in the calendars.
+>     # The last day checked is the first day after today that is neither a
+>     # holiday nor on a weekend.
+> 
+>     dcnt = 2   # Counter of days to check; minimum 2 days, today and tomorrow
+>     weekend = 1
+>     while ( weekend == 1 || holiday == 1) {
+>         mon[dcnt] = mon[dcnt-1]; day[dcnt] = day[dcnt-1] + 1
+>         if (day[dcnt-1] >= days[mon[dcnt-1]] + 0) {
+>             day[dcnt] = 1
+>             mon[dcnt] = nextmon[mon[dcnt-1]]
+>         }
+>         for (dc = 1; dc <= 7; dc++) {
+>             if (dow[dcnt-1] == daysofweek[dc]) {
+>                 dow[dcnt] = daysofweek[dc+1]
+>             }
+>         }
+>         if (dow[dcnt] == "Sat" || dow[dcnt] == "Sun") {
+>             weekend = 1
+>             dcnt++
+>             continue
+>         }
+>         else {
+>             weekend = 0
+>         }
+>         # Check to see if this day is a holiday
+>         holiday = 0
+>         for (h = 1; h <= hcount; h++) {
+>             if (mon[dcnt] == holidaymon[h] && day[dcnt] == holidayday[h]) {
+>                 holiday = 1
+>                 dcnt++
+>                 continue
+>             }
+>         }
+>     }
+> 
+>     # For each day, print matching holidays and calendar entries
+>     for (d = 1; d <= dcnt; d++) {
+>         for (h = 1; h <= hcount; h++) {
+>             if (mon[d] == holidaymon[h] && day[d] == holidayday[h]) {
+>                 print holidayline[h]
+>             }
+>         }
+>         for (c = 1; c <= ccount; c++) {
+>             if (mon[d] == calendarmon[c] && day[d] == calendarday[c]) {
+>                 print calendarline[c]
+>             }
+>         }
+>     }
+> }
+> ' $HOME/holidays $HOME/calendar | mail $NAME
