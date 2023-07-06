@@ -3,6 +3,7 @@
 # Modified to show entries for Friday through Monday if today is Friday.
 # Modified to handle leap years.
 # Modified to handle holidays in $HOME/holidays
+
 awk '
 BEGIN {
     x = "Jan 31 Feb 28 Mar 31 Apr 30 May 31 Jun 30 " \
@@ -29,15 +30,15 @@ BEGIN {
 {
     if (FILENAME ~ /holidays$/) {
         hcount++
-        holiday_line[hcount] = $0
-        holiday_mon[hcount] = $1
-        holiday_day[hcount] = $2
+        holidayline[hcount] = $0
+        holidaymon[hcount] = $1
+        holidayday[hcount] = $2
     }
     else {
         ccount++
-        calendar_line[ccount] = $0
-        calendar_mon[ccount] = $1
-        calendar_day[ccount] = $2
+        calendarline[ccount] = $0
+        calendarmon[ccount] = $1
+        calendarday[ccount] = $2
     }
 }
 
@@ -46,22 +47,22 @@ END {
     # The last day checked is the first day after today that is neither a
     # holiday nor on a weekend.
 
-    daycount = 2
+    dcnt = 2
     weekend = 1
     while ( weekend == 1 || holiday == 1) {
-        mon[daycount] = mon[daycount-1]; day[daycount] = day[daycount-1] + 1
-        if (day[daycount-1] >= days[mon[daycount-1]]) {
-            day[daycount] = 1
-            mon[daycount] = nextmon[mon[daycount-1]]
+        mon[dcnt] = mon[dcnt-1]; day[dcnt] = day[dcnt-1] + 1
+        if (day[dcnt-1] >= days[mon[dcnt-1]] + 0) {
+            day[dcnt] = 1
+            mon[dcnt] = nextmon[mon[dcnt-1]]
         }
         for (dc = 1; dc <= 7; dc++) {
-            if (dow[daycount-1] == daysofweek[dc]) {
-                dow[daycount] = daysofweek[dc+1]
+            if (dow[dcnt-1] == daysofweek[dc]) {
+                dow[dcnt] = daysofweek[dc+1]
             }
         }
-        if (dow[daycount] == "Sat" || dow[daycount] == "Sun") {
+        if (dow[dcnt] == "Sat" || dow[dcnt] == "Sun") {
             weekend = 1
-            daycount++
+            dcnt++
             continue
         }
         else {
@@ -70,24 +71,24 @@ END {
         # Check to see if this day is a holiday
         holiday = 0
         for (h = 1; h <= hcount; h++) {
-            if (mon[daycount] == holiday_mon[h] && day[daycount] == holiday_day[h]) {
+            if (mon[dcnt] == holidaymon[h] && day[dcnt] == holidayday[h]) {
                 holiday = 1
-                daycount++
+                dcnt++
                 continue
             }
         }
     }
 
     # For each day, print matching holidays and calendar entries
-    for (d = 1; d <= daycount; d++) {
+    for (d = 1; d <= dcnt; d++) {
         for (h = 1; h <= hcount; h++) {
-            if (mon[d] == holiday_mon[h] && day[d] == holiday_day[h]) {
-                print holiday_line[h]
+            if (mon[d] == holidaymon[h] && day[d] == holidayday[h]) {
+                print holidayline[h]
             }
         }
         for (c = 1; c <= ccount; c++) {
-            if (mon[d] == calendar_mon[c] && day[d] == calendar_day[c]) {
-                print calendar_line[c]
+            if (mon[d] == calendarmon[c] && day[d] == calendarday[c]) {
+                print calendarline[c]
             }
         }
     }
