@@ -1,0 +1,23 @@
+10c
+	y*)	/bin/echo $i ;;
+.
+7c
+	/bin/echo -n "$i? " >/dev/tty
+.
+5c
+case $# in
+0)	while read moreargs
+	do
+		args="$args $moreargs"
+	done	
+	;;
+*)	args=$* ;;
+esac
+
+for i in $args		# for each argument
+.
+2a
+# Modified to read arguments from standard input if none are supplied on the
+# command line.  It handles blanks properly, and a "q" response works.
+
+.
