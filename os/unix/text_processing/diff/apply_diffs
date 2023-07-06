@@ -1,3 +1,6 @@
 Apply diffs to an original file to produce the modified version of the file:
 
 $ patch [-o outputfile] original_file diff_file
+
+If the "-o outputfile" argument is omitted, patch will overwrite the original
+file with the modified contents.
