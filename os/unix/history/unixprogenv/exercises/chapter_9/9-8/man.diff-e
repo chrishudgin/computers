@@ -1,0 +1,34 @@
+28a
+		if [ "$searchprivate" = "yes" ]; then
+			fil=`echo $PRIVATEMANDIR/man$sec/$i.*`
+			case $fil in
+			man7/eqnchar.7)
+				all="$all /usr/pub/eqnchar $fil" ;;
+
+			*\*)
+				;;
+			*)
+				all="$all $fil" ;;
+			esac
+		fi
+
+.
+24a
+	-y)
+		searchprivate="yes" ;;
+.
+2a
+PRIVATEMANDIR=$HOME/man
+.
+1c
+#
+# /bin/man shell script from 7th Edition Unix, modified for Exercise 9.8
+# in the book _The UNIX Programming Environment_ by Brian W. Kernighan and
+# Rob Pike
+#
+# If the -y option is specified, this modified version of the man command
+# checks first for man pages in the user's own man directory, $HOME/man
+#
+
+cmd= sec= fil= opt= i= all= searchprivate="no"
+.
