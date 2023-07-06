@@ -47,7 +47,7 @@ END {
     # The last day checked is the first day after today that is neither a
     # holiday nor on a weekend.
 
-    dcnt = 2
+    dcnt = 2   # Counter of days to check; minimum 2 days, today and tomorrow
     weekend = 1
     while ( weekend == 1 || holiday == 1) {
         mon[dcnt] = mon[dcnt-1]; day[dcnt] = day[dcnt-1] + 1
