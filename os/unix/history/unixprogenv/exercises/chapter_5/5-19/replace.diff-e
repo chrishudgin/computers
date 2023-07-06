@@ -1,0 +1,11 @@
+9a
+
+# Construct new strings in which we replace every \ with \\ and @ with \@
+# in order to protect them from evaluation by sed below
+left=`/bin/echo "$left" | sed -e 's/\\\/\\\\\\\\/g' -e 's/\@/\\\@/g'`
+right=`/bin/echo "$right" | sed -e 's/\\\/\\\\\\\\/g' -e 's/\@/\\\@/g'`
+.
+2a
+# Modified to work regardless of the characters in the substitution strings.
+
+.
