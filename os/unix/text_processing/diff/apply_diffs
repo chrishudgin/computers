@@ -1,0 +1,3 @@
+Apply diffs to an original file to produce the modified version of the file:
+
+$ patch [-o outputfile] original_file diff_file
