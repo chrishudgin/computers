@@ -1,0 +1,6 @@
+Headers used for summarizing data or providing titles to columns are helpful
+when commands are used interactively on a terminal, but they can be a slight
+impediment to scripted extraction of data since the format of the first line
+(the header) does not match the format of subsequent lines and must therefore
+be handled differently or removed before further processing, as for example by
+piping data through "sed 1d".
