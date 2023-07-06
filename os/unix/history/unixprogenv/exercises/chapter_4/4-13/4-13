@@ -1,4 +1,5 @@
 The calendar script uses $NAME instead of "getname" for performance reasons.
-$NAME is more efficient because the shell substitutes its value into the script
-before the script even runs; "getname" requires the execution of another script
-which in turn calls two more commands and creates another pipe.
+$NAME is more efficient because the shell always performs variable substitution
+before the commands in a script are executed; "getname" requires the execution
+of another script which in turn calls two more commands and creates another
+pipe.
