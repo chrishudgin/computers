@@ -1,0 +1,8 @@
+A user's intent when placing dates within a line could be ambiguous.  It would
+not be clear whether the dates are meant to refer to events for the calendar or
+are simply notes for the user within the text of calendar events.  A regular
+input format is clearer and easier to process.
+
+A date format that contains the year as well as the month and day would be more
+flexible since it would resolve amiguity about the year when calendar entries
+are intended to span multiple years.
