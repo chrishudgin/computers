@@ -1,0 +1,95 @@
+# calendar:  version 3 -- today and tomorrow
+#
+# Modified to show entries for Friday through Monday if today is Friday.
+# Modified to handle leap years.
+# Modified to handle holidays in $HOME/holidays
+awk '
+BEGIN {
+    x = "Jan 31 Feb 28 Mar 31 Apr 30 May 31 Jun 30 " \
+        "Jul 31 Aug 31 Sep 30 Oct 31 Nov 30 Dec 31 Jan 31"
+    y = "Sun Mon Tue Wed Thu Fri Sat Sun"
+    split(x, data)
+    split(y, daysofweek)
+    split("'"`date`"'", date)
+
+    # Check for leap year
+    year = date[6]
+    if ( ((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0) ) {
+        data[4] = 29   # February has 29 days in a leap year
+    }
+
+    for (i = 1; i < 24; i += 2) {
+        days[data[i]] = data[i+1]
+        nextmon[data[i]] = data[i+2]
+    }
+
+    dow[1] = date[1]; mon[1] = date[2]; day[1] = date[3]
+}
+
+{
+    if (FILENAME ~ /holidays$/) {
+        hcount++
+        holiday_line[hcount] = $0
+        holiday_mon[hcount] = $1
+        holiday_day[hcount] = $2
+    }
+    else {
+        ccount++
+        calendar_line[ccount] = $0
+        calendar_mon[ccount] = $1
+        calendar_day[ccount] = $2
+    }
+}
+
+END {
+    # Determine how many days after today we need to check in the calendars.
+    # The last day checked is the first day after today that is neither a
+    # holiday nor on a weekend.
+
+    daycount = 2
+    weekend = 1
+    while ( weekend == 1 || holiday == 1) {
+        mon[daycount] = mon[daycount-1]; day[daycount] = day[daycount-1] + 1
+        if (day[daycount-1] >= days[mon[daycount-1]]) {
+            day[daycount] = 1
+            mon[daycount] = nextmon[mon[daycount-1]]
+        }
+        for (dc = 1; dc <= 7; dc++) {
+            if (dow[daycount-1] == daysofweek[dc]) {
+                dow[daycount] = daysofweek[dc+1]
+            }
+        }
+        if (dow[daycount] == "Sat" || dow[daycount] == "Sun") {
+            weekend = 1
+            daycount++
+            continue
+        }
+        else {
+            weekend = 0
+        }
+        # Check to see if this day is a holiday
+        holiday = 0
+        for (h = 1; h <= hcount; h++) {
+            if (mon[daycount] == holiday_mon[h] && day[daycount] == holiday_day[h]) {
+                holiday = 1
+                daycount++
+                continue
+            }
+        }
+    }
+
+    # For each day, print matching holidays and calendar entries
+    for (d = 1; d <= daycount; d++) {
+        for (h = 1; h <= hcount; h++) {
+            if (mon[d] == holiday_mon[h] && day[d] == holiday_day[h]) {
+                print holiday_line[h]
+            }
+        }
+        for (c = 1; c <= ccount; c++) {
+            if (mon[d] == calendar_mon[c] && day[d] == calendar_day[c]) {
+                print calendar_line[c]
+            }
+        }
+    }
+}
+' $HOME/holidays $HOME/calendar | mail $NAME
