@@ -1,0 +1,7 @@
+RMTMP=$HOME/rmtmp
+
+if ! test -d $RMTMP; then
+	mkdir $RMTMP
+fi
+
+mv $* $RMTMP

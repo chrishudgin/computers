@@ -1,0 +1,3 @@
+RMTMP=$HOME/rmtmp
+/bin/rm -rf $RMTMP
+echo clean_rmtmp | at 5am
