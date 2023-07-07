@@ -1,0 +1,8 @@
+mawk buffers its input and will not process it until its input buffer is full
+or until mawk terminates.  This can cause mawk to appear to be hung while it is
+accumulating input (as from a pipe).
+
+To force mawk to process its input immediately, as other AWK implementations
+do, add the following option to the mawk command line:
+
+-W interactive
