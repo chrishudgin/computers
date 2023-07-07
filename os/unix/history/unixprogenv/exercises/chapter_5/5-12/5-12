@@ -1,0 +1,18 @@
+The version of watchwho that uses shell variables instead of temporary files
+has the advantages of not having to do storage I/O to manage the files (meaning
+it could potentially run faster) and of not leaving temporary files in the
+filesystem after the script exits (which should be cleaned up).
+
+On a Unix system with a single text-mode terminal per user, it would be useful
+to run watchwho or checkmail in the background with & so that the user could
+perform other tasks while being periodically notified of logins/logouts and new
+mail.  The disadvantage of doing this technique would be that the notifications
+would appear on the user's terminal screen regardless of what application the
+user was running in the foreground (such as a text editor or document viewer),
+overwriting existing displayed text.
+
+On modern systems with bitmapped graphics displaying multiple pseudo-terminal
+sessions, running watchwho and checkmail in the background would not be
+necessary, since dedicated terminal sessions could be opened for these tools
+without intefering with text displayed in other terminal sessions whenever
+notifications appeared.
