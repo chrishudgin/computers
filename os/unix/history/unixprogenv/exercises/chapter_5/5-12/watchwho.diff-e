@@ -1,0 +1,15 @@
+15c
+            /</ && $2 { $1 = "out:	"; print }'
+.
+10,12c
+	new=`who`
+	echo "$new" | diff <(echo "$old") -
+	old=$new
+.
+4,6d
+1a
+#
+# Modified to use shell variables instead of files.
+# Requires a shell like bash that supports the <(...) syntax for a pseudo-file
+# argument constructed from command output
+.

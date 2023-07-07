@@ -1,0 +1,21 @@
+1a2,5
+> #
+> # Modified to use shell variables instead of files.
+> # Requires a shell like bash that supports the <(...) syntax for a pseudo-file
+> # argument constructed from command output
+4,6d7
+< new=/tmp/wwho1.$$
+< old=/tmp/wwho2.$$
+< >$old		# create an empty file
+10,12c11,13
+< 	who >$new
+< 	diff $old $new
+< 	mv $new $old
+---
+> 	new=`who`
+> 	echo "$new" | diff <(echo "$old") -
+> 	old=$new
+15c16
+< 	    /</ { $1 = "out:	"; print }'
+---
+>             /</ && $2 { $1 = "out:	"; print }'
