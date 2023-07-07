@@ -1,0 +1,16 @@
+In order for a program to be not only globally accessible but convenient for
+users to access, it should be placed in a directory that has global read and
+execute permissions and that is part of the standard PATH for users, such as
+/usr/bin.  Placing a program in a /usr/bin requires superuser privileges, since
+/usr/bin is owned by a system account such as root or bin and is not globally
+writable.  Commands requiring superuser privileges can be run in a shell
+started by the "su" command, which requires that the root password be entered.
+
+Since the version of cal presented in the book is a wrapper for the standard
+version of cal in /bin or /usr/bin, the script must not overwrite the standard
+cal executable or else the script will not function.  If both the standard cal
+executable and the cal script are to reside in the same directory, one of them
+must be renamed.  If the standard executable is renamed, then the script must
+be modified to call the standard executable by its new name.  If the script is
+renamed, users must be told to use the new name of the script in order to
+access it.
