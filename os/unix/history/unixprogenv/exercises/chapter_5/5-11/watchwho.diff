@@ -1,0 +1,26 @@
+1a2,3
+> # 
+> # Modified to use comm instead of awk.
+10,11c12,25
+< 	who >$new
+< 	diff $old $new
+---
+> 	who | sort >$new
+> 
+> 	in=`comm -13 $old $new`
+> 	if test -n "$in"; then
+> 		echo "$in" | sed 's/[ 	][ 	]*/ /g' |
+> 		sed 's/^/in:	 /'
+> 	fi
+> 
+> 	out=`comm -23 $old $new`
+> 	if test -n "$out"; then
+> 		echo "$out" | sed 's/[ 	][ 	]*/ /g' |
+> 		sed 's/^/out:	 /'
+> 	fi
+> 
+14,15c28
+< done | awk '/>/ { $1 = "in:	"; print }
+< 	    /</ { $1 = "out:	"; print }'
+---
+> done
