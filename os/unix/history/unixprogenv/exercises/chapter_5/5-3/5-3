@@ -1,0 +1,12 @@
+Attempting to infer a user's intent in special cases (like asking for January's
+calendar in December) when a month is specified to cal without a year is likely
+to result, in some situations, in output that the user did not expect--such as
+when a user intends to view a past month's calendar in the current year instead
+of a future month's calendar in the subsequent year.
+
+Adding more and more special case processing to try to anticipate and avoid
+users' potential mistakes or misunderstandings inevitably complicates commands
+that are intended to be simple both to implement and to use.  Special case
+"intent" processing also frustrates experienced users who are comfortable with
+the regular, predictable input forms that commands expect and who in turn
+expect consistent results from regular forms of input.
