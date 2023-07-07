@@ -150,4 +150,4 @@
 >         }
 >     }
 > }
-> ' $HOME/holidays $HOME/calendar
+> ' $HOME/holidays $HOME/calendar | mail $NAME
