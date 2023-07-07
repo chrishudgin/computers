@@ -40,18 +40,18 @@
 >             split(fulldateline[1],fulldate,"/")
 >             holidaymon[hcount] = data[2*fulldate[1]-1]
 >             holidayday[hcount] = fulldate[2]
->             if (fulldate[3] >= 70 && fulldate[3] <= 99) {
+>             if (fulldate[3] + 0 >= 70 && fulldate[3] + 0 <= 99) {
 >                 holidayyear[hcount] = fulldate[3] + 1900
 >             }
->             else if (fulldate[3] < 70) {
+>             else if (fulldate[3] + 0 < 70) {
 >                 holidayyear[hcount] = fulldate[3] + 2000
 >             }
 >             else {
 >                 holidayyear[hcount] = fulldate[3]
 >             }
 >             $1 = ""
->             $0 = substr($0,2)
->             holidayline[hcount] = sprintf("%s %s	%s", holidaymon[hcount], holidayday[hcount], $0)
+>             newzero = substr($0,2)
+>             holidayline[hcount] = sprintf("%s %s	%s", holidaymon[hcount], holidayday[hcount], newzero)
 >         }
 >         else {
 >             holidayline[hcount] = $0
@@ -67,18 +67,18 @@
 >             split(fulldateline[1],fulldate,"/")
 >             calendarmon[ccount] = data[2*fulldate[1]-1]
 >             calendarday[ccount] = fulldate[2]
->             if (fulldate[3] >= 70 && fulldate[3] <= 99) {
+>             if (fulldate[3] + 0 >= 70 && fulldate[3] + 0 <= 99) {
 >                 calendaryear[ccount] = fulldate[3] + 1900
 >             }
->             else if (fulldate[3] < 70) {
+>             else if (fulldate[3] + 0 < 70) {
 >                 calendaryear[ccount] = fulldate[3] + 2000
 >             }
 >             else {
 >                 calendaryear[ccount] = fulldate[3]
 >             }
 >             $1 = ""
->             $0 = substr($0,2)
->             calendarline[ccount] = sprintf("%s %s	%s", calendarmon[ccount], calendarday[ccount], $0)
+>             newzero = substr($0,2)
+>             calendarline[ccount] = sprintf("%s %s	%s", calendarmon[ccount], calendarday[ccount], newzero)
 >         }
 >         else {
 >             calendarline[ccount] = $0
