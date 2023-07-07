@@ -1,0 +1,13 @@
+Although inexperienced users may naively enter a two-digit year expecting it to
+yield a calendar in the 20th or 21st century, changing the cal command to
+process two-digit years specially would result in a user interface to cal that
+is inconsistent.  Users who intended to see a calendar for the years between 1
+and 99, in the first century, would need to enter such dates in a non-standard
+way, perhaps by prepending the year with a 0 or by calling cal with an
+additional flag.  Such special treatment of one or two digit years would
+require changes to the cal command itself and would complicate usage of the
+command.
+
+Special treatment for one- or two-digit years so that they are interpreted as
+years in the 20th or 21st century, if desired, might better be accomplished
+with a wrapper to the cal command instead of making changes to cal itself.
