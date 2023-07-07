@@ -13,6 +13,7 @@ overwriting existing displayed text.
 
 On modern systems with bitmapped graphics displaying multiple pseudo-terminal
 sessions, running watchwho and checkmail in the background would not be
-necessary, since dedicated terminal sessions could be opened for these tools
-without intefering with text displayed in other terminal sessions whenever
+necessary, since one or more dedicated terminal sessions could be opened for
+these tools.  With their own dedicated session or sessions, these scripts would
+not interfere with text displayed in other terminal sessions whenever
 notifications appeared.
