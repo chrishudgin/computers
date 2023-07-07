@@ -6,9 +6,9 @@ filesystem after the script exits (which should be cleaned up).
 On a Unix system with a single text-mode terminal per user, it would be useful
 to run watchwho or checkmail in the background with & so that the user could
 perform other tasks while being periodically notified of logins/logouts and new
-mail.  The disadvantage of doing this technique would be that the notifications
-would appear on the user's terminal screen regardless of what application the
-user was running in the foreground (such as a text editor or document viewer),
+mail.  The disadvantage of this technique would be that the notifications would
+appear on the user's terminal screen regardless of what application the user
+was running in the foreground (such as a text editor or document viewer),
 overwriting existing displayed text.
 
 On modern systems with bitmapped graphics displaying multiple pseudo-terminal
