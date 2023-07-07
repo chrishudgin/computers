@@ -14,9 +14,11 @@ http://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html#tag_18_
 This means that, for example, using "echo" to display the value of an unquoted
 variable whose value includes leading or trailing whitespace will result in
 such whitespace being removed by the shell before echo receives its input.
+Moreover, newlines in the contents of the variable will be replaced by spaces.
 
 To prevent field splitting of a variable's value and the consequent whitespace
-removal, enclose the name of the variable in double quotes:
+removal and newline replacement, enclose the name of the variable in double
+quotes:
 
 $ echo "$FOO"
 rather than
