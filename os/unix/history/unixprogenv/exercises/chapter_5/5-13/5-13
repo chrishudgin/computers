@@ -14,5 +14,6 @@ placeholder for one, and as a non-command it cannot return a value.
 The ":" command is not strictly needed since its function can be performed by
 the "true" command or the "true" shell built-in.  The "#" comment character is
 also not strictly required and was not even recognized by the shell as late as
-Unix Version 7.  However, due to the differing characteristics described above,
-the : and # characters cannot generally be used as substitutes for each other.
+Unix Version 7.  However, due to their differing characteristics described
+above, the : and # characters cannot generally be used as substitutes for each
+other.
