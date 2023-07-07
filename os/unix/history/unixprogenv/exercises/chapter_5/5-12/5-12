@@ -17,3 +17,6 @@ necessary, since one or more dedicated terminal sessions could be opened for
 these tools.  With their own dedicated session or sessions, these scripts would
 not interfere with text displayed in other terminal sessions whenever
 notifications appeared.
+
+To match the standard behavior of other tools, the scripts should be able to
+run their commands in the background with & but not do so by default.
