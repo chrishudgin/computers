@@ -15,5 +15,5 @@ until who | egrep "${userlist}"
 1a
 #
 # Modified to watch for a list of one or more persons given as arguments.
-# Shows all matching logged-in users when check is made each minute.
+# Shows all matching logged-in users when check is made; exits if any are found.
 .

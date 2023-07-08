@@ -2,7 +2,7 @@
 > #
 > # Modified to watch for a list of one or more persons given as arguments.
 > # Shows the first matching logged-in user from the list when any user from
-> # the list logs in.
+> # the list logs in, then exits.
 6c10
 < 0)	echo 'Usage: watchfor person' 1>&2; exit 1
 ---

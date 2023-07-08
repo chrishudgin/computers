@@ -1,7 +1,7 @@
 1a2,4
 > #
 > # Modified to watch for a list of one or more persons given as arguments.
-> # Shows all matching logged-in users when check is made each minute.
+> # Shows all matching logged-in users when check is made; exits if any are found.
 6c9
 < 0)	echo 'Usage: watchfor person' 1>&2; exit 1
 ---
