@@ -1,0 +1,6 @@
+7c
+	exec nice -5 $*
+.
+5c
+	exec nice -5 $* >>nohup.out 2>>nohup.err
+.

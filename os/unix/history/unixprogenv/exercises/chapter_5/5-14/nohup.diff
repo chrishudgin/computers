@@ -1,0 +1,8 @@
+5c5
+< 	exec nice -5 $* >>nohup.out 2>&1
+---
+> 	exec nice -5 $* >>nohup.out 2>>nohup.err
+7c7
+< 	exec nice -5 $* 2>&1
+---
+> 	exec nice -5 $*
