@@ -1,0 +1,39 @@
+20c
+
+$match
+.
+17c
+		if test "$matchall" = "1" ; then
+			match='exit 0'		# found it but continue looking
+		else
+			exit 0			# found one, exit
+		fi
+.
+8a
+
+match='exit 1'
+
+# builtins list is from the UNIX V7 shell
+builtins=": . break continue cd eval exec exit export login newgrp read readonly set shift times trap umask wait"
+
+for cmd in $builtins
+do
+	if test "$1" = "$cmd"; then
+		echo "$cmd is a shell built-in"
+		if test "$matchall" = "1" ; then
+			match='exit 0'		# found it but continue looking
+		else
+			exit 0			# found one, exit
+		fi
+	fi
+done
+
+.
+7c
+0)	echo 'Usage: which [-a] command' 1>&2; exit 2 ;;
+2)	case $1 in
+	-a)	matchall=1; shift ;;
+	*)	echo 'Usage: which [-a] command' 1>&2; exit 2 ;;
+	esac
+	;;
+.
