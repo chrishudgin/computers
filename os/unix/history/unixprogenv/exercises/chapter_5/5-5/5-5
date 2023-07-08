@@ -1,0 +1,3 @@
+The shell cannot use "od" to terminate a "do" loop because "od" is the name of
+an exiting Unix command (octal dump).  The shell therefore uses "done" instead
+of "od" to terminate a "do" loop.
