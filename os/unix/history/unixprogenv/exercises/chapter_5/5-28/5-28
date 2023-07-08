@@ -10,7 +10,7 @@ design as the "news" script from the book but with additional features.  On
 Linux, the "news" command from the "sysnews" package is written in
 approximately 600 lines of C (thirty times the size of the simple "news" script
 in the book).  It supports more options than the "news" script, such as the
-ability for the user to select specific news articles to read as well as flags
+ability for the user to select specific news articles to read, as well as flags
 to show all news items, to show a summary of items instead of their contents,
 and (for maintainers) to expire older items.
 
