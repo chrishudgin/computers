@@ -1,0 +1,24 @@
+20c
+
+$match
+.
+17c
+		if test "$matchall" = "1" ; then
+			match='exit 0'		# found it but continue looking
+		else
+			exit 0			# found one, exit
+		fi
+.
+8a
+
+match='exit 1'
+
+.
+7c
+0)	echo 'Usage: which [-a] command' 1>&2; exit 2 ;;
+2)	case $1 in
+	-a)	matchall=1; shift ;;
+	*)	echo 'Usage: which [-a] command' 1>&2; exit 2 ;;
+	esac
+	;;
+.
