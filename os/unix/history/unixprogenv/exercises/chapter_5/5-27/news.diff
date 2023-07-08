@@ -1,0 +1,23 @@
+7a8,11
+> case "$1" in
+> -n)	summary=1 ;;
+> esac
+> 
+14,15c18,23
+< 	*)	set X`ls -l $i`
+< 		echo "
+---
+> 	*)
+> 		if test "$summary" = "1"; then
+> 			echo "news: $i"
+> 		else
+> 			set X`ls -l $i`
+> 			echo "
+18c26,28
+< 		cat $i
+---
+> 			cat $i
+> 			touch $HOME/.news_time
+> 		fi
+21d30
+< touch $HOME/.news_time

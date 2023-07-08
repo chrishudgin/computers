@@ -1,0 +1,20 @@
+21d
+18c
+			cat $i
+			touch $HOME/.news_time
+		fi
+.
+14,15c
+	*)
+		if test "$summary" = "1"; then
+			echo "news: $i"
+		else
+			set X`ls -l $i`
+			echo "
+.
+7a
+case "$1" in
+-n)	summary=1 ;;
+esac
+
+.
