@@ -4,7 +4,7 @@ diagnostics.
 
 Separating standard output and standard error in the nohup script can be done
 by replacing the redirection directive "2>&1" with something like
-"2>>nohup.err" when nohup is run from a terminal, or simply removing the "2>&1"
+"2>>nohup.err" when nohup is run from a terminal and simply removing the "2>&1"
 directive from the command invocation when nohup is not run from a terminal.
 In the latter case, the invoked command is expected to handle its own
 redirection of standard output and standard error, as a non-interactive command
