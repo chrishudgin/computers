@@ -1,4 +1,8 @@
-7c7,12
+1a2,4
+> #
+> # Modified to include -a option to show all matches in PATH
+> # Modified to include search of shell builtins
+7c10,15
 < 0)	echo 'Usage: which command' 1>&2; exit 2
 ---
 > 0)	echo 'Usage: which [-a] command' 1>&2; exit 2 ;;
@@ -7,7 +11,7 @@
 > 	*)	echo 'Usage: which [-a] command' 1>&2; exit 2 ;;
 > 	esac
 > 	;;
-8a14,31
+8a17,34
 > 
 > match='exit 1'
 > 
@@ -26,7 +30,7 @@
 > 	fi
 > done
 > 
-17c40,44
+17c43,47
 < 		exit 0		# found it
 ---
 > 		if test "$matchall" = "1" ; then
@@ -34,7 +38,7 @@
 > 		else
 > 			exit 0			# found one, exit
 > 		fi
-20c47,48
+20c50,51
 < exit 1		# not found
 ---
 > 

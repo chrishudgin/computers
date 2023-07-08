@@ -37,3 +37,8 @@ done
 	esac
 	;;
 .
+1a
+#
+# Modified to include -a option to show all matches in PATH
+# Modified to include search of shell builtins
+.
