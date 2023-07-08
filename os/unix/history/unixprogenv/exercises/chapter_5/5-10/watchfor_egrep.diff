@@ -1,0 +1,21 @@
+1a2,4
+> #
+> # Modified to watch for a list of one or more persons given as arguments.
+> # Shows all matching logged-in users when check is made each minute.
+6c9
+< 0)	echo 'Usage: watchfor person' 1>&2; exit 1
+---
+> 0)	echo 'Usage: watchfor person ...' 1>&2; exit 1
+9c12,15
+< until who | egrep "$1"
+---
+> userlist=$1
+> shift
+> 
+> for i
+10a17,21
+> 	userlist="${userlist}|$i"
+> done
+> 
+> until who | egrep "${userlist}"
+> do
