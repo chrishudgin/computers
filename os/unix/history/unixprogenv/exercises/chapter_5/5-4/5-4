@@ -1,6 +1,7 @@
-Since the "which" script is a child of the shell process that created it, it
-cannot modify the environment variables of its parent shell process.  The
-parent shell's value of $PATH remains unaltered throughout the invocation,
-execution, and exit of the the child shell process that runs the "which"
-script.  There is therefore no need for the "which script" to reset the value
-of PATH to opath before exiting.
+The "which" script, being a child of the shell process that created it, cannot
+modify the environment variables of its parent shell process.  The parent
+shell's value of PATH remains unaltered throughout the invocation, execution,
+and exit of the the child shell process that runs the "which" script.  There is
+therefore no need for the "which script" to reset the value of PATH to opath
+before exiting; any changes to the value of PATH made by the "which" script are
+isolated to itself and possibly its own child processes.
