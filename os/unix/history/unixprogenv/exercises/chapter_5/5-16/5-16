@@ -1,7 +1,7 @@
 Adding a user to the system requires permissions to edit /etc/passwd,
 /etc/shadow (if applicable), /etc/group, and related files; create and populate
 a directory with correct ownership and permissions in /home (or /usr in older
-versions of Unix), and create a mail spool file with correct ownership and
+versions of Unix); and create a mail spool file with correct ownership and
 permissions in /var/spool/mail or /usr/spool/mail.  Superuser permissions will
 cover all of these requirements.
 
