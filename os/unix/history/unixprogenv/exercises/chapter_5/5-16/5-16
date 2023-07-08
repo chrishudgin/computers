@@ -9,5 +9,5 @@ Ideally, a program that adds a user account should handle interrupts by
 ensuring that any newly created account components are removed.  This means
 removing all of the following if they were freshly created:  the account's home
 directory, the account's mail spool file, the account's entry in /etc/passwd
-and in related files like /etc/shadow, and references to the account in
-/etc/group.
+and in related files like /etc/shadow, and references in /etc/group to the
+account and any groups that were just created for it.
