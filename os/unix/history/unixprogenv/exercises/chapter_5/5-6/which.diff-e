@@ -22,3 +22,7 @@ match='exit 1'
 	esac
 	;;
 .
+1a
+#
+# Modified to include -a option to show all matches in PATH
+.
