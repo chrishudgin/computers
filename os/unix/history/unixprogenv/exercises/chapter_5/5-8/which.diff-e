@@ -1,0 +1,53 @@
+20c
+
+if test "$match" = "exit 1"; then
+	echo "$1 is neither a shell built-in nor an executable in PATH" 1>&2
+fi
+$match
+.
+16,17c
+		xf=`ls -l $i/$1 | awk '$1 ~ /x/' 2>/dev/null`
+		if test -n "$xf"; then		# is it executable?
+			echo $i/$1
+			if test "$matchall" = "1" ; then
+				match='exit 0'	# found it but continue looking
+			else
+				exit 0		# found one, exit
+			fi
+		fi
+.
+8a
+
+match='exit 1'
+
+# builtins list is from the UNIX V7 shell
+builtins=": . break continue cd eval exec exit export login newgrp read readonly set shift times trap umask wait"
+
+for cmd in $builtins
+do
+	if test "$1" = "$cmd"; then
+		echo "$cmd is a shell built-in"
+		if test "$matchall" = "1" ; then
+			match='exit 0'		# found it but continue looking
+		else
+			exit 0			# found one, exit
+		fi
+	fi
+done
+
+.
+7c
+0)	echo 'Usage: which [-a] command' 1>&2; exit 2 ;;
+2)	case $1 in
+	-a)	matchall=1; shift ;;
+	*)	echo 'Usage: which [-a] command' 1>&2; exit 2 ;;
+	esac
+	;;
+.
+1a
+#
+# Modified to include -a option to show all matches in PATH
+# Modified to include search of shell builtins
+# Modified to check for executable permissions and exit with error message
+#    if command is neither a shell built-in nor an executable in PATH
+.
