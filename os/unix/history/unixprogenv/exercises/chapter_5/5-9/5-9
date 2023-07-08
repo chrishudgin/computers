@@ -1,0 +1,17 @@
+Use the "which" script or command to locate the "true" and "false" commands:
+
+$ which true
+/bin/true
+
+$ which false
+/bin/false
+
+The /bin/true command on Version 7 Unix is implemented as an executable empty
+file, which when executed returns an exit code of 0.
+
+The /bin/false command on Version 7 Unix is implemented as a shell script that
+exits with an exit code of 1 by calling the shell built-in command "exit" with
+an argument of "1":
+
+$ cat /bin/false
+exit 1
