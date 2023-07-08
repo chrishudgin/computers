@@ -18,3 +18,7 @@ case "$1" in
 esac
 
 .
+1a
+#
+# Modified to include option -n to show summary report instead of news contents
+.

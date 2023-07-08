@@ -1,9 +1,12 @@
-7a8,11
+1a2,3
+> #
+> # Modified to include option -n to show summary report instead of news contents
+7a10,13
 > case "$1" in
 > -n)	summary=1 ;;
 > esac
 > 
-14,15c18,23
+14,15c20,25
 < 	*)	set X`ls -l $i`
 < 		echo "
 ---
@@ -13,11 +16,11 @@
 > 		else
 > 			set X`ls -l $i`
 > 			echo "
-18c26,28
+18c28,30
 < 		cat $i
 ---
 > 			cat $i
 > 			touch $HOME/.news_time
 > 		fi
-21d30
+21d32
 < touch $HOME/.news_time
