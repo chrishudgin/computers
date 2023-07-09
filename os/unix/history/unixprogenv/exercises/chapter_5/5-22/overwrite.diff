@@ -1,4 +1,7 @@
-15c15
+2a3,4
+> #
+> # Modified to use eval to handle pipelined commands
+15c17
 < if PATH=$opath "$@" >$new		# collect input
 ---
 > if PATH=$opath eval "$@" >$new		# collect input
