@@ -1,0 +1,32 @@
+# news:  print news files, final version
+#
+# Modified to include option -n to show summary report instead of news contents
+
+PATH=/bin:/usr/bin
+IFS='
+'			# just a newline
+cd /usr/news
+
+case "$1" in
+-n)	summary=1 ;;
+esac
+
+for i in `ls -t * $HOME/.news_time 2>&1`
+do
+	IFS=' '
+	case $i in
+	*' not found')	;;
+	*/.news_time)	break ;;
+	*)
+		if test "$summary" = "1"; then
+			echo "news: $i"
+		else
+			set X`ls -l $i`
+			echo "
+$i: ($3) $5 $6 $7
+"
+			cat $i
+			touch $HOME/.news_time
+		fi
+	esac
+done
