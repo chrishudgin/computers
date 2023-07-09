@@ -1,0 +1,51 @@
+# which cmd:  which cmd in PATH is executed, final version
+#
+# Modified to include -a option to show all matches in PATH
+# Modified to include search of shell builtins
+
+opath=$PATH
+PATH=/bin:/usr/bin
+
+case $# in
+0)	echo 'Usage: which [-a] command' 1>&2; exit 2 ;;
+2)	case $1 in
+	-a)	matchall=1; shift ;;
+	*)	echo 'Usage: which [-a] command' 1>&2; exit 2 ;;
+	esac
+	;;
+esac
+
+match='exit 1'
+
+# builtins list is from the UNIX V7 shell
+builtins=": . break continue cd eval exec exit export login newgrp read readonly set shift times trap umask wait"
+
+for cmd in $builtins
+do
+	if test "$1" = "$cmd"; then
+		echo "$cmd is a shell built-in"
+		if test "$matchall" = "1" ; then
+			match='exit 0'		# found it but continue looking
+		else
+			exit 0			# found one, exit
+		fi
+	fi
+done
+
+for i in `echo $opath | sed 's/^:/.:/
+                             s/::/:.:/g
+                             s/:$/:./
+                             s/:/ /g'`
+do
+	if test -f $i/$1	# this is /bin/test
+	then			# or /usr/bin/test only
+		echo $i/$1
+		if test "$matchall" = "1" ; then
+			match='exit 0'		# found it but continue looking
+		else
+			exit 0			# found one, exit
+		fi
+	fi
+done
+
+$match
