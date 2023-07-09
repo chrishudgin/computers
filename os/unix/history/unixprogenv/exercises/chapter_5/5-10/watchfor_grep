@@ -1,0 +1,20 @@
+# watchfor:  watch for someone to log in
+#
+# Modified to watch for a list of one or more persons given as arguments.
+# Shows the first matching logged-in user from the list when any user from
+# the list logs in, then exits.
+
+PATH=/bin:/usr/bin
+
+case $# in
+0)	echo 'Usage: watchfor person ... ' 1>&2; exit 1
+esac
+
+while true
+do
+	for i
+	do
+		who | grep $i && exit 0
+	done
+	sleep 60
+done

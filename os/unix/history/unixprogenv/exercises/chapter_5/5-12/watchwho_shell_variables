@@ -1,0 +1,16 @@
+# watchwho:  watch who logs in and out
+#
+# Modified to use shell variables instead of files.
+# Requires a shell like bash that supports the <(...) syntax for a pseudo-file
+# argument constructed from command output
+
+PATH=/bin:/usr/bin
+
+while :		# loop forever
+do
+	new=`who`
+	echo "$new" | diff <(echo "$old") -
+	old=$new
+	sleep 60
+done | awk '/>/ { $1 = "in:	"; print }
+            /</ && $2 { $1 = "out:	"; print }'

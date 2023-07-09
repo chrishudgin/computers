@@ -1,0 +1,28 @@
+# watchwho:  watch who logs in and out
+# 
+# Modified to use comm instead of awk.
+
+PATH=/bin:/usr/bin
+new=/tmp/wwho1.$$
+old=/tmp/wwho2.$$
+>$old		# create an empty file
+
+while :		# loop forever
+do
+	who | sort >$new
+
+	in=`comm -13 $old $new`
+	if test -n "$in"; then
+		echo "$in" | sed 's/[ 	][ 	]*/ /g' |
+		sed 's/^/in:	 /'
+	fi
+
+	out=`comm -23 $old $new`
+	if test -n "$out"; then
+		echo "$out" | sed 's/[ 	][ 	]*/ /g' |
+		sed 's/^/out:	 /'
+	fi
+
+	mv $new $old
+	sleep 60
+done
