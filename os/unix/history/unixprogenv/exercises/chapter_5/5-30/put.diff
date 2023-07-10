@@ -14,7 +14,3 @@
 > 	1)	HIST=$GPHISTDIR/$1.H ;;
 8a16
 > 
-15c23
-< echo -n 'Summary: '
----
-> /bin/echo -n 'Summary: '
