@@ -5,7 +5,7 @@
 > GPHISTDIR=$HOME/.gphist
 4a8,11
 > if test ! -d $GPHISTDIR; then
-> 	echo "History directory $GPHISTDIR not found" >1&2; exit 1
+> 	echo "History directory $GPHISTDIR not found" 1>&2; exit 1
 > fi
 > 
 9c16

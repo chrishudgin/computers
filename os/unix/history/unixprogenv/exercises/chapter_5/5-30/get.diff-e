@@ -9,7 +9,7 @@ INPUT=${INPUT-$GPHISTDIR/$OUTPUT.H}
 .
 4a
 if test ! -d $GPHISTDIR; then
-	echo "History directory $GPHISTDIR not found" >1&2; exit 1
+	echo "History directory $GPHISTDIR not found" 1>&2; exit 1
 fi
 
 .

@@ -6,7 +6,7 @@ PATH=/bin:/usr/bin
 GPHISTDIR=$HOME/.gphist
 
 if test ! -d $GPHISTDIR; then
-	echo "History directory $GPHISTDIR not found" >1&2; exit 1
+	echo "History directory $GPHISTDIR not found" 1>&2; exit 1
 fi
 
 VERSION=0
