@@ -17,11 +17,11 @@ if test ! -r $HFILE; then
 fi
 
 VERSION=$1
-DELN=`expr $VERSION \* -1 + 1`
+DELN=`awk < /dev/null 'END { print -1 * '$VERSION' + 1 }'`
 
 nver=`grep -c '^@@@' $HFILE`
 if test $DELN -ge $nver; then
-	maxokver=`expr -1 \* $nver + 2`
+	maxokver=`awk </dev/null 'END { print -1 * '$nver' + 2 }'`
 	echo "Invalid version $VERSION; must < 0 and >= $maxokver" 1>&2; exit 1
 fi
 
