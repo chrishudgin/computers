@@ -1,3 +1,7 @@
 Deleting an entry from the middle of the history file (not the first or last
 entry) requires only deleting the summary line "@@@ ..." for that entry from
-the history file.
+the history file.  Although the summary comments describing the removed version
+will be lost, the corresponding ed edits will remain in the file.  This
+effectively joins the ed edits for the change prior to the deleted version and
+for the deleted version into a single command sequence, with an identical
+cumulative result on the file contents.
