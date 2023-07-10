@@ -1,6 +1,6 @@
 1a2,3
 > #
-> # TODO: Modified to handle multiple month arguments and month ranges a - b
+> # Modified to handle multiple month arguments or month ranges a - b
 4,7c6,25
 < 0)	set `date`; m=$2; y=$6 ;;  # no args: use today
 < 1)	m=$1; set `date`; y=$6 ;;  # 1 arg: use this year
