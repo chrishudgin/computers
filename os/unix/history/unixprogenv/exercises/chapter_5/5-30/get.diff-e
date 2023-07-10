@@ -1,0 +1,22 @@
+21c
+INPUT=${INPUT-$GPHISTDIR/$OUTPUT.H}
+.
+15c
+			*)	INPUT=$GPHISTDIR/$1.H ;;
+.
+9c
+		-i)	INPUT=$GPHISTDIR/$2; shift ;;
+.
+4a
+if test ! -d $GPHISTDIR; then
+	echo "History directory $GPHISTDIR not found" >1&2; exit 1
+fi
+
+.
+3a
+GPHISTDIR=$HOME/.gphist
+.
+1a
+#
+# Modified to retrieve history file from a separate directory
+.

@@ -1,0 +1,22 @@
+15c
+/bin/echo -n 'Summary: '
+.
+8a
+
+.
+6c
+	1)	HIST=$GPHISTDIR/$1.H ;;
+.
+4a
+if test ! -d $GPHISTDIR; then
+	mkdir $GPHISTDIR || { echo "Can't create dir $GPHISTDIR" 1>&2; exit 1; }
+fi
+
+.
+3a
+GPHISTDIR=$HOME/.gphist
+.
+1a
+#
+# Modified to store history file in a separate directory
+.
