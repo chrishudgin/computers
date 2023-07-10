@@ -20,7 +20,7 @@ then
 	exit 1
 fi
 trap 'rm -f /tmp/put.[ab]$$; exit 1' 1 2 15
-/bin/echo -n 'Summary: '
+echo -n 'Summary: '
 read Summary
 
 if get -o /tmp/put.a$$ $1		# previous version
