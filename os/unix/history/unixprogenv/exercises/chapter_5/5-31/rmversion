@@ -1,0 +1,39 @@
+# Remove version from middle of history file
+
+case $# in
+0|1)	echo "Usage: `basename $0` version file" 1>&2; exit 1 ;;
+esac
+
+case $1 in
+-[1-9])	;;
+*)	echo "Version must be between -1 and -9 inclusive" 1>&2; exit 1 ;;
+esac
+
+HFILE=$2.H
+HTMPFILE=/tmp/$HFILE.$$
+
+if test ! -r $HFILE; then
+	echo "Error reading history file $HFILE" 1>&2; exit 1
+fi
+
+VERSION=$1
+DELN=`expr $VERSION \* -1 + 1`
+
+nver=`grep -c '^@@@' $HFILE`
+if test $DELN -ge $nver; then
+	maxokver=`expr -1 \* $nver + 2`
+	echo "Invalid version $VERSION; must < 0 and >= $maxokver" 1>&2; exit 1
+fi
+
+awk < $HFILE > $HTMPFILE '
+!/^@@@/
+
+/^@@@/ {
+	count++
+	if ( ! (count == '$DELN') ) {
+		print
+	}
+}'
+
+overwrite $HFILE cat $HTMPFILE
+rm -f $HTMPFILE
