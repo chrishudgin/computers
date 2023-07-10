@@ -1,0 +1,129 @@
+1a2,3
+> #
+> # TODO: Modified to handle multiple month arguments and month ranges a - b
+4,7c6,25
+< 0)	set `date`; m=$2; y=$6 ;;  # no args: use today
+< 1)	m=$1; set `date`; y=$6 ;;  # 1 arg: use this year
+< *)	m=$1; y=$2 ;;		   # 2 args: month and year
+< esac
+---
+> 0)	set `date`; months=$2; y=$6 ;;	# no args; use today
+> 1)	months=$1; set `date`; y=$6 ;;	#1 arg: use this year
+> 2)	case $2 in			#2 args
+> 	[1-9]|10|11|12|[A-Za-z]*)	months="$1 $2"; set `date`; y=$6 ;;
+> 	*)	months=$1; y=$2 ;;
+> 	esac
+> 	;;
+> *)	months=$@
+> 	eval last=\${$#}
+> 	case $last in
+> 	[1-9]|10|11|12|[A-Za-z]*)
+> 		y=`date | awk '{ print $6 }'`
+> 		;;
+> 	*)	y=$last
+> 		yearinargs=1
+> 		months=`echo $months | sed 's/ [^ ]*$//'` # remove year
+> 		;;
+> 	esac
+> 	if test $2 = "-"; then
+> 		mb=$1; me=$3
+9,23c27,85
+< case $m in
+< jan*|Jan*)	m=1 ;;
+< feb*|Feb*)	m=2 ;;
+< mar*|Mar*)	m=3 ;;
+< apr*|Apr*)	m=4 ;;
+< may*|May*)	m=5 ;;
+< jun*|Jun*)	m=6 ;;
+< jul*|Jul*)	m=7 ;;
+< aug*|Aug*)	m=8 ;;
+< sep*|Sep*)	m=9 ;;
+< oct*|Oct*)	m=10 ;;
+< nov*|Nov*)	m=11 ;;
+< dec*|Dec*)	m=12 ;;
+< [1-9]|10|11|12)	;;		# numeric month
+< *)		y=$m; m="" ;;	# plain year
+---
+> 		case $mb in
+> 		jan*|Jan*)	mb=1 ;;
+> 		feb*|Feb*)	mb=2 ;;
+> 		mar*|Mar*)	mb=3 ;;
+> 		apr*|Apr*)	mb=4 ;;
+> 		may*|May*)	mb=5 ;;
+> 		jun*|Jun*)	mb=6 ;;
+> 		jul*|Jul*)	mb=7 ;;
+> 		aug*|Aug*)	mb=8 ;;
+> 		sep*|Sep*)	mb=9 ;;
+> 		oct*|Oct*)	mb=10 ;;
+> 		nov*|Nov*)	mb=11 ;;
+> 		dec*|Dec*)	mb=12 ;;
+> 		[1-9]|10|11|12)	;;		# numeric month
+> 		*) echo "not a valid month $mb" 1>&2; exit 1 ;;
+> 		esac
+> 
+> 		case $me in
+> 		jan*|Jan*)	me=1 ;;
+> 		feb*|Feb*)	me=2 ;;
+> 		mar*|Mar*)	me=3 ;;
+> 		apr*|Apr*)	me=4 ;;
+> 		may*|May*)	me=5 ;;
+> 		jun*|Jun*)	me=6 ;;
+> 		jul*|Jul*)	me=7 ;;
+> 		aug*|Aug*)	me=8 ;;
+> 		sep*|Sep*)	me=9 ;;
+> 		oct*|Oct*)	me=10 ;;
+> 		nov*|Nov*)	me=11 ;;
+> 		dec*|Dec*)	me=12 ;;
+> 		[1-9]|10|11|12)	;;		# numeric month
+> 		*) echo "not a valid month $me" 1>&2; exit 1 ;;
+> 		esac
+> 
+> 		if test $me -lt $mb; then
+> 			me=`expr $me + 12`
+> 			if test "$yearinargs" -eq 1; then
+> 				y=`expr $y - 1`
+> 			fi
+> 		fi
+> 
+> 		m=$mb
+> 		while test $m -le $me
+> 		do
+> 			if test $m -eq 13; then
+> 				y=`expr $y + 1`
+> 			fi
+> 			if test $m -gt 12; then
+> 				/usr/bin/cal `expr $m - 12` $y
+> 			else
+> 				/usr/bin/cal $m $y
+> 			fi
+> 			m=`expr $m + 1`
+> 			echo
+> 		done
+> 
+> 		exit 0
+> 	fi
+> 	;;
+26c88,108
+< /usr/bin/cal $m $y		# run the real one
+---
+> for m in $months
+> do
+> 	case $m in
+> 	jan*|Jan*)	m=1 ;;
+> 	feb*|Feb*)	m=2 ;;
+> 	mar*|Mar*)	m=3 ;;
+> 	apr*|Apr*)	m=4 ;;
+> 	may*|May*)	m=5 ;;
+> 	jun*|Jun*)	m=6 ;;
+> 	jul*|Jul*)	m=7 ;;
+> 	aug*|Aug*)	m=8 ;;
+> 	sep*|Sep*)	m=9 ;;
+> 	oct*|Oct*)	m=10 ;;
+> 	nov*|Nov*)	m=11 ;;
+> 	dec*|Dec*)	m=12 ;;
+> 	[1-9]|10|11|12)	;;		# numeric month
+> 	*)		y=$m; m="" ;;	# plain year
+> 	esac
+> 
+> 	/usr/bin/cal $m $y		# run the real one
+> done
