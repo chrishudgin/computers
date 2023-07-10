@@ -1,6 +1,6 @@
 # cal:  nicer interface to /usr/bin/cal
 #
-# TODO: Modified to handle multiple month arguments and month ranges a - b
+# Modified to handle multiple month arguments or month ranges a - b
 
 case $# in
 0)	set `date`; months=$2; y=$6 ;;	# no args; use today
