@@ -5,7 +5,7 @@
 < new=/tmp/wwho1.$$
 < old=/tmp/wwho2.$$
 < >$old		# create an empty file
-10,15c9,22
+10,15c9,25
 < 	who >$new
 < 	diff $old $new
 < 	mv $new $old
@@ -16,14 +16,17 @@
 > 	new=`who | sed 's/[ 	][ 	]*/ /g'`
 > 	IFS='
 > '
+> 
 > 	for line in `echo "$new"`
 > 	do
 > 		echo "$old" | grep "$line" >/dev/null || echo "in:	 $line"
 > 	done
+> 
 > 	for line in `echo "$old"`
 > 	do
 > 		echo "$new" | grep "$line" >/dev/null || echo "out:	 $line"
 > 	done
+> 
 > 	old=$new
 > 	sleep 60
 > done

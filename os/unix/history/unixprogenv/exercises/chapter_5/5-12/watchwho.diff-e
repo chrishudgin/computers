@@ -2,14 +2,17 @@
 	new=`who | sed 's/[ 	][ 	]*/ /g'`
 	IFS='
 '
+
 	for line in `echo "$new"`
 	do
 		echo "$old" | grep "$line" >/dev/null || echo "in:	 $line"
 	done
+
 	for line in `echo "$old"`
 	do
 		echo "$new" | grep "$line" >/dev/null || echo "out:	 $line"
 	done
+
 	old=$new
 	sleep 60
 done
