@@ -1,0 +1,105 @@
+# Report summary comment for specified file version
+# Report file version number for specified date
+
+case $# in
+2)	case $1 in
+	0|-[0-9]) VERSION=$1
+		  HFILE=$2.H ;;
+	*)      echo "version must be between 0 and -9 inclusive" 1>&2
+		exit 1
+		;;
+	esac
+	;;
+3)	m=$1; d=$2; FILE=$3; HFILE=$FILE.H; set `date`; y=$6 ;;
+4)	m=$1; d=$2; y=$3; FILE=$4; HFILE=$FILE.H ;;
+*)	echo "Usage: version version_number file" 1>&2
+	echo "       version month day [year] file" 1>&2
+	exit 1
+	;;
+esac
+
+if test ! -r $HFILE; then
+        echo "error reading history file $HFILE" 1>&2; exit 1
+fi
+
+# Report summary comment for specified version
+
+if test -n "$VERSION"; then
+	VLINE=`awk < /dev/null 'END { print -1 * '$VERSION' + 1 }'`
+	nver=`grep -c '^@@@' $HFILE`
+	if test $VLINE -gt $nver; then
+		maxokver=`awk </dev/null 'END { print -1 * '$nver' + 1 }'`
+		echo "invalid version $VERSION; must <= 0 and >= $maxokver" 1>&2
+		exit 1
+	fi
+	awk < $HFILE '
+	/^@@@/ {
+	        count++
+		if (count == '$VLINE') {
+	                print
+		}
+	}'
+	exit 0
+fi
+
+# Report version that was current on specified date
+
+TMPFILE=/tmp/version.$$
+
+case $m in
+jan*|Jan*)	m=1 ;;
+feb*|Feb*)	m=2 ;;
+mar*|Mar*)	m=3 ;;
+apr*|Apr*)	m=4 ;;
+may*|May*)	m=5 ;;
+jun*|Jun*)	m=6 ;;
+jul*|Jul*)	m=7 ;;
+aug*|Aug*)	m=8 ;;
+sep*|Sep*)	m=9 ;;
+oct*|Oct*)	m=10 ;;
+nov*|Nov*)	m=11 ;;
+dec*|Dec*)	m=12 ;;
+[1-9]|10|11|12)	;;		# numeric month
+*)		echo "invalid month $m" 1>&2; exit 1 ;;
+esac
+
+filever=1
+grep '^@@@' $HFILE > $TMPFILE
+while read line
+do
+	filever=`awk </dev/null 'END { print '$filever' - 1 }'`
+	set `echo "$line"`; fmon=$4; fday=$5; fyear=$8
+	case $fmon in
+		jan*|Jan*)      fmon=1 ;;
+		feb*|Feb*)      fmon=2 ;;
+		mar*|Mar*)      fmon=3 ;;
+		apr*|Apr*)      fmon=4 ;;
+		may*|May*)      fmon=5 ;;
+		jun*|Jun*)      fmon=6 ;;
+		jul*|Jul*)      fmon=7 ;;
+		aug*|Aug*)      fmon=8 ;;
+		sep*|Sep*)      fmon=9 ;;
+		oct*|Oct*)      fmon=10 ;;
+		nov*|Nov*)      fmon=11 ;;
+		dec*|Dec*)      fmon=12 ;;
+                [1-9]|10|11|12) ;;		# numeric month
+	esac
+
+	if test \( $y -gt $fyear \) \
+	-o \( $y -eq $fyear -a $m -gt $fmon \) \
+	-o \( $y -eq $fyear -a $m -eq $fmon -a $d -ge $fday \); then
+		found=1
+		if test $filever -eq 0; then
+			filever="-$filever"	# "get" requires -0, not 0
+		fi
+		echo "$filever $FILE"
+		break
+	fi
+done < $TMPFILE
+
+if test ! "$found" = "1"; then
+	echo "file $FILE was created after $m/$d/$y"
+fi
+
+rm -f /tmp/version.$$
+exit 0
