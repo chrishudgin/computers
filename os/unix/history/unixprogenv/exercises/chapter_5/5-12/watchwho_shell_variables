@@ -1,18 +1,22 @@
 # watchwho:  watch who logs in and out
 #
 # Modified to use shell variables instead of files.
-#
-# BUGS: Does not work on V7 UNIX because this script requires a shell like
-# bash that supports the <(...) syntax for a pseudo-file argument constructed
-# from command output.
 
 PATH=/bin:/usr/bin
 
 while :		# loop forever
 do
 	new=`who`
-	echo "$new" | diff <(echo "$old") -
+	IFS='
+'
+	for line in `echo "$new"`
+	do
+		echo "$old" | grep "$line" >/dev/null || echo "in:	$line"
+	done
+	for line in `echo "$old"`
+	do
+		echo "$new" | grep "$line" >/dev/null || echo "out:	$line"
+	done
 	old=$new
 	sleep 60
-done | awk '/>/ { $1 = "in:	"; print }
-            /</ && $2 { $1 = "out:	"; print }'
+done
