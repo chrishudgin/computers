@@ -2,9 +2,9 @@
 #
 # Modified to use shell variables instead of files.
 #
-# BUGS: Does not work on V7 UNIX because it requires a shell like bash that
-# supports the <(...) syntax for a pseudo-file argument constructed from
-# command output.
+# BUGS: Does not work on V7 UNIX because this script requires a shell like
+# bash that supports the <(...) syntax for a pseudo-file argument constructed
+# from command output.
 
 PATH=/bin:/usr/bin
 
