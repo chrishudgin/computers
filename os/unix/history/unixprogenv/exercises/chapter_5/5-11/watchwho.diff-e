@@ -1,4 +1,5 @@
-14,15c
+13,15c
+	sleep 2
 done
 .
 10,11c
@@ -6,14 +7,12 @@ done
 
 	in=`comm -13 $old $new`
 	if test -n "$in"; then
-		echo "$in" | sed 's/[ 	][ 	]*/ /g' |
-		sed 's/^/in:	 /'
+		echo "$in" | sed 's/[ 	][ 	]*/ /g' | sed 's/^/in:	 /'
 	fi
 
 	out=`comm -23 $old $new`
 	if test -n "$out"; then
-		echo "$out" | sed 's/[ 	][ 	]*/ /g' |
-		sed 's/^/out:	 /'
+		echo "$out" | sed 's/[ 	][ 	]*/ /g' | sed 's/^/out:	 /'
 	fi
 
 .
