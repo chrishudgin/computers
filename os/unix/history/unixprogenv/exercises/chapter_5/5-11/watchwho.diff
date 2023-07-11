@@ -17,10 +17,8 @@
 > 		echo "$out" | sed 's/[ 	][ 	]*/ /g' | sed 's/^/out:	 /'
 > 	fi
 > 
-13,15c25,26
-< 	sleep 60
+14,15c26
 < done | awk '/>/ { $1 = "in:	"; print }
 < 	    /</ { $1 = "out:	"; print }'
 ---
-> 	sleep 2
 > done

@@ -22,5 +22,5 @@ do
 	fi
 
 	mv $new $old
-	sleep 2
+	sleep 60
 done
