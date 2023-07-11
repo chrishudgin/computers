@@ -1,5 +1,7 @@
 # Report summary comment for specified file version
 # Report file version number for specified date
+#
+# BUGS: Does not work on V7 UNIX
 
 case $# in
 2)	case $1 in
