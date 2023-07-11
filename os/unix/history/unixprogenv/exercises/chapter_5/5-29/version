@@ -25,10 +25,10 @@ fi
 # Report summary comment for specified version
 
 if test -n "$VERSION"; then
-	VLINE=`awk < /dev/null 'END { print -1 * '$VERSION' + 1 }'`
+	VLINE=`echo "-1 * $VERSION + 1" | bc`
 	nver=`grep -c '^@@@' $HFILE`
 	if test $VLINE -gt $nver; then
-		maxokver=`awk </dev/null 'END { print -1 * '$nver' + 1 }'`
+		maxokver=`echo "-1 * $nver + 1" | bc`
 		echo "invalid version $VERSION; must <= 0 and >= $maxokver" 1>&2
 		exit 1
 	fi
@@ -85,7 +85,7 @@ if test "$ny" = "1"; then
 
 	if test \( $m -gt $cmon \) \
 	-o \( $m -eq $cmon -a $d -gt $cday \); then
-		y=`awk </dev/null 'END { print '$y' - 1 }'`
+		y=`echo "$y - 1" | bc`
 	fi
 fi
 
@@ -93,7 +93,7 @@ filever=1
 grep '^@@@' $HFILE > $TMPFILE
 while read line
 do
-	filever=`awk </dev/null 'END { print '$filever' - 1 }'`
+	filever=`echo "$filever - 1" | bc`
 	set `echo "$line"`; fmon=$4; fday=$5; fyear=$8
 	case $fmon in
 		jan*|Jan*)      fmon=1 ;;
