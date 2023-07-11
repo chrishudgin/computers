@@ -1,7 +1,5 @@
 # Report summary comment for specified file version
 # Report file version number for specified date
-#
-# BUGS: Does not work on V7 UNIX
 
 case $# in
 2)	case $1 in
@@ -46,7 +44,9 @@ fi
 
 # Report version that was current on specified date
 
-TMPFILE=/tmp/version.$$
+TMPFILE=/tmp/version_tmp.$$
+FOUND=/tmp/version_found.$$
+rm -f $FOUND
 
 case $m in
 jan*|Jan*)	m=1 ;;
@@ -114,7 +114,7 @@ do
 	if test \( $y -gt $fyear \) \
 	-o \( $y -eq $fyear -a $m -gt $fmon \) \
 	-o \( $y -eq $fyear -a $m -eq $fmon -a $d -ge $fday \); then
-		found=1
+		touch $FOUND
 		if test $filever -eq 0; then
 			filever="-$filever"	# "get" requires -0, not 0
 		fi
@@ -123,9 +123,10 @@ do
 	fi
 done < $TMPFILE
 
-if test ! "$found" = "1"; then
+if test ! -f $FOUND; then
 	echo "file $FILE was created after $m/$d/$y"
 fi
 
-rm -f /tmp/version.$$
+rm -f $TMPFILE
+rm -f $FOUND
 exit 0
