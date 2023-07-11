@@ -1,6 +1,5 @@
 # Report summary comment for specified file version
 # Report file version number for specified date
-# TODO: If no year given and date would be in future, use last year
 
 case $# in
 2)	case $1 in
