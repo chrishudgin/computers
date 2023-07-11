@@ -1,19 +1,18 @@
-14,15c
-done
-.
-10,12c
-	new=`who`
+10,15c
+	new=`who | sed 's/[ 	][ 	]*/ /g'`
 	IFS='
 '
 	for line in `echo "$new"`
 	do
-		echo "$old" | grep "$line" >/dev/null || echo "in:	$line"
+		echo "$old" | grep "$line" >/dev/null || echo "in:	 $line"
 	done
 	for line in `echo "$old"`
 	do
-		echo "$new" | grep "$line" >/dev/null || echo "out:	$line"
+		echo "$new" | grep "$line" >/dev/null || echo "out:	 $line"
 	done
 	old=$new
+	sleep 60
+done
 .
 4,6d
 1a
