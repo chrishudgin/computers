@@ -1,5 +1,6 @@
 # Report summary comment for specified file version
 # Report file version number for specified date
+# TODO: If no year given and date would be in future, use last year
 
 case $# in
 2)	case $1 in
@@ -10,7 +11,7 @@ case $# in
 		;;
 	esac
 	;;
-3)	m=$1; d=$2; FILE=$3; HFILE=$FILE.H; set `date`; y=$6 ;;
+3)	m=$1; d=$2; FILE=$3; HFILE=$FILE.H; ny=1; set `date`; y=$6 ;;
 4)	m=$1; d=$2; y=$3; FILE=$4; HFILE=$FILE.H ;;
 *)	echo "Usage: version version_number file" 1>&2
 	echo "       version month day [year] file" 1>&2
@@ -62,6 +63,30 @@ dec*|Dec*)	m=12 ;;
 [1-9]|10|11|12)	;;		# numeric month
 *)		echo "invalid month $m" 1>&2; exit 1 ;;
 esac
+
+if test "$ny" = "1"; then
+	set `date`; cmon=$2; cday=$3; cyear=$y
+
+	case $cmon in
+	jan*|Jan*)	cmon=1 ;;
+	feb*|Feb*)	cmon=2 ;;
+	mar*|Mar*)	cmon=3 ;;
+	apr*|Apr*)	cmon=4 ;;
+	may*|May*)	cmon=5 ;;
+	jun*|Jun*)	cmon=6 ;;
+	jul*|Jul*)	cmon=7 ;;
+	aug*|Aug*)	cmon=8 ;;
+	sep*|Sep*)	cmon=9 ;;
+	oct*|Oct*)	cmon=10 ;;
+	nov*|Nov*)	cmon=11 ;;
+	dec*|Dec*)	cmon=12 ;;
+	esac
+
+	if test \( $m -gt $cmon \) \
+	-o \( $m -eq $cmon -a $d -gt $cday \); then
+		y=`awk </dev/null 'END { print '$y' - 1 }'`
+	fi
+fi
 
 filever=1
 grep '^@@@' $HFILE > $TMPFILE
