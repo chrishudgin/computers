@@ -1,5 +1,5 @@
 Chapter notes and solutions to exercises from the book _The UNIX Programming
-Environment_ by Brian W. Kernighan and Rob Pike, published by Prentice-Hall in 1984.  Notes
+Environment_ by Brian W. Kernighan and Rob Pike published by Prentice-Hall in 1984.  Notes
 and solutions are my own and are not official in any respect.
 
 Solutions have been tested on 7th Edition UNIX (1979) running in the SIMH
