@@ -130,7 +130,7 @@
 >             if (mon[dcnt] == holidaymon[h] && day[dcnt] == holidayday[h] && (year[dcnt] == holidayyear[h] || holidayyear[h] == 0)) {
 >                 holiday = 1
 >                 dcnt++
->                 continue
+>                 break
 >             }
 >         }
 >     }
