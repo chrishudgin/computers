@@ -1,6 +1,6 @@
 The "global" command "<addr1>,<addr2>g/<RE>/<command>" operates as a "foreach",
 running <command> iteratively on each line selected by the regular expression
-<RE> matches within the specified address range <addr1,addr2>.
+<RE> that matches within the specified address range <addr1,addr2>.
 
 In contrast, commands line "t" (copy) and "m" (move) operate on a range of
 lines as a block, not iteratively on one line at a time.
@@ -13,7 +13,18 @@ global context can.  Thus, the following syntax is valid:
 
 Example:
 
-g/^foo/+,/^bar/-p
+1,20g/^foo/+,/^bar/-p
 
-prints all lines in the buffer that are strictly between those that begin with
-"foo" and those that begin with the subsequent "bar".
+finds all lines matching /^foo/ between lines 1 and 20 in the buffer, and for
+each such line found, prints the lines that are strictly between the line that
+begins with "foo" and the next line that begins with "bar".  Note that the
+search for each next /^bar/ after a matching /^foo/ is not constrained to the
+line range 1,20 that was used to find each /^foo/
+
+Syntactically, in this example:
+   addr1 is 1
+   addr2 is 20
+   /RE/ is /^foo/
+   addr3 is +  (.+, where . is set iteratively to each line matching /^foo/)
+   addr4 is /^bar/-
+   command is p
