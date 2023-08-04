@@ -1,7 +1,7 @@
 1a2,3
 > #
 > # Modified to handle multiple month arguments or month ranges a - b
-4,7c6,25
+4,7c6,26
 < 0)	set `date`; m=$2; y=$6 ;;  # no args: use today
 < 1)	m=$1; set `date`; y=$6 ;;  # 1 arg: use this year
 < *)	m=$1; y=$2 ;;		   # 2 args: month and year
@@ -19,6 +19,7 @@
 > 	case $last in
 > 	[1-9]|10|11|12|[A-Za-z]*)
 > 		y=`date | awk '{ print $6 }'`
+> 		yearinargs=0
 > 		;;
 > 	*)	y=$last
 > 		yearinargs=1
@@ -27,7 +28,7 @@
 > 	esac
 > 	if test $2 = "-"; then
 > 		mb=$1; me=$3
-9,23c27,85
+9,23c28,86
 < case $m in
 < jan*|Jan*)	m=1 ;;
 < feb*|Feb*)	m=2 ;;
@@ -103,7 +104,7 @@
 > 		exit 0
 > 	fi
 > 	;;
-26c88,108
+26c89,109
 < /usr/bin/cal $m $y		# run the real one
 ---
 > for m in $months

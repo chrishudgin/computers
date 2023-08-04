@@ -95,6 +95,7 @@ done
 	case $last in
 	[1-9]|10|11|12|[A-Za-z]*)
 		y=`date | awk '{ print $6 }'`
+		yearinargs=0
 		;;
 	*)	y=$last
 		yearinargs=1
