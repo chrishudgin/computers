@@ -2,5 +2,10 @@ Apply diffs to an original file to produce the modified version of the file:
 
 $ patch [-o outputfile] original_file diff_file
 
+Reverse diffs and apply to modified file in order to reconstruct original file
+(does not work with diff files in "ed" format due to insufficient information):
+
+$ patch -R [-o outputfile] modified_file diff_file
+
 If the "-o outputfile" argument is omitted, patch will overwrite the original
 file with the modified contents.
