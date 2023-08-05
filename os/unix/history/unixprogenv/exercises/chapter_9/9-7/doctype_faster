@@ -1,14 +1,13 @@
-#!/usr/bin/awk -f
-
 # doctype, revised:  synthesize proper command line for troff, faster
 
-# Replaces invocation of shell, echo (if not a builtin), egrep, and sort with
-# a single awk script
+# Replaces invocation of echo (if not a builtin), egrep, and sort with
+# a single awk command invoked by the shell (so that command line arguments
+# can be passed to UNIX V7 AWK by the shell).
 
+awk ' 
 BEGIN {
-	printf "cat "
-	for (i = 1; i < ARGC; i++) printf "%s ", ARGV[i]
-	printf "| "
+	printf "cat '$*'"
+	printf " | "
 }
 /^\.PP/	{ ms++ }
 /^\.EQ/	{ eqn++ }
@@ -26,3 +25,4 @@ END {
 	if (ms > 0) printf "-ms"
 	printf "\n"
 }
+' $*
