@@ -3,7 +3,8 @@
 # awk requires, at a minimum, a pattern (with default action "print") or an
 # action (executed for all input lines).
 #
-# This awk script explicitly prints the script's input for a non-specified
-# pattern (so that the implicit pattern matches all input lines).
+# This awk script implicitly prints the script's input for all lines that match
+# an empty (universal match) regular expression in field 1.  This pattern will
+# match all lines, including those that contain only a newline character.
 
 $1 ~ //
