@@ -1,0 +1,16 @@
+21c
+} ' >> $CMDFILE
+
+sh $CMDFILE
+
+rm -f $CMDFILE
+.
+1,2c
+# doctype, revised:  synthesize and run proper command line for troff
+
+CMDFILE=doctype.$$
+
+trap 'rm -f $CMDFILE; exit 1' 1 2 15
+
+echo -n "cat $* | " > $CMDFILE
+.

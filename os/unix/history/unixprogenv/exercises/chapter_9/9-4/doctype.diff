@@ -1,0 +1,19 @@
+1,2c1,7
+< # doctype:  synthesize proper command line for troff
+< echo -n "cat $* | "
+---
+> # doctype, revised:  synthesize and run proper command line for troff
+> 
+> CMDFILE=doctype.$$
+> 
+> trap 'rm -f $CMDFILE; exit 1' 1 2 15
+> 
+> echo -n "cat $* | " > $CMDFILE
+21c26,30
+< } '
+---
+> } ' >> $CMDFILE
+> 
+> sh $CMDFILE
+> 
+> rm -f $CMDFILE
