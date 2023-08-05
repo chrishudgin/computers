@@ -6,8 +6,7 @@
 
 awk ' 
 BEGIN {
-	printf "cat '$*'"
-	printf " | "
+	printf "cat '"$*"' | "
 }
 /^\.PP/	{ ms++ }
 /^\.EQ/	{ eqn++ }
