@@ -4,9 +4,9 @@
 # a single awk command invoked by the shell (so that command line arguments
 # can be passed to UNIX V7 AWK by the shell).
 
-awk ' 
+awk '
 BEGIN {
-	printf "cat '"$*"' | "
+        printf "cat '"$*"' | "
 }
 /^\.PP/	{ ms++ }
 /^\.EQ/	{ eqn++ }
@@ -23,5 +23,4 @@ END {
 	printf "troff "
 	if (ms > 0) printf "-ms"
 	printf "\n"
-}
-' $*
+} ' $*
