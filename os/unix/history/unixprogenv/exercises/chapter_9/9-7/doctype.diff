@@ -1,0 +1,23 @@
+1,5c1,11
+< # doctype:  synthesize proper command line for troff
+< echo -n "cat $* | "
+< egrep -h '^\.(EQ|TS|\[|PS|IS|PP)' $* |
+< sort -u |
+< awk '
+---
+> # doctype, revised:  synthesize proper command line for troff, faster
+> 
+> # Replaces invocation of echo (if not a builtin), egrep, and sort with
+> # a single awk command invoked by the shell (so that command line arguments
+> # can be passed to UNIX V7 AWK by the shell).
+> 
+> awk ' 
+> BEGIN {
+> 	printf "cat '$*'"
+> 	printf " | "
+> }
+21c27,28
+< } '
+---
+> }
+> ' $*
