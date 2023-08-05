@@ -1,0 +1,46 @@
+19c
+	if (ms > 0) printf "-ms "
+	if (needfiles == 1) printf "'"$*"'" 
+.
+13,17c
+	needfiles = 1
+	if (refer > 0) {
+		printf "refer '"$*"' | "
+		needfiles = 0
+	}
+	if (pic > 0) {
+		if (needfiles == 1) {
+			printf "pic '"$*"' | "
+			needfiles = 0
+		} else {
+			printf "pic | "
+		}
+	}
+	if (ideal > 0) {
+		if (needfiles == 1) {
+			printf "ideal '"$*"' | "
+			needfiles = 0
+		} else {
+			printf "ideal | "
+		}
+	}
+	if (tbl > 0) {
+		if (needfiles == 1) {
+			printf "tbl '"$*"' | "
+			needfiles = 0
+		} else {
+			printf "tbl | "
+		}
+	}
+	if (eqn > 0) {
+		if (needfiles == 1) {
+			printf "eqn '"$*"' | "
+			needfiles = 0
+		} else {
+			printf "eqn | "
+		}
+	}
+.
+1,2c
+# doctype, revised:  synthesize proper command line for troff without using cat
+.

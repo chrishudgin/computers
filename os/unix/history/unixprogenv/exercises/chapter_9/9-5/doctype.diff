@@ -1,0 +1,54 @@
+1,2c1
+< # doctype:  synthesize proper command line for troff
+< echo -n "cat $* | "
+---
+> # doctype, revised:  synthesize proper command line for troff without using cat
+13,17c12,48
+< 	if (refer > 0) printf "refer | "
+< 	if (pic > 0)   printf "pic | "
+< 	if (ideal > 0) printf "ideal | "
+< 	if (tbl > 0)   printf "tbl | "
+< 	if (eqn > 0)   printf "eqn | "
+---
+> 	needfiles = 1
+> 	if (refer > 0) {
+> 		printf "refer '"$*"' | "
+> 		needfiles = 0
+> 	}
+> 	if (pic > 0) {
+> 		if (needfiles == 1) {
+> 			printf "pic '"$*"' | "
+> 			needfiles = 0
+> 		} else {
+> 			printf "pic | "
+> 		}
+> 	}
+> 	if (ideal > 0) {
+> 		if (needfiles == 1) {
+> 			printf "ideal '"$*"' | "
+> 			needfiles = 0
+> 		} else {
+> 			printf "ideal | "
+> 		}
+> 	}
+> 	if (tbl > 0) {
+> 		if (needfiles == 1) {
+> 			printf "tbl '"$*"' | "
+> 			needfiles = 0
+> 		} else {
+> 			printf "tbl | "
+> 		}
+> 	}
+> 	if (eqn > 0) {
+> 		if (needfiles == 1) {
+> 			printf "eqn '"$*"' | "
+> 			needfiles = 0
+> 		} else {
+> 			printf "eqn | "
+> 		}
+> 	}
+19c50,51
+< 	if (ms > 0) printf "-ms"
+---
+> 	if (ms > 0) printf "-ms "
+> 	if (needfiles == 1) printf "'"$*"'" 
