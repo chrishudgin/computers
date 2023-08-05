@@ -1,3 +1,7 @@
 6c
 	echo "echo `ls -l $i` 1>&2"
 .
+1a
+#
+# Modified to include metadata for each file with "ls -l"
+.
