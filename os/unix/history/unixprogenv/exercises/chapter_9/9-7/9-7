@@ -12,8 +12,11 @@ awk to process multiple matches for troff macro commands like .PP.
 Since replacing awk with other tools (*grep, sed, and shell logic) would
 require multiple additional process invocations, keeping awk in the script is
 desirable.  In fact, awk can perform all of the functions required for the
-script, and this is probably the fastest solution.
+script (except in 7th Edition UNIX where the shell must still provide the
+argument list to awk).  Reducing the number of processes and commands required
+to just awk itself, or just awk and the shell, produces what is probably the
+fastest solution.
 
 Using the "time" command confirms that on a modern (kernel verison 6.1) Linux
-system, the revised version of doctype that utilizes only awk runs several
-times as fast as the original.
+system, the revised version of doctype that utilizes only awk called by the
+shell runs approximately twice as fast as the original.
