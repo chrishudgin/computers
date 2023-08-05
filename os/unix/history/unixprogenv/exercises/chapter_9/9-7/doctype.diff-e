@@ -1,17 +1,16 @@
 21c
-}
-' $*
+} ' $*
 .
-1,5c
+5a
+BEGIN {
+        printf "cat '"$*"' | "
+}
+.
+1,4c
 # doctype, revised:  synthesize proper command line for troff, faster
 
 # Replaces invocation of echo (if not a builtin), egrep, and sort with
 # a single awk command invoked by the shell (so that command line arguments
 # can be passed to UNIX V7 AWK by the shell).
 
-awk ' 
-BEGIN {
-	printf "cat '$*'"
-	printf " | "
-}
 .
