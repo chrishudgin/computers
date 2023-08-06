@@ -1,0 +1,6 @@
+Make runs commands in rules by invoking the shell (/bin/sh by default)
+separately for each command.  Make considers a nonzero exit code from a command
+to be a failure and will abort processing if it occurs.  To direct make to
+continue processing anyway, precede the command in the makefile with a dash
+(-).  Note that the exit status of a command pipeline is the exit status of the
+last command in the pipeline.
