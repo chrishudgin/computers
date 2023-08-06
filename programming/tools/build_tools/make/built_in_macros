@@ -1,0 +1,7 @@
+The following are make's built-in macros:
+
+$@ : the target to be built
+$? : the dependencies younger than target
+$< : all dependencies for target
+$* : the filename prefix (without file extension) shared by the target and its
+     dependencies
