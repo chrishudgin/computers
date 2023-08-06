@@ -8,3 +8,8 @@ CC=cc
 CFLAGS=
 .c.o:
 	$(CC) $(CFLAGS) -c $<
+
+If a rule matches and the target does not yet exist, then the rule is run to
+create the target.  If the target exists, its last modification time is
+compared to those of its dependencies; if any dependencies were modified more
+recently than the target, then the rule is run to update (recreate) the target.
