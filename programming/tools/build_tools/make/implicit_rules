@@ -1,0 +1,10 @@
+If a rule is not found in the Makefile, an implicit rule will be used if one
+matches.  If neither a specified rule nor an implicit rule is found, the
+.DEFAULT rule (if any) specified in the Makefile will be used.
+
+Examples of some of the implicit default rules:
+
+CC=cc
+CFLAGS=
+.c.o:
+	$(CC) $(CFLAGS) -c $<
