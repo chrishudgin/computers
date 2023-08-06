@@ -1,0 +1,2 @@
+make -p : prints all macros and rules; if a makefile is present, also makes
+   the default target unless -f/dev/null is specified
