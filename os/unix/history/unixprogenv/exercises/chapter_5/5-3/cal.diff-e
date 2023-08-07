@@ -22,43 +22,9 @@ do
 done
 .
 9,23c
-		case $mb in
-		jan*|Jan*)	mb=1 ;;
-		feb*|Feb*)	mb=2 ;;
-		mar*|Mar*)	mb=3 ;;
-		apr*|Apr*)	mb=4 ;;
-		may*|May*)	mb=5 ;;
-		jun*|Jun*)	mb=6 ;;
-		jul*|Jul*)	mb=7 ;;
-		aug*|Aug*)	mb=8 ;;
-		sep*|Sep*)	mb=9 ;;
-		oct*|Oct*)	mb=10 ;;
-		nov*|Nov*)	mb=11 ;;
-		dec*|Dec*)	mb=12 ;;
-		[1-9]|10|11|12)	;;		# numeric month
-		*) echo "not a valid month $mb" 1>&2; exit 1 ;;
-		esac
-
-		case $me in
-		jan*|Jan*)	me=1 ;;
-		feb*|Feb*)	me=2 ;;
-		mar*|Mar*)	me=3 ;;
-		apr*|Apr*)	me=4 ;;
-		may*|May*)	me=5 ;;
-		jun*|Jun*)	me=6 ;;
-		jul*|Jul*)	me=7 ;;
-		aug*|Aug*)	me=8 ;;
-		sep*|Sep*)	me=9 ;;
-		oct*|Oct*)	me=10 ;;
-		nov*|Nov*)	me=11 ;;
-		dec*|Dec*)	me=12 ;;
-		[1-9]|10|11|12)	;;		# numeric month
-		*) echo "not a valid month $me" 1>&2; exit 1 ;;
-		esac
-
 		if test $me -lt $mb; then
 			me=`expr $me + 12`
-			if test "$yearinargs" -eq 1; then
+			if test $yearinargs -eq 1; then
 				y=`expr $y - 1`
 			fi
 		fi
@@ -104,6 +70,26 @@ done
 	esac
 	if test $2 = "-"; then
 		mb=$1; me=$3
+		for mbound in mb me
+		do
+			m=`eval echo '$'${mbound}`
+			case $m in
+			jan*|Jan*)	eval $mbound=1 ;;
+			feb*|Feb*)	eval $mbound=2 ;;
+			mar*|Mar*)	eval $mbound=3 ;;
+			apr*|Apr*)	eval $mbound=4 ;;
+			may*|May*)	eval $mbound=5 ;;
+			jun*|Jun*)	eval $mbound=6 ;;
+			jul*|Jul*)	eval $mbound=7 ;;
+			aug*|Aug*)	eval $mbound=8 ;;
+			sep*|Sep*)	eval $mbound=9 ;;
+			oct*|Oct*)	eval $mbound=10 ;;
+			nov*|Nov*)	eval $mbound=11 ;;
+			dec*|Dec*)	eval $mbound=12 ;;
+			[1-9]|10|11|12)	;;		# numeric month
+			*) echo "not a valid month $m" 1>&2; exit 1 ;;
+			esac
+		done
 .
 1a
 #
