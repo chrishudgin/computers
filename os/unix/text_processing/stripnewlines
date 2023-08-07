@@ -1,12 +1,17 @@
 #!/usr/bin/perl
 
 while ($a = <STDIN>) {
-	$a =~ s/\015$//g;
-	print $a;
+        $a =~ s/\n$/ /g;
+        print $a;
 }
 
+print "\n";
+
 # Other ways:
-# | tr "\n" " "; echo
-# | paste -d " " -s -
+# | (tr '\n' ' '; echo)
+# | paste -d ' ' -s -
+# | sed ':a;N;$!ba;s/\
+# / /g'
+# | awk '{printf("%s ", $0)} END {printf("\n")}'
 # | xargs
 # echo $(cat somefile_with_newlines)
