@@ -1,0 +1,21 @@
+"$*" expands to "$1 $2 $3 ..." as a single string
+"$@" expands to "$1" "$2" "$3" ... as multiple strings
+
+The difference can be seen in the following shell scripts:
+
+$ cat dollar_star
+for arg in "$*"
+do
+        echo $arg
+done
+$ ./dollar_star a b c
+a b c
+$ cat dollar_at
+for arg in "$@"
+do
+        echo $arg
+done
+$ ./dollar_at a b c
+a
+b
+c
