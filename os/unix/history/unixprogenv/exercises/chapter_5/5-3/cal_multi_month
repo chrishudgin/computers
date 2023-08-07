@@ -61,7 +61,7 @@ case $# in
 
 		if test $me -lt $mb; then
 			me=`expr $me + 12`
-			if test "$yearinargs" -eq 1; then
+			if test $yearinargs -eq 1; then
 				y=`expr $y - 1`
 			fi
 		fi
