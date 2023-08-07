@@ -1,3 +1,18 @@
+The following table is taken from the paper "An Introduction to the UNIX Shell"
+by S.R. Bourne:
+
+                      metacharacter
+	\	$	*	`	"	'
+'	n	n	n	n	n	t
+`	y	n	n	t	n	n
+"	y	y	n	y	t	n
+
+	t	terminator
+	y	interpreted
+	n	not interpreted
+
+*****
+
 Text within double quotes " " is not subject to globbing (including pathname
 expansion), tilde expansion, or brace expansion, but is still subject to
 variable substitution and command substitution.
