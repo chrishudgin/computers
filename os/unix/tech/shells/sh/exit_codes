@@ -1,0 +1,3 @@
+The $? variable contains the value of a command that has exited.  The value is
+either the exit code of the command or else decimal 128 plus the signal number
+if it was terminated by a signal.
