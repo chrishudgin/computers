@@ -1,0 +1,12 @@
+The comm(1) utility will show lines that are unique to one file or another or
+duplicated in both, but it requires its inputs to be files, not command outputs
+in a pipeline.
+
+To generate lists of lines that are unique to, or common to, the outputs of
+two commands, the following syntax can be used:
+
+Show lines common to output of cmd1 and cmd2:
+(cmd1 | sort | uniq -u; cmd2 | sort | uniq -u) | sort | uniq -d
+
+Show lines in output of cmd1 but not cmd2:
+((cmd1 | sort | uniq -u ; cmd2 | sort | uniq -u) | sort | uniq -u; cmd1) | sort | uniq -d
