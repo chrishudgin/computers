@@ -25,17 +25,15 @@ $cmd${num}  # Generates an error message since there are no commands "1" or "2"
 
 # With eval--run $cmd1 or $cmd2
 #
-# The trick is to delay substitution of $cmd until $num has been evaluated,
-# then allow $cmd1 or $cmd2 to be evaluated,
-# and finally to allow eval to run the resulting string as a command with
-# arguments
+# The trick is to delay substitution of $cmd... until $num has been evaluated,
+# then allow eval to evaluate $cmd1 or $cmd2 and run the resulting string
+# as a command with arguments
 #
 # The shell processes the input as follows, assuming num=2:
-# eval "$(echo \$cmd${num})"
-# eval "$(echo \$cmd2}"
-# eval "$cmd2"
+# eval \$cmd$num
+# eval $cmd2
 # eval "echo goodbye"
 # echo goodbye
 # Output is:  goodbye
 #
-eval "$(echo \$cmd${num})"
+eval \$cmd$num
