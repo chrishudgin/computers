@@ -28,7 +28,4 @@ whitespace may be contained within it.  It is therefore good practice when
 comparing strings to enclose in double quotes each side of the comparison.
 
 Example:
-[ "${MYSTRING}" = "foobar" ] && do some command
-
-Note: As long as the shell variable "nounset" is set to the default value of
-off, a variable expansion that yields an empty string is not an error.
+test "${MYSTRING}" = "foobar" && do some command
