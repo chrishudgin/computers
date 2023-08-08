@@ -22,3 +22,34 @@ EOF
 					b
 							c
 	EOF
+
+# Output of this portion of the script will be:
+# 123
+# abcBAR
+# def
+# since variable and command substitution is done and \<newline> is ignored
+
+FOO=BAR
+cat << EOF
+`echo 123`
+abc\
+$FOO
+def
+EOF
+
+# Output of this portion of the script will be:
+# `echo 123`
+# abc\
+# $FOO
+# def
+# since quoting the here document termination string prevents interpretation
+# of its contents (no variable or command substitution and \<newline> is
+# preserved)
+
+FOO=BAR
+cat << "EOF"
+`echo 123`
+abc\
+$FOO
+def
+EOF
