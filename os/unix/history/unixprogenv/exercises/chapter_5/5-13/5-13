@@ -1,12 +1,11 @@
 The : character is a shell command, albeit a command that does nothing except
 evaluate its arguments (after substitution) and return true.  It must therefore
 be used only in places where a shell command is syntactically valid, and can be
-used as a placeholder to fulfill a syntax requirement where no side effects are
-desired--for example, constituting the predicate of a "while" loop or as a
-no-operation clause in a compound if/then/else statement.  The ":" command can
-optionally be followed by text meant as a comment, but when it is used to
-protect comment text it must still be placed only in a context where a shell
-command is valid.
+used as a placeholder to fulfill a syntax requirement--for example,
+constituting the predicate or body of a "while" loop or as a clause in a
+compound if/then/else statement.  The ":" command can optionally be followed by
+text meant as a comment, but when it is used to protect comment text it must
+still be placed only in a context where a shell command is valid.
 
 An unquoted # comment character and any text that follows it are ignored by the
 shell, except for the special construction #!... which may appear as a shell
