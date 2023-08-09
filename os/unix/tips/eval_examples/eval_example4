@@ -1,0 +1,11 @@
+Metacharacters like the pipe symbol | are not interpreted after variable
+substitution.  Thus, the following will not work:
+
+$ wg='who | grep joe'
+$ $wg
+usage: who ....   # syntax error
+
+eval is required:
+$ wg='eval who | grep joe'
+$ $wg
+joe      console Aug  2 10:30
