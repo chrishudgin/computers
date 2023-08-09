@@ -1,4 +1,6 @@
 In the original Bourne Shell from 7th Edition UNIX, failure of a builtin
 command like "cd" in a shell script would, by design, cause the script to
 abort.  In modern shells like bash, a shell script will continue to execute
-even after a builtin command has failed.
+even after a builtin command has failed, unless the "-e" flag has been set for
+the shell (as in "set -e") which causes the shell to exit on all command
+failures (those that return a nonzero exit status).
