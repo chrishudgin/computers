@@ -1,0 +1,3 @@
+If a program is ignoring a signal, then that signal, if generated, will not be
+delivered to the program.  Hence, any custom trap handlers for the signal (as
+from using the "trap" command in a shell script) will not be run.
