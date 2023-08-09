@@ -16,5 +16,7 @@ done
 If a signal 2 (SIGINT) is received while waiting for input in "read x", the
 script exits.
 
-If "read x" returns EOF (as it would if Ctrl-D is entered at the prompt), then
-the while loop terminates and the rest of the script is executed.
+If "read x" receives EOF (as it would if Ctrl-D is entered at the prompt), then
+it returns a nonzero exit status, the while predicate that ends in the "read x"
+comamnd is therefore set to false, and the while loop terminates.  The rest of
+the script then executes.
