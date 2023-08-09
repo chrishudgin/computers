@@ -1,0 +1,6 @@
+Pipe synchronization between processes is done by the kernel as follows:
+
+The writing process is paused when the pipe buffer becomes full.
+The reading process is paused when the pipe buffer becomes empty.
+The reading process receives EOF on read when the buffer is empty and the
+   writing process's write file descriptor for the pipe is closed.
