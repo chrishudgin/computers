@@ -1,0 +1,27 @@
+There are multiple ways to check whether a variable ("foo" in the examples
+below") has been set:
+
+Method 1:
+
+${foo?}
+# The value of $foo is substituted if it is set.  If $foo has no value, then a
+# diagnostic message is printed ("parameter not set"), a nonzero return code is
+# set, and if the variable check is being done in a shell script, the script
+# aborts.
+
+The above technique is useful in a script where certain variables must be set
+previously, as in this example that uses the ":" command, which as a side
+effect evaluates its arguments:
+
+: ${foo?} ${bar?} ${baz?}
+# If any of the above variables are not set, the script aborts.
+
+Method 2:
+
+test "$foo"
+# returns true (0) if $foo is set
+
+If a variable's value is explicitly set to a null string, then it is considered
+"set" by the above methods.  However, test -n "$foo", which checks the string
+for nonzero length, will return false (nonzero return code) if $foo has been
+set to a null string.
