@@ -1,0 +1,23 @@
+In the original Bourne Shell from 7th Edition UNIX, I/O redirection targets
+are not subject to filename expansion.
+
+Example:
+
+$ ls
+$ cat > a.c
+1 2 3
+<Ctrl-D>
+$ cat > *.c
+foo bar
+<Ctrl-D>
+$ ls
+a.c
+*.c
+
+The redirection in "cat > *.c" did not append to the file called a.c but
+instead created a new file '*.c'.
+
+This behavior is retained in the Debian Almquist Shell, dash.
+
+In the Bourne Again Shell, bash, this behavior is changed and filename
+expansion is performed for shell I/O redirection targets.
