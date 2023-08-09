@@ -1,2 +1,3 @@
 Patterns in a "case" statement use shell globbing rules, not the regular
-expression matching rules used in tools like grep.
+expression matching rules used in tools like grep, but the patterns are
+compared to the string following the "case" keyword rather than to filenames.
