@@ -22,7 +22,7 @@ DELN=`echo "-1 * $VERSION + 1" | bc`
 nver=`grep -c '^@@@' $HFILE`
 if test $DELN -ge $nver; then
 	maxokver=`echo "-1 * $nver + 2" | bc`
-	echo "Invalid version $VERSION; must < 0 and >= $maxokver" 1>&2; exit 1
+	echo "Invalid version $VERSION; must be < 0 and >= $maxokver" 1>&2; exit 1
 fi
 
 awk < $HFILE > $HTMPFILE '
