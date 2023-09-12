@@ -1,0 +1,12 @@
+With no arguments, dc takes its input from standard input.  Once a read from
+standard input returns EOF, dc exits.
+
+dc in 7th Edition UNIX can take at most one filename argument, whose contents
+are processed as a command list before standard input is subsequently processed
+(by reading interactively from the terminal or, with shell input redirection,
+non-interactively from a file).
+
+In modern versions of dc such as the version in macOS or the GNU version in
+Linux, dc can process multiple filename arguments sequentially as command
+lists, but if filename arguments are given, standard input is not read and dc
+exits as soon as all files given on the command line have been processed.
