@@ -1,0 +1,24 @@
+dc supports multiple registers, each of which can contain a number, a string
+(which may be an executable procedure), or a stack of numbers and/or strings.
+Any single character can be used as the name of a register, thus providing at
+leat 256 registers theoretically.  dc also provides a main (unnamed) stack.
+
+Examples:
+
+# Push 8 to stack.  Pop the top of the stack into register x.
+8 sx 
+
+# Push the command string "5 3 + p" to stack.  Pop the top of the stack into
+# register x.
+[5 3 + p] sx
+
+# Push 8 to the register named "x", treating register "x" as a stack.
+# Push 9 to the register named "x", treating register "x" as a stack.
+# Push 5 to the main stack.
+# Pop the top of register x's stack (9) and push it to the main stack.
+# Pop the top two values on the main stack (9 and 5), multiply them, and push
+#    the result (45) to the main stack.
+# Pop the top of register x's stack (8) and push it to the main stack.
+# Pop the top two values on the main stack (8 and 45), add them, and push
+#    the result (53) to the main stack.
+8 Sx 9 Sx 5 Lx * Lx +

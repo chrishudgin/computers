@@ -1,0 +1,6 @@
+A negative number input to dc must be expressed by prepending an underscore (_)
+to the number.
+
+Example to add 5 to -3 and print the result:
+
+5 _3 + p

@@ -1,0 +1,18 @@
+A load operation "lx" (where x is any single letter naming a register) "loads"
+the value of the named register into the memory onto the top of the stack via a
+push.
+
+A store operation "sx" (where x is any single letter naming a register)
+"stores" the value from the memory at the top of the stack into the named
+register via a pop.
+
+Thus, the source and destination semantics of the "load" and "store" operations
+in dc are reversed from their usual meanings in assembly language programming
+in which a "load" copies from memory to a register and a "store" copies from a
+register to memory.
+
+When the "S" and "L" commands are capitalized, they move values between the
+main stack and the designated register (named by a single character) while
+treating the register as stack storage.  Thus, multiple stacks are possible.
+"Lx" pops from register "x" as a stack and pushes onto the main stack.
+"Sx" pops from the main stack and pushes onto register "x" as a stack.

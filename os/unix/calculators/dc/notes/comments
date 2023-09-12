@@ -1,0 +1,2 @@
+The version of dc included with 7th Edition UNIX does not recognize a comment
+character.  In modern versions of dc, the # symbol is a comment character.
