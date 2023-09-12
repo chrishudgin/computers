@@ -1,7 +1,12 @@
 dc supports multiple registers, each of which can contain a number, a string
 (which may be an executable procedure), or a stack of numbers and/or strings.
 Any single character can be used as the name of a register, thus providing at
-leat 256 registers theoretically.  dc also provides a main (unnamed) stack.
+least 256 registers theoretically.  dc also provides a main (unnamed) stack.
+
+Printing the value on the top of the stack can be done with the "p" command.
+Printing the value of a register requires first placing it on the stack (with
+an "l" command, e.g. "lx" to load register x to the stack) and then printing
+the top of the stack with the "p" command.
 
 Examples:
 
