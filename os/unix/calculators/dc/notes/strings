@@ -1,0 +1,16 @@
+A string can be pushed to the stack using the [...] command.
+
+Examples:
+
+[* 3 +]
+[This is a string that could be printed as an inline comment during execution.]
+
+The "x" command pops a string from the stack and executes it as a sequence of
+dc commands.
+
+The "p" (lower case p) command prints (but does not pop) the top value on the
+stack, whether it is a number or a string.
+
+The "P" (capital P) command pops a string from the stack and prints it.  To be
+printable, the string must be stored as ASCII characters, not a value stored as
+a number.
