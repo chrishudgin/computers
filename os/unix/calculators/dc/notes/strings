@@ -1,5 +1,7 @@
 A string can be pushed to the stack using the [...] command.
 
+Strings can be nested, as in [[some text]P]
+
 Examples:
 
 [* 3 +]
