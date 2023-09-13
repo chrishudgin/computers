@@ -1,9 +1,17 @@
-The ? command causes a number to be read from one line of standard input.  This
-allows dynamically generated numbers to be used as input to a script.
+The ? command causes a dc input line to be read from standard input.  This
+allows dynamically generated numbers and commands to be used as input to a
+script.
 
-Example:
+Examples:
 
 $ cat dcscript
 ??+p
 $ (echo 5; echo 3) | dc dcscript
 8
+
+$ cat dcscript
+5 3 ? p
+$ echo + | dc dcscript
+8
+$ echo - | dc dcscript
+2
