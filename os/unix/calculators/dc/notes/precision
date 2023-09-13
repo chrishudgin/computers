@@ -1,0 +1,14 @@
+dc allows arbitrary precision in any base.  The current precision is changed
+with the "k" command which pops the top value (a non-negative integer) from the
+stack and uses it as the "scale factor" (precision after fractional point) for
+fractional calculations and results.
+
+The default precision is 0, meaning no digits after a fractional point are used
+in calculations or printed in results.  Effectively, this means dc operates in
+integer math mode by default.
+
+Example, using >>> as an input prompt for clarity:
+
+>>> 5 k
+>>> 3 7 / p
+.42857

@@ -1,0 +1,18 @@
+dc is implemented internally with base-100 representation of numbers, but input
+and output radices can be set arbitrarily to any integer value.  Since the "o"
+command to set the output base interprets the value it is given (from the
+stack) according to the current input base, the output base should be set
+before the input base is changed if both are to be modified using the same
+digits in the given value.
+
+Example:
+
+# Set bases to 16 (i.e. hexadecimal), starting with output base
+16 o
+16 i
+
+# Set bases to 16 (i.e. hexadecimal), starting with input base
+16 i
+10 o
+# Since input base is 16, output base must be specified as hexadecimal 10
+# which equals decimal 16.
