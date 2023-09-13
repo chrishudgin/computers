@@ -1,11 +1,32 @@
 Recursive procedures are possible by:
 
 Pushing a string containing a command sequence to the stack ("[...]")
-Duplicating it ("d")
-Popping and executing it ("x")
+Storing it in a register ("sx")
+Loading it to the stack ("lx")
+Executing it from the stack ("x")
 
-if the command sequence itself contains a command to pop and execute the stack
-again ("x")
+... when the command sequence contains a command to execute itself (as by
+referencing the named register that contains the command sequence string).
 
-Recursion can be limited by the use of the "q" and "Q" commands to move back
-up a specified number of recursion levels.
+Recursion can be limited by the use of the "q" and "Q" commands to move back up
+a specified number of recursion levels, or by placing a conditional command in
+the recursive procedure to decide whether a further recursive call to the
+procedure will be made.
+
+Example:
+
+# Starting with 1, add 3 and print until the number has exceeded 20
+# The "a" register holds the rolling result number to add to 3 each iteration
+# and the "y" register holds the executable procedure string (inside brackets)
+# The input prompt is ">>>"
+>>> [la 3 + d sa p 20 >y] sy
+>>> 1 sa
+>>> ly
+>>> x
+4
+7
+10
+13
+16
+19
+22

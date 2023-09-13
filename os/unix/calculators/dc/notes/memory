@@ -8,6 +8,9 @@ Printing the value of a register requires first placing it on the stack (with
 an "l" command, e.g. "lx" to load register x to the stack) and then printing
 the top of the stack with the "p" command.
 
+The stack can be cleared with the "c" command, but this does not clear the
+values in registers.
+
 Examples:
 
 # Push 8 to stack.  Pop the top of the stack into register x.
