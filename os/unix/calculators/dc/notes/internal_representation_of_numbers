@@ -1,0 +1,66 @@
+dc in 7th Edition UNIX uses base-100 representation for numbers, where each
+digit has a range of 00-99 and occupies one byte.
+
+Numbers are stored in memory in little-endian order (least significant digits
+first).
+
+0 is represented as an "empty" digit sequence.
+
+Negative numbers are represented in 100's complement form, with a high-order
+digit of -1.
+
+The digit preceding the -1 in a negative number cannot be 99 in canonical form
+(the form in which a number must be stored before arithmetic can be done on
+it).  When a 99 occurs adjacent to -1 following an arithmetic operation, any 99
+digit, or sequence of 99 digits, that is followed by the high order -1 is
+replaced by -1 alone.  This simplification can be done because any successive
+99s in the higher-order digits are just placeholders unnecessarily expanding
+the storage size of the number beyond the required number of digits to express
+its (negative) value.  This principle is analogous to that in 2's complement
+wherein high-order 1 bits for a negative number are used to fill space up to
+the machine's word size.  The difference is that in dc, the storage used for
+each number is dynamic and occupies only the minimum required space, being
+shrunk whenever possible by removing any superfluous high-order digits.
+
+Examples:
+
+157 is represented as two base-100 digits, 57 1.
+-157 is represented as 43 98 -1.
+
+157 + -157
+= 57 1 + 43 98 -1
+= 57+43 1+98 -1
+= 00 (carry 1) 99 -1
+= 00 00 (carry 1) -1
+= 00 00 01 + -1
+= 00 00 0
+Leading zeros are then removed.
+
+157 + -1
+= 57 1 + -1
+= 56 1
+
+157 + -156
+= 57 1 + 44 98 -1
+= 57+44 1+98 -1
+= 01 (carry 1) 99 -1
+= 01 00 (carry 1) -1
+= 01 00 01 + -1
+= 01 00 00
+= 01
+
+157 + -158
+= 57 1 + 42 98 -1
+= 57+42 1+98 -1
+= 99 99 -1
+= -1
+
+157 + -159
+= 57 1 + 41 98 -1
+= 98 99 -1
+= 98 -1   (representing the value -2)
+
+157 + -160
+= 57 1 + 40 98 -1
+= 97 99 -1
+= 97 -1   (representing the value -3)
