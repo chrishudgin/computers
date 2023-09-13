@@ -1,0 +1,12 @@
+Conditional execution in dc is accomplished with the <, >, and = commands.
+Each is followed by a named register which contains a string of one or more dc
+commands.  The commands stored in the register are executed if the comparison
+relation is true for the top two elements of the stack, which are popped.  The
+top element of the stack is used for the left hand side of the comparison, and
+the next element is used for the right hand side.
+
+Example (with ">>>" input prompt for clarity):
+>>> [3 is less than 5.
+>>> ]
+>>> [P] sx 5 3 <x
+3 is less than 5.

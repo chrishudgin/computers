@@ -1,0 +1,11 @@
+Recursive procedures are possible by:
+
+Pushing a string containing a command sequence to the stack ("[...]")
+Duplicating it ("d")
+Popping and executing it ("x")
+
+if the command sequence itself contains a command to pop and execute the stack
+again ("x")
+
+Recursion can be limited by the use of the "q" and "Q" commands to move back
+up a specified number of recursion levels.
