@@ -5,7 +5,7 @@ stack) according to the current input base, the output base should be set
 before the input base is changed if both are to be modified using the same
 digits in the given value.
 
-Example:
+Examples:
 
 # Set bases to 16 (i.e. hexadecimal), starting with output base
 16 o
@@ -16,3 +16,8 @@ Example:
 10 o
 # Since input base is 16, output base must be specified as hexadecimal 10
 # which equals decimal 16.
+
+*****
+
+Hexadecimal numbers with digits A-F must use upper case for them since lower
+case letters would collide with dc commands.
