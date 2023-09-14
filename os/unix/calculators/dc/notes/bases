@@ -1,9 +1,10 @@
 dc in 7th Edition UNIX is implemented internally with base-100 representation
-of numbers, but input and output radices can be set arbitrarily to any integer
-value between 1 and 16 inclusive.  Since the "o" command to set the output base
-interprets the value it is given (from the stack) according to the current
-input base, the output base should be set before the input base is changed if
-both are to be modified using the same digits in the given value.
+of numbers, but the output radix can be set to an arbitrary integer and input
+radix can be set to any integer value between 1 and 16 inclusive.  The current
+input base is considered when pushing any number to the stack, including when
+that number will subsequently be used as the output base by the "o" command.
+For this reason, the output base should be set before the input base is changed
+if both are to be modified using the same digits for a given value.
 
 Examples:
 
