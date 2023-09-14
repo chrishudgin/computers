@@ -6,6 +6,10 @@ first).
 
 0 is represented as an "empty" digit sequence.
 
+Fractional components of a number (if any) are quantified by a "scale factor"
+(number of fractional digits) stored internally as an integer along with each
+number.
+
 Negative numbers are represented in 100's complement form, with a high-order
 digit of -1.
 
