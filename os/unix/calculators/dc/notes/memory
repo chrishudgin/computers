@@ -8,6 +8,11 @@ Printing the value of a register requires first placing it on the stack (with
 an "l" command, e.g. "lx" to load register x to the stack) and then printing
 the top of the stack with the "p" command.
 
+The "z" command determines the value of the current stack level (number of
+items on the stack) and pushes that number to the stack.  Note that the pushed
+value does not reflect the increase in stack level that has just occurred due
+to the push performed by the "z" command itself.
+
 The stack can be cleared with the "c" command, but this does not clear the
 values in registers.
 
