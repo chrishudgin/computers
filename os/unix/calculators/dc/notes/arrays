@@ -1,0 +1,39 @@
+dc supports arrays named with a single character.  There are two array
+commands, primarily intended for use by compilers like the original
+implementation of bc:
+
+:x pops the stack and uses the value obtained as an index into the array x,
+  then pops the stack again and stores the value obtained at the indexed
+  location in x.
+
+;x pops the stack and uses the value obtained as an index into the array x,
+   then pushes the value at that location in x onto the stack.  The contents
+   of the array x are not changed.
+
+Array indexes must be nonnegative integers.  It is not necessary to fill lower
+indexed locations in an array before using higher indexed locations.  Unfilled
+array locations are considered to have the value 0.
+
+Example, using >>> as the dc prompt for clarity:
+>>> 2.54 0 :x
+>>> f
+empty stack
+>>> 0 ;x
+>>> f
+2.54
+>>> 0 ;x
+>>> f
+2.54
+2.54
+>>> 6 2 :x
+>>> 1 ;x
+>>> f
+0
+2.54
+2.54
+>>> 2 ;x
+>>> f
+6
+0
+2.54
+2.54
