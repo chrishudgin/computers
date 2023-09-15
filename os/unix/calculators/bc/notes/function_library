@@ -1,0 +1,12 @@
+bc includes a library of mathematical functions that are available if bc is run
+with the "-l" command-line option:
+
+s(x) : sine of x
+c(x) : cosine of x
+a(x) : arctangent of x
+l(x) : natural logarithm of x
+e(x) : exponential function of x
+j(n,x) : n-order Bessel function of x
+
+When bc is invoked with the "-l" option, scale is automatically set to 20
+rather than the default value of 0.
