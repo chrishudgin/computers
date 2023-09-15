@@ -1,0 +1,6 @@
+Some versions of bc, including GNU bc and the version in 7th Edition UNIX but
+not the versions in macOS or FreeBSD, have a "compile" (-c) command line option
+to translate input into a lower-level form.  In 7th Edition UNIX, bc was
+implemented as a front-end language compiler for dc, so the "-c" option
+translates input into dc commands.  GNU bc has its own bytecode that is not in
+dc syntax, so GNU bc compiles input into its native bytecode.
