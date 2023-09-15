@@ -1,5 +1,5 @@
-bc includes a library of mathematical functions that are available if bc is run
-with the "-l" command-line option:
+bc includes a library of mathematical functions implemented in the bc language
+that are available if bc is run with the "-l" command-line option:
 
 s(x) : sine of x
 c(x) : cosine of x
