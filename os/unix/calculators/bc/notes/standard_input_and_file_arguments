@@ -1,0 +1,7 @@
+With no arguments, bc takes its input from standard input.  Once a read from
+standard input returns EOF, bc exits.
+
+Unlike dc in 7th Edition UNIX, bc can take multiple filename arguments.  Their
+contents are processed sequentially as a command list before standard input is
+subsequently processed (by reading interactively from the terminal or, with
+shell input redirection, non-interactively from a file).
