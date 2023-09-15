@@ -1,7 +1,7 @@
 The names of user-defined variables, arrays, and functions consist of a single
-letter.  Because the syntax of the three entities listed above is unique to
-each, the same letter can be used simultaneously for a variable, an array,
-and/or a function without conflict or ambiguity.
+lower case letter.  Because the syntax of the three entities listed above is
+unique to each, the same letter can be used simultaneously for a variable, an
+array, and/or a function without conflict or ambiguity.
 
 Example, using >>> as a prompt for clarity:
 
