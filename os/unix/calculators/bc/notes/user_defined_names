@@ -3,6 +3,8 @@ lower case letter.  Because the syntax of the three entities listed above is
 unique to each, the same letter can be used simultaneously for a variable, an
 array, and/or a function without conflict or ambiguity.
 
+Functions must be defined using the "define" keyword.
+
 Example, using >>> as a prompt for clarity:
 
 >>> a=5+4
