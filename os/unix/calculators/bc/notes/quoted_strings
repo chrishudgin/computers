@@ -1,0 +1,9 @@
+Strings of text may be printed by enclosing them in quotes.
+
+Example, using >>> as a prompt for clarity:
+
+>>> 5+4
+9
+>>> "The previous value computed was 9.
+"
+The previous value computed was 9.
