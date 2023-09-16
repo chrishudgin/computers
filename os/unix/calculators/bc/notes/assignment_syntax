@@ -1,0 +1,4 @@
+bc in 7th Edition UNIX recognizes pre-ANSI C assignment/operation combination
+operators such as =+ and =/ but not the equivalent ANSI C style combination
+operators like += and /= .  Modern versions of bc recognize only the ANSI C
+versions of the combination operator syntax, not the obsolete syntax.
