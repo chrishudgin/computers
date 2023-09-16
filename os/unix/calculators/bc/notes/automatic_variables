@@ -1,0 +1,14 @@
+bc supports "automatic" variables in functions as in C.  These variables are
+declared with the "auto" keyword in the first line of a function and are
+initialized to 0.  Each instantiation of a function (for example during
+recursive calls) has its own independent set of automatic variables, again as
+in C.  
+
+Example:
+
+define a(x){
+	auto q, z
+	q=2
+	z = x^q
+	return (z)
+}

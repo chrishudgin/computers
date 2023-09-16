@@ -1,0 +1,19 @@
+Unlike dc, bc supports arrays directly using the same syntax as in C.
+
+bc arrays are strictly one dimensional.
+
+When an array is used as a function argument, a function parameter, or an
+automatic variable, it is written as the array name followed by an empty
+bracket pair.
+
+Example, with >>> as the prompt for clarity:
+
+>>> define f(x[]){
+>>>	auto y[]
+>>>	y[2]=x[0]+x[1]
+>>>	return (y[2])
+>>> }
+>>> a[0]=5
+>>> a[1]=7
+>>> f(a[])
+12
