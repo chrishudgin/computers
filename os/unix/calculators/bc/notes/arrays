@@ -6,6 +6,8 @@ When an array is used as a function argument, a function parameter, or an
 automatic variable, it is written as the array name followed by an empty
 bracket pair.
 
+Whole arrays cannot be function return values.
+
 Example, with >>> as the prompt for clarity:
 
 >>> define f(x[]){
