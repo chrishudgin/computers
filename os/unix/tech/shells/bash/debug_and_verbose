@@ -1,0 +1,55 @@
+The debug (-x) and verbose (-v) flags can be used together for debugging
+purposes.
+
+-x : Displays each shell command after expansion and substitution
+     have been performed on the command line.  To each command string
+     displayed is prepended one or more times by the value of the PS4 variable,
+     which defaults to the '+' character.  The number of PS4 strings ('+' signs)
+     preceding a printed command string indicates the shell nesting (subshell)
+     level within a script (which may not correspond exactly to the value of
+     $SHLVL).  A single '+' preceding a command indicates execution in the
+     top level shell of the script or interactive command line.
+
+-v : Displays each command before expansion and substitution have been performed
+     on the command line.
+
+Combining the -x and -v options results in displaying each command both before
+and after expansion and substitution have been performed, which is useful for
+checking that the resulting strings have the expected contents.
+
+Example:
+
+$ cat debug_test.sh
+echo $SHLVL
+ls $HOME
+echo $(echo $(echo $(echo $SHLVL)))
+$ bash -x ./debug_test.sh
++ echo 2
+2
++ ls /home/myuser
+Desktop  Documents  Downloads  Music  Pictures	Public	Templates  Videos
+++++ echo 2
++++ echo 2
+++ echo 2
++ echo 2
+2
+$ bash -v ./debug_test.sh
+echo $SHLVL
+2
+ls $HOME
+Desktop  Documents  Downloads  Music  Pictures	Public	Templates  Videos
+echo $(echo $(echo $(echo $SHLVL)))
+2
+$ bash -xv ./debug_test.sh
+echo $SHLVL
++ echo 2
+2
+ls $HOME
++ ls /home/chudgin
+Desktop  Documents  Downloads  Music  Pictures	Public	Templates  Videos
+echo $(echo $(echo $(echo $SHLVL)))
+++++ echo 2
++++ echo 2
+++ echo 2
++ echo 2
+2
