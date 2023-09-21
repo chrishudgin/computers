@@ -146,6 +146,12 @@ being interpreted by the shell as a string "1 2 3".
 
 To preserve exactly the arguments sent to the shell, without them being further
 grouped or broken apart, use "$@"  (note the use of double quotes)
+
+The loop syntax
+   for <varname>  (without any additional arguments, e.g., for i)
+works identically to
+   for <varname> in "$@"
+
 $@ (without quotes) is exactly the same as $*
 
 5.8
