@@ -1,0 +1,29 @@
+The variables $_ and $! can both be used to expand to the final argument on a
+command line, but they do not work identically.
+
+$_ expands to the final argument seen by the previously invoked command.
+   It therefore does not include I/O redirections such as "> /myfile" since
+   they are processed by the shell and not sent to or seen by the command in
+   its argument list.
+
+!$ expands to the final word of the previously entered command line.
+  It therefore will include an I/O redirection target (without the
+  redirection symbol) if one appears at the end of the previous command line.
+
+Examples:
+
+$ ls /usr /home > outfile
+$ echo $_
+/home
+$ ls /usr /home > outfile
+$ echo !$
+echo outfile
+outfile
+
+$ ls /usr /home >outfile
+$ echo $_
+/home
+$ ls /usr /home >outfile
+$ echo !$
+echo outfile
+outfile
