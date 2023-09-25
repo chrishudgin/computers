@@ -1,0 +1,31 @@
+Three different AWK packages are available in the Debian 11 software
+repositories:
+
+mawk
+gawk
+original-awk
+
+mawk is the AWK variant installed by default, available as /usr/bin/mawk,
+/usr/bin/awk, and /usr/bin/nawk.
+
+If original-awk is installed, it is available as /usr/bin/original-awk.  If
+original-awk is configured as /usr/bin/awk by using
+/usr/bin/update-alternatives, then the symlink /usr/bin/nawk is removed.
+
+If gawk is installed, it is available as /usr/bin/gawk and also replaces mawk
+as the active /usr/bin/awk and /usr/bin/nawk unless subsequently reconfigured
+with /usr/bin/update-alternatives.
+
+To configure a different awk for use as /usr/bin/awk, run:
+
+# update-alternatives --config awk
+There are 3 choices for the alternative awk (providing /usr/bin/awk).
+
+  Selection    Path                   Priority   Status
+------------------------------------------------------------
+  0            /usr/bin/gawk           10        auto mode
+  1            /usr/bin/gawk           10        manual mode
+* 2            /usr/bin/mawk           5         manual mode
+  3            /usr/bin/original-awk   0         manual mode
+
+Press <enter> to keep the current choice[*], or type selection number:
