@@ -1,0 +1,9 @@
+"Personal computers have capabilities that rival the mainframes of a decade
+ago."
+
+Among the characteristics of mainframes such as the IBM System/370 in 1978 were
+32-bit general purpose registers, 64-bit floating point processing with
+dedicated instructions, around 5 MIPS of processing performance, up to 16 MB of
+RAM, and memory management hardware that provided virtual memory and memory
+protection capabilities.  By 1988, all of these features were standard in
+80386-based PCs.
