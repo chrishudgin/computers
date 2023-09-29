@@ -1,5 +1,0 @@
-"C retains the basic philosophy that programmers know what they are doing; it
-only requires that they state their intentions explicitly."
-
-An example of "stating one's intentions explicitly" is the use of casts to
-convert the value of an expression from one data type to another data type.
