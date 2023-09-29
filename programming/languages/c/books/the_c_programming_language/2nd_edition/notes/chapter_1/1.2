@@ -5,9 +5,23 @@ not in the middle of a variable name, for example.
 
 *****
 
+"In C, all variables must be declared before they are used, usuaully at the
+beginning of a function before any executable statements."
+
+In ANSI C, all variable declarations that are made within a block must appear
+at the beginning of the block, except for declarations that are made within a
+nested block and are local to that nested block, which must occur at the
+beginning of the nested block.
+
+Later versions of the C standard allow variables to be declared after one or
+more executable statements, as long as the variables are declared before they
+are used.
+
+*****
+
 “%6d	print as decimal integer, at least 6 characters wide”
 
 Format width specifiers to printf determine the minimum printed width of a
-field, not the maximum. Thus, %6d means "at least six characters wide, with a
-larger width being used if necessary".  The decimal point itself is counted as
-part of the field width.
+field, not the maximum. Thus, "%6d" means "at least six characters wide, with a
+larger width being used if necessary".  For floating point numbers, the decimal
+point is counted as part of the field width.
