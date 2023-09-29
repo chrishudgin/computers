@@ -23,5 +23,6 @@ are used.
 
 Format width specifiers to printf determine the minimum printed width of a
 field, not the maximum. Thus, "%6d" means "at least six characters wide, with a
-larger width being used if necessary".  For floating point numbers, the decimal
-point is counted as part of the field width.
+larger width being used if necessary".  For negative numbers, a leading
+negative sign (-) is counted as part of the field width.  For floating point
+numbers, the decimal point (if printed) is counted as part of the field width.
