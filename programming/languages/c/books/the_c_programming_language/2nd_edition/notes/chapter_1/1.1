@@ -1,0 +1,10 @@
+'A sequence of characters in double quotes, like "hello, world\n" is called a
+_character string_ or _string constant_.'
+
+A literal string in a C program should indeed be treated as a constant, meaning
+no attempt should be made to modify it or any part of it through, for example,
+array element assignment or pointer dereferencing.  Per the ANSI C standard
+(section 6.1.4), attempting to modify a string literal results in undefined
+behavior.  Unix-like systems may place a program's string constants in a
+read-only memory segment to prevent modification, but this convention is not
+guaranteed.
