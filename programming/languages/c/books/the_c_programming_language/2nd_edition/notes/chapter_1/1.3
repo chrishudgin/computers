@@ -1,10 +1,14 @@
 “The initialization, condition, and increment can be any expressions.”
 
-In particular, the expressions do not have to be assignment (=) or relational
-(<=, etc.) expressions.  Expressions in "for" loops and elsewhere can also be
-empty.  Thus, this "forever" loop statement is legal in C:
+In particular, the expressions do not have to be assignment (=), relational
+(<=, etc.), or value-incrementing expressions.  Moreoever, all three
+expressions in a "for" loop are optional.  The following is therefore legal
+syntax to specify the start of a "for" loop:
 
 for (;;)
+
+If the middle expression is omitted, a nonzero constant value is subsituted for
+it, meaning that it will always evaluate to true and the loop will be infinite.
 
 *****
 
