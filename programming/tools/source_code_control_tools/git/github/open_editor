@@ -1,0 +1,4 @@
+In a web browser, open a file browsing tree and text editor in the current
+GitHub repository directory by pressing the dot (.) key.  This allows changes
+to be made directly in the repo instead of having to be made remotely and then
+pushed.
