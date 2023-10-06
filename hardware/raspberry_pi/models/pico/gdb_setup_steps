@@ -1,4 +1,4 @@
-Follow the steps in serial_uart_setup.
+Follow the steps in serial_uart_setup_steps.
 
 Connect GPIO pins on the Raspberry Pi 400 to the serial wire debug (SWD) pins
 on the Raspberry Pi Pico as follows:
