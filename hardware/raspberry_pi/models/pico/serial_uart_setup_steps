@@ -1,17 +1,25 @@
 Connect GPIO pins from Raspberry Pi 400 to Raspberry Pi Pico as follows:
-
 Serial UART:
 Raspberry Pi 400		Raspberry Pi Pico
 GND (Pin 14)			GND (Pin 3)
 GPIO15 (UART_RX0, Pin 10)	GP0 (UART0_TX, Pin 1)
 GPIO14 (UART_TX0, Pin 8)	GP1 (UART0_RX, Pin 2)
 
-Configure the serial port on the Raspberry Pi 400:
+Or connect Raspberry Pi Debug Probe UART connector to Pico as follows:
+Raspberry Pi Debug Probe	Raspberry Pi Pico
+GND (black wire)		GND (Pin 3)
+RX (yellow wire)		GP0 (UART0_TX, Pin 1)
+TX (orange wire)		GP1 (UART0_RX, Pin 2)
+
+Configure the serial port on the Raspberry Pi 400 if using a direct connection:
 $ sudo raspi-config
 and go to Interfacing Options → Serial and select "No" when asked "Would you
 like a login shell to be accessible over serial?" and "Yes" when asked "Would
 you like the serial port hardware to be enabled?"
 
 Connect to the serial port:
+If wired from Pi 400 to Pico:
 $ minicom -b 115200 -o -D /dev/serial0   # serial0 should be a link to ttyS0
                                          # or to ttyAMA0
+If wired from Raspberry Pi Debug Probe to Pico:
+$ minicom -b 115200 -o -D /dev/ttyACM0
