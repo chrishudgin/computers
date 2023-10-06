@@ -9,7 +9,7 @@ GND (Pin 20)		SWD GND
 GPIO24 (Pin 18)		SWDIO
 GPIO25 (Pin 22)		SWCLK
 
-OpenOCD with Pico SDK 0.12:
+OpenOCD from rp2040-v0.12.0 branch:
 Raspberry Pi 400	Raspberry Pi Pico
 GND (Pin 20)		SWD GND
 GPIO8 (Pin 24)		SWDIO
@@ -49,8 +49,9 @@ Install GDB for cross-platform debugging:
 Start OpenOCD and leave it running in a terminal window:
 Old Pico SDK with original Pico:
 $ openocd -f interface/raspberrypi-swd.cfg -f target/rp2040.cfg
-Pico SDK 0.12 with Pico WH and Raspberry Pi Debug Probe running firmware 1.3:
-
+OpenOCD rp2040-v0.12.0 branch with Pico WH and Raspberry Pi Debug Probe
+running firmware 1.3:
+$ sudo openocd -f interface/cmsis-dap.cfg -f target/rp2040.cfg -c "adapter speed 5000"
 
 Start an OpenOCD command session:
 $ telnet localhost 4444
