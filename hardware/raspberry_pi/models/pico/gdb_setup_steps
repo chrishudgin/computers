@@ -66,5 +66,5 @@ $ gdb-multiarch hello_serial.elf
 (gdb) target remote localhost:3333
 (gdb) load
 (gdb) monitor reset init
-(gdb) b main   (if a breakpoint is desired)
+(gdb) b *main   (if a breakpoint is desired)
 (gdb) continue
