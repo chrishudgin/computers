@@ -1,0 +1,9 @@
+"++nc" could potentially be more efficient than "nc = nc + 1" when compiled
+into assembly language if the compiler assembles "++nc" into an
+increment-in-place (e.g. INC) instruction and "nc = nc + 1" into a sequence of
+a load, add immediate, and store instruction.  An increment instruction with an
+optimizing compiler could even choose to increment the value of nc in a
+register without writing back to main memory.  On the other hand, the
+load-add-store instruction sequence would be necessary if nc were declared as
+volatile, meaning its value would have to be fetched from memory external to
+the CPU before modification.
