@@ -1,0 +1,10 @@
+This statement is syntactically valid and can therefore be evaluated:
+
+if (c == (' ' || '\n' || '\t'))
+
+C would evaluate the statement by checking, in order from left to right,
+whether the clauses separated by || operators are "true" (nonzero) or "false"
+(0).  Since the first character evaluated, ' ', has a nonzero value (for
+example in the ASCII table), the resulting compound || statement always
+evaluates to true (nonzero).  The "if" condition therefore evaluates to "true"
+as well.
