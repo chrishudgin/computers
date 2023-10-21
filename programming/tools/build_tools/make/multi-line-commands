@@ -1,0 +1,8 @@
+A multi-line command in a makefile must be terminated with a line continuation
+character in order for make to run it as a single command.
+
+Futhermore, each line in a multi-line embedded shell script must be terminated
+by a semicolon followed by the line continuation character.  This is because
+make executes the embedded multi-line shell script on a single command line
+with the newlines that separated commands removed; semicolons must therefore be
+used instead to separate individual shell commands within the embedded script.
