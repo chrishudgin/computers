@@ -2,7 +2,7 @@
 #
 # Modified to split long lines at spaces or tabs when possible.
 # If a long line contains no spaces or tabs, the line will be split at N
-# characters (default 80) within a word, with hyphenation.
+# characters (default 80) within a word, with hyphenation added.
 
 sed 's/	/        /g' $* |	# convert tabs to 8 spaces
 awk '
