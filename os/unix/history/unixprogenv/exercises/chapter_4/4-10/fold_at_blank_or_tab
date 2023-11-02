@@ -48,15 +48,7 @@ BEGIN {
         # otherwise, print up through the split point and pad with spaces
         else {
             for (k = 1; k <= N - splitpt; k++) {
-                if (firstseg == 1) {
-                    # skip up to k spaces when printing the next segment
-                    # to account for padding we added on this segment
-                    if ( ((k + splitpt) <= linelen) && (a[k + splitpt] == " ") ) {
-                        printed++
-                        n--
-                    }
-                }
-                else {
+                if (firstseg != 1) {
                     printf(" ")  # left padding for middle segments
                 }
             }
