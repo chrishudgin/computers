@@ -47,16 +47,16 @@ BEGIN {
         }
         # otherwise, print up through the split point and pad with spaces
         else {
-            k = N - splitpt + 1
+            k = N - splitpt
             if (firstseg != 1) {
-                for (lpad = 1; lpad < k; lpad++) {
+                for (lpad = 1; lpad <= k; lpad++) {
                     printf(" ")  # left padding for middle segments
                 }
             }
             # print line segment
             printf("%s", substr($0,printed+1,splitpt))
             if (firstseg == 1) {
-                for (rpad = 1; rpad < k; rpad++) {
+                for (rpad = 1; rpad <= k; rpad++) {
                     printf(" ")  # right padding for first segment
                 }
             }
