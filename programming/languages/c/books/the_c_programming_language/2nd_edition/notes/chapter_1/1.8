@@ -1,0 +1,12 @@
+"By subscripting [the address of the beginning of an array], the function can
+access and alter any element of the array [that was passed to it as an
+argument]."
+
+However, even in the case of passing an array name as an argument to a
+function, C still uses call by value for the argument that is passed.  In the
+case of an array name, the value being passed is a pointer to the first element
+of the array, not the array itself or any of its elements, and the function
+receives a copy of the pointer's value just as it would receive a copy of the
+value of any other argument type.  Thus, the called function still cannot alter
+the calling function's own copy of the pointer's value, even though it can, if
+desired, alter the data to which the pointer points.
