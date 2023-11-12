@@ -1,0 +1,18 @@
+"Function definitions can appear... in one source file or several...."
+
+This does not mean that the definition of a single function can appear in
+multiple source files in the same program.  Functions, like variables, can only
+be defined once in a program.  However, they can be declared more than once, as
+in function prototypes, as long as the types used in all of the declarations
+and defintions for a given function match each other.
+
+"It is an error if the definition of a function or any uses of it do not agree
+with its prototype."
+
+It is, however, not necessarily treated as an error or even a warning by the
+compiler if the types of a function's parameters do not match the types of the
+arguments sent to it.  Some type conversions, such as trunctating floating
+point arguments for use as integer parameters, may be done silently even if
+there is, strictly speaking, a type mismatch.  Program verifiers like "lint"
+and its relatives may catch such type mismatches and emit diagnostic messages
+when they are found, even if a given compiler does not.
