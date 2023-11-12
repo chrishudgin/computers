@@ -2,4 +2,4 @@
 names of the variables they manipulate."
 
 Using external variables in the place of function parameters defeats the
-principle of function modularity and thus also limits code reuse.
+principle of encapsulation and thus also limits code reuse.
