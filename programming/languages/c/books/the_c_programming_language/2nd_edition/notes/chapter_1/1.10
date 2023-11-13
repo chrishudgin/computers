@@ -5,5 +5,5 @@ elsewhere.
 "... it destroys the generality of two useful functions by wiring into them the
 names of the variables they manipulate."
 
-Using external variables in the place of function parameters defeats the
+Using external variables in the place of function parameters violates the
 principle of encapsulation and thus also limits code reuse.
