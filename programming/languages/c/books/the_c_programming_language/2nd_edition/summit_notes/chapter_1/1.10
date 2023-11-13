@@ -1,0 +1,8 @@
+"In the clause 'the variable must also be declared in each function', the word
+'declared' is an adjective, not a verb."
+
+This statement concisely explains why an explicit external variable declaration
+(e.g. "extern int i") is not required inside a function when the variable has
+already been declared elsewhere, external to any function, and is in
+scope--when the function is compiled, the variable is already in a state of
+having been declared.
