@@ -16,8 +16,6 @@ BEGIN {
         next
     }
 
-    linelen = n
-
     # Generate an array of characters from $0 to facilitate preserving
     # multi-space segments when splitting; we cannot use the split()
     # function because it discards all whitespace between fields
