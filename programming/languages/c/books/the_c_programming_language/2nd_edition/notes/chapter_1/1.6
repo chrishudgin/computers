@@ -8,4 +8,5 @@ constant expressions may be used.
 
 While an array subscript can be any nonnegative integer expression, an array
 variable definition must specify the array's size using a constant nonnegative
-integer expression.
+integer expression, or else there must be a constant-valued initializer for the
+array so that the array's size can be computed at compile time.
