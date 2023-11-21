@@ -1,0 +1,11 @@
+A character constant in the form '\ooo', where the leading 'o' is not a literal
+'x' character, is always interpreted as octal, even if the leading 'o'
+character is not a literal 0.  At least one octal digit must be given after
+the '\', but it is not required to specify all three octal digits for smaller
+octal values.
+
+Similarly, a character constant in the form '\xhh', where the leading 'x' is a
+literal 'x' character, is interpreted as hexadecimal, even though it is not
+written in the form 0xhh.  At least one hexadecimal digit must be given after
+the '\', but it is not required to specify both hexadecimal digits for smaller
+hexadecimal values.
