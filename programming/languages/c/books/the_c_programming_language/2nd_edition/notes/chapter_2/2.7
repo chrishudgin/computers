@@ -1,0 +1,6 @@
+-1L > 1UL
+
+This is an example of when a signed long int may be converted to an unsigned
+long int before comparison with another unsigned long int.  This happens
+because both operands of integer type are of the same size, but one is signed
+and the other is unsigned.
