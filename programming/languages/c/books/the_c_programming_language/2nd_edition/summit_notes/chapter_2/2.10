@@ -1,0 +1,34 @@
+An expression may constitute a statement (if the expression is followed by a
+semicolon), but a statement may contain other elements besides expressions, and
+a statement need not contain an expression.
+
+Examples of expressions that are statements (called "expression statements" in
+C) include:
+
+a = 5;      /* assignment is an expression and therefore has a value */
+a = a + 3;  /* as above */
+i;          /* variable with a value, so an expression */
+++i;        /* variable with an operator, result has a value, so expression */
+
+In all of the above examples, the expressions become statements because they
+are each terminated by a semicolon.
+
+An example of a statement containing multiple expressions and statments as well
+as non-expression elements (in this case, an "if / else " construction) is:
+
+if (a > b)   /* start of selection statement with expression a > b */
+    while (a != 0) { /* start of iteration statement with expression a != 0 */
+        deletechar();  /* expression statement that is a function call */
+        --a;  /* expression statement */
+    } /* end of iteration statement and compound statement in braces */
+else
+    --i;      /* expression statement */
+/* end of selection statement that started with "if" above */
+
+An example of a statement that is not an expression and does not contain an
+expression is a jump statement that uses goto:
+
+goto bailout;
+
+where bailout is a label and identifier but not an expression.  This is also
+one example where an identifier is not a variable or constant.
