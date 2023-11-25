@@ -1,3 +1,6 @@
+"If the distinction between the terms 'statement' and 'expression' seems vague,
+don't worry; we'll start talking about statements in the next chapter."
+
 An expression may constitute a statement (if the expression is followed by a
 semicolon), but a statement may contain other elements besides expressions, and
 a statement need not contain an expression.
