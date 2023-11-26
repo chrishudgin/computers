@@ -1,0 +1,12 @@
+In a conditional expression
+
+expr1 ? expr2 : expr3
+
+the type of the result is always subject to the conversion rules applied to the
+types of expr2 and expr3 (as though they were the two operands in a binary
+operation).  This means, for example, that the type of the result could be that
+of expr3 even if expr1 is true, or that the type of the result could be that of
+expr2 even if expr1 is false.  This behavior is a consequence of the fact that
+a conditional expression is an expression (so it has a value and a type), and
+an expression can have only one type, determined at compile time, regardless of
+the result of its evaluation.
