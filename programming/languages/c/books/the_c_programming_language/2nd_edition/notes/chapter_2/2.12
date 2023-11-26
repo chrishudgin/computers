@@ -1,0 +1,13 @@
+"Function calls, nested assignment statements, and increment and decrement
+operators cause "side effects"--some variable is changed as a by-product of the
+evaluation of an expression."
+
+Although the above statement is true, the ANSI C Standard, section 5.1.2.3,
+further clarifies what side effects are:
+
+"Accessing a volatile object, modifying an object, modifying a file, or calling
+a function that does any of those operations are all side effects, which are
+changes in the state of the execution environment."
+
+In particular, note that any assignment statement produces a side effect, not
+just a nested assignment statement.
