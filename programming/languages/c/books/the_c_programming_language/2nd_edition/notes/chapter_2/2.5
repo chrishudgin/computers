@@ -1,0 +1,24 @@
+"The direction of truncation for / and the sign of the result for % are
+machine-dependent for negative operands, as is the action taken on overflow or
+underflow."
+
+The direction of truncation for a / operation could be toward zero or toward
+negative infinity.  The sign of the result of a modulus operation could be
+positive or negative.  Consequently, it is recommended to ensure that the
+operands for / and % are positive before using them.  The sign of the result
+can then be changed afterward, if desired.
+
+Changing the sign of an integer can in most cases be done by multiplying the
+integer by -1, but this does not work for the most negative integer in two's
+complement representation, since that integer has no representable positive
+value of the same magnitude for a given signed type.  In this special case (but
+not in general for negative integers), the most negative integer in a two's
+complement representation can be coerced to an unsigned value to change its
+sign while preserving its magnitude.  Note that coercing a value from a signed
+integer type to a corresponding unsigned integer type does not change its bit
+representation, only its interpretation in arithmetic expressions and
+arithmetic comparisons.
+
+Signed integer overflow (for example, by adding 1 to INT_MAX or subtracting 1
+from INT_MIN) causes undefined behavior in C and must therefore be avoided in
+portable code.
