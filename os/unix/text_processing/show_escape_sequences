@@ -1,0 +1,23 @@
+Display escape sequences in a text stream for characters recognized by the C
+standard:
+
+NUL                  \0
+<alert character>    \a
+<backspace>          \b
+<form-feed>          \f
+<newline>            \n
+<carriage return>    \r
+<tab>                \t
+<vertical tab>       \v
+
+by piping to
+
+hexdump -v -e '"%_c"'
+
+This method has the advantave of not embedding spaces between characters as the
+"od -c" command does.
+
+Example:
+
+$ echo -e "ab\tc d\n" | hexdump -v -e '"%_c"' ; echo
+ab\tc d\n\n
