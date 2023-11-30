@@ -1,5 +1,5 @@
-Display escape sequences in a text stream for characters recognized by the C
-standard:
+Display escape sequences in a text stream for the following characters
+recognized by the C standard:
 
 NUL                  \0
 <alert character>    \a
@@ -14,8 +14,8 @@ by piping to
 
 hexdump -v -e '"%_c"'
 
-This method has the advantave of not embedding spaces between characters as the
-"od -c" command does.
+This method has the advantage of not embedding spaces between characters as the
+"od -An -c" command does.
 
 Example:
 
