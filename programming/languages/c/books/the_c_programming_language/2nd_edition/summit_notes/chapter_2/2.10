@@ -35,3 +35,8 @@ goto bailout;
 
 where bailout is a label and identifier but not an expression.  This is also
 one example where an identifier is not a variable or constant.
+
+The null statement
+   ;
+is another example of a statement that is not an expression and does not
+contain an expression.
