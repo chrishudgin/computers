@@ -1,0 +1,7 @@
+"Expressions combine variables and constants to produce new values."
+
+This is an informal description of an expression, not a formal definition.  Not
+all expressions match this description.  For example, a function call is an
+expression, even though it need not combine variables and constants and need
+not produce a value.  If no value is produced by an expression, the type of
+that expression is "void".
