@@ -1,0 +1,16 @@
+Show the native architecture and CPU settings for the platform:
+
+$ gcc -march=native -mcpu=native -Q --help=target
+
+For example, for maximum portability gcc defaults to -march=armv6+fp and no
+setting for -mcpu on Raspberry Pi OS, but the native settings for these
+variables on the Raspberry Pi Zero are armv6zk+fp and arm1176jzf-s,
+respectively, as would be shown in the output of the command above.
+
+Show the list of toolchain-supported -mcpu= options by using a dummy argument:
+
+$ gcc --target-help -mcpu=foo
+
+Show the list of toolchain-supported -march= options by using a dummy argument:
+
+$ gcc --target-help -march=foo
