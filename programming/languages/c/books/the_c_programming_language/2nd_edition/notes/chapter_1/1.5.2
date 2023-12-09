@@ -1,3 +1,8 @@
+p. 18
+
+"You could instead write nc = nc+1 but ++nc is more concise and often more
+efficient."
+
 "++nc" could potentially be more efficient than "nc = nc + 1" when compiled
 into assembly language if the compiler assembles "++nc" into an
 increment-in-place (e.g. INC) instruction and "nc = nc + 1" into a sequence of
@@ -8,7 +13,10 @@ load-add-store instruction sequence would be necessary if nc were declared as
 volatile, meaning its value would have to be fetched from memory external to
 the CPU before modification.
 
-*****
+p. 18
+
+"It may be possible to cope with even bigger numbers by using a double (double
+precision float)."
 
 Using a variable of type "double" for nc in the character counting program, for
 the case when the implementation represents a "double" variable as a 64-bit
@@ -19,7 +27,7 @@ over 9 quadrillion.  In contrast, a 32-bit (signed) long with a two's
 complement representation has a maximum positive integer value before
 wraparound of 2^31 - 1, or 2,147,483,647 which is around 2 billion.  Using a
 "double" instead of a "long" on a 32-bit machine can therefore provide more
-than four million times as many accurate positive integer counter values.
+than four million times as many precise positive integer counter values.
 
 On a machine that implements the "long" type as a 64-bit integer, the maximum
 representable positive integer of that type is 2^63 - 1, or

@@ -1,3 +1,5 @@
+p. 1
+
 "C provides a variety of data types."
 
 This allows C to make efficient use of various machine word sizes and the
@@ -5,7 +7,7 @@ corresponding machine instructions for data transfer and data manipulation of
 various-sized quantities.  C also faciltates byte-level addressing, unlike its
 predecessor B that could only address data in word-sized quantities.
 
-*****
+p. 3
 
 “Because the data types and control structures provided by C are supported
 directly by most computers, the run-time library required to implement
@@ -18,7 +20,7 @@ required for self-contained programs is provided by the crt*.o object files
 setting the initial values of the stack and frame pointer registers and calling
 main() and exit().
 
-*****
+p. 3
 
 “The standard makes portability issues explicit, and prescribes a set of
 constants that characterize the machine on which the program is run.”

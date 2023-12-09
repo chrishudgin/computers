@@ -1,6 +1,10 @@
+p. 31
+
 A declaration of a variable is also its definition unless the declaration is
 preceded by the "extern" keyword, which specifies that the variable is defined
 elsewhere.
+
+p. 34
 
 "... it destroys the generality of two useful functions by wiring into them the
 names of the variables they manipulate."
