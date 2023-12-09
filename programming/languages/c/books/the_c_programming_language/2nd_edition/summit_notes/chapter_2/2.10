@@ -5,16 +5,16 @@ An expression may constitute a statement (if the expression is followed by a
 semicolon), but a statement may contain other elements besides expressions, and
 a statement need not contain an expression.
 
-Examples of expressions that are statements (called "expression statements" in
-C) include:
+An expression becomes a statement if it is terminated by a semicolon.
 
-a = 5;      /* assignment is an expression and therefore has a value */
+Examples of "expression statements", where an expression statement is a
+statement consisting of an optional expression:
+
+a = 5;      /* assignment is an expression and has a value */
 a = a + 3;  /* as above */
-i;          /* variable with a value, so an expression */
-++i;        /* variable with an operator, result has a value, so expression */
-
-In all of the above examples, the expressions become statements because they
-are each terminated by a semicolon.
+i;          /* a variable is an object; by itself, also an expression */
+++i;        /* a variable with an operator is an expression */
+;           /* the null statement, which contains no expression */
 
 An example of a statement containing multiple expressions and statments as well
 as non-expression elements (in this case, an "if / else " construction) is:
@@ -35,8 +35,3 @@ goto bailout;
 
 where bailout is a label and identifier but not an expression.  This is also
 one example where an identifier is not a variable or constant.
-
-The null statement
-   ;
-is another example of a statement that is not an expression and does not
-contain an expression.
