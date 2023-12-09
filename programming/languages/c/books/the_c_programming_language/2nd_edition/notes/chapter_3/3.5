@@ -1,10 +1,20 @@
+p.61
+
 Note that it is legal in C to modify loop control variables within the loop.
 The modified values will be used from then on, including for the rest of the
 current loop iteration and for the next loop test.
 
-*****
+p.62
 
 "This tends to eliminate large amounts of disorder quickly, so later stages
 have less work to do."
 
 The "work" that is reduced is the swapping of elements in the array.
+
+The final stage in the Shell sort, when gap == 1, is an insertion sort, which
+is sufficient to sort the entire array.  However, since previous stages have
+already sorted most of the elements, the final stage should only need to swap a
+small number of remaining unsorted adjacent elements.  Because the initial
+swaps are far apart (meaning the swapped elements quickly move closer to their
+sorted positions) and the final adjacent swaps are therefore few in number,
+Shell sort is more efficient than a pure insertion sort.
