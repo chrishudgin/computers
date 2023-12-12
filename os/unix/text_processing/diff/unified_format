@@ -1,0 +1,52 @@
+Output diffs in unified format:
+
+$ diff -u <file1> <file2>
+
+Each set of diffs in the output is preceded by a line with the following
+format:
+
+@@ -a,b +x,y @@
+
+where
+a = starting line in <file1>
+b = number of lines affected in <file1> (0 or more)
+   b = number of unaltered context lines shown plus number of deleted lines
+x = starting line in <file2>
+y = number of lines affected in <file2> (0 or more)
+   y = number of unaltered context lines shown plus number of added lines
+
+If b or y is 1, it and the comma preceding it may be omitted.
+
+Example of diff unified format:
+
+$ cat file1
+a
+b
+c
+d
+e
+f
+g
+$ cat file2
+w
+a
+b
+x
+y
+z
+e
+$ diff -u file1 file2
+--- examples/diff_paper/file1	2023-06-19 16:22:00
++++ examples/diff_paper/file2	2023-06-19 16:22:09
+@@ -1,7 +1,7 @@
++w
+ a
+ b
+-c
+-d
++x
++y
++z
+ e
+-f
+-g

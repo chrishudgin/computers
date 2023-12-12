@@ -14,3 +14,8 @@ $ git diff HEAD^ [HEAD] hello.c   # HEAD is assumed if not specified
 Show a file as it appeared in a given commit:
 
 $ git show HEAD^:./hello.c  # show hello.c in previous (parent, n-1) commit
+
+In each case, the default output format for "git diff" is that of "diff -u",
+the unified diff format that includes 3 lines of context around deletions and
+additions.  A change to a line is recorded as a deletion followed immediately
+by an addition.
