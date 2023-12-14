@@ -7,4 +7,6 @@ FETCH_HEAD").
 
 The inverse action is a git push, which updates objects in another repo from
 the local repo but does not update the remote repo's working directory or index
-or perform a merge there.
+or perform a merge there.  This action is sufficient for a updating a hosted
+repo like on GitHub which uses "bare repositories", repos with no working
+directories, only Git data (as in a .git directory).

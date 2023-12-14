@@ -1,4 +1,8 @@
-ltrace is broken on Linux ARM as of Raspbian image current in April 2017
+ltrace is broken on Linux ARM as of Raspbian image current in April 2017.
+This is still true in the current Raspberry Pi OS image on December 14, 2023.
+
+rustc segfaults when running on a Raspberry Pi model prior to 4 with a 64-bit
+kernel.  Last checked December 14, 2023.
 
 The light-locker package does not add an entry to the main menu editor for
    screen locking, but the lxlock package does.

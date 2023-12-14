@@ -1,0 +1,5 @@
+A Git pull is a "fetch and merge".
+
+A "pull request", in contrast, is a request for someone with push privileges on
+a repo to merge your commits into the repo.  In other words, you are asking
+them to pull your changes into the repo.
