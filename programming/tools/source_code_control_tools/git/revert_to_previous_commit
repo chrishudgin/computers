@@ -1,0 +1,4 @@
+Revert to a previous commit with a single new commit:
+
+git revert --no-commit <commit_id>..HEAD
+git commit -m "<Commit message>"
