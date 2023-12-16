@@ -22,3 +22,10 @@ git commit ->
 
 Note: If a file is not currently staged, running "git restore <file>" will
 restore the file from the last commit rather than from the index.
+
+Specify a particular commit (optionally relative to HEAD) as the basis of the
+restore:
+git log -p <file>  # show all diffs of file and find commit ID of interest
+git show <commit_id>:<file>
+git restore -s <commit_id> <file>  (where <commit_id> can be a hash or
+                                    relative to HEAD, e.g. HEAD~3 for HEAD - 3)
