@@ -5,8 +5,8 @@ staged:
 $ git diff [-- <file>]
 
 Show differences between files in the index and the last committed versions of
-those files, i.e. what will happen to the files in the repo when files in the
-index are committed:
+those files, i.e. what will happen to the files in the database when files in
+the index are committed:
 
 $ git diff --cached [-- <file>]
 OR
