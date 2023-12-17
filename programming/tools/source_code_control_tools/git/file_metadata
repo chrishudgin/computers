@@ -1,0 +1,4 @@
+Git's intended use is to provide version control for source code files that are
+in text format.  Git does not store the metadata of files such as the user and
+group or file permissions other than executable / non-executable status.  This
+makes it unsuitable for use as a backup tool for system files, for example.
