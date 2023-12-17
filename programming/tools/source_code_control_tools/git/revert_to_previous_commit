@@ -1,4 +1,15 @@
-Revert to a previous commit with a single new commit:
+General procedure:
 
-git revert --no-commit <commit_id>..HEAD
+# Reset index, working tree, and HEAD to specified commit
+git reset --hard <commit>
+# Reset HEAD to its value before the prior reset command was run and stage
+# changes
+git reset --soft "HEAD@{1}"
+# Commit working tree 
+git commit -m "Revert to <commit>"
+
+Revert to a previous commit with a single new commit if there are no
+intervening merge commits:
+
+git revert --no-commit <commit>..HEAD
 git commit -m "<Commit message>"

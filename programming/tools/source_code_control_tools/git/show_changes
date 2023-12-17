@@ -1,10 +1,16 @@
-Show differences between files in the tree and the Git index for that tree:
+Show differences between files in the tree and the Git index for that tree,
+i.e. what will happen to the files in the index when the files in the tree are
+staged:
+
 $ git diff
 
 Show differences between files in the index and the last committed versions of
-those files:
+those files, i.e. what will happen to the files in the repo when files in the
+index are committed:
 
 $ git diff --cached
+OR
+$ git diff --staged
 
 Show differences in a given file between the second most recent commit (n-1)
 and the most recent one (n):
