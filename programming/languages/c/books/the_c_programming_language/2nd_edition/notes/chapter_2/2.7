@@ -1,5 +1,7 @@
 p. 44
 
+The standard type conversions for arithmetic types are summarized here.
+
 -1L < 1U for sizeof(int) == 16 and sizeof(long) == 32
 
 In this example, the unsigned integer on right is promoted to a signed long for
@@ -14,8 +16,7 @@ and the other is unsigned.
 
 p. 45
 
-Note that the standard type conversions occur for arguments passed to
-functions.  For example, a function that takes an argument of type "int" can
-accept a value of type "char", and a function that takes an argument of type
-"double" can accept a value of type "float".  In each case, type promotion
-takes place.
+The standard type conversions occur for arguments passed to functions.  For
+example, a function that takes an argument of type "int" can accept a value of
+type "char", and a function that takes an argument of type "double" can accept
+a value of type "float".  In each case, type promotion takes place.
