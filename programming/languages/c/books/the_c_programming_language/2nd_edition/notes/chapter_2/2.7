@@ -11,3 +11,11 @@ This is an example of when a signed long int may be converted to an unsigned
 long int before comparison with another unsigned long int.  This happens
 because both operands of integer type are of the same size, but one is signed
 and the other is unsigned.
+
+p. 45
+
+Note that the standard type conversions occur for arguments passed to
+functions.  For example, a function that takes an argument of type "int" can
+accept a value of type "char", and a function that takes an argument of type
+"double" can accept a value of type "float".  In each case, type promotion
+takes place.
