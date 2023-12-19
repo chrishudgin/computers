@@ -1,0 +1,19 @@
+One circumstance in which the behavior of strindex() in the book differs from
+the behaviors of the two implementations in these is when the search pattern
+t[] is an empty string consisting only of the null character '\0', but the
+search space s[] is a non-empty string consisting of at least one character
+before the terminating '\0'.  In this situation, the implementation in the book
+will return -1; the two implementations in the notes will return 0.  The main
+program will regard both of these return values as a failed search, however,
+since the return value of strindex() in either case will not be greater than 0.
+
+If s[] is the empty string, all three implementations of strindex() will return
+-1 regardless of the value of t[].
+
+Whether strindex() should return 0 for an empty search pattern rather than -1
+is a matter of interpretation: does an empty string conceptually occur at the
+beginning of every non-empty string?  And if so, is its location in the
+searched string at index 0 or just before it (-1, which is not within the
+bounds of the array proper)?  If the returned location for an empty string
+within a non-empty string is 0, then why is the location returned for an empty
+string inside an empty string -1 instead?
