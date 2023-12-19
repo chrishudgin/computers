@@ -1,0 +1,16 @@
+p. 72
+
+If atof is compiled separately from main *and* there is no function prototype
+for atof in the file that contains main, then the compiler considers atof
+implicitly declared in the file that contains main and assumes when compiling
+that file that atof returns an int.  Mismatches between function declarations
+can only be caught (if at all) during compilation, not during linking of
+already-compiled object files.
+
+p. 73
+
+In atoi, the (int) cast of the return value of atof is not necessary for the
+compiler to convert the return value to an int as it is returned to the calling
+function, since the return type of atoi is already declared as int.  The cast
+is merely to suppress any compiler warning about a type mismatch for the return
+value.
