@@ -1,0 +1,8 @@
+The versions of getch and ungetch on page 79 of the book implement a last-in,
+first-out stack.  Such a stack implementation is well-suited for handling
+multiple characters of pushback.  It is easier to push back characters from
+most recently read to least recently read (thus "backing up" along the input
+stream a character at a time), and it is likely that the original input
+ordering of the characters will be desired when they are re-read from the
+ungetch stack for processing.  A stack naturally accommodates both of these
+likely use cases.

@@ -22,6 +22,21 @@ replaced.  The dividend remains on the stack, however.
 
 p. 77
 
+In the stack implementation for this RPN calculator, the stack pointer
+variable, sp, points to the next available stack position, not the topmost
+occupied stack position, and the stack pointer is incremented when an element
+is pushed.  These characteristics make the stack implementation the "empty
+ascending" type.  As seen in the push and pop functions, when the stack pointer
+sp == 0, the stack is empty, and if the stack is not empty, the stack pointer
+is decremented before a value is read.
+
+p. 77
+
 The representation of the stack and stack position as external variables are
 hidden from main by declaring (and defining) them after the definition of main
 in the source file.
+
+p. 78
+
+Since static variables have not been discussed yet in the book, external
+variables must be used for retaining values between function calls.
