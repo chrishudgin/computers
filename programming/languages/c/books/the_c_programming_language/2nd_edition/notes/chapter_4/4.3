@@ -14,6 +14,12 @@ the default by adding the keyword "static" to the declaration of an external
 variable or a function, which gives the declared object file scope instead of
 global scope.
 
+p. 76
+
+Note that in the main function for the RPN calculator, if the divisor in a
+division operation is 0.0, the zero value is removed from the stack and is not
+replaced.  The dividend remains on the stack, however.
+
 p. 77
 
 The representation of the stack and stack position as external variables are
