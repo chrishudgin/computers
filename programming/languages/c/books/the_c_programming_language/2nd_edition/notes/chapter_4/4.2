@@ -1,0 +1,12 @@
+Note well the following statement:
+
+"Since the compiler only compiles one source file at a time, it is never able
+to detect inconsistencies between files (such as a function or variable
+declared one way in once source file and some other way in another)."
+
+This statement is true even if function prototypes are used, and even if the
+compiler is given multiple source files to process in a single invocation.
+
+The "splint" linter can detect when a function prototype declaration in one
+file does not match the corresponding function definition in another file, but
+only when the prototype is external.
