@@ -1,3 +1,10 @@
+If getop had been written to call atof itself instead of having main call atof,
+then getop would also need to have been modified to return the floating point
+value thus obtained.  This would have made it more difficult for getop to
+return a command character as well, since pointers for function arguments have
+not yet been introduced at this point in the book.  A one-element array as a
+function argument would have worked but would have been an awkward solution.
+
 The versions of getch and ungetch on page 79 of the book implement a last-in,
 first-out stack.  Such a stack implementation is well-suited for handling
 multiple characters of pushback.  It is easier to push back characters from
