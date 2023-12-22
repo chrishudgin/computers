@@ -7,5 +7,7 @@ $ git rm [-f] foodir/barfile  (this removes the file in the filesystem as well
 OR
 $ git rm --cached foodir/barfile  (this removes the file from the list of
    tracked files, but not from the local filesystem directory)
+
+Then commit the change to remove the file in the database and the remote:
 $ git commit -a -m "commit"
 $ git push -u origin master
