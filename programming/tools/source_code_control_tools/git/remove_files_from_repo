@@ -1,8 +1,9 @@
-Example of removing a file from a git repository after it has been added
-with "git add":
+Example of removing Git tracking of a file and staging its deletion in the
+index:
 
-$ git rm foodir/barfile  (this removes the file in the filesystem as well as
-   updates git information)
+$ git rm [-f] foodir/barfile  (this removes the file in the filesystem as well
+   as updates git information)
+   -f : forces the operation even if there are staged changes for the file
 OR
 $ git rm --cached foodir/barfile  (this removes the file from the index of
    tracked files, but not from the local filesystem directory)
