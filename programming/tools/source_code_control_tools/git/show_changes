@@ -3,6 +3,10 @@ are not staged:
 
 $ git status
 
+If a file is modified, staged, and then modified again, without any intervening
+commits, then "git status" will show the file as modified in the "changes to be
+committed" section as well as in the "changes not staged for commit" section.
+
 Show differences between files in the tree and the Git index for that tree,
 i.e. what will happen to the files in the index when the files in the tree are
 staged:
