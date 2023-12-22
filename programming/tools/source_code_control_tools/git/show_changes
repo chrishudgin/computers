@@ -1,3 +1,8 @@
+Summarize changes to be committed and changes in the working directory that
+are not staged:
+
+$ git status
+
 Show differences between files in the tree and the Git index for that tree,
 i.e. what will happen to the files in the index when the files in the tree are
 staged:

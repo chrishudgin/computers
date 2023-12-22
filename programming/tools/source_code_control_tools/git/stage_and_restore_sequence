@@ -25,7 +25,7 @@ restore the file from the last commit rather than from the index.
 
 Specify a particular commit (optionally relative to HEAD) as the basis of the
 restore:
-git log -p [<range>] -- <file> # show diffs of file and find desired commit ID
-git show <commit>:<file>  # show an entire file as it was for a given commit
-git restore -s <commit> <file>  (where <commit> can be a hash or
+$ git log -p [<range>] -- <file> # show diffs of file and find desired commit ID
+$ git show <commit>:<file>  # show an entire file as it was for a given commit
+$ git restore -s <commit> <file>  (where <commit> can be a hash or
                                     relative to HEAD, e.g. HEAD~3 for HEAD - 3)

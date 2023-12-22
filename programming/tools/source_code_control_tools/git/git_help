@@ -1,18 +1,18 @@
 View man page for a git command verb such as "add", "fetch", etc. :
 
-git help <verb>
-git <verb> --help
-man git-<verb>
+$ git help <verb>
+$ git <verb> --help
+$ man git-<verb>
 
 Examples:
 
-git help add
-git add --help
-man git-add
+$ git help add
+$ git add --help
+$ man git-add
 
 Show syntax statement with brief option descriptions:
-git <verb> -h
+$ git <verb> -h
 
 Example:
 
-git add -h
+$ git add -h
