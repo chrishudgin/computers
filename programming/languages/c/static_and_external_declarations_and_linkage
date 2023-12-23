@@ -1,8 +1,5 @@
 External != extern
 
-External variables occur outside functions and are always static in the
-sense that their values do not get lost when function calls are made.
-
 By default, an external variable has program ("global") scope ("external
 linkage"); extern keyword here, if used, means "this variable is defined
 elsewhere" (elsewhere later in the same file or in a different file).
