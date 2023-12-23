@@ -9,3 +9,12 @@ $ git log -p
 View log with summarized line add/delete statistics:
 
 $ git log --stat
+
+View log with only abbreviated commit ID and commit message on each line:
+
+$ git log --oneline
+
+View git log within a range of dates:
+
+$ git log --since="2023-12-20" --until="2023-12-22 13:00:17"
+   (other date formats are also understood)
