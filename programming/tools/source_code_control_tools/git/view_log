@@ -1,0 +1,11 @@
+View log summary:
+
+$ git log
+
+View log with patch diffs:
+
+$ git log -p
+
+View log with summarized line add/delete statistics:
+
+$ git log --stat
