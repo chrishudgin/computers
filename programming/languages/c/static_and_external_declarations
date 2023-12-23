@@ -5,7 +5,7 @@ sense that their values do not get lost when function calls are made.
 
 By default, an external variable has program ("global") scope ("external
 linkage"); extern keyword here, if used, means "this variable is defined
-elsewhere" (elsewhere in the same file or in a different file).
+elsewhere" (elsewhere later in the same file or in a different file).
 
 By adding the keyword static to the declaration, an external variable or a
 function has scope from where it is declared to the end of the file ("internal
