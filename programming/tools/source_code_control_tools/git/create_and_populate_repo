@@ -5,4 +5,6 @@ $ git init
 $ git add os/vmware
 $ git commit -m "Initial commit"
 $ git remote add origin git@github.com:chrishudgin/computers.git
+   ("origin" is the default name for a remote, but a different name can be
+    specified)
 $ git push -u origin master
