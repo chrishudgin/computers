@@ -2,3 +2,8 @@ Show remotes:
 
 $ git remote [-v]
    -v shows URLs
+
+If a user's clone of a repo is older than the most recent push to a remote by
+another user, the user with the now out-of-date clone must fetch and merge the
+updates from the remote to their local repo before they will be permitted to
+push their own updates to the remote.
