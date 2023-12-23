@@ -1,15 +1,19 @@
 Show summary information for remotes:
 
-$ git remote [-v] [<remote_name>]
+$ git remote [-v]
    -v shows URLs
 
 Example:
 
-$ git remote -v origin
+$ git remote -v
 
-Show detailed information for remotes:
+Show detailed information for a remote:
 
-$ git remote show [<remote_name>]
+$ git remote show <remote_name>
+
+Example:
+
+$ git remote show origin
 
 If a user's clone of a repo is older than the most recent push to a remote by
 another user, the user with the now out-of-date clone must fetch and merge the
