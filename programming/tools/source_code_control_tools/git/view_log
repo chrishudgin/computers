@@ -18,3 +18,7 @@ View git log within a range of dates:
 
 $ git log --since="2023-12-20" --until="2023-12-22 13:00:17"
    (other date formats are also understood)
+
+View log entries for commits that modified a specified file:
+
+$ git log -- path/to/file
