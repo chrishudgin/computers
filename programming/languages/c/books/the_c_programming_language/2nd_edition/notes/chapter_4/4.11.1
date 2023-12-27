@@ -1,2 +1,18 @@
+p. 89
+
 Headers do not have to be implemented as files, as long as their contents can
 be included by some mechanism in source files by the preprocessor.
+
+p. 89
+
+"[#include] guarantees that all the source files will be supplied with the
+same definitions and variable declarations...."
+
+The #include mechanism performs a literal copying of header lines into a source
+file, and those lines can contain any valid C or C preprocessor syntax.
+However, "definitions" in an included file would typically be #define macros,
+not definitions of variables or functions.  This is because C preprocessor
+macros have scope only to the end of a file from the point they are defined and
+can therefore be included in multiple source files in the same program, while
+non-static external variables and non-static functions have global scope and
+can only be defined legally once in a program.
