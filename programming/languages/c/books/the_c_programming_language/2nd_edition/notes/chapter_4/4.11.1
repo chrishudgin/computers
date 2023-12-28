@@ -12,13 +12,8 @@ The #include mechanism performs a literal copying of header lines into a source
 file, and those lines can contain any valid C or C preprocessor syntax.
 However, "definitions" in an included file would typically be #define macros,
 not definitions of variables or functions.  This is because C preprocessor
-macros have scope only to the end of a file from the point they are defined and
-can therefore be included in multiple source files in the same program, while
+macros have scope only to the end of a file from the point they are defined
+(unless they are subsequently undefined before the end of a file) and can
+therefore be included in multiple source files in the same program, while
 non-static external variables and non-static functions have global scope and
 can only be defined legally once in a program.
-
-p. 89
-
-Note that macro substitutions are only made for precisely matching tokens and
-are not made within quoted strings, such as a string used as the first argument
-to printf.

@@ -1,0 +1,30 @@
+p. 89
+
+Note that macro substitutions are only made for precisely matching tokens and
+are not made within quoted strings, such as a string used as the first argument
+to printf.
+
+p. 90
+
+One example in which it might be desirable to #undef a macro that overrides a
+function name so that the actual function is used is when a pointer to that
+function is needed, since macro expansions do not have addresses.
+
+p.90
+
+Formal parameters are not replaced within quoted strings in the replacement
+text part of a macro definition.  Thus:
+
+#define  dprint(expr)   printf("#expr = %g\n", expr)
+
+if invoked as:
+
+dprint(x/y);
+
+would be be replaced by:
+
+printf("#expr = %g\n", x/y);
+
+NOT
+
+printf("x/y = %g\n", x/y);

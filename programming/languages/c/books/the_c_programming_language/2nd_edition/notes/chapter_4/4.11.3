@@ -1,0 +1,25 @@
+p. 91
+
+As implied in the text, almost any type of constant integer expression can be
+evaluated by an #if statement during preprocessing.
+
+p. 91
+
+#if statements can be nested, as in the following example of a file
+hypothetically named "myhdr.h":
+
+#if !defined(MYHDR)  /* equivalently, #ifndef MYHDR */
+#define MYHDR
+...
+#if FOO == BAR
+#include "foo.h"  /* foo.h may itself #include "myhdr.h" */
+#endif /* FOO == BAR */
+...
+#endif /* !defined(HDR) */
+
+With such a structure, the header file can safely be used as the target file of
+an #include directive more than once in the same source file, directly or
+indirectly (through other header files that #include myhdr.h), since all
+statements between the first and last in myhdr.h will be ignored (not actually
+included) for each #include "myhdr.h" directive the preprocessor encounters
+after the first one in a given source file.
