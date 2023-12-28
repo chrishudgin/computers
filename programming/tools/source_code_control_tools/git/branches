@@ -3,14 +3,21 @@ commit are made to a branch, they are independent of any further commits made
 on the branch from which the new branch was created (that is, the branches'
 commit histories diverge but retain a common ancestor).  A later merge of the
 branches causes the changes in both lines of descent to be applied (unless
-there is a conflict) in a new commit on the original branch, at which point
-both branches point to this new merge commit.
+there is a conflict) in a new "merge" commit on the original branch, at which
+point both branches point to this new merge commit.
 
 Exception:
 If the new branch's latest commit is descended from what is still the latest
 commit in the old branch, simply fast forward so that oldbranch points to the
 same commit that newbranch does.  No additional merge commit is needed in this
 case.
+
+Creating a branch is recommended when adding a new software feature or fixing a
+bug.  After testing, the changes in the new branch can be merged back into the
+production branch (such as "master" or "main").  At this point the new branch
+can be deleted, while the commits that were made along it are retained as they
+are now part of the branch (such as "master" or "main") onto which they were
+merged.
 
 Show current branch:
 
@@ -43,4 +50,3 @@ $ git commit [-a] [-m message]
 $ git checkout <oldbranch>
 $ git merge <newbranch>
 $ git branch -d <newbranch>  # newbranch is no longer needed after merge
-   (Deleting a branch does not remove commits, only a pointer to one)
