@@ -6,6 +6,12 @@ branches causes the changes in both lines of descent to be applied (unless
 there is a conflict) in a new commit on the original branch, at which point
 both branches point to this new merge commit.
 
+Exception:
+If the new branch's latest commit is descended from what is still the latest
+commit in the old branch, simply fast forward so that oldbranch points to the
+same commit that newbranch does.  No additional merge commit is needed in this
+case.
+
 Show current branch:
 
 $ git branch
@@ -36,7 +42,5 @@ $ git checkout -b <newbranch>
 $ git commit [-a] [-m message]
 $ git checkout <oldbranch>
 $ git merge <newbranch>
-(If newbranch is a lineal descendant of oldbranch, simply fast forward
- so that oldbranch points to the same commit that newbranch does)
 $ git branch -d <newbranch>  # newbranch is no longer needed after merge
    (Deleting a branch does not remove commits, only a pointer to one)
