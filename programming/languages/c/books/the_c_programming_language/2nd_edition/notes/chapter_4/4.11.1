@@ -16,3 +16,8 @@ macros have scope only to the end of a file from the point they are defined and
 can therefore be included in multiple source files in the same program, while
 non-static external variables and non-static functions have global scope and
 can only be defined legally once in a program.
+
+p. 89
+
+Note that macro substitutions are only made for tokens and are not made within
+quoted strings, such as a string used as the first argument to printf.
