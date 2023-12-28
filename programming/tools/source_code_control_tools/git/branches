@@ -1,0 +1,42 @@
+A branch is implemented in Git as a pointer to a commit.  When subsequent
+commit are made to a branch, they are independent of any further commits made
+on the branch from which the new branch was created (that is, the branches'
+commit histories diverge but retain a common ancestor).  A later merge of the
+branches causes the changes in both lines of descent to be applied (unless
+there is a conflict) in a new commit on the original branch, at which point
+both branches point to this new merge commit.
+
+Show current branch:
+
+$ git branch
+
+Create new branch
+
+$ git branch <branch>
+
+Switch to branch:
+(This moves HEAD to point to the specified branch and syncs the working
+directory to it)
+
+$ git checkout <branch>
+
+Create a branch and switch to it in one command:
+
+$ git checkout -b <branch>
+
+Show log for branch:
+
+$ git log <branch>
+$ git log --all   # for all branches
+
+Merge a branch into another:
+
+$ git checkout -b <newbranch>
+(... edit files in working directory for newbranch ...)
+$ git commit [-a] [-m message]
+$ git checkout <oldbranch>
+$ git merge <newbranch>
+(If newbranch is a lineal descendant of oldbranch, simply fast forward
+ so that oldbranch points to the same commit that newbranch does)
+$ git branch -d <newbranch>  # newbranch is no longer needed after merge
+   (Deleting a branch does not remove commits, only a pointer to one)
