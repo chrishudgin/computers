@@ -15,9 +15,12 @@ case.
 Creating a branch is recommended when adding a new software feature or fixing a
 bug.  After testing, the changes in the new branch can be merged back into the
 production branch (such as "master" or "main").  After being merged into
-another branch, the new branch can be deleted, while the commits that were made
-along it are retained as they are now part of the branch (such as "master" or
-"main") onto which they were merged.
+another branch, the new branch can be deleted if desired (meaning it was a
+short-lived "topic" branch for a single feature change or fix), or it can be
+retained for future commits (such as for a branch that is used for all
+development before changes are pushed to the main production branch).  Either
+way, the commits that were made along it are retained as they are now part of
+the branch (such as "master" or "main") onto which they were merged.
 
 Show branches:
 
