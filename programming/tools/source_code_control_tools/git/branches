@@ -21,8 +21,9 @@ along it are retained as they are now part of the branch (such as "master" or
 
 Show branches:
 
-$ git branch [-v]
+$ git branch [-v[v]]
   -v : also show last commit for each branch
+       -vv : also show upstream tracked branch, if any, for each local branch
 
 Create new branch
 
@@ -68,3 +69,8 @@ Push a branch to a remote repo:
 $ git push [-u] <remote> <branch>
 Example:
 $ git push -u origin development
+
+Delete a branch on the remote:
+$ git push <remote> --delete <branch>
+Example:
+$ git push origin --delete development

@@ -12,7 +12,7 @@ Switch to any branch that is present in the remote:
 $ git fetch <remote>
 $ git branch -a
 (Shows all branches available)
-$ git checkout -b --track <remote/<branch>
+$ git checkout -b <branch> <remote/<branch>
   This creates a local branch that tracks a remote branch
 Example:
 $ git checkout -b --track origin/development
