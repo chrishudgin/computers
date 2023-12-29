@@ -1,9 +1,15 @@
-Rebasing means altering diffs and commits to attach a branch derived from
-another onto the tip of its ancestor branch, even if the ancestor branch has
-had further commits since the two branches diverged.  This simplifies later
-merging of the derived branch into the ancestor branch because a fast-forward
-can be used (a linear advance of HEAD) instead of a three-way merge between two
-branch tips and the most recent common ancestor commit.
+Rebasing means altering diffs and removing existing commits to attach a branch
+derived from another onto the tip of its ancestor branch (such as a main
+branch), even if the ancestor branch has had further commits since the two
+branches diverged.  The commits on the derived branch after the divergence from
+the ancestor branch are automatically removed and replaced by a new commit at
+the tip of the ancestor (main) branch.  This technique simplifies integration
+of the derived branch into the ancestor branch branch because the divergent
+history is removed.  A fast-forward can then be used to advance the ancestor
+branch HEAD instead of having to employ a three-way merge between two branch
+tips and their most recent common ancestor commit.  Essentially, rebasing makes
+the job of the main branch maintainer easier when changes from other branches
+are submitted.
 
 The disadvantage of rebasing is that it alters existing commit history on which
 other project contributors may have based their own branches.
@@ -12,4 +18,6 @@ A recommended use of rebasing is to rebase one's private branch onto the latest
 commit in a public branch before pushing updates to the public branch.  Then
 the private branch can be merged more easily into the public branch, as the
 commit history along the public branch has been made linear (each commit having
-only a single parent commit).
+only a single parent commit).  Moreover, the submitter can ensure that their
+proposed updates can be applied cleanly onto the tip of the main branch before
+they are submitted upstream.
