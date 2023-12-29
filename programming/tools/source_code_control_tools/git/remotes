@@ -12,11 +12,11 @@ Switch to any branch that is present in the remote:
 $ git fetch <remote>
 $ git branch -a
 (Shows all branches available)
-$ git checkout --track <remote/<branch>
+$ git checkout -b --track <remote/<branch>
   This creates a local branch that tracks a remote branch
 Example:
-$ git checkout --track origin/development
-OR if the local branch already exists and is tracking remote
+$ git checkout -b --track origin/development
+OR if the local branch already exists and is tracking remote:
 Switch to view of latest commit that was fetched from remote:
 $ git checkout <remote>/<branch>
 (This will update the working directory to match the latest fetched commit
