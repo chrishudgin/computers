@@ -4,12 +4,11 @@ branch), even if the ancestor branch has had further commits since the two
 branches diverged.  The commits on the derived branch after the divergence from
 the ancestor branch are automatically removed and replaced by a new commit at
 the tip of the ancestor (main) branch.  This technique simplifies integration
-of the derived branch into the ancestor branch branch because the divergent
-history is removed.  A fast-forward can then be used to advance the ancestor
-branch HEAD instead of having to employ a three-way merge between two branch
-tips and their most recent common ancestor commit.  Essentially, rebasing makes
-the job of the main branch maintainer easier when changes from other branches
-are submitted.
+of the derived branch into the ancestor branch because the divergent history is
+removed.  A fast-forward can then be used to advance the ancestor branch HEAD
+instead of having to employ a three-way merge between two branch tips and their
+most recent common ancestor commit.  Essentially, rebasing makes the job of the
+main branch maintainer easier when changes from other branches are submitted.
 
 The disadvantage of rebasing is that it alters existing commit history on which
 other project contributors may have based their own branches.
