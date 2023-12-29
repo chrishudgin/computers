@@ -1,6 +1,7 @@
 View log summary:
 
-$ git log
+$ git log [--all]
+  --all: show all branches
 
 View log with patch diffs:
 

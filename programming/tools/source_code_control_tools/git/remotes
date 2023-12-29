@@ -8,13 +8,24 @@ $ git clone git@gitserver:/git/myproject.git
 $ git branch
 * master
 
-Switch to any branch that was present in the remote at the time it was cloned:
+Switch to any branch that is present in the remote:
+$ git fetch <remote>
 $ git branch -a
 (Shows all branches available)
-$ git checkout <branch>
-  This creates a local branch that tracks the remote branch of the same name
+$ git checkout --track <remote/<branch>
+  This creates a local branch that tracks a remote branch
 Example:
-$ git checkout development
+$ git checkout --track origin/development
+OR if the local branch already exists and is tracking remote
+Switch to view of latest commit that was fetched from remote:
+$ git checkout <remote>/<branch>
+(This will update the working directory to match the latest fetched commit
+from the remote branch)
+
+Merge previously fetched remote branch into local copy:
+Switch to local branch before merging:
+$ git checkout <branch>
+$ git merge <remote>/<branch>
 
 Show summary information for remotes:
 
