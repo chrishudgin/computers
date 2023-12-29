@@ -1,0 +1,41 @@
+List tags:
+
+$ git tag [-l <pattern>]
+
+Example:
+
+$ git tag -l 1.5   # lists all tags with the string "1.5" in their names
+
+Show tag:
+
+$ git show <tag>
+
+Create lightweight tag:
+
+$ git tag [<commit]
+   A lightweight tag is merely a pointer to a commit
+
+Create annotated tag:
+
+$ git tag -a <tagname> [-m "<message>"] [<commit>]
+   An annotated tag is a full object in the Git database
+
+By default, tags are not pushed to remotes with the "git push" command.
+
+Push a tag to a remote:
+
+$ git push <remote> <tagname>  # pushes a single named tag
+OR
+$ git push <remote> --tags  # pushes all tags
+
+Delete a tag locally:
+
+$ git tag -d <tagname>
+
+Delete a tag on a remote:
+
+$ git push <remote> --delete <tagname>
+
+Example:
+
+$ git push origin --delete v1.5

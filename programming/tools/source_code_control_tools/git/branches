@@ -14,14 +14,15 @@ case.
 
 Creating a branch is recommended when adding a new software feature or fixing a
 bug.  After testing, the changes in the new branch can be merged back into the
-production branch (such as "master" or "main").  At this point the new branch
-can be deleted, while the commits that were made along it are retained as they
-are now part of the branch (such as "master" or "main") onto which they were
-merged.
+production branch (such as "master" or "main").  After being merged into
+another branch, the new branch can be deleted, while the commits that were made
+along it are retained as they are now part of the branch (such as "master" or
+"main") onto which they were merged.
 
-Show current branch:
+Show branches:
 
-$ git branch
+$ git branch [-v]
+  -v : also show last commit for each branch
 
 Create new branch
 
@@ -42,11 +43,28 @@ Show log for branch:
 $ git log <branch>
 $ git log --all   # for all branches
 
-Merge a branch into another:
-
-$ git checkout -b <newbranch>
+Merge a branch (<newbranch>, like "testing") into another (<oldbranch>, like
+   "master"):
+$ git checkout -b <newbranch>  # create a new branch and switch to it
 (... edit files in working directory for newbranch ...)
 $ git commit [-a] [-m message]
+(... repeat edits and commits in newbranch as necessary ...)
+When ready to merge:
 $ git checkout <oldbranch>
-$ git merge <newbranch>
-$ git branch -d <newbranch>  # newbranch is no longer needed after merge
+$ git merge <newbranch>  # apply commits in oldbranch to newbranch
+
+To sync the branch that was just merged into (e.g. "master") back into the new
+branch (e.g. "testing") so that further updates can be made in the new branch
+using an up-to-date copy of the main branch:
+$ git checkout <newbranch>
+$ git merge <oldbranch>
+
+When completely done with a branch after it has been merged, it can be deleted
+(e.g. deleting a branch called "hotfix" after the hot fix has been merged into
+the main branch):
+$ git branch -d <branch>
+
+Push a branch to a remote repo:
+$ git push [-u] <remote> <branch>
+Example:
+$ git push -u origin development
