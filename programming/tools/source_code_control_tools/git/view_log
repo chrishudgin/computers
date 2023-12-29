@@ -10,9 +10,10 @@ View log with summarized line add/delete statistics:
 
 $ git log --stat
 
-View log with only abbreviated commit ID and commit message on each line:
+View log with only abbreviated commit ID and commit message on each line,
+plus graphical view of branch relationships:
 
-$ git log --oneline
+$ git log --oneline --graph
 
 View git log within a range of dates:
 
