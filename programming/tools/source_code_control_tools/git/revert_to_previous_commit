@@ -1,4 +1,9 @@
-Revert to a previous commit:
+Undo the most recent commit, including reverting the contents of the working
+directory:
+
+$ git reset --hard HEAD~
+
+Revert to a previous commit and create a new commit for the reversion:
 
 General procedure:
 
