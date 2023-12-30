@@ -1,7 +1,14 @@
 A Git pull is a "fetch and merge" of a branch.
 Example:
-$ git pull origin master  # fetch and merge the master branch
-$ git pull origin development  # fetch and merge the development branch
+$ git pull origin master
+  (fetch the latest version of the master branch from the remote and merge its
+   new commits with those of the current local branch)
+
+An alternative to using git pull to perform a fetch and merge is using git
+pull to perform a fetch and rebase:
+$ git pull --rebase origin master
+which will rebase commits from the local master branch onto the latest commit
+fetched into the local repo from the remote master branch
 
 A "pull request", in contrast, is a request for someone with push privileges on
 a repo to merge your commits into the repo.  In other words, you are asking

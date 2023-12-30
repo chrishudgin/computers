@@ -17,6 +17,41 @@ A recommended use of rebasing is to rebase one's private branch onto the latest
 commit in a public branch before pushing updates to the public branch.  Then
 the private branch can be merged more easily into the public branch, as the
 commit history along the public branch has been made linear (each commit having
-only a single parent commit).  Moreover, the submitter can ensure that their
-proposed updates can be applied cleanly onto the tip of the main branch before
-they are submitted upstream.
+only a single parent commit).  Moreover, with a rebase, the submitter can
+ensure that their proposed updates can be applied cleanly onto the tip of the
+main branch before they are submitted upstream.
+
+Example of using rebase to simplify commit ancestry:
+
+Create a topic branch temp-dev from master but remain on master branch for now
+$ git checkout master
+$ git branch temp-dev
+
+Make a commit on master branch that temp-dev does not yet know about:
+$ echo "This is master_file_1" > master_file_1
+$ git add master_file_1
+$ git commit -m "Added master_file_1"
+
+Meanwhile, make a commit on temp-dev branch:
+$ git checkout temp-dev
+$ echo "This is temp-dev_file_1" > temp-dev_file_1
+$ git add temp-dev_file_1
+$ git commit -m "Added temp-dev_file_1"
+
+Our change in temp-dev doesn't conflict with the latest change in master, so
+we can rebase temp-dev to master before our change gets merged with master:
+$ git fetch
+$ git rebase master
+
+Now the temp-dev commit has as its sole parent the last commit in master, and a
+three-way merge will not be necessary.  Merge the temp-dev change into master
+with a fast-forward, so that master's HEAD points to the temp-dev commit we
+just rebased onto master:
+$ git checkout master
+$ git merge temp-dev
+
+The temp-dev branch no longer has any commits in it that solely belong to it
+because rebasing removed the commit from the temp-dev branch and created a new,
+replacement commit for it after the last commit in master instead.  The
+temp-dev topic branch is no longer needed and can be deleted:
+$ git branch -d temp-dev
