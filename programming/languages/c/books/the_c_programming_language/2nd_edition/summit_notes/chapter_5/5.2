@@ -1,0 +1,14 @@
+To ensure that the loop on page 96 writes only valid numbers to the cells of
+array, the loop can be modified to read:
+
+for (n = 0; n < SIZE && getint(&array[n]) > 0; n++)
+    ;
+
+The reason getint must return two values instead of a single value as getchar
+goes is because getint can potentially return any integer as valid input; there
+are no "special" integer values (like negative values or zero) that can only
+mean invalid input as there are with characters.  In order to distinguish
+between valid integer input (which could include values like 0 and -1) and
+non-integer input, separate return values are required for status (denoting
+valid integer or non-integer) and the value of an integer from the input.  This
+is explained in the book on page 96.
