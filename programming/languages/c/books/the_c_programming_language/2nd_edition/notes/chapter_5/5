@@ -1,0 +1,3 @@
+Examples in which pointers are indispensable include the linking of data
+elements in non-linear data structures like trees and in passing data
+by "reference" without the use of global variables.
