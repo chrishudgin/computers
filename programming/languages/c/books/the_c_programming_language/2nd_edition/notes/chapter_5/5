@@ -1,3 +1,8 @@
-Examples in which pointers are indispensable include the linking of data
-elements in non-linear data structures like trees and in passing data
-by "reference" without the use of global variables.
+Situations in which pointers are indispensable include the linking of data
+elements in non-linear data structures like trees and in passing data by
+"reference" without the use of external variables.  An example in which
+pointers can lead to more efficient code is stepping through a
+multi-dimensional array.
+
+An ANSI C rule regarding pointers is that pointers and integer types are no
+longer implicitly interchangeable.
