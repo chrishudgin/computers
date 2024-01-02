@@ -1,0 +1,31 @@
+p. 94
+
+Pointers other than pointers to void are required to point to a specific data
+type for at least two reasons:
+
+1. So that the compiler will know the size and type of data to access when a
+pointer is dereferenced.
+
+2. To facliitate pointer arithmetic, which requires knowledge of the size of
+the object to which a pointer points as a multiplier.
+
+p. 95
+
+The meaning of *ip++ without parentheses would be *(ip++), meaning
+
+*ip  (dereference ip)
+ip++ (... then increment ip)
+
+NOT
+
+++ip (increment ip)
+*ip  (... then dereference ip)
+
+and NOT
+
+*ip   (dereference ip)
+*ip++ (... then increment *ip)
+
+This is because the post-increment and post-decrement operators ++ and -- are
+only applied after the variable they modify (in this case, ip) has been used in
+an expression, and this happens in *ip++ only after ip has been dereferenced.
