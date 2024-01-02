@@ -1,0 +1,11 @@
+p. 96
+
+Due to the way getint is designed, the "for" loop on this page will skip an
+array location (n will be incremented) each time getint is called and does NOT
+find an integer or EOF on its scan.  Moreoever, getint will get "stuck", unable
+to advance through the input any further, as soon as it reaches a non-integer
+token, since it pushes back any such input with ungetch.  As soon as this
+happens, the "for" loop will continue until it reaches the end of the array
+without placing any more integers into the array.  Therefore, to work properly
+with input that may contain non-integer data, getint implicitly relies on other
+input-gathering functions to read and skip over any non-integer data.
