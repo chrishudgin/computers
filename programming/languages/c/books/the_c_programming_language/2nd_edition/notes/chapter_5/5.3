@@ -1,0 +1,16 @@
+p. 97
+
+The reason that a pointer version of an operation will in general be faster
+than a version that uses array subscripting, at least for iteration through an
+array, is that accessing the data in an array element in memory requires
+loading the base address of the array, multiplying the element number by the
+element size, adding that quantity to the base address of the array, and
+finally loading the data from the resulting address.  A compiler that does no
+optimization must perform these calculations for each access of an array
+element.  In contrast, the same data could be accessed using a pointer variable
+by loading the array base address into the pointer variable one time, then for
+each iteration simply adding or subtracting a constant (the array element size)
+to the existing pointer value and dereferencing the result.  With address
+auto-incrementing load/store instructions, accessing array elements iteratively
+using a pointer can be done with only a single CPU instruction per data access
+instead of the several instructions required when using array subscripting.
