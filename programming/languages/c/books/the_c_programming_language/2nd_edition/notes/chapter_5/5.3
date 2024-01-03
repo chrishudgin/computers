@@ -32,3 +32,26 @@ then the following expressions all have the same value:
 a[i]
 *(a + i)
 *(pa + i)
+
+p. 100
+
+References to negative array indices like p[-1] and p[-2] only work if p points
+to an array location whose index is at least as great as the absolute value of
+the negative index given.  For example, p[-2] will access an array element that
+is two elements before the element to which p currently points, but p must
+point to array element 2 or higher before this is done.
+
+This is legal:
+
+int a[10];
+int *p;
+
+p = a + 2;  /* p == &a[2] */
+p[-2] = 5;  /* *(p-2) = 5, *(&a[2 - 2]) = 5, *(&a[0]) = 5, a[0] = 5 */
+
+But the following is NOT legal because at the time a[-2] is used, a contains
+the address of a[0], and a-2 (== &a[-2]) therefore does not point to a valid
+array element:
+
+int a[10];
+a[-2] = 5;
