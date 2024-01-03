@@ -28,9 +28,36 @@ shrunk whenever possible by removing any superfluous high-order digits.
 
 Examples:
 
+57 is represented a a single base-100 digit, 57
 157 is represented as two base-100 digits, 57 1.
+-57 is represented as 43 -1
+   (where 43 -1 means (100-57 = 43)*1 + -1*100)
 -157 is represented as 43 98 -1
-   (where 43 98 -1 means 43 in 1's place and -2 in 100's place)
+   (where 43 98 -1 means 43*1 + 98*100 + -1*10000)
+
+2 + 2
+= 02 + 02
+= 04
+
+-57 + 24
+= 43 -1 + 24
+= 67 -1
+
+-33 + 100
+= 67 -1 + 00 1
+= 67+00 -1+1
+= 67 0
+= 67
+
+1 + -1
+= 01 + -1
+= 00
+= (empty)
+
+57 + 43
+= 57+43
+= 00 (carry 1)
+= 00 1
 
 157 + -157
 = 57 1 + 43 98 -1
@@ -66,7 +93,7 @@ Sequences of 99s preceding -1 are then removed.
 = 57 1 + 41 98 -1
 = 57+41 1+98 -1
 = 98 99 -1
-= 98 -1   (representing the value -2)
+= 98 -1   (representing the value -2 = 98*1 + -1*100)
 
 157 + -160
 = 57 1 + 40 98 -1
