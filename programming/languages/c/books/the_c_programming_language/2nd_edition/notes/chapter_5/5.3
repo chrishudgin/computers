@@ -14,3 +14,21 @@ to the existing pointer value and dereferencing the result.  With address
 auto-incrementing load/store instructions, accessing array elements iteratively
 using a pointer can be done with only a single CPU instruction per data access
 instead of the several instructions required when using array subscripting.
+
+p. 99
+
+Both a pointer variable and an array name may be used to access the i-th
+element of an array simply by adding i.  That is, if a and pa are declared:
+
+int a[10];
+int *pa;
+
+and pa is assigned to point to a (which by definition is &a[0]):
+
+pa = a;
+
+then the following expressions all have the same value:
+
+a[i]
+*(a + i)
+*(pa + i)
