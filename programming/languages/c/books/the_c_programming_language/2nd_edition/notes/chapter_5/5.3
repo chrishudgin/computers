@@ -55,3 +55,12 @@ array element:
 
 int a[10];
 a[-2] = 5;
+
+Also, since the address of a variable of type t has a type of pointer to t, it
+is legal to perform pointer arithmetic on an address taken with the & operator,
+as in:
+
+int i[2];
+int *ip;
+
+ip = &i[1] - 1;  /* this sets ip == &i[0] */
