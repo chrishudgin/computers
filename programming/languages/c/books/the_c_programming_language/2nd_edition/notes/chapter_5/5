@@ -7,4 +7,4 @@ pointers can lead to more efficient code is stepping through a
 multi-dimensional array.
 
 An ANSI C rule regarding pointers is that pointers and integer types are no
-longer implicitly interchangeable.
+longer implicitly interchangeable except for the value 0.
