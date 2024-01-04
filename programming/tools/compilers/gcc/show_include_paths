@@ -1,0 +1,3 @@
+Show include paths (among other configuration information) for gcc:
+
+$ cpp -v < /dev/null
