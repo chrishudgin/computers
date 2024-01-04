@@ -3,3 +3,10 @@ p. 100
 The integration of pointers, arrays, and address arithmetic includes the
 transparent scaling of pointer arithmetic to account for the sizes of the
 objects pointed to.
+
+p. 100
+
+In the alloc function, when the integer ALLOCSIZE is added to allocbuf, since
+allocbuf is a pointer, ALLOCSIZE is scaled by the size of the type of object to
+which allocbuf points (char).  Since the size of char is one byte, ALLOCSIZE is
+multiplied by sizeof char == 1.
