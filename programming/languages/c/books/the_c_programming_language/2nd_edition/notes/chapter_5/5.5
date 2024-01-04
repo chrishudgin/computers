@@ -6,17 +6,30 @@ declaration section of a block.
 
 This statement is legal:
 
-char message[] = "some string";
+char amessage[] = "some string";
 
 but a subsequent statement like the following is not legal:
 
-message = "a different string";
+amessage = "2nd string";
 
 However, as the book notes, the contents of the array can later be modified:
 
-message[3] = 'b';
-strcpy(message, "a new string");
+amessage[3] = 'b';
+strcpy(amessage, "new string"); /* the string must be no longer than array */
 
-In contrast, a char pointer declared to point to a string literal can be
-modified to point to a different char, but the literal string to which it
-pointed at initialization cannot be modified.
+In contrast, a char pointer declared to point to a string literal, like any
+char pointer, regardless of whether it was initialized at declaration, can be
+modified to point to a different char or string literal at any time.  However,
+the literal string to which it pointed at initialization cannot be modified.
+
+These statements are therefore legal in sequence:
+
+char *pmessage = "some string";  /* initialized to point to string literal */
+char *pm2;                       /* not initialized at time of declaration */
+
+pmessage = "a different string"; /* now nothing points to "some string" */
+pm2 = "another string";
+
+But this statement is not legal if pmessage points to a string literal:
+
+pmessage[3] = 'b';
