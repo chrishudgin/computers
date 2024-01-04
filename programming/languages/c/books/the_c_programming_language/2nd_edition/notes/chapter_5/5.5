@@ -1,0 +1,22 @@
+p. 104
+
+Since the assignment operator = does not perform a string copy, an array of
+char can only be initialized to contain a string literal once, in the
+declaration section of a block.
+
+This statement is legal:
+
+char message[] = "some string";
+
+but a subsequent statement like the following is not legal:
+
+message = "a different string";
+
+However, as the book notes, the contents of the array can later be modified:
+
+message[3] = 'b';
+strcpy(message, "a new string");
+
+In contrast, a char pointer declared to point to a string literal can be
+modified to point to a different char, but the literal string to which it
+pointed at initialization cannot be modified.
