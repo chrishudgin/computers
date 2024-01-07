@@ -1,0 +1,46 @@
+Perform basic file manangement
+
+cp -r dir1 dir2   # Behavior depends on whether dir2 and dir2/dir1 exist
+   If dir2 does not exist, then create dir2 (but not dir2/dir1) and copy the
+      contents of dir1 recursively into dir2
+   If dir2 already exists, and there is no dir2/dir1 subdirectory, then
+      create dir2/dir1 and copy the contents of dir1 recursively into dir2/dir1
+   If dir2 already exists, and there is a dir2/dir1 subdirectory, then
+      copy the contents of dir1 recursively into dir2/dir1 
+   If a file named dir2 already exists but it is not a directory,
+      then fail the copy
+   If dir2 already exists and there is a non-directory file named dir2/dir1,
+      then fail the copy
+
+cp -f  # Does NOT override -i on the command line (as it does with mv);
+         instead, if file cannot be opened, cp will try to delete and recreate
+         it before copying its contents.  If it can be opened, the "-i" will
+         still cause cp to prompt for confirmation.
+
+Ways to override the "-i" flag to cp:
+   $ unalias cp    # or create a new cp alias that does not include -i
+   $ \cp ....      # alias to cp is ignored for this command invocation only
+   $ yes | cp .....    # alias remains in effect, but prompts are automatically
+                       # answered with y
+   $ /bin/cp ....  # alias to cp is ignored for this command invocation only
+
+mv dir1 dir2
+   If dir2/dir1 already exists, then move contents of dir1 into dir2/dir1
+      and set permissions on dir2/dir1 to match those of source dir1
+
+A wildcard (* or ?) following a character group in [ ] does NOT apply to the
+   character group, but stands on its own to match characters after those
+   matched by the character group.
+Example:
+   xa[bc]*   matches xab and xabd : x, a, one b or c, any (or no) following
+      characters.
+To match multiple characters in a character group [ ], the character group
+   must be repeated explicitly.
+Example:
+   xa[bc][bc]   matches xabb but not xab
+Negation of a character group in brackets [ ] is specified with an initial !
+   inside the brackets
+Example:
+   [!abc]  matches one character NOT a, b, or c
+   Do not use ^ for negation in shell expansion brackets as you would in a
+      regular expression; shell globbing is not done with regular expressions.

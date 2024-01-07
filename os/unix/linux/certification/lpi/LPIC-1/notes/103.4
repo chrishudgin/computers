@@ -1,0 +1,126 @@
+Using Streams, Redirection, and Pipes
+
+&> and &>> redirect both stdout and stderr
+   &> is equivalent to > 2>&1
+   &>> is equivalent to >> 2>&1  (append both stdout and stderr to destination)
+      &>> became available starting with bash version 4
+<> uses specified file for both stdin and stdout
+
+>| overrides noclobber when noclobber is set (set -o noclobber)
+
+Example of redirection:
+To send both stdout and stderr to the terminal but only stderr to a file:
+$ somecmd 2>&1 1>/dev/tty | tee file.out
+   This sends stderr to same initial destination as stdout (the pipe) and sends
+   stdout to the terminal explicitly (so it no longer goes through the pipe).
+   Therefore only stderr is sent through the pipe where tee copies it to
+   the terminal and the output file.
+
+When stdout and stderr are both going to the same destination, relative output
+ordering of stdout and stderr is non-deterministic since stdout is buffered and
+stderr is not.
+
+tee can take an arbitrary number of files as parameters, not just one
+tee -a appends rather than overwrites
+
+xargs takes all arguments sent to it and executes them on a single command
+    line (unless -n # or --max-args=# is specified to limit number of arguments
+    passed per invocation of command).  This can cause problems with
+    excessively long command lines or with commands that can accept only a
+    limited number of arguments.
+
+    Default xargs command (if none explicitly specified) is "echo".
+
+    Example:
+    If file1, file2, and file3 are in current directory, then
+    find . -type f -print | xargs
+       will run:
+       echo ./file1 ./file2 ./file3
+       NOT
+       echo ./file1; echo ./file2; echo ./file3
+
+     In order to run each command once per file, you could use:
+     find . -type f | xargs -n 1 echo
+     find . -type f -exec echo {} \;
+     or a "for" loop.
+
+xargs -P num  # sets limit on number of parallel commands running through xargs
+   Default is 1 (no parallelism; each command must complete before next starts)
+   Even with -n 1 set, xargs can run multiple instances of command in parallel 
+      as long as "-P num" is used with num > 1
+
+xargs -d delimiter    specifies that only the specified character (like "\n")
+    will act as a delimiter between input values.
+    Example:  find .... | xargs -d "\n" ... # handles filenames with spaces
+                                            # by using only "\n" as a delimiter
+    By default, any whitespace is a delimiter
+
+xargs -0 or xargs --null   # use null character as input delimiter
+    Useful when passing input from find -print0 # handles filenames with spaces
+                                               # and newlines embedded in them
+
+xargs -L # : pass # of input lines to xargs for each invocation of command
+   rather than passing all (default) or some (-n #) whitespace-delimited input
+   tokens per invocation of command.
+   Trailing blanks in an input line cause the subsequent line to be joined to
+   the current one as though they were a single line in the input.
+
+Replacement strings can be used with xargs in order to control where in the
+command the input strings are placed.  This is useful when you desire to have
+the input arguments placed somewhere on the command line other than the default
+end position.
+Example:
+   echo a b c | xargs -I XYZ echo "XYZ 1 2 3"   # echoes "a b c 1 2 3"
+Use of -I in xargs implies -L 1
+
+xargs --show-limits : shows upper limit on argument length
+xargs -s # : limits command line per command invocation to # characters
+   An attempt to use more characters will result in an error message,
+   NOT run multiple invocations of the command with smaller argument lists
+
+xargs -p    prompts interactively (y/n) before running each command+args
+
+ls --quoting-style=shell
+ls --quoting-style=escape
+    Adds single quotes ' ' or escape characters \
+    to its output in order to tokenize filenames with whitespace in them.
+    This allows the output to be properly handled by commands that expect
+    whitepace-delimited arguments.
+
+The string {} can be used multiple times in the -exec clause of a find command
+    if you need to use each filename in more than one place per command
+    but only if the find command is terminated with the standard \; instead of +
+
+find properly tokenizes filenames when passing them through an -exec clause,
+   so whitespace in filenames will not cause errors
+
+How to make grep show filenames when being passed a list of more than one file
+from the "find" command:
+Problem:
+  find . -name 'blah*' -exec grep foo {} \;
+   # runs one grep per file, and by default grep does not print filename when
+   # working on a single file
+Solutions:
+    Use grep -H to force printing of filename
+    find . -name 'blah*' -print | xargs grep foo 
+       since xargs passes all args to cmd
+       and grep will diplay filenames that contain matching pattern when more
+       than one filename is passed to a single invocation of grep
+    find . -name 'blah*' -exec grep foo {} +   # + passes all filenames to cmd
+        similar to example with xargs above
+
+Variable substitution and command substitution still occur within
+    a here document, but not on the sentinel string which is interpreted
+    literally
+
+If the here document sentinel is quoted, as with <<\EOF or <<'EOF', then
+variable/command substitution is not performed within the here document text.
+
+<<-EOF will strip leading tabs in a here document due to the "-" character
+    Stripping leading tabs is useful when indenting here docs in a shell script.
+
+Here documents can be nested.  You can enter a here document that includes 
+    another here document within it, for example if you are entering text
+    for a shell script as a here document and the shell script will include
+    a different here document with a different sentinel marker to end it
+    than the one used for terminal entry.
