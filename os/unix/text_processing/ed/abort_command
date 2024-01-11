@@ -1,5 +1,0 @@
-Aborting a command that consists of multiple steps may result in part of the
-command already having taken effect on the buffer when the abort occurs; if
-this happens, the steps that have taken effect are not rolled back.  For
-example, a if a multi-line append is aborted after one or more lines have
-already been entered, the appended line(s) will still be present in the buffer.
