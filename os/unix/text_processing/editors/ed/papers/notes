@@ -1,0 +1,32 @@
+Notes on the paper "Advanced Editing on UNIX" by Brian W. Kernighan
+
+*****
+
+Section 2, Special Characters
+
+Under heading "Rearranging a Line with \( ... \)" :
+
+A global command to print lines before and after changes given by the
+substitution command
+
+1,$s/ˆ\([ˆ,]∗\), ∗\(.∗\)/\2 \1/
+
+would be:
+
+g/^\([^,]*\), *\(.*\)/p\
+s//\2 \1/p
+
+or to print just the changed lines after they have been changed:
+
+g/^\([^,]*\), *\(.*\)/s//\2 \1/p
+
+*****
+
+Section 6, Cut and Paste with the Editor
+
+Under heading "The Temporary Escape '!'" :
+
+The example given of starting another ed session using the shell escape
+mechanism also illustrates when the "f" command to show the current filename is
+useful--to help distinguish one editing session from another when they are
+nested.

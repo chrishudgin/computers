@@ -1,0 +1,9 @@
+Find differences between two files and apply edits to the first file to make it
+match the second:
+
+$ diff -e file1 file2 > edscript
+$ (cat edscript && echo w) | ed - file1
+
+Or all at once:
+
+$ (echo "$(diff -e file1 file2)" && echo w) | ed - file1

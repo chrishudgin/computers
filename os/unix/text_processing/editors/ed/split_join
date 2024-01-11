@@ -1,0 +1,15 @@
+Split a line at a word:
+
+s/word /word\
+/
+
+where "word" is the word (or more generally, regular expression) at which to
+split the line.  In this example, the current line (.) is the one being split
+and the trailing space after "word" is removed.
+
+Join lines:
+
+1,3j
+
+joins lines 1 through 3 into a single line.  Intervening newline characters are
+removed.  No whitespace is added.

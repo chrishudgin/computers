@@ -1,0 +1,11 @@
+The comma and semicolon characters are both used to separate the first and last
+addresses (line numbers) used for a command, yielding an address range on which
+the command will operate.  However, comma and semicolon differ in their
+operation.  Succinctly, the ; character sets the current line (. or "dot") to
+the first address before computing the second address, while the comma operator
+does not (leaving the current address unchanged).
+
+This difference becomes important when regular expression searches are used to
+set an address, since a forward regular expression search always begins on the
+line following the current line, and a backward regular expression search
+always begins on the line preceding the current line.
