@@ -1,0 +1,10 @@
+Show the setting for an option by using the :set command followed by the option
+name and a question mark.
+
+Examples:
+
+:set autoindent?
+noautoindent
+
+:set shiftwidth?
+shiftwidth=4
