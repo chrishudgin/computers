@@ -1,0 +1,3 @@
+Tab characters can be displayed as ^I in list view:
+
+:set list
