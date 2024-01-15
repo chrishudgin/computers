@@ -1,0 +1,7 @@
+Read shell command output into file:
+
+:r !somecommand
+
+Example:
+
+:r !ls -l

@@ -1,0 +1,3 @@
+Turn off highlighting until next search in vim:
+
+:nohls   ("nohls" is short for "nohlsearch")

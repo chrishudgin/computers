@@ -1,0 +1,12 @@
+Move to the next word, treating any embedded punctuation like dashes or underscores as part of the word:
+W
+Useful when deleting an entire word forward from the cursor (dW).
+
+Move to the beginning of a word or the previous word, treating any embedded
+punctuation like dashes or underscores as part of the word:
+B
+Useful when deleting an entire word backward from the cursor (dB).
+
+Delete entire word on which the cursor is located, including any embedded
+punctuation in the word like dashes or underscores:
+daW

@@ -1,0 +1,2 @@
+ex mode has a command history mechanism accessed with the up and down arrow
+keys, as well as tab completion for commands.

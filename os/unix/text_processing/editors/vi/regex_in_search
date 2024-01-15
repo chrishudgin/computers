@@ -1,0 +1,2 @@
+vim supports regular expressions in searches, but some metacharacters like
++ { } < > must be escaped with a backslash.

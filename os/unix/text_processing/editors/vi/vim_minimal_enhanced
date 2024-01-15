@@ -1,0 +1,7 @@
+Some distributions install basic versions of vim with enhanced features omitted
+at compile time.  In RHEL 7, for example, /usr/bin/vi is installed by the
+vim-minimal package and does not include features such as color highlighting,
+while the full-featured vim is available as /usr/bin/vim provided by the
+vim-enhanced package.  In such cases, "vi" and "vim" are two different
+executables, but in RHEL 7, users with UID > 200 get "vi" aliases to "vim" via
+/etc/profile.d/vim.sh.

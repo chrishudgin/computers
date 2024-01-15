@@ -1,0 +1,4 @@
+Case-insensitive search toggle in vim:
+
+:set ignorecase
+:set noignorecase

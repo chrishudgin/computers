@@ -1,0 +1,30 @@
+Text can be copied into a named register (a-z) with:
+
+[count]"<regname>y|d|c<movement>
+
+where y, d, or c are the usual yank, delete, and change commands.
+
+Example:
+3"zyw  (copies three words into register "z")
+
+The unnamed register (default buffer) is also updated at the same time.
+
+To put from a named register:
+
+[count]"<regname>p|P
+
+Example:
+"zp  (puts contents of register "z" after cursor)
+
+Named registers provide a way to save text even when subsequent editing
+commands overwrite the unnamed register (default buffer).  Both the named and
+unnamed registers are saved between vim sessions in .viminfo and are global to
+all editing sessions on all files, so that text can be copied to a buffer in
+one file's editing session and pasted to a different file in a subsequent
+editing session.
+
+All registers can be shown with
+:registers
+
+Opening a different file using ":e <filename>" within a vi session allows you
+to copy text from one file to another using vi's registers.

@@ -1,0 +1,8 @@
+Visual (i.e. visual selection) modes:
+
+v for character-oriented visual mode
+V for line-oriented visual mode
+Ctrl-V for block (rectangular) oriented visual mode
+
+To leave visual mode, use Esc to discard selection or y to yank it, d to
+delete it, etc.

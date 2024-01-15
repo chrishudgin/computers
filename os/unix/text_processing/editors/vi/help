@@ -1,0 +1,5 @@
+vim has extensive built-in help and a tutor program
+
+:help [topic]
+
+$ vimtutor

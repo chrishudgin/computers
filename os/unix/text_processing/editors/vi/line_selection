@@ -1,0 +1,2 @@
+Line selection is done by repeating a selection command character, such as in
+"yy", "cc", or "dd" to yank, change, or delete a line, respectively.
