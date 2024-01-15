@@ -2,8 +2,8 @@ The "global" command "<addr1>,<addr2>g/<RE>/<command>" operates as a "foreach",
 running <command> iteratively on each line selected by the regular expression
 <RE> that matches within the specified address range <addr1,addr2>.
 
-In contrast, commands line "t" (copy) and "m" (move) operate on a range of
-lines as a block, not iteratively on one line at a time.
+In contrast, commands "t" (copy) and "m" (move) operate on a range of lines as
+a block, not iteratively on one line at a time.
 
 A "command" executed in a global context can include an address range (and even
 regular expressions that evaluate to addresses), just as a command outside of a
