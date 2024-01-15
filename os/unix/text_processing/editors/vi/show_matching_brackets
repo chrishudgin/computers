@@ -1,0 +1,3 @@
+Show matching brackets (parentheses, square brackets, or curly braces) on a
+line by placing the cursor over one bracket in command mode and using the %
+command to place the cursor over the matching bracket.
