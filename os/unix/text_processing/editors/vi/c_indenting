@@ -1,0 +1,6 @@
+Indent a function in C:
+
+Place the cursor on the opening brace for the function.
+Type =%
+
+This performs the C indent action (=) until the matching (%) right brace.
