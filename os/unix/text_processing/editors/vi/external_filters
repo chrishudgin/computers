@@ -1,0 +1,8 @@
+An external filter can be applied to lines of text in the buffer using the
+ex command line:
+
+:<line1>,<line2>!<external command line>
+
+Example:
+
+:.,.+10!sort -r   # sorts current line and next 10 lines in reverse order
