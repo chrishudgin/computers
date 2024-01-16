@@ -1,0 +1,4 @@
+Generate a tags file in the current directory for C source code:
+
+$ ctags [-R] *.c *.h
+   -R : recurse through subdirectories
