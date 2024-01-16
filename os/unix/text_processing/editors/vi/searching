@@ -1,5 +1,9 @@
 vi supports regular expressions in searches, but some metacharacters like + { }
-< > must be escaped with a backslash.
+< > may need to be escaped with a backslash.  When the option "magic" is set,
+extended regular expressions are supported.  Details vary by the implementation
+of vi.  vim also supports "very magic", requiring regular expressions to be
+preceded immediately by the character sequence \v and reducing the need for
+the escape character \ to precede regular expression metacharacters.
 
 An action such as y, c, or d may be attached to a search pattern in visual
 mode, so that the action will affect all text up to but not including text that
