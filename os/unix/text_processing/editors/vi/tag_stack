@@ -1,0 +1,6 @@
+vim provides a tag stack that can be navigated with:
+
+Ctrl-]    # go to tag under cursor
+Ctrl-T    # go to previous tag on stack
+:ta       # go to next tag on stack
+:ta <tag> # go to named tag
