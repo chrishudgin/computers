@@ -1,0 +1,4 @@
+By default (with no options), BSD ctags generates tags only for function names.
+In contrast, the version of ctags provided by Universal Ctags (a derivative of
+Exuberant Ctags) will by default generate tags for function names as well as
+external symbols.
