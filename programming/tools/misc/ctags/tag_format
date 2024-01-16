@@ -1,0 +1,5 @@
+The tag format in a tags file consists of three fields per line:
+
+symbol_name	filename	regex_search_pattern
+
+The regex search pattern is used by vi to locate the symbol in the file.
