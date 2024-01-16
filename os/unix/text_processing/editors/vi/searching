@@ -1,0 +1,15 @@
+vi supports regular expressions in searches, but some metacharacters like + { }
+< > must be escaped with a backslash.
+
+An action such as y, c, or d may be attached to a search pattern in visual
+mode, so that the action will affect all text up to but not including text that
+matches the search pattern, or, if a line offset is given after the search
+pattern, all text up through the entire line containing text that matches the
+search pattern.
+
+Examples:
+
+c/foo   # change from the current position up to but not including foo
+d/foo/+0  # delete lines from the current line through the line containing foo
+y/foo/-2  # yank lines from the current line through two lines prior to the
+          # line containing foo
