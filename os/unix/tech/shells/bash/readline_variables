@@ -14,3 +14,6 @@ Example:
 
 $ bind -v | grep "^set bell-style " | awk '{print $NF}'
 visible
+
+Readline variables can be set for a bash session by placing the desired "set
+... " statements into the file ~/.inputrc
