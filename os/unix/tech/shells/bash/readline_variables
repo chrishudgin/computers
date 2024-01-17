@@ -1,0 +1,16 @@
+Set the value of a readline variable:
+
+$ bind "set <variable_name> <value>"
+
+Example:
+
+$ bind "set bell-style visible"
+
+Get the value of a readline variable:
+
+$ bind -v | grep "^set <variable_name> " | awk '{print $NF}'
+
+Example:
+
+$ bind -v | grep "^set bell-style " | awk '{print $NF}'
+visible
