@@ -25,6 +25,19 @@ that do not have known security errata):
 Update all packages with security errata to their latest versions:
 # yum --security update
 
+Show available updates for mitigating CVEs:
+# yum updateinfo list cves
+
+Show available updates that mitigate a specified CVE:
+# yum list updates --cve <CVE>
+  where the CVE is given in a form like CVE-2021-35937
+
+Apply available updates that mitigate a specified CVE:
+# yum update --cve <CVE>
+
+Show installed packages that include a mitigation for a specified CVE:
+# yum list-sec installed --cve <CVE>
+
 For more information:
 # man yum-security (RHEL 6)
 # man yum (RHEL 7)
