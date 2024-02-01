@@ -42,6 +42,14 @@ Our change in temp-dev doesn't conflict with the latest change in master, so
 we can rebase temp-dev to master before our change gets merged with master:
 $ git fetch
 $ git rebase master
+$ git push -u origin temp-dev
+
+Now the owner of the repo can pull the changes in temp-dev for review before
+adding them to the master branch:
+$ git fetch
+$ git checkout temp-dev
+$ git pull
+Review code.
 
 Now the temp-dev commit has as its sole parent the last commit in master, and a
 three-way merge will not be necessary.  Merge the temp-dev change into master
@@ -49,9 +57,11 @@ with a fast-forward, so that master's HEAD points to the temp-dev commit we
 just rebased onto master:
 $ git checkout master
 $ git merge temp-dev
+$ git push -u origin master
 
 The temp-dev branch no longer has any commits in it that solely belong to it
 because rebasing removed the commit from the temp-dev branch and created a new,
 replacement commit for it after the last commit in master instead.  The
 temp-dev topic branch is no longer needed and can be deleted:
 $ git branch -d temp-dev
+$ git push origin --delete temp-dev
