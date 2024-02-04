@@ -3,4 +3,6 @@ not the versions in macOS or FreeBSD, have a "compile" (-c) command line option
 to translate input into a lower-level form.  In 7th Edition UNIX, bc was
 implemented as a front-end language compiler for dc, so the "-c" option
 translates input into dc commands.  GNU bc has its own bytecode that is not in
-dc syntax, so GNU bc compiles input into its native bytecode.
+dc syntax, so GNU bc compiles input into its native bytecode.  In GNU bc, the
+"compile" option is mentioned in the man page but is described as being
+undocumented.
