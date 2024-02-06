@@ -1,0 +1,22 @@
+Traditional Make has just one macro assignment operator, =, which handles macro
+expansion in a lazy recursive fashion.  That is, when a value is assigned to a
+macro, the specified value is assigned literally, with no macro expansion
+taking place at the time of assignment.  Macro expansion then occurs when the
+macro is used, and expansion is done recursively until there are no remaining
+macros to expand.
+
+Example:
+
+FOO=$(BAR)  # FOO is assigned the literal value $(BAR)
+BAR=$(BAZ)  # BAR is assigned the literal value $(BAZ)
+BAZ=XYZ     # BAZ is assigned the literal value XYZ
+ABC=$(FOO)  # $(ABC) becomes $(FOO) becomes $(BAR) becomes $(BAZ) becomes XYZ
+
+BSD Make and GNU Make support the traditional macro assignment operator, =, and
+also introduce an alternative macro assignment operator, :=, which performs
+immediate, non-recursive expansion at the time of assignment.
+
+FOO:=$(BAR)  # FOO is empty because $(BAR) has not been defined
+BAR:=BAZ     # FOO remains empty and will remain empty even if used later
+QUX:=$(BAR)  # $(BAR) ie expanded to BAZ, so the value of $(QUX) becomes BAZ
+ABC:=$(FOO)  # $(FOO) is empty so $(ABC) is also empty; no recursive expansion
