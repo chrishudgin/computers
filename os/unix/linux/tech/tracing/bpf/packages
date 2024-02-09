@@ -1,2 +1,4 @@
 The BPF Compiler Collection (BCC) tools are provided by the bcc-tools package
 in RHEL and by the bpfcc-tools package in Debian.
+
+The bcc-tools package for RHEL became available starting in RHEL 7.6.
