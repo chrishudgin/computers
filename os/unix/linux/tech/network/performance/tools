@@ -1,5 +1,7 @@
-There is no native "nettop" tool in RHEL that will show which processes are
-using the most network bandwidth, but there is a two-step equivalent:
+Show which processes are using the most TCP network bandwidth in real time by
+using the tcptop script provided in BCC tools.
+
+Alternatively, if tcptop is not available:
 
 1.  Use iptraf to determine which TCP/UDP ports are being used to send the most
 traffic.
