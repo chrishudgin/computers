@@ -1,0 +1,2 @@
+The BPF Compiler Collection (BCC) tools are provided by the bcc-tools package
+in RHEL and by the bpfcc-tools package in Debian.

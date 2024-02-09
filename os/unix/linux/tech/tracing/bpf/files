@@ -1,0 +1,2 @@
+Executable files for the BCC tools are located in /usr/share/bcc/tools in RHEL
+and in /usr/sbin in Debian.
