@@ -73,6 +73,15 @@ Example:
    echo a b c | xargs -I XYZ echo "XYZ 1 2 3"   # echoes "a b c 1 2 3"
 Use of -I in xargs implies -L 1
 
+Execute a command pipeline for each standard input token supplied to xargs
+ by using xargs -n 1 to print tokens on separate lines, then -I and sh -c to
+ execute the desired pipeline, with argument substitution, once for each token:
+Example:
+   echo host1 host2 host3 |
+      xargs -n 1 |
+      xargs -I{} sh -c "host -t A {} 8.8.8.8 | tail -1"
+         # prints hostname and IPv4 address for each host given using DNS server
+
 xargs --show-limits : shows upper limit on argument length
 xargs -s # : limits command line per command invocation to # characters
    An attempt to use more characters will result in an error message,
