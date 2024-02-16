@@ -11,6 +11,12 @@ Custom parameters and insertion/removal commands for kernel modules can be
    specified in /etc/modprobe.d/*.conf
    Example for cdrom.conf:
       options cdrom debug=1
+   Example for blacklisting a module that must not be loaded:
+      blacklist mybadmodule
+
+After modifying /etc/modprobe/*.conf files, rebuild the initial ramdisk so
+that the changes will take effect during the next boot:
+# dracut -f
 
 Parameters can be also be specified at run time (but not persistently) through
    modprobe <module> <field>=<value>
