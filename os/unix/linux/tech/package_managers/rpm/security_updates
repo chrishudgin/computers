@@ -25,6 +25,10 @@ that do not have known security errata):
 Update all packages with security errata to their latest versions:
 # yum --security update
 
+Apply available updates that mitigate a specified advisory:
+# yum update --advisory <advisory_id>
+   where an advisory ID has a form like RLSA-2024:0105
+
 Show available updates for mitigating CVEs:
 # yum updateinfo list cves
 
