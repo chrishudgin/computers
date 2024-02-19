@@ -1,0 +1,4 @@
+To sign a git commit using a pre-generated GPG key, add the -S flag to the
+git commit command line:
+
+$ git commit -S [...]
