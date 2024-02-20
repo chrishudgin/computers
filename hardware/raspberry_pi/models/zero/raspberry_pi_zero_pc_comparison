@@ -30,3 +30,7 @@ microSD card ($6.50), and micro USB to USB-A cable ($5) and would cost less
 than $20... a remarkably low price for a general purpose networked RISC
 computer running a modern, full-featured Unix-like operating system with a full
 suite of development tools.
+
+And interestingly, while the Raspberry Pi Zero is no supercomputer, it does
+have approximately the same floating point computational speed (200 MFLOPS) per
+CPU core as a Cray J90 from 1994.
