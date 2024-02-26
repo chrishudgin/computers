@@ -1,0 +1,8 @@
+When a field variable such as $1, $2, etc. is modified, $0 is also regenerated
+using the modified field variable.  This allows such syntax as the following
+action:
+
+$1=$1
+
+to cause leading whitespace in a line to be discarded, since $0 will be
+regnerated starting at $1 which does not include leading whitespace.
