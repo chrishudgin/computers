@@ -1,0 +1,20 @@
+V7 AWK requires a pattern to be a Boolean combination of regular expressions
+and relational expressions, where a relational expression takes the form of:
+
+	expression match_operator regular_expression
+	expression relational_operator expression
+
+and where a match operator is either ~ or !~ and a relational operator is ==,
+!=, <, >, <=, or >=
+
+This requirement in V7 AWK rules out the use of an arbitrary expression, such
+as a plain number, as complete pattern.
+
+In contrast, modern AWK implementations accept a more general pattern
+expression syntax, allowing any expression that can be evaluated as zero or
+nonzero to be used, indicating falsehood or truth, respectively (as in C).
+
+Thus, in modern AWK, the following example patterns are valid:
+
+0  # meaning always false
+1  # meaning always true
