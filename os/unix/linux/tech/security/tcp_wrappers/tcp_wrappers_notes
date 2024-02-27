@@ -1,4 +1,8 @@
-TCP wrappers and daemons linked to libwrap.so allow access by default
+Note: TCP Wrappers is deprecated in RHEL 7 and is not available in RHEL 8 or
+higher.  The replacement tool for limiting access by service and incoming IP
+address is firewalld, which itself is a wrapper for iptables or nftables rules.
+
+TCP Wrappers and daemons linked to libwrap.so allow access by default
 
 For a new connection, hosts.allow is checked first; if no match, then
    hosts.deny is checked; if still no match, access is allowed
