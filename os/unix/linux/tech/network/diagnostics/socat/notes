@@ -1,0 +1,3 @@
+Socat is similar in design to netcat (ncat, nc) but includes more features
+including the ability to connect to objects other than network sockets, such as
+files, pipes, fifos, terminals, and serial lines.
