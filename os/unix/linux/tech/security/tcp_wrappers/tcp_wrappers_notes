@@ -1,6 +1,7 @@
 Note: TCP Wrappers is deprecated in RHEL 7 and is not available in RHEL 8 or
 higher.  The replacement tool for limiting access by service and incoming IP
-address is firewalld, which itself is a wrapper for iptables or nftables rules.
+address is firewalld, which is a wrapper for iptables or nftables rules applied
+to the kernel's netfilter subsystem.
 
 TCP Wrappers and daemons linked to libwrap.so allow access by default
 
