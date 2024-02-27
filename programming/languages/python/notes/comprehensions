@@ -1,3 +1,10 @@
 Comprehensions for lists, sets, and dictionaries can be thought of as element
 generators that use inline "for" loops and optionally also "if" conditionals to
 select elements from a given input.
+
+Example:
+
+>>> x = [1, 2, 3, 4, 5]
+>>> newlist = [elem for elem in x if elem > 1 and elem < 4]
+>>> print(newlist)
+[2, 3]
