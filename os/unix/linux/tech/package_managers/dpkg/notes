@@ -25,6 +25,14 @@ Show the file contents of a package:
 
 $ apt-file list <pkgname>
 
+Show installed package owner of a file:
+
+$ dpkg -S <path_to_filename>
+
+Show owner of a file using package repo:
+
+$ apt-file find <string_or_path_to_filename>
+
 apt-get transactions are logged in /var/log/apt/history.log
 
 Show packages that have upgrades available:
