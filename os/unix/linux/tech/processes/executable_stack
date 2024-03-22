@@ -1,2 +1,15 @@
 To determine whether a running process has an executable stack, use
    pmap $PID | grep stack
+
+Query executable stack flag for a binary executable or library:
+
+$ execstack -q jts
+X jts
+
+X indicates that the binary is marked with the "executable stack required" flag.
+- would indicate that it is not.
+? would indicate "unknown" (the header does not include the flag).
+
+Clearing the executable stack flag on a binary that has it set and that
+requires an executable stack will result in a segmentation fault when the
+binary is executed, as soon as an attempt is made to execute code on the stack.
