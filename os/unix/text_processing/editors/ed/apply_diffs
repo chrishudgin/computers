@@ -7,3 +7,14 @@ $ (cat edscript && echo w) | ed - file1
 Or all at once:
 
 $ (echo "$(diff -e file1 file2)" && echo w) | ed - file1
+
+In a script in which the diff -e output has been pre-generated for later use:
+
+$ diff -e file1 file2  # copy output into here document in script
+# file2 can now be deleted, or the script can be composed to run on a
+# different machine that has file1 as the starting point for generating file2
+$ cat <<'EOF' |
+[... list of ed commands generated as output of diff command above ...]
+w file2
+EOF
+ed -s - file1
