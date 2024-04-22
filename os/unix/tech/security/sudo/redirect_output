@@ -1,0 +1,12 @@
+Redirecting the output of a command run through sudo using the shell's output
+redirection operators like > will not work if the operation of the redirection
+requires sudo privileges, since the shell will attempt the operation before
+sudo has run.
+
+This will NOT work as an unprivileged user:
+$ echo abc | sudo cat > /root/abcfile
+
+Instead, run:
+$ echo abc | sudo sh -c 'cat > /root/abcfile'
+or
+$ echo abc | sudo tee /root/abcfile > /dev/null
