@@ -1,0 +1,10 @@
+The sed "q" (quit) command ends the current cycle in the normal fashion (by
+printing the pattern space unless the -n flag was used) and then quits sed.
+The pattern space may include multiple lines if any were previously added to
+the pattern space with the "N" command and not subsequently deleted.
+
+Sed documentation often does not make it clear that the entire pattern space,
+not necessarily just a single line, is by default (without -n) printed when a
+cycle completes (including when the "q" command is run).  Some sed
+documentation does not even mention that the "q" command causes a normal cycle
+completion before qutting sed.
