@@ -1,5 +1,0 @@
-In V7 UNIX, the ls command without the -a option will list files and
-directories beginning with a dot (.), except for the . and .. entries.
-
-In later versions of the ls command, the -a option is required to list any
-entries beginning with a dot.
