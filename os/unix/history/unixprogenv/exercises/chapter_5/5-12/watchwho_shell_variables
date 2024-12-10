@@ -3,12 +3,12 @@
 # Modified to use shell variables instead of files.
 
 PATH=/bin:/usr/bin
+IFS='
+'
 
 while :		# loop forever
 do
 	new=`who | sed 's/[ 	][ 	]*/ /g'`
-	IFS='
-'
 
 	for line in `echo "$new"`
 	do
