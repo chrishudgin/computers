@@ -43,3 +43,16 @@ Changing line 1 in such a way as to delete it:
 
 In modern versions of ed, the latter two command sequences shown above result
 in the value of . (dot) being set to 1, not 0.
+
+Modern ed implementations (but not V7 UNIX's ed) also support line 0 as an
+address for the insert command ("0i"), as in the following example:
+
+$ ed
+0i
+abc
+.
+1,$p
+abc
+
+This works the same way that the 0a command does, inserting text at the start
+of the buffer (before any line 1 that might exist).
