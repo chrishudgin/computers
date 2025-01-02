@@ -1,3 +1,7 @@
-Show include paths (among other configuration information) for gcc:
+Show include paths and other configuration information for gcc:
 
 $ cpp -v < /dev/null
+
+Show only include path info for gcc:
+
+$ cpp -v < /dev/null 2>&1 | sed -n '/^#include/,/^End of search list/p'
