@@ -1,0 +1,9 @@
+In vim:
+
+:ta {name} to jump to a tagged symbol or function by name
+Ctrl-] to jump to the definition of a tagged symbol or function under the cursor
+Ctrl-T to go back to the previous file and cursor location
+
+For more help navigating tags, type
+:help tags
+in vim.
