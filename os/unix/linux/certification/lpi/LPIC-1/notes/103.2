@@ -174,8 +174,10 @@ tr [options] SET1 [SET2]
     Other shortcuts are also available, like [:blank:] and [:white:]
 
 uniq requires sorted input
+uniq : display unique or duplicated lines, but only show duplicates once
 uniq -d or --repeated : display only duplicated lines (once per set)
-uniq -u or --unique : display only unique lines
+uniq -u or --unique : display only unique lines (not those that are duplicated
+   in the input)
 uniq -c or --count : prefix lines by number of occurrences
 uniq -f or --skip-fields=N : ignore the first N fields when checking for dups
 
