@@ -6,13 +6,13 @@ To generate lists of lines that are unique to, or common to, the outputs of
 two commands, the following syntax can be used:
 
 Show lines common to output of cmd1 and cmd2:
-(cmd1 | sort | uniq -u; cmd2 | sort | uniq -u) | sort | uniq -d
+(cmd1 | sort | uniq; cmd2 | sort | uniq) | sort | uniq -d
 This generates:
 All lines in cmd1; all lines in cmd2; then show only duplicates (lines in cmd1
 and cmd2)
 
 Show lines in output of cmd1 but not cmd2:
-((cmd1 | sort | uniq -u ; cmd2 | sort | uniq -u) | sort | uniq -u; cmd1 | sort | uniq -u) | sort | uniq -d
+((cmd1 | sort | uniq ; cmd2 | sort | uniq) | sort | uniq -u; cmd1 | sort | uniq) | sort | uniq -d
 This generates:
 All lines in cmd1 or cmd2 but not both; all lines in cmd1; then show only
 duplicates (lines that are in cmd1 but not cmd2)
