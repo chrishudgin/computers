@@ -1,0 +1,5 @@
+According to the ANSI C standard, an attempt to modify the contents of a const
+variable results in undefined behavior.  Compilers may, but are not required
+to, place the contents of const variables in read-only storage.  They are not
+required to flag or prevent any attempts to modify a const variable directly or
+indirectly.
