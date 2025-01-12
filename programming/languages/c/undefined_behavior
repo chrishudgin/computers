@@ -1,4 +1,4 @@
 Compilers and verifiers are not required to take any action upon encountering
 code whose behavior is undefined according to the C standard.  Code that
-results in undefined behavior may not be caught or flagged during compliation,
-and any possible behavior may occur when executing the code.
+results in undefined behavior may or may not be caught or flagged during
+compliation, and any possible behavior may occur when executing the code.

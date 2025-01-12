@@ -3,3 +3,6 @@ variable results in undefined behavior.  Compilers may, but are not required
 to, place the contents of const variables in read-only storage.  They are not
 required to flag or prevent any attempts to modify a const variable directly or
 indirectly.
+
+The const qualifier is often used in function parameter lists to indicate that
+a function is 
