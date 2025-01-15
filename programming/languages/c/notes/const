@@ -1,8 +1,13 @@
 According to the ANSI C standard, an attempt to modify the contents of a const
 variable results in undefined behavior.  Compilers may, but are not required
-to, place the contents of const variables in read-only storage.  They are not
-required to flag or prevent any attempts to modify a const variable directly or
-indirectly.
+to, place the contents of const variables in read-only storage.  In the words
+of the ANSI C Rationale, compilers are "encouraged to diagnose obvious attempts
+to modify" const-qualified variables directly through their variable names.
+However, compilers are not required to flag or prevent any attempts to modify a
+const variable directly or indirectly.
 
 The const qualifier is often used in function parameter lists to indicate that
-a function is 
+a function is expected not to modify its const-qualified parameters.  This
+convention is most commonly seen in const-qualified pointer function
+parameters, meaning that the data to which those pointers point should not be
+modified by the function.
