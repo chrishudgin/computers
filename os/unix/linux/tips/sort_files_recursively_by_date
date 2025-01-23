@@ -1,0 +1,8 @@
+One way to sort a directory tree (not just a single directory) of files by
+their last modification date is to use GNU find, as in the following example:
+
+$ find . -type f -printf "%T@ %Tc %p\n" | sort -n | sed 's/^[^ ]* //'
+
+The examples above sort files by least recent to most recent.
+
+To sort files most recent first, add the "-r" option to the sort command.
