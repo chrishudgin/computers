@@ -96,9 +96,10 @@ Foo
 .qux
 xyzzy
 
-To force traditional ASCII sort order in GNU ls, set the LC_ALL locale variable to an appropriate value, such as "C.UTF-8" or "C":
+To force traditional ASCII sort order in GNU ls, set the LC_COLLATE locale
+variable to an appropriate value, such as "C.UTF-8" or "C":
 
-$ LC_ALL=C.UTF-8 ls -A1
+$ LC_COLLATE=C.UTF-8 ls -A1
 
 .Foo
 .foo
