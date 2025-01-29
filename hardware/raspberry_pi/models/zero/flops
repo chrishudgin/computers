@@ -1,5 +1,5 @@
 The Raspberry Pi Zero operating at a clock speed of 1 GHz can compute at a rate
-of approximately 58 MFLOPS.  At 700 MHz, the clock speed of the original
-Raspberry Pi, its MFLOPS rating is 41.  For comparison, the first Cray
-supercomputer, the Cray-1 from the mid-1970s, was rated at 160 MFLOPS and was
-at the time the fastest computer in the world.
+of approximately 68 MFLOPS (double precision).  At 700 MHz, the clock speed of
+the original Raspberry Pi, its MFLOPS rating is 42.  For comparison, the first
+Cray supercomputer, the Cray-1 from the mid-1970s, was rated at 160 MFLOPS and
+was at the time the fastest computer in the world.

@@ -1,3 +1,7 @@
-The Raspberry Pi 2 has a rating of around 154 Linpack MFLOPS for double
-precision calculations, just slightly less than the 160 MFLOPS rating for the
-Cray-1 supercomputer.
+The Raspberry Pi 2 with a 32-bit ARM Cortex-A7 chip at its default 900 MHz
+clock speed has a rating of 154 Linpack MFLOPS for double precision
+calculations, just slightly less than the 160 MFLOPS rating for the Cray-1
+supercomputer.
+
+When overclocked to a 1 GHz clock speed, the Raspberry Pi 2 has a Linpack
+MFLOPS rating of 169, faster than that of the Cray-1.
