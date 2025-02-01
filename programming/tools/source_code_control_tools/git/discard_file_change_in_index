@@ -1,0 +1,11 @@
+Discarding from the index an uncommitted change to a file:
+
+($ echo "abc" > <file>; git add <file>; git commit -m "stuff";
+   echo "def" > <file>; git add <file>; echo "ghi" > <file>)
+$ git reset <file>
+
+The "def" version of <file> that had been staged is no longer staged; it is
+gone.  This will not affect the contents of the file in the repo or in the
+working directory, whether the file has been modified since being staged or
+not.  The file <file> in the working directory still has "ghi" in it, and this
+version of the file has not been staged.
