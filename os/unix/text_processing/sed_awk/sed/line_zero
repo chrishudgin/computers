@@ -1,0 +1,33 @@
+"Line 0" is a GNU extension to sed that is only valid in an address range of
+the form:
+
+0,/regex/
+
+It ensures that all lines of input, including line 1, can potentially be used
+to match the second (terminating) address of the range, which is the first line
+in the input that matches /regex/ .
+
+When the line 0 address form is used as described above, GNU sed also sets the
+"previous matched regular expression" immediately to the value in /regex/, even
+before any lines of input have been read.  This allows the following example to
+work, which performs a substitution only on the first line of input that
+matches the regex:
+
+$ echo -e "abc\ndef\nabc" > file
+$ sed '0,/abc/s//xyz/' file    # only works in GNU sed
+xyz
+def
+abc
+
+Because the "previous regular expression" is set to abc before any input is
+read, the pattern to match in the substitution is set to abc as well, just like
+it would be in the single address command /abc/s//def/ .  In the example above,
+however, the address range 0,/abc/ ensures that matches of /abc/ after the
+first matching line will not be in the address range and will therefore not
+have the substitution performed on them.
+
+For any other two-component address forms that do not start with a regex, such
+as in 1,/regex/s//newstring/ , the "previous regular expression" is not yet set
+when reading the first line of input that matches the regex in the second
+address component, and the substitute command is therefore invalid causing sed
+to abort.
