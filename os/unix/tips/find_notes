@@ -60,9 +60,13 @@ $ find . ! -name . -prune -a -name 'filename.pattern'
 
 The "-a" is optional since it is implied whenever one clause follows another
 
-To find only regular files beginning with . in the current directory:
+To find and regular files beginning with . in the current directory:
 
-$ find . ! -name . -prune -a -type f -a -name '.*' -exec basename {} \;
+$ find . ! -name . -prune -type f -name '.*' -exec basename -a +
+
+To list them with ls -l:
+
+$ find . ! -name . -prune -type f -name '.*' -exec basename -a {} + | xargs ls -l
 
 *****
 
