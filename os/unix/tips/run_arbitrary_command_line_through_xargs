@@ -1,0 +1,32 @@
+Running an arbitrary command line with multiple arguments passed as parameters
+that are placed at a specified point in the arbitrary command's command line
+invocation can be done with the help of the shell's "sh -c" invocation form:
+
+$ ... | xargs sh -c '<command> "$@" ...' <command_name_for_$0>
+
+The "sh -c" invocation of sh interprets its first argument (usually placed
+inside single quotes as a string) as the entire command line for the arbritrary
+command, including all arguments to that arbitrary command.  This means that
+any arguments to the arbitrary command MUST be accessed through the shell's
+positional parameters that are supplied on the command line explicitly as $1,
+$2, $*, $@, etc.
+
+This means that the following form will NOT pass any arguments to the
+"sh -c" subshell's command line:
+
+$ ... | xargs sh -c '<command>' [args] # <command> runs WITHOUT arguments!
+
+Moreover, the "sh -c" form interprets its first supplied positional argument
+following the command string as $0, not as $1 as the shell would when running
+interactively or running a shell script.  To preserve the shell's more usual
+order of arguments on the command line starting with $1, an extra argument must
+be supplied after the command string to act as $0.  This is the argument
+denoted <command_name_for_$0> in the example above.  If this is not done, the
+first argument supplied by xargs will become $0 to the "sh -c" subshell, and
+<command> itself will receive arguments starting with the SECOND argument
+supplied by xargs, not the first.
+
+Given the foregoing, <command> in the example at top will be run with the
+arguments supplied by xargs as $1, $2, etc.
+
+More information and examples are available in the GNU xargs info page.
