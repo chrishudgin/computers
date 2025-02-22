@@ -29,4 +29,6 @@ supplied by xargs, not the first.
 Given the foregoing, <command> in the example at top will be run with the
 arguments supplied by xargs as $1, $2, etc.
 
-More information and examples are available in the GNU xargs info page.
+More information and examples are available in the "xargs" section of the GNU
+findutils info page:
+$ info xargs
