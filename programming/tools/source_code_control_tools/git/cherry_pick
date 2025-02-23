@@ -1,0 +1,7 @@
+git cherry-pick <commit> applies the specified commit to the current HEAD.  It
+is useful when a specific single change, rather than a commit history, needs to
+be applied.  For example, the chosen commit could contain a bug fix from a
+development/testing branch that has other commits before and after the chosen
+commit, but only the chosen commit with the bug fix needs to be applied to
+production.  Another possible use case is applying a commit from an abandoned
+but still extant feature branch.
