@@ -1,0 +1,21 @@
+The command:
+
+$ git stash [push]
+
+stores the current state of tracked files (up to the latest "git add" that has
+been run on them) in the working directory and index without performing a
+commit.  This action is useful if you need to switch to a different branch and
+work on it without losing incomplete and uncommitted work.  The index and
+working directory are restored from the current branch's HEAD.
+
+List changes in a stash:
+
+$ git stash list
+
+Show changes in a stash:
+
+$ git stash show
+
+Restore a stash and remove it from stash storage:
+
+$ git stash pop
