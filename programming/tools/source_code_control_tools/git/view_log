@@ -1,7 +1,14 @@
+Note: git log commands will not show commits beyond (more recent than) the
+current HEAD; such commits may exist if HEAD was moved backward, as with a "git
+reset".
+
 View log summary:
 
-$ git log [--all]
+$ git log [--all] [<commit_range>]
   --all: show all branches
+  <commit_range> defaults to HEAD; use "git reflog" to show commit IDs for
+     previous HEAD locations and then supply the desired commit ID to "git log"
+     to examine its log
 
 View log with patch diffs:
 
