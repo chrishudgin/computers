@@ -1,7 +1,27 @@
-git cherry-pick <commit> applies the specified commit to the current HEAD.  It
-is useful when a specific single change, rather than a commit history, needs to
-be applied.  For example, the chosen commit could contain a bug fix from a
+The command:
+
+$ git cherry-pick <commit> ...
+
+applies the specified commit(s) to the current branch's HEAD, in the order
+given on the command line.  It is useful when a specific single change or
+selection of changes, rather than a full branch commit history, needs to be
+applied to the current branch.
+
+For example, the chosen commit could contain a bug fix from a
 development/testing branch that has other commits before and after the chosen
 commit, but only the chosen commit with the bug fix needs to be applied to
-production.  Another possible use case is applying a commit from an abandoned
-but still extant feature branch.
+production.
+
+Another possible use case is applying a commit from an abandoned but still
+extant feature branch.
+
+The --no-commit option to git cherry-pick will apply the changes in the commit
+to the current working directory but not apply the commit to the HEAD of the
+current branch.
+
+If using the --no-commit option, once edits have been made, run either:
+$ git add
+$ git cherry-pick --continue
+or
+$ git cherry-pick --abort
+to apply or discard the application of the commit to the HEAD.
