@@ -14,8 +14,16 @@ $ git stash list
 
 Show changes in a stash:
 
-$ git stash show
+$ git stash show [-v]
 
 Restore a stash and remove it from stash storage:
 
 $ git stash pop
+
+If the git stash pop would result in a potential merge conflict during the next
+commit, the stash is retained in the stash list and the files with conflicts
+must be edited and put back into the index with "git add" before a commit is
+made.  Once this is done, the git stash entry can be deleted from the git stash
+list with:
+
+$ git stash drop <stash>
