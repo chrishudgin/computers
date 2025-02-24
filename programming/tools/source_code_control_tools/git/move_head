@@ -1,0 +1,20 @@
+To move HEAD to a particular commit, for example after doing a "git reset
+HEAD~" and then deciding you want to move HEAD back to its previous position,
+first use "git reflog" to show the list of all operations that moved HEAD.
+Then select the previous HEAD position you want, for instance by examining the
+commit messages in the reflog, and do another "git reset" using HEAD position
+you chose.
+
+Example:
+
+Suppose you've moved HEAD back one position on the current branch:
+$ git reset --hard HEAD~
+To return HEAD to its previous position:
+$ git reflog
+... (HEAD -> main): HEAD@{0}: reset: moving to HEAD~
+... HEAD@{1}: commit: Bug fix in foo2
+...
+...
+
+$ git reset --hard "HEAD@{1}"
+Now the commit with "Bug fix in foo2" is the HEAD again.
