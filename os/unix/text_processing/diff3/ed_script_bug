@@ -1,0 +1,5 @@
+diff3 can generate ed command scripts, but some versions of diff3, like that on
+macOS 15, cannot properly generate an ed command to create a line with nothing
+but . (dot) on it.  This limitation does not apply to the regular "diff"
+command on macOS, nor to the GNU diff3 and diff commands in the diffutils
+package.
