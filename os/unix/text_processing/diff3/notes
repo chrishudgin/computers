@@ -25,7 +25,8 @@ markers) and thus complete the merge.
 
 With the "-e" option, diff3 generates the ed commands to change file1 into
 file3.  When this script is run against file1, it undoes any unique changes
-that were made between file2 and file1.
+that were made between file2 and file1.  Examining the script can be useful to
+identify which changes from file2 to file1 will be lost.
 
 A hybrid of the -m and -e options is the "-A" option, which generates ed
 commands to place merge conflict markers and context into file1 but does not
