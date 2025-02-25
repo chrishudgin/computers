@@ -1,0 +1,37 @@
+diff3 takes three files as input and outputs their differences:
+$ diff3 file1 file2 file3
+
+file2 is assumed to be a common ancestor of file1 and file3.  file1 and file3
+will typically contain different sets of changes from file2.  Assuming
+different authors for file1 and file3, the files may be thought of as:
+
+file1="our edits" file2="original" file3="their edits"
+
+and the implicit intent is to merge "their" changes to file2 into "ours,"
+leaving file1 as the merged result.
+
+diff3's standard output format (with no command line options given, only file
+arguments) provides a guide for editing file1 manually to incorporate the
+changes made between file2 and file3.  The user can then visually examine the
+changes made between all three files and decide which ones to incorporate into
+file1.  When the user has finished incorporating the desired changes into the
+new file1, the result is known as a "three-way merge" because it merges input
+from three file sources.
+
+With the "-m" option, diff3 generates a merged version of file1, but with merge
+conflict markers and context for merge conflicts inserted.  The user is
+expected to edit the file manually to eliminate the merge conflicts (and
+markers) and thus complete the merge.
+
+With the "-e" option, diff3 generates the ed commands to modify file1 such that
+a three-way merge is performed.  When generating an ed command script, diff3
+will supply commands to apply to file1 the changes that were made to turn file2
+into file3.  With the -e option, diff3 assumes that all changes from file2 to
+file3 should be preserved, even if they conflict with changes previously made
+from file2 to file1.
+
+A hybrid of the -m and -e options is the "-A" option, which generates ed
+commands to place merge conflict markers and context into file1 but does not
+complete the merge itself.  When the resulting ed script is subsequently run
+against file1, it produces the same output as that produced by the "-m" option
+described above.
