@@ -2,7 +2,7 @@ Discarding from the index an uncommitted change to a file:
 
 ($ echo "abc" > <file>; git add <file>; git commit -m "stuff";
    echo "def" > <file>; git add <file>; echo "ghi" > <file>)
-$ git reset <file>
+$ git reset <file> (or git restore --staged <file>)
 
 The "def" version of <file> that had been staged is no longer staged; it is
 gone.  This will not affect the contents of the file in the repo or in the
