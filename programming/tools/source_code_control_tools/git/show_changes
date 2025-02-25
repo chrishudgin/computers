@@ -7,11 +7,14 @@ If a file is modified, staged, and then modified again, without any intervening
 commits, then "git status" will show the file as modified in the "changes to be
 committed" section as well as in the "changes not staged for commit" section.
 
-Show differences between files in the tree and the Git index for that tree,
-i.e. what will happen to the files in the index when the files in the tree are
-staged:
+Show differences between files in the tree and the Git index (or HEAD) for that
+tree, i.e. what will happen to the files in the index (or HEAD) when the files
+in the tree are staged (or committed):
 
-$ git diff [-- <file>]
+$ git diff [HEAD] [-- <file>]
+
+If there are no files currently in the index, then HEAD is assumed and the
+diff comparison is between the working tree and HEAD.
 
 Show differences between files in the index and the last committed versions of
 those files, i.e. what will happen to the files in the database when files in
