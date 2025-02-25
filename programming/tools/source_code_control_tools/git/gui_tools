@@ -1,0 +1,6 @@
+GUI tools for Git:
+
+gitk : commit viewer
+   run as "gitk"
+git-gui : graphical interface for common Git operations
+   run as "git gui"

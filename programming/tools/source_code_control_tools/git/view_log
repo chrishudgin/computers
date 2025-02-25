@@ -8,7 +8,9 @@ $ git log [--all] [<commit_range>]
   --all: show all branches
   <commit_range> defaults to HEAD; use "git reflog" to show commit IDs for
      previous HEAD locations and then supply the desired commit ID to "git log"
-     to examine its log
+     to examine its log, or simply use "--reflog" instead of explicit commit
+     IDs to show log entries for all commits listed in the reflog (including
+     any that may be beyond the current HEAD)
 
 View log with patch diffs:
 
