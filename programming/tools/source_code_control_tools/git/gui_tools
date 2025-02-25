@@ -1,6 +1,6 @@
 GUI tools for Git:
 
 gitk : commit viewer
-   run as "gitk" or "gitk --reflog"
+   run as "gitk" or "gitk <commit range>" or "gitk --reflog", as examples
 git-gui : graphical interface for common Git operations
    run as "git gui"
