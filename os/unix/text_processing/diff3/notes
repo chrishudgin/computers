@@ -26,14 +26,17 @@ markers) and thus complete the merge.
 With the "-e" option, diff3 generates the ed commands to modify file1 such that
 a three-way merge is performed.  When generating an ed command script, diff3
 will supply commands to apply to file1 the changes that were made to turn file2
-into file3, leaving in place the changes that were made to change file2 to
+into file3, leaving in place the changes that were made to turn file2 into
 file1 if possible--that is, if there are no conflicts with the changes made
 from file2 to file3.  With the -e option, diff3 assumes that all changes from
 file2 to file3 should be preserved, even if they conflict with changes
-previously made from file2 to file1.
+previously made from file2 to file1.  Examining the script before running it
+can be useful to identify which changes, if any, from file2 to file1 will be
+lost during the three-way merge.
 
 A hybrid of the -m and -e options is the "-A" option, which generates ed
 commands to place merge conflict markers and context into file1 but does not
 complete the merge itself.  When the resulting ed script is subsequently run
 against file1, it produces the same output as that produced by the "-m" option
-described above.
+described above.  The file can then be edited by hand to resolve the merge
+conflicts and remove the markers.
