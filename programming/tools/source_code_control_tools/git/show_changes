@@ -13,8 +13,8 @@ in the tree are staged (or committed):
 
 $ git diff [HEAD] [-- <file>]
 
-If there are no files currently in the index, then HEAD is assumed and the
-diff comparison is between the working tree and HEAD.
+If there are no uncommitted changes currently in the index, then HEAD is
+assumed and the diff comparison is between the working tree and HEAD.
 
 Show differences between files in the index and the last committed versions of
 those files, i.e. what will happen to the files in the database when files in
