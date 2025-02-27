@@ -1,0 +1,3 @@
+Start a VM without a local GUI running:
+
+$ vboxmanage startvm --type headless <vmname>
