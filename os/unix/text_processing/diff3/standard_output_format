@@ -1,0 +1,16 @@
+The standard output format for diff3, when it is run with no options, includes
+ed-like addresses and commands (a and c, specifically).  However, the output is
+not an ed script.  The meanings of the lines that look like ed commands are as
+follows:
+
+filenum:n1a
+   In file number <filenum>, at line n1, an append is needed to make this file
+   match the others.
+
+filenum:n1[,n2]c
+   In file number <filenum>, from line n1 [to line n2], a change is needed to
+   make this file match the others.
+
+For both types of the above modification directives, the ed-like commands are
+followed on succeeding lines by the EXISTING content of <filenum>, NOT the new
+content that is needed to produce a match for the other files.

@@ -56,12 +56,15 @@ three-way merge will not be necessary.  Merge the temp-dev change into master
 with a fast-forward, so that master's HEAD points to the temp-dev commit we
 just rebased onto master:
 $ git checkout master
-$ git merge temp-dev
+$ git [--squash] merge temp-dev  # squash consolidates commits into one commit
+   If squash merge was selected:
+   $ git commit -m "Squash merge devel branch"
 $ git push -u origin master
 
 The temp-dev branch no longer has any commits in it that solely belong to it
 because rebasing removed the commit from the temp-dev branch and created a new,
 replacement commit for it after the last commit in master instead.  The
 temp-dev topic branch is no longer needed and can be deleted:
-$ git branch -d temp-dev
+$ git checkout master
+$ git branch -D temp-dev
 $ git push origin --delete temp-dev
