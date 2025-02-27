@@ -1,0 +1,14 @@
+Generate a PDF of a man page, for example from 7th Edition UNIX:
+
+Transfer the man page file to a target system that has groff installed.  If
+this cannot be done directly through such means as scp or ftp, use copy and
+paste between terminal windows to copy the text of the man page source file
+from /usr/[share/]man/man[1-8]/<manpage>.[1-8] on the host system to the target
+system.
+
+On the target system with groff:
+$ man -Tpdf ./<manpage>.[1-8] > <manpage>_V7.[1-8].pdf
+
+Example:
+
+$ man -Tpdf ./dd.1 > dd_V7.1.pdf
