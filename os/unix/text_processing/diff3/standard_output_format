@@ -4,13 +4,19 @@ not an ed script.  The meanings of the lines that look like ed commands are as
 follows:
 
 filenum:n1a
-   In file number <filenum>, at line n1, an append is needed to make this file
-   match the others.
+[different_filenum:n1a]
+   For the file number(s) listed, at line n1, an append is needed to make this
+   file or these files match the other(s).
 
 filenum:n1[,n2]c
-   In file number <filenum>, from line n1 [to line n2], a change is needed to
-   make this file match the others.
+[different_filenum:n1[,n2]c]
+   For the file number(s) listed, from line n1 [to line n2], a change is needed
+   to make this file or these files match the other(s).
+
+The files are denoted by numbers 1,2,3 corresponding to the order in which the
+files appear on the diff3 command line.
 
 For both types of the above modification directives, the ed-like commands are
-followed on succeeding lines by the EXISTING content of <filenum>, NOT the new
-content that is needed to produce a match for the other files.
+followed on succeeding lines by the EXISTING content of specified file or
+files, NOT the new content that is needed to produce a match for the other
+files.
