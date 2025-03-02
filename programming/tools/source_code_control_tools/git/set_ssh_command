@@ -1,0 +1,4 @@
+To set a custom ssh command for Git to use, for example to use a specified ssh
+key file, set the following shell variable:
+
+GIT_SSH_COMMAND="/usr/bin/ssh -i $HOME/.ssh/id_ed25519"

@@ -1,0 +1,6 @@
+Macros to make can be set on the command line by placing them after the make
+command itself.
+
+Example:
+
+make CFLAGS=-Wall

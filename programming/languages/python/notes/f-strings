@@ -1,0 +1,10 @@
+F-strings are a shorthand syntax for specifying formatted text strings.  They
+are evaluated at runtime and are equivalent to the use of a .format() method
+without requiring a function call.
+
+Example:
+
+>>> object = "world"
+>>> version = 2
+>>> print(f"hello, {object} version {version.1f}")
+hello, world 2.0
