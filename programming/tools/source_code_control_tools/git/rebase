@@ -44,6 +44,10 @@ Our change in temp-dev doesn't conflict with the latest change in master, so
 we can rebase temp-dev to master before our change gets merged with master:
 $ git fetch
 $ git rebase master
+   If there are merge conflicts here, either resolve them, run git add <files>,
+   and git rebase --continue
+   OR
+   if the conflits cannot be resolved, abort the rebase with git rebase --abort
 $ git push -u origin temp-dev
 
 Now the owner of the repo can pull the changes in temp-dev for review before
