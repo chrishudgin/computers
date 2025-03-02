@@ -1,0 +1,12 @@
+C-states bug can cause CPUs to hang when C-states are enabled.  C-states enable CPUs to halt temporarily when they are not in active use, saving power.
+
+The bug affects various Intel CPUs on various vendors' platforms.
+
+To fix on Dell servers:
+
+Reboot the server while on the ILOM console
+Press F2 to enter the BIOS configuration menu 
+Select Processor Settings 
+Scroll down "C States" and "C1E"
+Use the arrow keys to set both to Disabled 
+Press ESC repeatedly and select "Save changes and exit"
