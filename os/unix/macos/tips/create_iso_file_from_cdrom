@@ -1,0 +1,3 @@
+$ df -h | grep /Volumes/<CDROMVOL>  # note the device name, e.g. /dev/disk6s0
+$ diskutil unmount /Volumes/<CDROMVOL>
+$ dd if=/dev/disk6s0 of=<filename.iso>
