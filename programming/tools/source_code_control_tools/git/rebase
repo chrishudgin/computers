@@ -37,6 +37,8 @@ $ git checkout temp-dev
 $ echo "This is temp-dev_file_1" > temp-dev_file_1
 $ git add temp-dev_file_1
 $ git commit -m "Added temp-dev_file_1"
+If you have multiple commits, consider squashing them into one now with:
+   $ git rebase -i <earlier commit to squash onto>
 
 Our change in temp-dev doesn't conflict with the latest change in master, so
 we can rebase temp-dev to master before our change gets merged with master:
@@ -56,9 +58,7 @@ three-way merge will not be necessary.  Merge the temp-dev change into master
 with a fast-forward, so that master's HEAD points to the temp-dev commit we
 just rebased onto master:
 $ git checkout master
-$ git [--squash] merge temp-dev  # squash consolidates commits into one commit
-   If squash merge was selected:
-   $ git commit -m "Squash merge devel branch"
+$ git merge temp-dev
 $ git push -u origin master
 
 The temp-dev branch no longer has any commits in it that solely belong to it
