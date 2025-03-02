@@ -1,0 +1,16 @@
+Setting the iDRAC NIC to dedicated (for iDRAC Enterprise cards) rather than
+shared can be done in either of two ways:
+
+1. If the iDRAC is accessible over the LAN, log into the iDRAC web console
+and select:
+   iDRAC Settings -> Network/Security
+      Network Settings, NIC Selection: Dedicated
+      At bottom of page:  Apply
+
+2. If the iDRAC is not accessible over the LAN, attach a monitor, keyboard, and
+mouse and reboot the server.  During the normal hardware initialization
+sequence, press <Ctrl-E> when prompted to enter the iDRAC configuration
+utility.
+
+Under LAN Parameters, set NIC Selection: Dedicated
+<Esc>, save changes and exit
