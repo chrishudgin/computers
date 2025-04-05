@@ -4,6 +4,9 @@ $ tmux
 List tmux sessions:
 $ tmux ls
 
+Create a new tmux session:
+$ Ctrl-b c
+
 Switch between virtual terminals managed by tmux:
 
 Ctrl-b <#>  where <#> is the terminal number (1, 2, etc.)
