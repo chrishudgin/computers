@@ -1,0 +1,12 @@
+Notes on the paper "A Protocol for Packet Network Intercommunication" by Vinton
+G. Cerf and Robert E. Kahn, IEEE Trans on Comms, Vol Com-22, No 5 May 1974
+
+The subject of the paper is development of a common packet-switching network
+protocol for communication between disparate connected computer networks, each
+of which may each use its own internal protocols to communicate between hosts.
+The inter-networking protocol described in this paper facilitates notional
+end-to-end connections for transmitting data packets through a potentially
+unreliable network of packet switches.  Detailed strategies for routing packets
+through the network are beyond the scope of the paper.  The nascent protocol
+introduced in this paper eventually led to the formal specifications of the TCP
+and IP protocols.
