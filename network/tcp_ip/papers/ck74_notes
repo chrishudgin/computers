@@ -10,3 +10,30 @@ unreliable network of store-and-forward packet switches.  Detailed strategies
 for routing packets through the network are beyond the scope of the paper.  The
 nascent protocol introduced in this paper eventually led to the formal
 specifications of the TCP and IP protocols.
+
+THE GATEWAY NOTION
+
+The "unusual effect" in accounting described in the example given means that
+after fragmentation, some networks in the path to the destination that have
+large packet sizes may need to transmit more (already fragmented) packets than
+would have been required without fragmentation, since defragmentation is
+assumed not to occur en route.  While this situation is not optimal from a cost
+standpoint due to some packet capacity being wasted in the downstream network
+with larger packets, an increase in packet size in an upstream network will not
+exacerbate this problem and will therefore not *increase* cost.  This is
+because fragmentation will not result in more packets being sent downstream
+than previously for a given aggregate data transfer.
+
+In fact, costs to users may decrease when network packet size increases since
+fewer packets will be needed (on average) to transmit a given amount of data
+through the networks with expanded packet sizes, and the authors assume that
+the cost per packet will not increase whenever packet size increases.
+Moreover, network providers with smaller packet sizes would have an incentive
+to increase packet sizes in their networks since fewer packets (achieved by
+reducing fragmentation) means less overhead (such as for packet headers) and
+thus more efficient utilization of their transmission equipment.
+
+The goal should be to optimize packet sizes to minimize overall fragmentation
+(using packet sizes that are larger, or at least no smaller than their those of
+their neighbor networks) without making packet sizes so large that they are
+significantly underutilized.
