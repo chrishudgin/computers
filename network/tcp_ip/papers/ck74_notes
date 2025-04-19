@@ -6,7 +6,7 @@ protocol for communication between disparate connected computer networks, each
 of which may each use its own internal protocols to communicate between hosts.
 The inter-networking protocol described in this paper facilitates notional
 end-to-end connections for transmitting data packets through a potentially
-unreliable network of packet switches.  Detailed strategies for routing packets
-through the network are beyond the scope of the paper.  The nascent protocol
-introduced in this paper eventually led to the formal specifications of the TCP
-and IP protocols.
+unreliable network of store-and-forward packet switches.  Detailed strategies
+for routing packets through the network are beyond the scope of the paper.  The
+nascent protocol introduced in this paper eventually led to the formal
+specifications of the TCP and IP protocols.
