@@ -52,12 +52,12 @@ In fact, costs to users may decrease when network packet size increases since
 fewer packets will be needed (on average) to transmit a given amount of data
 through the networks with expanded packet sizes, and the authors explicitly
 assume that the cost per packet will not increase whenever packet size
-increases.  Moreover, network providers with smaller packet sizes have an
+increases.  Even so, network providers with smaller packet sizes have an
 incentive to increase packet sizes in their networks since fewer packets means
 less overhead (such as for packet headers) and thus more efficient utilization
 of transmission equipment.
 
 The goal should be to optimize packet sizes to minimize overall fragmentation
-(using packet sizes that are larger, or at least no smaller than their those of
-their neighbor networks) without making packet sizes so large that their
-individual capacity is significantly underutilized.
+(using packet sizes that are no smaller than their those of their neighbor
+networks) without making packet sizes so large that their individual capacity
+is significantly underutilized.
