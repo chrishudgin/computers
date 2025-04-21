@@ -12,7 +12,7 @@ nascent protocol introduced in this paper eventually led to the formal
 specifications of the TCP and IP protocols.
 
 Routing decisions within the packet switching network are made according to the
-destination host, not the source host.
+destination host.
 
 Packet switching networks can differ in methods of addressing, packet sizes,
 timing requirements, packet error detection and recovery, and hardware fault
@@ -37,6 +37,25 @@ interpretation between communication endpoints (actual hosts).
 
 THE GATEWAY NOTION
 
+Each internetwork packat may be embedded in whatever native data transmission
+unit is used in a given local network.  Gateways are responsible for embedding
+or extracting internetwork packets as they enter or leave a local network.
+
+Some of the reliability features of an internetwork packet are a sequence
+number, a byte count, and a checksum.
+
+Fragmentation allows different networks to have different internetwork packet
+sizes, and for those packet sizes to change in any given network over time,
+without imposing a minimum or maximum packet size as long as the minimum is
+large enough to accommmodate the packet header and some data.  Hosts and
+processes are not required to be aware of the packet size restrictions that
+exist along the route of data transmission.  Each gateway is responsible for
+fragmenting packets as necessary for transmission through its networks.
+
+Reassembly of fragmented packets should be done at the destination host, not by
+intervening gateways, in order to avoid performance problems and fixed routing
+requirements.
+
 The "unusual effect" in accounting described in the example given means that
 after fragmentation, some networks in the path to the destination that have
 large packet sizes may need to transmit more (already fragmented) packets than
@@ -45,8 +64,8 @@ assumed not to occur en route.  While this situation is not optimal from a cost
 standpoint due to some packet capacity being wasted in the downstream network
 with larger packets, an increase in packet size in an upstream network will not
 exacerbate this problem and will therefore not *increase* cost.  This is
-because fragmentation will not result in more packets being sent downstream
-than previously for a given aggregate data transfer.
+because fragmentation in such a scenario will not result in more packets being
+sent downstream than previously for a given aggregate data transfer.
 
 In fact, costs to users may decrease when network packet size increases since
 fewer packets will be needed (on average) to transmit a given amount of data
