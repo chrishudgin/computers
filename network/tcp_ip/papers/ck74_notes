@@ -80,3 +80,12 @@ The goal should be to optimize packet sizes to minimize overall fragmentation
 (using packet sizes that are no smaller than their those of their neighbor
 networks) without making packet sizes so large that their individual capacity
 is significantly underutilized.
+
+PROCESS LEVEL COMMUNICATION
+
+In this paper, the TCP is, conceptually, a Transmission Control Program that
+runs on each host and serves multiple processes.  It formats messages from a
+host's processes for transmission over the network and delivers the messages to
+processes on a destination host.  The TCP divides process-to-process messages
+into segments, each of which consists of one or more bytes, and then place the
+segments into internetwork packets.
