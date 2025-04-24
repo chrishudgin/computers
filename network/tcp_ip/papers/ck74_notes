@@ -89,3 +89,26 @@ host's processes for transmission over the network and delivers the messages to
 processes on a destination host.  The TCP divides process-to-process messages
 into segments, each of which consists of one or more bytes, and then place the
 segments into internetwork packets.
+
+Although for efficiency reasons it might be possible to group segments, or
+partial segments, for multiple processes together in each internetwork packet,
+such a scheme would complicate the final delivery of data to each process.
+Determining segment boundaries and proper segment sequencing from the byte
+stream would require additional processing by the TCP, possibly causing delays
+in data delivery to processes.
+
+A simpler approach is to ensure that each packet contains segments that are all
+sent by a single process and share the same destination process.  A process
+header within the packet contains information identifying the source and
+destination process.  Constraining each packet to a single process-to-process
+connection simplifies the TCP's job of sequencing data and imposing flow
+control between endpoint processes when necessary.
+
+PORT ADDRESSING
+
+TCP segments must identify the source and destination processes; this is done
+by assigning 16-bit port numbers for use by the process endpoints.  Unique
+designation of a source or destination process in an end-to-end connection
+therefore requires a network address for the host and a port number for the
+process on that host.
+
