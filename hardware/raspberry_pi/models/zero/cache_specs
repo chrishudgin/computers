@@ -8,4 +8,4 @@ The L1 data cache is 16 KB, 4-way set associative, virtually indexed and
 physically tagged, with 32 byte cache lines.
 
 The L2 cache is 128 KB, 8-way set associative, with 64 byte cache lines.  It is
-shared between the ARM1176JZF-S CPU and the VideoCode IV GPU.
+shared between the ARM1176JZF-S CPU and the VideoCore IV GPU.
