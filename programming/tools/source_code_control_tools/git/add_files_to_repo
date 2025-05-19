@@ -1,4 +1,5 @@
-Example of adding a directory and a file to a git repository:
+Example of adding a directory and a file to a git repository and pushing it to
+a remote:
 
 $ git add databases/papers/somedir/  # note trailing slash
    # This adds all existing files and directories in and under somedir,
@@ -7,3 +8,17 @@ $ git add databases/papers/somedir/  # note trailing slash
 $ git add databases/papers/codd_paper_notes.docx 
 $ git commit -v -a -m "commit"
 $ git push -u origin master
+
+Files and directories that are listed in a .gitignore file are ignored by the
+"git add" command.
+
+Paths in a .gitignore file that are specified with an absolute path (that is,
+with a leading slash, /) are treated as relative to the root of the git managed tree.  Relative paths apply to any matching path found in the tree.
+
+Examples from a hypothetical .gitignore file:
+
+/security/foo  # applies only to a file called "foo" in the first level
+               # subdirectory called "security" under the managed tree.
+
+security/foo   # applies to any path ending in "security/foo", such as
+               # security/foo, stuff/security/foo, more/stuff/security/foo, etc.
