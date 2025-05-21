@@ -1,11 +1,11 @@
 The BCM2837 SoC used in the Raspberry Pi 3 model B has the following cache
 specifications:
 
-The L1 instruction cache is 16 KB, 2-way set associative, virtually indexed and
-physically tagged, with 512 byte cache lines.
+The per-core L1 instruction cache is 16 KB, 2-way set associative, virtually
+indexed and physically tagged, with 512 byte cache lines.
 
-The L1 data cache is 16 KB, 4-way set associative, physically indexed and
-physically tagged, with 512 byte cache lines.
+The per-core L1 data cache is 16 KB, 4-way set associative, physically indexed
+and physically tagged, with 512 byte cache lines.
 
-The L2 cache is 512 KB, 16-way set associative, physically indexed and
+The shared L2 cache is 512 KB, 16-way set associative, physically indexed and
 physically tagged, with 64 byte cache lines.
