@@ -1,0 +1,35 @@
+From https://mbreen.com/m4.html:
+...
+In a macro definition, argument references like $1 expand immediately,
+regardless of surrounding quotes.
+...
+
+For example, in the following m4 session, $1 is expanded immediately when Z
+is first expandwd, not when W is expanded later:
+
+$m4
+define(`Z',`define(`W',`$1')')
+
+Z(3)
+
+W
+3
+
+To delay expansion of numbered arguments, use the following technique from the
+mbreen.com link above:
+...
+Where necessary, this immediate expansion can be prevented by breaking up the
+reference with inside quotes, e.g., $`'1.
+...
+
+For example, the following m4 session defines Z with delayed expansion of $1,
+such that when Z is expanded, it defines W to be W's first argument (not Z's),
+and when W is expanded with an argument, it returns the value of W's argument:
+
+$ m4
+define(`Z',`define(`W',$`'1)')
+
+Z
+
+W(6)
+6
