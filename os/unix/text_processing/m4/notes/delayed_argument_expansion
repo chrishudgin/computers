@@ -15,8 +15,28 @@ Z(3)
 W
 3
 
-To delay expansion of numbered arguments, use the following technique from the
-mbreen.com link above:
+Immediate expansion of argument variables occurs regardless of how many levels
+of quotes surround them:
+
+$m4
+
+define(`Z',`define(`W',``$1'')')
+
+Z(3)
+
+W
+3
+
+$m4
+define(`Z',`define(`W',```$1''')')
+
+Z(3)
+
+W
+`3'
+
+To delay expansion of numbered argument variables, use the following technique
+from the mbreen.com link above:
 ...
 Where necessary, this immediate expansion can be prevented by breaking up the
 reference with inside quotes, e.g., $`'1.
