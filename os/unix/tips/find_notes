@@ -131,3 +131,24 @@ grep for a string in any file that contains another search string, even if
 the path or filename contains whitespace:
 
 $ find . -name 'filename.pattern' -exec grep -ZHli 'text search pattern 1' {} \; | xargs -0 grep -Hni 'text search pattern 2'
+
+*****
+
+Find and print the names of all .el files that don't have a corresponding
+.elc file (inspired by an example contributed to the UNIX-Haters Handbook by
+Jamie Zawinski) :
+
+find . -name '*.el' -exec sh -c "test -f {}c || echo {}" \; # WORKS
+
+This example demonstrates a use case for the "sh -c" execution syntax that
+allows the entire command string (including operators like ||) to be treated
+as a unit, with the first token within the string being the name of the
+command to execute ($0).
+
+In contrast, this does NOT work:
+
+find . -name '*.el' -exec "test -f {}c || echo {}" \; # DOES NOT WORK
+
+because find will parse the entire string in double quotes as the name of an
+executable ($0) rather than as an executable followed by arguments to the
+executable.
