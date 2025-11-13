@@ -152,3 +152,11 @@ find . -name '*.el' -exec "test -f {}c || echo {}" \; # DOES NOT WORK
 because find will parse the entire string in double quotes as the name of an
 executable ($0) rather than as an executable followed by arguments to the
 executable.
+
+This also does not work:
+
+find . -name '*.el' -exec test -f {}c || echo {} \; # DOES NOT WORK
+
+because the shell will interpret || as a command separator that terminates the
+"find" command string, and "find" will generate an error because it does not
+have a terminating semicolon.
