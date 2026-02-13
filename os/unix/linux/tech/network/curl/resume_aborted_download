@@ -1,0 +1,5 @@
+Add the "-C -" option to the curl command line to resume a file download that
+was aborted, for example due to a timeout or lost connection.
+
+Add the "--retry <num>" option to specify a maximum number of retries (default
+0) if a download encounters errors.
