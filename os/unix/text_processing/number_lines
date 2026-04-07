@@ -1,0 +1,15 @@
+Number lines:
+
+$ cat -n
+
+$ nl -ba
+
+$ awk '{print NR "\t" $0}'
+
+Number lines except for blank lines:
+
+$ cat -nb
+
+$ nl
+
+$ awk '/./ {print ++n "\t" $0; next} {print}'
