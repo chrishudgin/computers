@@ -7,7 +7,7 @@ $ nl -ba
 $ awk '{print NR "\t" $0}'
 
 
-Number lines except for blank lines:
+Number lines except for blank (empty) lines:
 
 $ cat -nb
 
