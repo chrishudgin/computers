@@ -121,19 +121,10 @@ fit (fewest pages required).
 "If a more general service is desired, such as automatically selecting the
 number of columns for optimal compaction, a C program is probably required"
 
-In fact, such a program was later written in C, called "columns," and bundled
-with the GNU Autogen package.  The output of ls piped to the "columns" command
-is able to replicate the columnated output of Berkeley ls almost exactly, as in
-this example:
-
-columns --by-columns -W 80 --spread=5
-
-with varying values of "spread" required to match varying column spacing values
-in different implementations of ls.  The only difference in output format
-between "columns" and Berkeley ls is that the "columns" command strips leading
-and trailing white space from each input word.  This is unlikely to be a
-problem in real usage since it is exceedingly rare for any filename to begin or
-end in whitespace.
+In fact, a program called "columns," part of GNU Autogen, was later written in
+C for general-purpose columnation of text.  However, while the "columns"
+command uses the same width for all output columns for a given input, Berkeley
+ls uses variable-width columns in each output for optimal compaction.
 
 "A potentially simpler solution is to let the terminal or terminal interface do
 the work, with controlled scrolling, editing and retransmission of visible
