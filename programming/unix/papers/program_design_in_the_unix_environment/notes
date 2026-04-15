@@ -1,0 +1,190 @@
+Notes on the 1983 paper "Program Design in the UNIX Environment" by Rob Pike
+and Brian W. Kernighan
+
+ABSTRACT
+
+The "software tools" approach has since been incorporated into a broader scope
+of operating system and program design called the "Unix Philosophy."
+
+I. INTRODUCTION
+
+"The UNIX operating system... is likely to be the standard operating system
+for microcomputers and some mainframes in the coming years."
+
+In 1983 when this paper was written, most users of computers were programmers,
+scientists, engineers, or technical business users, all of which groups were
+considered to be capable of adapting to the Unix user interface.
+
+Unix never became a standard operating system for either microcomputers or
+mainframes, but in the 1980s and 1990s it was ported to the dominant IBM PC
+architecture and some mainframes.  Unix, including Unix-like operating systems
+such as Linux, did become the most widely ported operating system in history
+and the most widely deployed after after the introduction of smartphones in the
+2000s.  Howver, smartphones clearly do not follow the program design and user
+interface standards of 1983 Unix.
+
+It may be noted that for a brief time in the 1980s, before AT&T made Unix a
+commercial product, Microsoft planned for Unix (as Xenix) to become their own
+standard operating system product that would eventually supplant MS-DOS on
+personal computers.  The introduction of Windows 3.0 in 1990--completely
+dissimilar to Unix in its design philosophy--and its rapid rise to a monopoly
+position in the market ended whatever chance the Unix program design paradigm
+might have had to play a dominant role in desktop computing.
+
+"These led in turn to new programming languages and interesting software for
+applications like program development, document preparation, and circuit
+design."
+
+Examples include diff for source code control systems like SCCS, yacc for
+designing computer programming languages including at least one for circuit
+design, and regular expression support in the ed editor and its successors for
+document preparation.
+
+"... the software was easy to customize for particular applications or merely
+to support a view of the world different from the original."
+
+Shells are a good example of this point.  New shells such as csh and ksh
+proliferated to provide users an alternative interface to the system.
+Menu-driven interfaces for non-technical users were also popular products for
+back-end Unix business systems in the 1980s.
+
+II. AN EXAMPLE: CAT
+
+"... some mail-reading programs and text editors, for example, are large
+self-contained "subsystems" that provide their own complete environments"
+
+The "mail" command changed from being a simple mail-browsing command in 7th
+Edition UNIX to being a self-contained "mail processing subsystem" in Berkeley
+UNIX.
+
+III. CAT -v
+
+The command "cat  cat filelist" is misprinted--it is missing the backquote
+operators.  The command should read:
+
+cat `cat filelist`
+
+"... the addition of a single optional argument -u, which forced cat to
+unbuffer its output"
+
+Buffered output could be problematic on a terminal, causing delays in output
+display until, for example, a carriage return or Ctrl-D (read as EOF) had been
+entered manually.
+
+"It's easy to dispose of (Berkeley) -s, -n, and -b: all of these jobs are
+readily done with existing tools like sed and awk."
+
+An example is given in the paper for numbering lines with awk.
+
+Stripping multiple blank lines to a single instance (cat -s) can be done
+instead with:
+
+sed '/^$/N;/^\n$/D'
+
+or
+
+awk '/^$/ {if (++n == 1) print; next}; {n = 0; print}'
+
+Numbering only nonblank lines (cat -nb) can be done with:
+
+awk '/./ {print ++n "\t" $0; next} {print}'
+
+"The preferred approach in this case is a separate program that deals
+with nonprintable characters. We called ours vis...."
+
+Another program that deals with nonprintable characters is od, which displays
+the unambiguous numeric encoding values for any binary data, one character at a
+time.  However, od's output format does not make it ideal for quick human
+reading of text files.
+
+IV. FAST TERMINAL LINES
+
+"The option -1 can be used to get the old single-column behavior."
+
+Changing the default behavior of a command and requiring an option to be passed
+to restore the original behavior breaks backward compatibility in an attempt to
+be "user friendly."  Surprising changes to default behaviors are rarely
+considered "friendly" by experienced users.
+
+The pr command shown:
+
+pr -$0 -t -l 1 $*
+
+prints its input word list in row-first order rather than the column-first
+order that Berkeley ls uses.  This is due to pr being called with the "-l 1"
+option, forcing each line to be columnated individually.  In order for the pr
+command to columnate exactly as Berkeley ls does, it would need to have an
+unlimited page length (thus allowing each column to have unlimited length) and
+be able to determine the optimal number of columns to use for the most compact
+fit (fewest pages required).
+
+"If a more general service is desired, such as automatically selecting the
+number of columns for optimal compaction, a C program is probably required"
+
+In fact, such a program was later written in C, called "columns," and bundled
+with the GNU Autogen package.  The output of ls piped to the "columns" command
+is able to replicate the columnated output of Berkeley ls almost exactly, as in
+this example:
+
+columns --by-columns -W 80 --spread=5
+
+with varying values of "spread" required to match varying column spacing values
+in different implementations of ls.  The only difference in output format
+between "columns" and Berkeley ls is that the "columns" command strips trailing
+white space from each input word.  This is unlikely to be a problem in real
+usage since it is exceedingly rare for any filename to end in whitespace.
+
+"A potentially simpler solution is to let the terminal or terminal interface do
+the work, with controlled scrolling, editing and retransmission of visible
+text, and review of what has gone before."
+
+The GNU project provides a command line editing library (readline) and a
+command line history library to generalize these functions.  No recompilation
+of programs that use these libraries is necessary when the libary
+implementations change if the programs are dynamically linked.
+
+For a visual history of command input and command output, scrolling virtual
+terminal programs on modern graphic displays can be used, eliminating the need
+for "smart" hardware terminals like the Blit to provide this function.
+
+V. CONCLUSIONS
+
+"... the programs are orthogonal, spanning the space of jobs to be done
+(although with a fair amount of overlap for reasons of history, convenience, or
+efficiency)."
+
+Examples of command functionality overlap include:
+
+As described in the paper, the addition of flags to cat as a convenience to
+avoid having to create, maintain, and migrate custom "one-liner" scripts that
+use text transformation tools like sed and awk and that (less efficiently)
+require pipelines to employ.
+
+The addition of the -u flag to the sort command, which is redundant with the
+uniq command but more convenient and efficient for the same reasons as the use
+of the new flags in cat.
+
+The expr comamnd, which can evaluate arithmetic expressions like bc does, but
+in a way that is more syntactically clean in shell scripts and thus more
+convenient for non-interactive use.  For historical reasons, bc focuses on
+mathematical calculations and supports user-defined functions; expr was
+designed to have broader but shallower scope--supporting string manipulation
+but not including an interactive "desk calculator" mode, for example.
+
+There are many other examples of functionality overlap in Unix text processing
+tools because contributions to Unix were made simultaneously from many sources
+and each text processing tool was made for a different primary purpose (such as
+ed for interactive editing, sed for stream editing, and awk for fully
+programmable text manipulation).  As noted in the paper, regular expressions
+are pervasive in Unix, and thus many text processing tools can, when invoked
+appropriately, perform the same regular expression matching and generate the
+same outputs.
+
+"Merely adding features does not make it easier for users to do things--it just
+makes the manual thicker."
+
+One reason why adding features does not necessarily result in greater ease of
+use is that similar functionality added to different commands may have
+different syntax or different assumptions and limitations.  Overlapping
+functionality can also perplex less experienced users who are not sure which
+tool is fundamentally best suited for a given use case.
