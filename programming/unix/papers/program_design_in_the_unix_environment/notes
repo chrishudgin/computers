@@ -130,9 +130,10 @@ columns --by-columns -W 80 --spread=5
 
 with varying values of "spread" required to match varying column spacing values
 in different implementations of ls.  The only difference in output format
-between "columns" and Berkeley ls is that the "columns" command strips trailing
-white space from each input word.  This is unlikely to be a problem in real
-usage since it is exceedingly rare for any filename to end in whitespace.
+between "columns" and Berkeley ls is that the "columns" command strips leading
+and trailing white space from each input word.  This is unlikely to be a
+problem in real usage since it is exceedingly rare for any filename to begin or
+end in whitespace.
 
 "A potentially simpler solution is to let the terminal or terminal interface do
 the work, with controlled scrolling, editing and retransmission of visible
