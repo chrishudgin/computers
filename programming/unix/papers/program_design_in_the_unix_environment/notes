@@ -135,8 +135,8 @@ command line history library to generalize these functions.  No recompilation
 of programs that use these libraries is necessary when the libary
 implementations change if the programs are dynamically linked.
 
-For a visual history of command input and command output, scrolling virtual
-terminal programs on modern graphic displays can be used, eliminating the need
+For a visual history of command input and command output, scrolling terminal
+emulator programs on modern graphic displays can be used, eliminating the need
 for "smart" hardware terminals like the Blit to provide this function.
 
 V. CONCLUSIONS
