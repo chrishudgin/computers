@@ -1,0 +1,34 @@
+Talk by Eric Raymond
+
+Early 1990s, during Unix Wars
+autoconf did the necessary job of discovery, but it made overly verbose Makefiles that were hard to read
+
+gpsd was refactored in C99 and SUS interfaces with no problems building.  So checks for lack of these were not needed anymore.
+
+Now tools like “autodafe” (sp?) can “deconfig” and “makemake” and create a patch to remove unnecessary checks.  Using a patch format promotes change transparency.
+
+Sometimes nonportable features are needed, though.  Need something like an autotools config.h.  Use -D options to gcc.
+
+With a clean Makefile, then need to test for things like non-POSIX FSF libs. He made a drop-in-replacement for “configure” tool in 650 lines of Python.  What tests to do?  Selected by “magic comments”in Makefile.
+
+Q: Why not do something like CMake?
+A: No additional dependencies
+“I hate those things!  They all suck!”
+
+Q: What if shell script would suffice?  Why use Make with a bunch of phony rules?
+A: Makefile are easier to read and maintain.  People know what to expect and how to interpret.
+
+Q: Why not use kernel config system menuconfig?
+A: Too large and too specialized.  Small and simple is better.
+
+Q: libtool?
+A: It’s black box hacks to build shared libraries portably.
+
+Q: Trend toward static compilation and no shared libs?
+A: I love it.  Much simpler.  Shared libs were for expensive memory and disk space.  These are cheap now.
+
+Q: Assumption of infinite memory in a transpiler?
+A: Off topic.
+
+Q: Google “C isn’t a programming language anymore.”  C is a protocol.
+A: I’ve read it.

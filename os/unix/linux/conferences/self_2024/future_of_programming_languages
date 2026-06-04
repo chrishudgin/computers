@@ -1,0 +1,50 @@
+Talk by Eric Raymond
+
+Defect cost increases
+Memory cost decreases
+Garbage collection becomes relatively cheaper
+C had a short-term practical purpose—-portable assembly to port Unix
+Long term bet languages like LISP are carefully designed to be viable on future hardware
+Go and Rust are most obvious replacements for C
+
+Q: Role of LLMs in language design?
+A: Good at specific matching with lookups
+Can’t ask them about very domain specific data
+So, not at all yet
+Human brain is a conglomeration of specialized subsystems
+Current AI is not modeled that way
+
+Q: Long bet languages?
+A: LISP had uses beyond initial intent
+APL was an unsuccessful long bet
+
+Q: Java?
+Mix.  Flaws in VM design.  Meant to be long bet but was superseded.  Never lived up to write once, run anywhere.
+
+Q: Defect rates?
+A: Rust has some theoretical guarantees against defects but may not be optimal.
+Ada is a near zero-defect language by design.
+
+Q: Go?
+A: Proving lack of race conditions is crucial.  Support for concurrency is built in to make this possible.  Quirky and idiosyncratic.
+
+Q: Python?
+A: Use the right tool for the job.  Good fit for scriptable tasks where performance is not critical.  But Unicode strings are not byte vectors.  Go says just strings, some of which can be Unicode with conversion methods.  Encoding should be transparent to user for eg autogenerating a Makefile.
+Python doesn’t handle concurrency well—it’s slow on MP.
+
+Q: Rust?
+A: Penalty for latency increases near bottom of stack.  Rust is good at this.  Suffers from new language syndrome--lots of rude evangelizing.
+
+Q: Haskell?
+A: Different way to think.  Good for a pure mathematician’s way of thinking, like LISP.  Limited reach among programmers.
+
+Q: JavaScript?
+A: It’s a kludge.  Boss of originator said no LISP, so it was a 3 week job for a web site.
+
+Q: C++?
+A: Intended to be long bet. Stroustrup chose the wrong problem to solve.  Should solve automatic memory management, THEN object orientation.  C++ did the opposite.
+
+Q: What role does an academic theoretical origin vs commercial “practical” origin play in long term success of a language?
+Example: C started out as a commercial lab project but took off in academia and then got big in the commercial world.  Is that an optimal path to longevity?  Or was C’s success mostly an accident of timing as Kernighan has suggested?
+
+Q: One short bet that didn’t pay off: Steve Bourne’s decision to use macros to make C look like ALGOL 68 in his code for the original Bourne shell.
