@@ -1,0 +1,7 @@
+To build on Linux the 6th edition Emacs manual bundled with Emacs 18.58:
+    cd emacs-18.58/man; tex emacs.tex; dvipdf emacs.dvi
+
+To build on Linux the 7th edition Emacs manual bundled with Emacs 18.59:
+    cd emacs-18.59/man; tex emacs.texi; dvipdf emacs.dvi
+
+In each case, the file built is named emacs.pdf.
