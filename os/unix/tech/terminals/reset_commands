@@ -1,3 +1,10 @@
+*****
+
+Set generic terminal mode options and meanings of special characters to their
+default settings:
+
+$ stty sane
+
 Initialize a terminal's settings using its terminfo entry:
 
 $ tput init
@@ -13,10 +20,13 @@ termcap, which predates terminfo.
 
 *****
 
-Set generic terminal mode options and meanings of special characters to their
-default settings:
-
-$ stty sane
+One effect of running "reset" is that the clocal flag for the terminal is
+turned off (i.e. stty -a will show "-clocal").  This can cause some terminal
+getty processes to hang when a user session logout occurs.  To avoid this
+problem, either use terminal setting commands other than "reset" or run "stty
+clocal" on the terminal before logging out a user session.  If the getty
+process becomes hung, run "stty -F /dev/tty... clocal" on the getty server
+host, substituting the affected terminal name for /dev/tty....
 
 *****
 
